@@ -4,9 +4,25 @@ public class User {
 
     private String Name;
     private String Password;
-    private String mail;
+    private String Mail;
     private String PhoneNumber;
+    private String Location;
 
+    public String getMail() {
+        return Mail;
+    }
+
+    public void setMail(String mail) {
+        Mail = mail;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
 
     public User() {
     }
@@ -32,13 +48,6 @@ public class User {
         Name = name;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     public String getPhoneNumber() {
         return PhoneNumber;
