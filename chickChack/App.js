@@ -12,7 +12,7 @@ export default function App(){
         barStyle ="light-content"
         backgroundColor ={colors.statusbar}
       />
-      <Header title ="My Account" />
+      <Header title ="My Account" type = "arrow-left"/>
     </View>
   )
 }
