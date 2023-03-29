@@ -1,14 +1,16 @@
 import React from "react";
 
-import { View,Text,StyleSheet,Dimensions } from "react-native";
-import { colors,parameters } from "../global/styles";
+import { View,Text,StyleSheet,Dimensions } from 'react-native';
+import { colors,parameters, title } from "../global/styles";
 
 import {Icon} from '@rneui/base';
 
-export default function Header(title){
+
+export default function Headers({title,type}){
 
     return (
     <View style = {styles.header}>
+        
         <View style={{marginLeft:20}}>
             <Icon
                 type = "material-community"
@@ -18,9 +20,11 @@ export default function Header(title){
                 onPress = {()=>{}}
             />
         </View>
+        
         <View>
             <Text style={styles.headerText}>{title}</Text>
         </View>
+   
     </View>
     )
 }

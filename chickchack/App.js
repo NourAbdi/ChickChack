@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet,StatusBar} from 'react-native'
 import { colors } from './src/global/styles'
 import SingInScreen from './src/screens/authScreens/SignInScreen'
 import SignInWelcomeScreen from './src/screens/authScreens/SignInWelcomeScreen'
@@ -9,12 +9,13 @@ import SignInWelcomeScreen from './src/screens/authScreens/SignInWelcomeScreen'
 export default function App(){
   return(
     <View style={style.container}>
-      {/* <StatusBar 
+      <StatusBar  
         barStyle ="light-content"
         backgroundColor ={colors.statusbar}
-      />  */}
+      />
 
-    <SingInScreen title = "sdasd"/>
+      <SingInScreen/> 
+
    </View>
   )
 }

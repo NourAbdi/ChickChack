@@ -1,11 +1,10 @@
 import React,{useState,useRef} from "react";
-
 import { View,Text,StyleSheet,Dimensions,TextInput} from "react-native";
-import { colors,parameters } from "../../global/styles";
 import * as Animatable from 'react-native-animatable'
+import {Button} from '@rneui/base';
+import {SocialIcon,Icon} from '@rneui/themed';
 
-import {Icon,Button,SocialIcon} from '@rneui/base';
-
+import { colors,parameters,title } from "../../global/styles";
 import Header from '../../components/Headers'
 
 export default function SignInScreen(){
@@ -17,9 +16,9 @@ export default function SignInScreen(){
 
     return(
         <View style = {styles.container}>
-            {/* <Header title ="My Account" type = "arrow-left"/>
+            <Header title ="My Account" type = "arrow-left"/>
 
-            <View>
+            <View style = {{marginLeft:20, marginTop:10}}> 
                 <Text style ={title}>Sign-In</Text>
             </View>
 
@@ -36,8 +35,6 @@ export default function SignInScreen(){
                         ref = {textInput1}
                     />
                 </View>
-                
-                
                 
                 <View style={styles.TextInput2}>
                     <Animatable.View animation ={TextInput2Fossued?"":"fadeInLeft"} duration = {400}>
@@ -92,7 +89,7 @@ export default function SignInScreen(){
                     <SocialIcon
                         title = "Sign In With Facebook"
                         button
-                        type = "facebook"
+                        type = 'facebook'
                         style = {styles.SocialIcon}
                         onPrees = {()=>{}}
                     />
@@ -118,9 +115,9 @@ export default function SignInScreen(){
                         buttonStyle ={styles.createButton}
                         titleStyle= {styles.createButtonTitle}
                     />
-                </View> */}
+                </View>
 
-            {/* </View> */}
+            </View>
         </View>
     )
 }
