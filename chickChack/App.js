@@ -9,7 +9,7 @@ import SignInWelcomeScreen from './src/screens/authScreens/SigninWelcomeScreen'
 export default function App(){
   return(
     <View style={style.container}>
-      <Statusbar 
+      <StatusBar 
         barStyle ="light-content"
         backgroundColor ={colors.statusbar}
       /> 
