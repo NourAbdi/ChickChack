@@ -4,11 +4,11 @@ import { View,Text,StyleSheet,Dimensions,TextInput} from "react-native";
 import { colors,parameters } from "../global/styles";
 import * as Animatable from 'react-native-animatable'
 
-import {Icon} from 'react-native-elements'
+import {Icon,Button,SocialIcon} from 'react-native-elements'
 
 import Header from '../../components/Headers'
 
-export default function SingInScreen(){
+export default function SignInScreen(){
 
     const [TextInput2Fossued,setTextInput2Fossued]=useState(false)
 
@@ -72,6 +72,54 @@ export default function SingInScreen(){
                     </Animatable.View>
                 </View>
 
+                <View style={{marginHorizontal:20, marginTop:30}}>
+                    <Button
+                        title = "SIGN-IN"
+                        buttonStyle = {parameters.styledButton}
+                        titleStyle = {parameters.buttonTitle}
+                    />
+                </View>
+
+                <View style={{alignItems:"center",marginTop:15}}>
+                    <Text style={{...styles.text1,textDecorationLine:"underline"}}> Forget Password ? </Text>
+                </View>
+
+                <View style={{alignItems:"center",marginTop:30, marginBottom:30}}>
+                    <Text style={{fontSize:20,fontWeight:"bold"}}> OR </Text>
+                </View>
+
+                <View style ={{marginHorizontal:10, marginTop:10}}>
+                    <SocialIcon
+                        title = "Sign In With Facebook"
+                        button
+                        type = "facebook"
+                        style = {styles.SocialIcon}
+                        onPrees = {()=>{}}
+                    />
+                </View>
+
+                <View style ={{marginHorizontal:10, marginTop:10}}>
+                    <SocialIcon
+                        title = "Sign In With Google"
+                        button
+                        type = "google"
+                        style = {styles.SocialIcon}
+                        onPrees = {()=>{}}
+                    />
+                </View>
+
+                <View style={{marginTop:25,marginLeft:20}}>
+                    <Text style={{...styles.text1}}>New on XpressFood ?</Text>
+                </View>
+
+                <View style ={{alignItems:"flex-end",marginHorizontal:20}}>
+                    <Button
+                        title = "Create an account"
+                        buttonStyle ={styles.createButton}
+                        titleStyle= {styles.createButtonTitle}
+                    />
+                </View>
+
             </View>
         </View>
     )
@@ -107,5 +155,30 @@ const styles = StyleSheet.create({
         alignItems:"center",
         paddingLeft:15
     },
+
+    SocialIcon:{
+        borderRadius:12,
+        height:50
+    },
+
+    createButton:{
+        backgroundColor:"white",
+        alignCotent:"center",
+        justifyContent:"center",
+        borderRadius:12,
+        borderWidth:1,
+        borderColor:"#ff8c52",
+        height:40,
+        paddingHorizontal:20,
+    },
+
+    createButtonTitle:{
+        color:"#ff8c52",
+        fountSize:16,
+        fountWeight:"bold",
+        alignItems:"center",
+        justifyContent:"center",
+        marginTop:-3
+    }
 
 })

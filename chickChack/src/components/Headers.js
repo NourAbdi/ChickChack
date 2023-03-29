@@ -3,7 +3,7 @@ import React from "react";
 import { View,Text,StyleSheet,Dimensions } from "react-native";
 import { colors,parameters } from "../global/styles";
 
-import {icon} from 'react-native-elements'
+import {Icon} from 'react-native-elements'
 
 export default function Header(title){
 
@@ -12,7 +12,7 @@ export default function Header(title){
         <View style={{marginLeft:20}}>
             <Icon
                 type = "material-community"
-                name = "arroe-left"
+                name = {type}
                 colors = {colors.headerText}
                 size = {28}
                 onPress = {()=>{}}
