@@ -35,11 +35,11 @@ export default function SignInScreen(){
                         ref = {textInput1}
                     />
                 </View>
-                
+        
                 <View style={styles.TextInput2}>
                     <Animatable.View animation ={TextInput2Fossued?"":"fadeInLeft"} duration = {400}>
                         <Icon
-                            name = "lock"
+                            name = 'lock'
                             IconStyle={{color:colors.grey3}}
                             type="material"
 
@@ -77,7 +77,7 @@ export default function SignInScreen(){
                     />
                 </View>
 
-                <View style={{alignItems:"center",marginTop:15}}>
+                <View style={{alignItems:"center",marginTop:10}}>
                     <Text style={{...styles.text1,textDecorationLine:"underline"}}> Forget Password ? </Text>
                 </View>
 
@@ -85,7 +85,7 @@ export default function SignInScreen(){
                     <Text style={{fontSize:20,fontWeight:"bold"}}> OR </Text>
                 </View>
 
-                <View style ={{marginHorizontal:10, marginTop:10}}>
+                <View style ={{marginHorizontal:10, marginTop:0}}>
                     <SocialIcon
                         title = "Sign In With Facebook"
                         button
@@ -95,7 +95,7 @@ export default function SignInScreen(){
                     />
                 </View>
 
-                <View style ={{marginHorizontal:10, marginTop:10}}>
+                <View style ={{marginHorizontal:10, marginTop:0}}>
                     <SocialIcon
                         title = "Sign In With Google"
                         button
@@ -105,7 +105,7 @@ export default function SignInScreen(){
                     />
                 </View>
 
-                <View style={{marginTop:25,marginLeft:20}}>
+                <View style={{marginTop:15,marginLeft:20}}>
                     <Text style={{...styles.text1}}>New on XpressFood ?</Text>
                 </View>
 
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 
     createButton:{
         backgroundColor:"white",
-        alignCotent:"center",
+        alignContent:"center",
         justifyContent:"center",
         borderRadius:12,
         borderWidth:1,
@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
 
     createButtonTitle:{
         color:"#ff8c52",
-        fountSize:16,
-        fountWeight:"bold",
+        fontSize:16,
+        fontWeight:"bold",
         alignItems:"center",
         justifyContent:"center",
         marginTop:-3

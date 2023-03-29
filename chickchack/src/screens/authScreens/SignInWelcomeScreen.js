@@ -13,7 +13,7 @@ export default function SignInWelcomeScreen() {
     return (
         <View style={{ flex: 1 }}>
 
-            <View style={{ flex: 3, justifyContent: 'flex-start', alignIteam: "center", paddingTop: 20 }}>
+            <View style={{ flex: 3, justifyContent: 'flex-start', alignItems: "center", paddingTop: 20 }}>
                 <Text style={{ fontSize: 26, color: colors.buttons, fontWeight: 'bold' }}>DISCOVER RESTAURANTS</Text>
                 <Text style={{ fontSize: 26, color: colors.buttons, fontWeight: 'bold' }}>IN YOUR AREA</Text>
             </View>
@@ -51,7 +51,7 @@ export default function SignInWelcomeScreen() {
             </View>
 
             <View style={{ flex: 4, justifyContent: "flex-end", marginBottom: 20 }}>
-                <View style={{ marginHorizontal: 20, marginTop: 30 }}>
+                <View style={{ marginHorizontal: 20, marginTop: 0 }}>
                     <Button
                         title="SIGN-IN"
                         buttonStyle={parameters.styledButton}
@@ -59,7 +59,7 @@ export default function SignInWelcomeScreen() {
                     />
                 </View>
 
-                <View style={{ marginHorizontal: 20, marginTop: 30 }}>
+                <View style={{ marginHorizontal: 20, marginTop: 20 }}>
                     <Button
                         title="Create an account"
                         buttonStyle={styles.createButton}
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         alignIteams: 'center',
         backgroundColor: '#97cAE5'
     },
-    slide2: {
+    slide3: {
         flex: 1,
         justifyContent: 'center',
         alignIteams: 'center',
@@ -96,9 +96,9 @@ const styles = StyleSheet.create({
 
     createButton: {
         backgroundColor: "white",
-        alignCotent: "center",
+        alignContent: "center",
         justifyContent: "center",
-        borderRadius: 12,
+        borderRadius: 50,
         borderWidth: 1,
         borderColor: "#ff8c52",
         height: 30,
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
 
     createButtonTitle: {
         color: colors.grey1,
-        fountSize: 20,
-        fountWeight: "bold",
+        fontSize: 20,
+        fontWeight: "bold",
         alignItems: "center",
         justifyContent: "center",
         marginTop: -3

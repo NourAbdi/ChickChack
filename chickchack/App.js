@@ -14,7 +14,7 @@ export default function App(){
         backgroundColor ={colors.statusbar}
       />
 
-      <SingInScreen/> 
+      <SignInWelcomeScreen/> 
 
    </View>
   )

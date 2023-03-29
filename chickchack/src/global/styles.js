@@ -29,8 +29,8 @@ export const parameters={
 
    buttonTitle:{
         color:"white",
-        fountSize:20,
-        fountWeight:"bold",
+        fontSize:20,
+        fontWeight:"bold",
         alignItems:"center",
         justifyContent:"center",
         marginTop:-3
@@ -40,6 +40,6 @@ export const parameters={
 
 export const title = {
     color:"#ff8c52",
-    fountSize:20,
-    fountWeight:"bold"
+    fontSize:20,
+    fontWeight:"bold"
 }
