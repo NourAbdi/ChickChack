@@ -22,28 +22,28 @@ export default function SignInWelcomeScreen({navigation}) {
                 <Swiper autoplay={true}>
                     <View style={styles.slide1}>
                         <Image
-                            sourse={{ uri: "C:\Users\adama\OneDrive\Desktop\CHICHAK\TikTak\Photos\aa" }}
+                            source={require('../../photos/food1.png')}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
 
                     <View style={styles.slide2}>
                         <Image
-                            sourse={{ uri: "C:\Users\adama\OneDrive\Desktop\CHICHAK\TikTak\Photos\bb" }}
+                            source={require('../../photos/food2.png')}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
 
                     <View style={styles.slide3}>
                         <Image
-                            sourse={{ uri: "C:\Users\adama\OneDrive\Desktop\CHICHAK\TikTak\Photos\cc" }}
+                            source={require('../../photos/food3.png')}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
 
                     <View style={styles.slide3}>
                         <Image
-                            sourse={{ uri: "C:\Users\adama\OneDrive\Desktop\CHICHAK\TikTak\Photos\food-pizza" }}
+                            source={require('../../photos/food4.png')}
                             style={{ height: "100%", width: "100%" }}
                         />
                     </View>
