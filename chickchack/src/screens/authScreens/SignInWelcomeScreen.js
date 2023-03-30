@@ -9,7 +9,7 @@ import { Icon, Button, SocialIcon } from '@rneui/base';
 import Swiper from 'react-native-swiper'
 
 
-export default function SignInWelcomeScreen() {
+export default function SignInWelcomeScreen({navigation}) {
     return (
         <View style={{ flex: 1 }}>
 
@@ -51,11 +51,14 @@ export default function SignInWelcomeScreen() {
             </View>
 
             <View style={{ flex: 4, justifyContent: "flex-end", marginBottom: 20 }}>
-                <View style={{ marginHorizontal: 20, marginTop: 0 }}>
+                <View style={{ marginHorizontal: 20, marginTop: 20 }}>
                     <Button
                         title="SIGN-IN"
                         buttonStyle={parameters.styledButton}
                         titleStyle={parameters.buttonTitle}
+                        onPress={()=>{
+                            navigation.navigate("SignInScreen")
+                        }}
                     />
                 </View>
 

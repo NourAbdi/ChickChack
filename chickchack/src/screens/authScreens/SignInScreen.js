@@ -7,7 +7,7 @@ import {SocialIcon,Icon} from '@rneui/themed';
 import { colors,parameters,title } from "../../global/styles";
 import Header from '../../components/Headers'
 
-export default function SignInScreen(){
+export default function SignInScreen({navigation}){
 
     const [TextInput2Fossued,setTextInput2Fossued]=useState(false)
 
@@ -16,7 +16,7 @@ export default function SignInScreen(){
 
     return(
         <View style = {styles.container}>
-            <Header title ="My Account" type = "arrow-left"/>
+            <Header title ="My Account" type = "arrow-left" navigation={navigation} />
 
             <View style = {{marginLeft:20, marginTop:10}}> 
                 <Text style ={title}>Sign-In</Text>

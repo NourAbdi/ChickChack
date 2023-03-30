@@ -6,7 +6,7 @@ import { colors,parameters, title } from "../global/styles";
 import {Icon} from '@rneui/base';
 
 
-export default function Headers({title,type}){
+export default function Headers({title,type,navigation}){
 
     return (
     <View style = {styles.header}>
@@ -17,7 +17,7 @@ export default function Headers({title,type}){
                 name = {type}
                 colors = {colors.headerText}
                 size = {28}
-                onPress = {()=>{}}
+                onPress = {()=>{navigation.goBack()}}
             />
         </View>
         
