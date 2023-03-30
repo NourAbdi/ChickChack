@@ -5,12 +5,7 @@ import { colors,parameters, title } from "../global/styles";
 import {Icon} from '@rneui/base';
 
 
-<<<<<<< Updated upstream:chickchack/src/components/Headers.js
-export default function Headers({title,type,navigation}){
-=======
-export default function Header({title,type}){
->>>>>>> Stashed changes:chickchack/src/components/Header.js
-
+export default function Header({title,type,navigation}){
     return (
     <View style = {styles.header}>
         

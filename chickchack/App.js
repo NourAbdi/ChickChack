@@ -3,7 +3,7 @@ import React from 'react'
 import {View, Text, StyleSheet,StatusBar} from 'react-native'
 import { colors } from './src/global/styles'
 import RootNavigator from './src/navigation/RootNavigator'
-
+import SignInScreen from './src/screens/authScreens/SignInScreen'
 
 
 export default function App(){
@@ -14,16 +14,10 @@ export default function App(){
         barStyle ="light-content"
         backgroundColor ={colors.statusbar}
       />
-<<<<<<< Updated upstream
-      <RootNavigator /> 
-    
-    </View>
-=======
 
-      <SingInScreen/> 
+      <RootNavigator/> 
 
    </View>
->>>>>>> Stashed changes
   )
 }
 
