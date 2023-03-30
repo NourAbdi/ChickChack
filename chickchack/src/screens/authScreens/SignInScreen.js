@@ -3,9 +3,8 @@ import { View,Text,StyleSheet,Dimensions,TextInput} from "react-native";
 import * as Animatable from 'react-native-animatable'
 import {Button} from '@rneui/base';
 import {SocialIcon,Icon} from '@rneui/themed';
-
 import { colors,parameters,title } from "../../global/styles";
-import Header from '../../components/Headers'
+import Header from '../../components/Header'
 
 export default function SignInScreen({navigation}){
 
@@ -55,7 +54,7 @@ export default function SignInScreen({navigation}){
                         }}
 
                         onBlure={()=>{
-                            setTextInput2Fossued(trues)
+                            setTextInput2Fossued(true)
                         }}
                     />
 
@@ -106,7 +105,7 @@ export default function SignInScreen({navigation}){
                 </View>
 
                 <View style={{marginTop:15,marginLeft:20}}>
-                    <Text style={{...styles.text1}}>New on XpressFood ?</Text>
+                    <Text style={{...styles.text1}}>New on ChickChack ?</Text>
                 </View>
 
                 <View style ={{alignItems:"flex-end",marginHorizontal:20}}>

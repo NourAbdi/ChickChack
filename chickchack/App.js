@@ -14,9 +14,16 @@ export default function App(){
         barStyle ="light-content"
         backgroundColor ={colors.statusbar}
       />
+<<<<<<< Updated upstream
       <RootNavigator /> 
     
     </View>
+=======
+
+      <SingInScreen/> 
+
+   </View>
+>>>>>>> Stashed changes
   )
 }
 

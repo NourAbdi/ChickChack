@@ -2,11 +2,14 @@ import React from "react";
 
 import { View,Text,StyleSheet,Dimensions } from 'react-native';
 import { colors,parameters, title } from "../global/styles";
-
 import {Icon} from '@rneui/base';
 
 
+<<<<<<< Updated upstream:chickchack/src/components/Headers.js
 export default function Headers({title,type,navigation}){
+=======
+export default function Header({title,type}){
+>>>>>>> Stashed changes:chickchack/src/components/Header.js
 
     return (
     <View style = {styles.header}>
