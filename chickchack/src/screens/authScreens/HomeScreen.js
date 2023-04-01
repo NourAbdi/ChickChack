@@ -40,29 +40,44 @@ export default function HomeScreen(){
                         </TouchableOpacity> 
                     </View>
                 </View>
+               
+                <View style={styles.filterView}>
+                    <View style={styles.adressView}>
+                        <View style={{flexDirection:"row",alignItems:"center",paddingLeft:10}}>
+                            <Icon
+                                type = "material-community"
+                                name = "map-marker"
+                                color = {colors.grey1}
+                                size = {26}
+                            />
+                            
+                            <Text style={{marginLeft:5}}>22 Beessie Street</Text>
+                        </View>
 
-                <View>
-                    <View style={{flexDirection:"row",alignItems:"center"}}>
+                        <View style={styles.clockView}>
+                            <Icon
+                                type = "material-community"
+                                name = "clock-time-four"
+                                color = {colors.grey1}
+                                size = {26}
+                            />
+                            
+                            <Text style={{marginLeft:5}}>Now</Text>
+                        </View>
+                    </View>
+                    
+                    <View>
                         <Icon
                             type = "material-community"
-                            name = "map-marker"
+                            name = "tune"
                             color = {colors.grey1}
                             size = {26}
                         />
-                        
-                        <Text style={{marginLeft:5}}>22 Beessie Street</Text>
                     </View>
+                </View>
 
-                    <View style={{flexDirection:"row",alignItems:"center"}}>
-                        <Icon
-                            type = "material-community"
-                            name = "clock-time-four"
-                            color = {colors.grey1}
-                            size = {26}
-                        />
-                        
-                        <Text style={{marginLeft:5}}>Now</Text>
-                    </View>
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>Categories</Text>
                 </View>
 
             </ScrollView>
@@ -84,5 +99,40 @@ const styles= StyleSheet.create({
     deliveryText:{
         marginLeft:5,
         fontSize:16
+    },
+    filterView:{
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-evenly",
+        marginHorizontal:10,
+        marginVertical:10
+    },
+    clockView:{
+        flexDirection:"row",
+        alignItems:"center",
+        marginLeft:20,
+        backgroundColor:colors.cardbackground,
+        borderRadius:15,
+        paddingHorizontal:5,
+        marginRight:20
+    },
+    adressView:{
+        flexDirection:"row",
+        backgroundColor:colors.grey5,
+        borderRadius:15,
+        paddingVertical:3,
+        justifyContent:"space-between",
+        paddingHorizontal:30
+    },
+    headerText:{
+        color:colors.grey1,
+        fontSize:22,
+        fontWeight:"bold",
+        paddingLeft:20,
+    },
+    headerTextView:{
+        backgroundColor:colors.grey5,
+        paddingVertical:3,
     }
+
 })
