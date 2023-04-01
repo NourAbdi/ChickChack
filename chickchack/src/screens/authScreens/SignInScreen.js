@@ -8,7 +8,7 @@ import Header from '../../components/Header'
 
 export default function SignInScreen({navigation}){
 
-    const [TextInput2Fossued,setTextInput2Fossued]=useState(false)
+    const [TextInput2Fossued,setTextInput2Fossued]=useState(true)
 
     const textInput1 = useRef(1)
     const textInput2 = useRef(2)
@@ -81,21 +81,21 @@ export default function SignInScreen({navigation}){
                     <Text style={{...styles.text1,textDecorationLine:"underline"}}> Forget Password ? </Text>
                 </View>
 
-                <View style={{alignItems:"center",marginTop:30, marginBottom:30}}>
+                <View style={{alignItems:"center",marginTop:30, marginBottom:10}}>
                     <Text style={{fontSize:20,fontWeight:"bold"}}> OR </Text>
                 </View>
 
-                <View style ={{marginHorizontal:10, marginTop:0}}>
+                <View >
                     <SocialIcon
+                        type = 'facebook'
                         title = "Sign In With Facebook"
                         button
-                        type = 'facebook'
                         style = {styles.SocialIcon}
                         onPrees = {()=>{}}
                     />
                 </View>
 
-                <View style ={{marginHorizontal:10, marginTop:0}}>
+                <View >
                     <SocialIcon
                         title = "Sign In With Google"
                         button
@@ -105,7 +105,7 @@ export default function SignInScreen({navigation}){
                     />
                 </View>
 
-                <View style={{marginTop:15,marginLeft:20}}>
+                <View style={{marginTop:10,marginLeft:20}}>
                     <Text style={{...styles.text1}}>New on ChickChack ?</Text>
                 </View>
 
@@ -148,14 +148,17 @@ const styles = StyleSheet.create({
         borderColor:"#86939e",
         flexDirection:"row",
         justifyContent:"space-between",
-        alignCotent:"center",
+        alignContent:"center",
         alignItems:"center",
         paddingLeft:15
     },
 
     SocialIcon:{
         borderRadius:12,
-        height:50
+        marginHorizontal: 20, 
+        marginTop: 10,
+        height:50,
+        width: 380
     },
 
     createButton:{

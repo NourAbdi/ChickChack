@@ -4,6 +4,7 @@ import {View, Text, StyleSheet,StatusBar} from 'react-native'
 import { colors } from './src/global/styles'
 import RootNavigator from './src/navigation/RootNavigator'
 import SignInScreen from './src/screens/authScreens/SignInScreen'
+import {SocialIcon,Icon} from '@rneui/themed';
 
 
 export default function App(){

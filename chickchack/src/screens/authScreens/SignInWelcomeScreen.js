@@ -50,7 +50,7 @@ export default function SignInWelcomeScreen({navigation}) {
                 </Swiper>
             </View>
 
-            <View style={{ flex: 4, justifyContent: "flex-end", marginBottom: 20 }}>
+            <View style={{ flex: 4, justifyContent: "flex-end", marginTop: 50 }}>
                 <View style={{ marginHorizontal: 20, marginTop: 20 }}>
                     <Button
                         title="SIGN-IN"
@@ -62,16 +62,19 @@ export default function SignInWelcomeScreen({navigation}) {
                     />
                 </View>
 
-                <View style={{ marginHorizontal: 20, marginTop: 20 }}>
+                <View style={{ marginHorizontal: 20, marginTop: 20, marginBottom: 20 }}>
                     <Button
                         title="Create an account"
                         buttonStyle={styles.createButton}
                         titleStyle={styles.createButtonTitle}
+                        onPress={()=>{
+                            navigation.navigate("")
+                        }}
                     />
                 </View>
             </View>
 
-
+            
         </View>
     )
 }
@@ -104,14 +107,14 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         borderWidth: 1,
         borderColor: "#ff8c52",
-        height: 30,
+        height: 40,
         paddingHorizontal: 20,
         borderColor: colors.buttons
     },
 
     createButtonTitle: {
         color: colors.grey1,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "bold",
         alignItems: "center",
         justifyContent: "center",

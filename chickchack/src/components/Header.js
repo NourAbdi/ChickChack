@@ -13,8 +13,7 @@ export default function Header({title,type,navigation}){
             <Icon
                 type = "material-community"
                 name = {type}
-                // colors = {colors.headerText}
-                IconStyle={{color:colors.headerText}}
+                color = {colors.headerText}
                 size = {28}
                 onPress = {()=>{navigation.goBack()}}
             />
