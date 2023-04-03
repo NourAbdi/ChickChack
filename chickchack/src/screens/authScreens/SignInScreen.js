@@ -20,6 +20,7 @@ async function signIn (data){
     const {password,email} = data
     const user = await  auth().signInWithEmailAndPassword(email,password)
     if(user){
+        navigation.navigate("HomeScreen")
         console.log("USER SIGNED IN")
     }
 }
