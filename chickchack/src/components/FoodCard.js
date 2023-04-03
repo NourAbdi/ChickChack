@@ -28,41 +28,38 @@ export default function FoodCard({
                     // source ={{uri:String.valueOf(images)}}
                     source={require("../assets/Fastfood.jpg")}
                 />
-            </View>
 
-            <View>
                 <View>
-                    <Text style={styles.resturantName}>{resturantName}</Text>
-                </View>
-
-                <View style={{flex:1,flexDirection:"row"}}>
-                    <View style={styles.distance}>
-                        <Icon
-                            name = "place"
-                            type="material"
-                            color = {colors.grey2}
-                            size ={18}
-                            iconStyle={{
-                                marginTop:3
-                            }}
-                        />
-
-                        <Text style={styles.Min}>{farAway} Min</Text>
-                    
+                    <View>
+                        <Text style={styles.resturantName}>{resturantName}</Text>
                     </View>
 
-                    <View style={{flex:9,flexDirection:"row"}}>
-                        <Text style={styles.address}>{businessAddress}</Text>
+                    <View style={{flex:1,flexDirection:"row"}}>
+                        <View style={styles.distance}>
+                            <Icon
+                                name = "place"
+                                type="material"
+                                color = {colors.grey2}
+                                size ={18}
+                                iconStyle={{
+                                    marginTop:3
+                                }}
+                            />
+                            <Text style={styles.Min}> {farAway} Min</Text>
+                        </View>
 
+                        <View style={{flex:9,flexDirection:"row"}}>
+                            <Text style={styles.address}>{businessAddress}</Text>
+                        </View>
                     </View>
-
                 </View>
             </View>
+
+            
 
             <View style={styles.review}>
                 <Text style={styles.average}>{averageReview}</Text>
-                <Text>{numberOfReview} reviews</Text>
-                
+                <Text style={styles.numberOfReview}>{numberOfReview} reviews</Text>
             </View>
         </TouchableOpacity>
     )
@@ -73,7 +70,7 @@ const styles=StyleSheet.create({
         marginHorizontal:9,
         borderTopRightRadius:5,
         borderTopLeftRadius:5,
-        borderRightWidth:1,
+        borderWidth:1,
         borderColor:colors.grey4,
         borderBottomLeftRadius:5,
         borderBottomRightRadius:5,
@@ -87,7 +84,8 @@ const styles=StyleSheet.create({
         fontSize:17,
         fontWeight:"bold",
         color:colors.grey1,
-        marginTop:5
+        marginTop:5,
+        marginLeft:10
     },
     distance:{
         flex:4,
@@ -124,6 +122,12 @@ const styles=StyleSheet.create({
         fontSize:20,
         fontWeight:"bold",
         marginTop:-3
+    },
+    numberOfReview:{
+        color:"white",
+        fontSize:13,
+        marginRight:0,
+        marginLeft:0
     }
 
 })
