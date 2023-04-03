@@ -6,10 +6,21 @@ export const filterData  = [
     {name :"Seafood",image :require("../assets/Seafood.png"),id : "4"}
 ];
 
-// export const filterData  = [
-//     {name :"Fast food",id : "0"},
-//     {name :"Burgers",id : "1"},
-//     {name :"Salads",id : "2"},
-//     {name :"Hotdog",id : "3"},
-//     {name :"Seafood",id : "4"}
-// ];
+
+
+export const restaurantsData  = [
+    {restaurantName :"Fast food",farAway:"21.2",businessAddress:"22 bessie streeet,Cape Town",images:require("../assets/Fastfood.jpg"),
+    averageReview:4.0,numberOfReview:272,coordinates:{lat:-26.1888, lng:28.246},discount:10,deliveryTime:15,collectTime:5,
+    foodType:"Burgers,Warp,Milkshakes...",
+    productData:[{name:"Hand cut chips",Price:29.30,image:require("../assets/Fastfood.jpg")},
+    {name:"Big Mac",price:50.80,image:require("../assets/Hotdog.png")}]
+    ,id : "0"},
+
+    {restaurantName :"Hotdog",farAway:"21.2",businessAddress:"22 bessie streeet,Cape Town",images:require("../assets/Seafood.png"),
+    averageReview:4.0,numberOfReview:272,coordinates:{lat:-26.1888, lng:28.246},discount:10,deliveryTime:15,collectTime:5,
+    foodType:"Burgers,Warp,Milkshakes...",
+    productData:[{name:"Hand cut chips",Price:29.30,image:require("../assets/Fastfood.jpg")},
+    {name:"Big Mac",price:50.80,image:require("../assets/Hotdog.png")}]
+    ,id : "1"},
+];
+

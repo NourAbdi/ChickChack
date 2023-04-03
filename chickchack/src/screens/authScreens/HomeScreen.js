@@ -1,11 +1,16 @@
 import React,{useState} from "react";
 
-import { View,Text, StyleSheet,TouchableOpacity,ScrollView,FlatList,Pressable,Image} from 'react-native';
+import { View,Text, StyleSheet,TouchableOpacity,ScrollView,FlatList,Pressable,Image,Dimensions} from 'react-native';
 import {Icon} from '@rneui/themed';
 import HomeHeader from "../../components/HomeHeader";
-import {colors,parameters} from "../../global/styles";
-import { filterData } from "../../global/Data";
+import { colors} from "../../global/styles";
+import { filterData,restaurantsData } from "../../global/Data";
+import FoodCard from "../../components/FoodCard";
+import { ScreenWidth } from "@rneui/base";
 
+
+
+const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default function HomeScreen(){
 
@@ -111,6 +116,27 @@ export default function HomeScreen(){
                 
                 <View style={styles.headerTextView}>
                     <Text style={styles.headerText}>Free delivery now</Text>
+                </View>
+
+                <View>
+                    <FlatList
+                        style={{marginTop:10, marginBottom:10}}
+                        horizontal={true}
+                        data={restaurantsData}
+                        keyExtractor={(item,index)=>index.toString()}
+                       
+                        renderItem ={({item})=>(
+                            <View>
+                                <FoodCard
+                                    screenWidth={SCREEN_WIDTH *0.8}
+                                    images ={item.images}
+                                
+                                /> 
+                            </View>
+                        )}
+                        
+
+                    />
                 </View>
 
             </ScrollView>
