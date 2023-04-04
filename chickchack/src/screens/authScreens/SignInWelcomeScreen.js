@@ -9,7 +9,7 @@ import { Icon, Button, SocialIcon } from '@rneui/base';
 import Swiper from 'react-native-swiper'
 
 
-export default function SignInWelcomeScreen({navigation}) {
+export default function SignInWelcomeScreen({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
 
@@ -56,7 +56,7 @@ export default function SignInWelcomeScreen({navigation}) {
                         title="SIGN-IN"
                         buttonStyle={parameters.styledButton}
                         titleStyle={parameters.buttonTitle}
-                        onPress={()=>{
+                        onPress={() => {
                             navigation.navigate("SignInScreen")
                         }}
                     />
@@ -67,14 +67,14 @@ export default function SignInWelcomeScreen({navigation}) {
                         title="Create an account"
                         buttonStyle={styles.createButton}
                         titleStyle={styles.createButtonTitle}
-                        onPress={()=>{
-                            navigation.navigate("")
-                        }}
+                        onPress={() => (
+                            navigation.navigate("SignUpScreen")
+                        )}
                     />
                 </View>
             </View>
 
-            
+
         </View>
     )
 }

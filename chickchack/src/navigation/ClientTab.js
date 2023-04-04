@@ -23,7 +23,7 @@ export default function RootClientTabs(){
         
         >
             <ClientTabs.Screen
-                name="Home Screen"
+                name="HomeScreen"
                 component={HomeScreen}
                 options ={ 
                     {

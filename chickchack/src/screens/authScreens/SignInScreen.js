@@ -15,22 +15,22 @@ export default function SignInScreen({ navigation }) {
     const textInput1 = useRef(1)
     const textInput2 = useRef(2)
 
-// async function signIn (data){
-//     try{
-//     const {password,email} = data
-//     const user = await  auth().signInWithEmailAndPassword(email,password)
-//     if(user){
-//         navigation.navigate("RootClientTabs")
-//         console.log("USER SIGNED IN")
-//     }
-// }
-//     catch(error){
-//         Alert.alert(
-//             error.name,
-//             error.message
-//         )
-//     }
-// }
+async function signIn (data){
+    try{
+    const {password,email} = data
+    const user = await  auth().signInWithEmailAndPassword(email,password)
+    if(user){
+        navigation.navigate("RootClientTabs")
+        console.log("USER SIGNED IN")
+    }
+}
+    catch(error){
+        Alert.alert(
+            error.name,
+            error.message
+        )
+    }
+}
     return (
         <View style={styles.container}>
 
