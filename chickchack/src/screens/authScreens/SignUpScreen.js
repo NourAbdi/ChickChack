@@ -1,11 +1,116 @@
-import React from 'react'
-import { StyleSheet, Text, View } from "react-native";
-import { colors } from '../../global/styles';
+import { React, useState } from 'react'
+import { StyleSheet, Text, View, ScrollView, TextInput } from "react-native"
+import { colors } from '../../global/styles'
+import Header from '../../components/Header'
+import { Formik } from "formik";
+import * as Animatable from 'react-native-animatable'
+import { Button } from '@rneui/base';
+import { SocialIcon, Icon } from '@rneui/themed';
 
-const SignUpScreen = () => {
+const initialValues = { phone_number: '', Name: "", family_name: "", Password: "", email: '', username: '' }
+
+const SignUpScreen = ({ navigation }) => {
+
+    const [passwordFocussed, setPasswordFocussed] = useState(false)
+    const [passwordBlured, setPasswordBlured] = useState(false)
+
     return (
-        <View style = {styles.container}>
-            <Text>Sign Up Screen</Text>
+        <View style={styles.container}>
+            <Header title="MY ACCOUNT" type="arrow-left" navigation={navigation} />
+            <ScrollView keyboardShouldPersistTaps="always">
+                <View style={styles.view1}>
+                    <Text style={styles.text1}>Sign-Up</Text>
+                </View>
+                <Formik initialValues={initialValues} onSubmit={(values) => { SignUpScreen(values) }}>
+                    {(props) => (
+                        <View style={styles.view2}>
+                            <View>
+                                <Text style={styles.text2}>New On ChickChack ?</Text>
+                            </View>
+
+                            <View style={styles.view6}>
+                                <TextInput
+                                    placeholder='Mobile Number'
+                                    style={styles.input1}
+                                    keyboardType='number-pad'
+                                    autoFocus={true}
+                                    onChangeText={props.handleChange('phone_number')}
+                                    value={props.values.phone_number}
+                                />
+                            </View>
+                            <View style={styles.view6}>
+                                <TextInput
+                                    placeholder='Name'
+                                    style={styles.input1}
+                                    autoFocus={true}
+                                    onChangeText={props.handleChange('Name')}
+                                    value={props.values.Name}
+                                />
+                            </View>
+                            <View style={styles.view6}>
+                                <TextInput
+                                    placeholder='Family name'
+                                    style={styles.input1}
+                                    autoFocus={true}
+                                    onChangeText={props.handleChange('family_name')}
+                                    value={props.values.family_name}
+                                />
+                            </View>
+                            <View style={styles.view10}>
+                                <View>
+                                    <Icon
+                                        name='email'
+                                        style={styles.email}
+                                        color={colors.grey3}
+                                        type='material'
+                                    />
+                                </View>
+                                <View style={styles.view11}>
+                                    <TextInput
+                                        placeholder='Email'
+                                        style={styles.input4}
+                                        autoFocus={false}
+                                        onChangeText={props.handleChange('email')}
+                                        value={props.values.email}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.view14}>
+                                <Animatable.View animation={passwordFocussed ? "fadeInRight" : "fadeInLeft"} duration={400}>
+                                    <Icon name="lock" color={colors.grey3} type='material'>
+                                    </Icon>
+                                </Animatable.View>
+                                <TextInput
+                                    placeholder='Password'
+                                    style={{ flex: 1 }}
+                                    autoFocus={false}
+                                    onChangeText={props.handleChange('Password')}
+                                    value={props.values.Password}
+                                    onFocus={() => { setPasswordFocussed(true) }}
+                                    onBlur={() => { setPasswordBlured(true) }}
+                                />
+                                <Animatable.View animation={passwordBlured ? "fadeInLeft" : "fadeInRight"} duration={400}>
+                                    <Icon name="visibility-off" color={colors.grey3} type='material' style={{ marginRight: 10 }}>
+
+                                    </Icon>
+                                </Animatable.View>
+                            </View>
+                            <View style={styles.view15}>
+                                <Text style={styles.text3}>By creating or logging into an account you are</Text>
+                                <View style={styles.view16}>
+                                    <Text style={styles.text3}>agreeing with our </Text>
+                                    <Text style={styles.text4}>Terms & conditions </Text>
+                                    <Text style={styles.text3}>and </Text>
+                                </View>
+                                <Text style={styles.text4}>Privacy Statement</Text>
+                            </View>
+                            <View style={styles.view17}>
+
+                            </View>
+                        </View>
+                    )}
+                </Formik>
+            </ScrollView>
         </View>
     )
 }
@@ -29,7 +134,7 @@ const styles = StyleSheet.create({
 
     text1: {
         fontSize: 22,
-        color: colors.background2,
+        color: colors.buttons,
         fontWeight: 'bold'
     },
 
@@ -45,7 +150,7 @@ const styles = StyleSheet.create({
     },
 
     text2: {
-        fontSize:15,
+        fontSize: 15,
         color: colors.grey2
     },
 
@@ -59,13 +164,11 @@ const styles = StyleSheet.create({
 
     view5: {
         marginLeft: 30,
-        maxWidth: "65%"
+        marginTop: 20
     },
 
     input1: {
-        fontSize: 16,
-        marginLeft: -20,
-        marginBottom: -10
+        fontSize: 16
     },
 
     view6: {
@@ -235,7 +338,7 @@ const styles = StyleSheet.create({
 
     title2: {
         color: colors.background2,
-        fontSize:16,
+        fontSize: 16,
         fontWeight: "bold",
         alignItems: "center",
         alignContent: "center",
