@@ -1,18 +1,45 @@
 import { React, useState } from 'react'
-import { StyleSheet, Text, View, ScrollView, TextInput } from "react-native"
+import { StyleSheet, Text, View, ScrollView, TextInput, Alert } from "react-native"
 import { colors } from '../../global/styles'
 import Header from '../../components/Header'
 import { Formik } from "formik";
 import * as Animatable from 'react-native-animatable'
 import { Button } from '@rneui/base';
-import { SocialIcon, Icon } from '@rneui/themed';
+import { Icon } from '@rneui/themed';
+import SignInScreen from './SignInScreen';
+import auth from '@react-native-firebase/auth'
 
 const initialValues = { phone_number: '', Name: "", family_name: "", Password: "", email: '', username: '' }
 
 const SignUpScreen = ({ navigation }) => {
 
-    const [passwordFocussed, setPasswordFocussed] = useState(false)
-    const [passwordBlured, setPasswordBlured] = useState(false)
+const [passwordFocussed, setPasswordFocussed] = useState(false)
+const [passwordBlured, setPasswordBlured] = useState(false)
+
+async function signUp(values){
+    const {email,Password} = values
+
+    try{
+        await auth().createUserWithEmailAndPassword(email,Password)
+        console.log("user account added Successfully ! , email : " + email)
+    }
+    catch(error){
+        if(error.code === 'auth/email-already-in-use'){
+            Alert.alert(
+                'That email address is already in use'
+            )
+        }
+        if(error.code === 'auth/invalid-email'){
+            Alert.alert(
+                'That email address is invalid'
+            )
+        }
+        else{
+            Alert.alert(error.code)
+        }
+    }
+
+}
 
     return (
         <View style={styles.container}>
@@ -21,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
                 <View style={styles.view1}>
                     <Text style={styles.text1}>Sign-Up</Text>
                 </View>
-                <Formik initialValues={initialValues} onSubmit={(values) => { SignUpScreen(values) }}>
+                <Formik initialValues={initialValues} onSubmit={(values) => { signUp(values) }}>
                     {(props) => (
                         <View style={styles.view2}>
                             <View>
@@ -105,11 +132,32 @@ const SignUpScreen = ({ navigation }) => {
                                 <Text style={styles.text4}>Privacy Statement</Text>
                             </View>
                             <View style={styles.view17}>
-
+                                <Button
+                                    title="Create my account"
+                                    buttonStyle={styles.button1}
+                                    titleStyle={styles.title1}
+                                    onPress={props.handleSubmit}
+                                />
                             </View>
                         </View>
                     )}
                 </Formik>
+                <View style={styles.view18}>
+                    <Text style={styles.text5}>OR</Text>
+                </View>
+                <View style={styles.view19}>
+                    <View style={styles.view20}>
+                        <Text style={styles.text6}>Already have an account with ChickChack ?</Text>
+                    </View>
+                    <View style={styles.view21}>
+                        <Button
+                        title ='Sign-in'
+                        buttonStyle = {styles.button2}
+                        titleStyle = {styles.title2}
+                        onPress={()=>{navigation.navigate(SignInScreen)}}
+                        />
+                    </View>
+                </View>
             </ScrollView>
         </View>
     )
@@ -276,12 +324,12 @@ const styles = StyleSheet.create({
     },
 
     button1: {
-        backgroundColor: colors.background2,
+        backgroundColor: colors.buttons,
         alignContent: "center",
         justifyContent: "center",
         borderRadius: 12,
         borderWidth: 1,
-        borderColor: colors.background2,
+        borderColor: colors.buttons,
         height: 50,
         paddingHorizontal: 20,
         width: '100%'
@@ -337,7 +385,7 @@ const styles = StyleSheet.create({
     },
 
     title2: {
-        color: colors.background2,
+        color: colors.buttons,
         fontSize: 16,
         fontWeight: "bold",
         alignItems: "center",
