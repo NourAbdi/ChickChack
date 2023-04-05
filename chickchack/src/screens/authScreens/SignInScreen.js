@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useContext } from "react";
 import { View, Text, StyleSheet, Dimensions, TextInput, Alert } from "react-native";
 import * as Animatable from 'react-native-animatable'
 import { Button } from '@rneui/base';
@@ -7,30 +7,34 @@ import { colors, parameters, title } from "../../global/styles";
 import { Formik } from "formik";
 import auth from '@react-native-firebase/auth'
 import Header from '../../components/Header'
+import { SignInContext } from "../../contexts/authContext"
 
 export default function SignInScreen({ navigation }) {
+
+    // const {dispatchSignedIn} = useContext(SignInContext)
 
     const [TextInput2Fossued, setTextInput2Fossued] = useState(true)
 
     const textInput1 = useRef(1)
     const textInput2 = useRef(2)
 
-// async function signIn (data){
-//     try{
-//     const {password,email} = data
-//     const user = await  auth().signInWithEmailAndPassword(email,password)
-//     if(user){
-//         navigation.navigate("RootClientTabs")
-//         console.log("USER SIGNED IN")
-//     }
-// }
-//     catch(error){
-//         Alert.alert(
-//             error.name,
-//             error.message
-//         )
-//     }
-// }
+async function signIn (data){
+    try{
+    const {password,email} = data
+    const user = await  auth().signInWithEmailAndPassword(email,password)
+    if(user){ 
+        // dispatchSignedIn({type:"UPDATE_SIGN_IN",payload:{userToken:"signed-in"}})
+        navigation.navigate("RootClientTabs")
+        // console.log("SEND USER : " + user)
+    }
+}
+    catch(error){
+        Alert.alert(
+            error.name,
+            error.message
+        )
+    }
+}
     return (
         <View style={styles.container}>
 
@@ -104,8 +108,8 @@ export default function SignInScreen({ navigation }) {
                                 title="SIGN-IN"
                                 buttonStyle={parameters.styledButton}
                                 titleStyle={parameters.buttonTitle}
-                                // onPress={ props.handleSubmit }
-                               onPress={()=>(navigation.navigate("RootClientTabs"))} 
+                                onPress={ props.handleSubmit }
+                            //    onPress={()=>(navigation.navigate("RootClientTabs"))} 
                             />
                         </View>
                     </View>
