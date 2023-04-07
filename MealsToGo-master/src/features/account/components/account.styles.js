@@ -26,7 +26,8 @@ export const AccountContainer = styled.View`
 
 export const AuthButton = styled(Button).attrs({
   // color: colors.brand.primary,
-  color: "#2785C4",
+  // color: "#2785C4",
+  color: "#2683C0",
 })`
   padding: ${(props) => props.theme.space[2]};
 `;
