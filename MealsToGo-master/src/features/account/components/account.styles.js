@@ -15,7 +15,7 @@ export const AccountCover = styled.View`
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 1);
 `;
 
 export const AccountContainer = styled.View`
@@ -25,7 +25,8 @@ export const AccountContainer = styled.View`
 `;
 
 export const AuthButton = styled(Button).attrs({
-  color: colors.brand.primary,
+  // color: colors.brand.primary,
+  color: "#2785C4",
 })`
   padding: ${(props) => props.theme.space[2]};
 `;
@@ -49,7 +50,9 @@ export const ErrorContainer = styled.View`
 export const AnimationWrapper = styled.View`
   width: 100%;
   height: 40%;
-  position: absolute;
+  // position: absolute;
+  alignitema: center;
+  justifycontent: center;
   top: 30px;
   padding: ${(props) => props.theme.space[2]};
 `;

@@ -15,16 +15,8 @@ export const AccountScreen = ({ navigation }) => {
   return (
     <AccountBackground>
       <AccountCover />
-      <AnimationWrapper>
-        <LottieView
-          key="animation"
-          autoPlay
-          loop
-          resizeMode="cover"
-          source={require("../../../../assets/delivery1.json")}
-        />
-      </AnimationWrapper>
-      <Title>Meals To Go</Title>
+      <Title>Chick Chak</Title>
+      
       <AccountContainer>
         <AuthButton
           icon="lock-open-outline"
@@ -43,6 +35,19 @@ export const AccountScreen = ({ navigation }) => {
           </AuthButton>
         </Spacer>
       </AccountContainer>
+      
+      <AnimationWrapper>
+        <LottieView
+          key="animation"
+          autoPlay
+          loop
+          resizeMode="cover"
+          source={require("../../../../assets/delivery1.json")}
+        />
+      </AnimationWrapper>
+      
+
+      
     </AccountBackground>
   );
 };
