@@ -15,12 +15,13 @@ import { Navigation } from "./src/infrastructure/navigation";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 const firebaseConfig = {
-  apiKey: "<fill in your own>",
-  authDomain: "<fill in your own>",
-  projectId: "<fill in your own>",
-  storageBucket: "<fill in your own>",
-  messagingSenderId: "<fill in your own>",
-  appId: "<fill in your own>",
+  apiKey: "AIzaSyAaIrmc6nAn7yKCDUfj74JKaQodXCp4O08",
+  authDomain: "chickchack-acd3a.firebaseapp.com",
+  projectId: "chickchack-acd3a",
+  storageBucket: "chickchack-acd3a.appspot.com",
+  messagingSenderId: "983512532302",
+  appId: "1:983512532302:web:9baf13a1c98a33fa168a1f",
+  measurementId: "G-TGZ3771DLT"
 };
 
 initializeApp(firebaseConfig);
