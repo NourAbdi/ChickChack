@@ -28,6 +28,8 @@ export const AuthButton = styled(Button).attrs({
   // color: colors.brand.primary,
   // color: "#2785C4",
   color: "#2683C0",
+  higth:60,
+  width:300,
 })`
   padding: ${(props) => props.theme.space[2]};
 `;
@@ -37,7 +39,8 @@ export const AuthInput = styled(TextInput)`
 `;
 
 export const Title = styled(Text)`
-  font-size: 30px;
+  font-size: 60px;
+  color:#2683C0;
 `;
 
 export const ErrorContainer = styled.View`
