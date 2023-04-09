@@ -1,17 +1,19 @@
 import React from "react";
 import LottieView from "lottie-react-native";
 
-import { SafeAreaView,StatusBar } from "react-native";
+import { SafeAreaView,StatusBar,StyleSheet,View,Text } from "react-native";
 
 import { Spacer } from "../../../components/spacer/spacer.component";
 import {
-  AccountBackground,
-  AccountContainer,
-  AccountCover,
+  AccountBackground1,
+  AccountContainer1,
+  AccountCover1,
   AuthButton,
-  Title,
-  AnimationWrapper,
+  Title1,
+  AnimationWrapper1,
+  AnimationWrapper2,
 } from "../components/account.styles";
+
 
 export const AccountScreen = ({ navigation }) => {
   return (
@@ -20,11 +22,28 @@ export const AccountScreen = ({ navigation }) => {
         barStyle = "light-content"
       />
     </SafeAreaView>
-    <AccountBackground>
-        <AccountCover />
-        <Title>Chick Chak</Title>
+    <AccountBackground1>
+     
+      <AccountCover1 />
 
-        <AccountContainer>
+      <View style={containerStyle.rowContainer}>
+        <Title1>Chick      Chak</Title1>
+        <AnimationWrapper1>
+            <LottieView
+              key="animation"
+              autoPlay
+              loop
+              resizeMode="cover"
+              source={require("../../../../assets/lightning.json")} 
+            />
+        </AnimationWrapper1>
+      </View>
+      
+        
+      
+        
+
+        <AccountContainer1>
           <AuthButton
             icon="lock-open-outline"
             mode="contained"
@@ -41,19 +60,35 @@ export const AccountScreen = ({ navigation }) => {
               Register
             </AuthButton>
           </Spacer>
-        </AccountContainer>
+        </AccountContainer1>
 
-        <AnimationWrapper>
+        <AnimationWrapper2>
           <LottieView
             key="animation"
             autoPlay
             loop
             resizeMode="cover"
             source={require("../../../../assets/delivery1.json")} />
-        </AnimationWrapper>
+        </AnimationWrapper2>
 
 
 
-      </AccountBackground></>
+      </AccountBackground1></>
   );
 };
+
+
+
+const containerStyle = StyleSheet.create({
+  container: {
+    padding: 8,
+    backgroundColor: "#ffffff",
+    alignItems:"center",
+    justifycontent: "center"
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems:"center",
+    justifycontent: "center"
+  }
+}); 

@@ -5,7 +5,7 @@ import { SafeAreaView,StatusBar } from "react-native";
 
 
 import {
-  AccountBackground,
+  AccountBackground2,
   AccountCover,
   AccountContainer,
   AuthButton,
@@ -27,9 +27,9 @@ export const LoginScreen = ({ navigation }) => {
       <StatusBar
         barStyle="light-content" />
     </SafeAreaView>
-    <AccountBackground>
+    <AccountBackground2>
         <AccountCover />
-        <Title>Meals To Go</Title>
+        <Title>Chick Chak</Title>
         <AccountContainer>
           <AuthInput
             label="E-mail"
@@ -71,6 +71,6 @@ export const LoginScreen = ({ navigation }) => {
             Back
           </AuthButton>
         </Spacer>
-      </AccountBackground></>
+      </AccountBackground2></>
   );
 };

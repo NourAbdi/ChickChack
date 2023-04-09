@@ -4,7 +4,7 @@ import { ActivityIndicator, Colors } from "react-native-paper";
  
 import { SafeAreaView,StatusBar } from "react-native";
 import {
-  AccountBackground,
+  AccountBackground2,
   AccountCover,
   AccountContainer,
   AuthButton,
@@ -26,7 +26,8 @@ export const RegisterScreen = ({ navigation }) => {
     <><SafeAreaView style={{ backgroundColor: "#2683C0" }}>
       <StatusBar
         barStyle="light-content" />
-    </SafeAreaView><AccountBackground>
+    </SafeAreaView>
+    <AccountBackground2>
         <AccountCover />
         <Title>Chick Chak</Title>
         <AccountContainer>
@@ -79,6 +80,6 @@ export const RegisterScreen = ({ navigation }) => {
             Back
           </AuthButton>
         </Spacer>
-      </AccountBackground></>
+      </AccountBackground2></>
   );
 };
