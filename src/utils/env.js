@@ -1,7 +1,7 @@
 import { Platform } from "react-native";
 
 const liveHost = "https://us-central1-mealstogoservers.cloudfunctions.net";
-const localHost = "http://localhost:5001/mealstogoservers/us-central1";
+const localHost = "http://localhost:5000/chickchack-acd3a/us-central1";
 
 export const isAndroid = Platform.OS === "android";
 export const isDevelopment = process.env.NODE_ENV === "development";

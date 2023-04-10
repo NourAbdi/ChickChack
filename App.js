@@ -17,6 +17,7 @@ import { AuthenticationContextProvider } from "./src/services/authentication/aut
 const firebaseConfig = {
   apiKey: "AIzaSyAaIrmc6nAn7yKCDUfj74JKaQodXCp4O08",
   authDomain: "chickchack-acd3a.firebaseapp.com",
+  databaseURL: "https://chickchack-acd3a-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "chickchack-acd3a",
   storageBucket: "chickchack-acd3a.appspot.com",
   messagingSenderId: "983512532302",
