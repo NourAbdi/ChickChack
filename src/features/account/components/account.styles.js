@@ -61,8 +61,7 @@ export const Title1 = styled(Text)`
   font-size: 60px;
   color:#2683C0;
   align-items: center;
-  // margin-right:20px;
-
+  
 `;
 
 export const Title = styled(Text)`
@@ -81,22 +80,22 @@ export const ErrorContainer = styled.View`
 export const AnimationWrapper1 = styled.View`
   width: 40%;
   height: 100%;
+  margin-left: 85px;
+  position: absolute;
   // position: flex-end;
   // alignitema: flex-end;
   // justifycontent: flex-end;
-  position: absolute;
   // alignitema: center;
   // justifycontent: center;
-  margin-left: 85px;
   // padding: ${(props) => props.theme.space[2]};
 `;
 
 export const AnimationWrapper2 = styled.View`
   width: 100%;
   height: 40%;
-  // position: absolute;
   alignitema: center;
   justifycontent: center;
   top: 50px;
   padding: ${(props) => props.theme.space[2]};
+  // position: absolute;
 `;
