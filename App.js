@@ -15,14 +15,12 @@ import { Navigation } from "./src/infrastructure/navigation";
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAaIrmc6nAn7yKCDUfj74JKaQodXCp4O08",
-  authDomain: "chickchack-acd3a.firebaseapp.com",
-  databaseURL: "https://chickchack-acd3a-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "chickchack-acd3a",
-  storageBucket: "chickchack-acd3a.appspot.com",
-  messagingSenderId: "983512532302",
-  appId: "1:983512532302:web:9baf13a1c98a33fa168a1f",
-  measurementId: "G-TGZ3771DLT"
+  apiKey: "AIzaSyAWkA7XZsBTOGfiRh9YGTDrbzcusOJUhcs",
+  authDomain: "chickchack-3069a.firebaseapp.com",
+  projectId: "chickchack-3069a",
+  storageBucket: "chickchack-3069a.appspot.com",
+  messagingSenderId: "497036758885",
+  appId: "1:497036758885:web:6c1d2e545d8a8bf35cdb8c"
 };
 
 initializeApp(firebaseConfig);

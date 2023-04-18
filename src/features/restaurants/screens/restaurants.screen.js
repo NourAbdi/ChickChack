@@ -33,6 +33,7 @@ export const RestaurantsScreen = ({ navigation }) => {
   const { favourites } = useContext(FavouritesContext);
   const [isToggled, setIsToggled] = useState(false);
   const hasError = !!error || !!locationError;
+  console.log(hasError + error + locationError);
   return (
     <SafeArea>
       {isLoading && (

@@ -24,6 +24,14 @@ const TAB_ICON = {
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
+    "tabBarActiveTintColor": "#696AC3",
+    "tabBarInactiveTintColor": "#C6DAF7",
+    "tabBarStyle": [
+      {
+        "display": "flex"
+      },
+      null
+    ],
     tabBarIcon: ({ size, color }) => (
       <Ionicons name={iconName} size={size} color={color} />
     ),
@@ -37,10 +45,6 @@ export const AppNavigator = () => (
         <CartContextProvider>
           <Tab.Navigator
             screenOptions={createScreenOptions}
-            tabBarOptions={{
-              activeTintColor: colors.brand.primary,
-              inactiveTintColor: colors.brand.muted,
-            }}
           >
             <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
             <Tab.Screen name="Checkout" component={CheckoutNavigator} />
