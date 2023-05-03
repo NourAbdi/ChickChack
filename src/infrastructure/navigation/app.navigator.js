@@ -43,9 +43,7 @@ export const AppNavigator = () => (
     <LocationContextProvider>
       <RestaurantsContextProvider>
         <CartContextProvider>
-          <Tab.Navigator
-            screenOptions={createScreenOptions}
-          >
+          <Tab.Navigator screenOptions={createScreenOptions}>
             <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
             <Tab.Screen name="Checkout" component={CheckoutNavigator} />
             <Tab.Screen name="Map" component={MapScreen} />

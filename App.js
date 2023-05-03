@@ -13,6 +13,7 @@ import { theme } from "./src/infrastructure/theme";
 import { Navigation } from "./src/infrastructure/navigation";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
+import { LocationContextProvider } from "./src/services/currentLocation/currentLocation.context";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAWkA7XZsBTOGfiRh9YGTDrbzcusOJUhcs",
@@ -42,7 +43,9 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <Navigation />
+          <LocationContextProvider>
+            <Navigation />
+          </LocationContextProvider>
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
