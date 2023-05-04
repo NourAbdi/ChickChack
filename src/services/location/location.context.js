@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 
 import { locationRequest, locationTransform } from "./location.service";
+import { currentLocationContext } from "../currentLocation/currentLocation.context";
+
 
 export const LocationContext = React.createContext();
 
+
 export const LocationContextProvider = ({ children }) => {
-  const [keyword, setKeyword] = useState("San Francisco");
+  
+  const { city } = useContext(currentLocationContext);
+  const [keyword, setKeyword] = useState(city);
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  console.log(city);
+  
   const onSearch = (searchKeyword) => {
     setIsLoading(true);
     setKeyword(searchKeyword);

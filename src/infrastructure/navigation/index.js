@@ -6,19 +6,19 @@ import { LocationNavigator } from "./location.navigator";
 import { AccountNavigator } from "./account.navigator";
 
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
-import { locationContext } from "../../services/currentLocation/currentLocation.context";
+import { currentLocationContext } from "../../services/currentLocation/currentLocation.context";
 
 export const Navigation = () => {
-  const { isLocated } = useContext(locationContext);
+  const { isLocatedWithCity } = useContext(currentLocationContext);
   const { isAuthenticated } = useContext(AuthenticationContext);
-  console.log(isAuthenticated);
-  console.log(isLocated);
+  // console.log(isAuthenticated);
+  // console.log(isLocated);
   return (
     <NavigationContainer>
       {
         isAuthenticated ?
           (
-            isLocated ?
+            isLocatedWithCity ?
             <AppNavigator />
             :
             <LocationNavigator />

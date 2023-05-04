@@ -46,15 +46,6 @@ export const SettingsScreen = ({ navigation }) => {
 
         <List.Section>
           <SettingsItem
-            title="Favourites"
-            description="View your favourites"
-            left={(props) => (
-              <List.Icon {...props} color={colors.ui.error} icon="heart" />
-            )}
-            onPress={() => navigation.navigate("Favourites")}
-          />
-          <Spacer />
-          <SettingsItem
             title="Payment"
             left={(props) => (
               <List.Icon {...props} color={colors.ui.secondary} icon="cart" />

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import LottieView from "lottie-react-native";
-import { SafeAreaView, StatusBar, StyleSheet, View, Text, Alert } from "react-native";
+import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import {
     AccountBackground1,
@@ -13,32 +13,14 @@ import {
 } from "../../account/components/account.styles";
 
 import { Button } from 'react-native';
-import { useState, useEffect } from 'react';
-import * as Location from 'expo-location';
-import { locationContext } from "../../../services/currentLocation/currentLocation.context";
+import { useState } from 'react';
+import { currentLocationContext } from "../../../services/currentLocation/currentLocation.context";
 
 export const LocationScreen = ({ navigation }) => {
 
-    const [ location,setLocation] = useState();
-    const {  onLocation } = useContext(locationContext);
-
-    useEffect(() => {
-        const getPermissions = async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                console.log("Please grant location permissions");
-                return;
-            }
-
-            let currentLocation = await Location.getCurrentPositionAsync({});
-            // onLocation(currentLocation);
-            setLocation(currentLocation);
-            // console.log("Location:");
-            // console.log(currentLocation);
-            // console.log(location);
-        };
-        getPermissions();
-    }, []);
+    const [location, setLocation] = useState();
+    // const [isLocatedWithLocation, isLocatedWithCity] = useState(false);
+    const { onLocation, onCity } = useContext(currentLocationContext);
 
     return (
         <><SafeAreaView style={{ backgroundColor: "#2683C0" }}>
@@ -63,41 +45,34 @@ export const LocationScreen = ({ navigation }) => {
                 <AccountContainer1>
                     <Button
                         title="use my current location"
-                        onPress={() =>
-                            // !location
-                            //     ? Alert.alert('current location', 'Please grant location permissions', [
-                            //         { text: 'OK', onPress: () => console.log('OK Pressed') },
-                            //     ])
-                            //     :
-                                 onLocation(location)
-                        }
+                        onPress={() => onLocation()}
                     >
                     </Button>
                     <Spacer size="large">
                         <Button
-                            title="Kafar Kanna"
-                            onPress={() => navigation.navigate("RestaurantsScreen")}
+                            title="Kafr Kanna"
+                            onPress={() => onCity("Kafr Kanna")}
                         >
                         </Button>
                     </Spacer>
                     <Spacer size="large">
                         <Button
                             title="Mashhad"
-                            onPress={() => navigation.navigate()}
+                            onPress={() => onCity("Mashhad")}
                         >
                         </Button>
                     </Spacer>
                     <Spacer size="large">
                         <Button
                             title="Rainy"
-                            onPress={() => navigation.navigate()}
+                            onPress={() => onCity("Rainy")}
                         >
                         </Button>
                     </Spacer>
                     <Spacer size="large">
                         <Button
                             title="Toraan"
-                            onPress={() => navigation.navigate()}
+                            onPress={() => onCity("Touraan")}
                         >
                         </Button>
                     </Spacer>
