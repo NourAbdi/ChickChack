@@ -5,6 +5,7 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
+import { colors } from "../theme/colors";
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail.screen";
 
@@ -14,12 +15,14 @@ export const RestaurantsNavigator = () => {
   return (
     <RestaurantStack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
+        headerTintColor:"white" ,
+        headerStyle:{backgroundColor:colors.mainblue},
         ...TransitionPresets.ModalPresentationIOS,
       }}
     >
       <RestaurantStack.Screen
-        name="Restaurants"
+        name="City Name"
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen

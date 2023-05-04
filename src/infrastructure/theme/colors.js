@@ -1,4 +1,5 @@
 export const colors = {
+  mainblue:"#2683C0",
   brand: {
     primary: "#696AC3",
     secondary: "#5D6CC6",

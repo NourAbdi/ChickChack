@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons,Fontisto } from "@expo/vector-icons";
+
 
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { SettingsNavigator } from "./settings.navigator";
@@ -14,7 +15,7 @@ import { colors } from "../../infrastructure/theme/colors";
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-  Restaurants: "md-restaurant",
+  Shops: "shopping-store",
   Map: "md-map",
   Checkout: "md-cart",
   Settings: "md-settings",
@@ -22,19 +23,40 @@ const TAB_ICON = {
 
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
-  return {
-    "tabBarActiveTintColor": "#696AC3",
-    "tabBarInactiveTintColor": "#C6DAF7",
-    "tabBarStyle": [
-      {
-        "display": "flex"
-      },
-      null
-    ],
-    tabBarIcon: ({ size, color }) => (
-      <Ionicons name={iconName} size={size} color={color} />
-    ),
-  };
+  if(iconName === 'shopping-store'){
+    return {
+      "tabBarActiveTintColor": "#2683C0",
+      "tabBarInactiveTintColor": "#C6DAF7",
+      "tabBarStyle": [
+        {
+          "display": "flex"
+        },
+        null
+      ],
+      headerShown:false,
+      tabBarIcon: ({ size, color }) => (
+          <Fontisto name={iconName} size={size} color={color} />
+          // <Ionicons name={iconName} size={size} color={color} />
+        
+      ),
+    };
+  }else{
+    return {
+      "tabBarActiveTintColor": "#2683C0",
+      "tabBarInactiveTintColor": "#C6DAF7",
+      "tabBarStyle": [
+        {
+          "display": "flex"
+        },
+        null
+      ],
+      headerShown:false,
+      tabBarIcon: ({ size, color }) =>( 
+          <Ionicons name={iconName} size={size} color={color} />
+      ),
+    };
+  }
+  
 };
 
 export const AppNavigator = () => (
@@ -42,7 +64,7 @@ export const AppNavigator = () => (
       <RestaurantsContextProvider>
         <CartContextProvider>
           <Tab.Navigator screenOptions={createScreenOptions}>
-            <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
+            <Tab.Screen name="Shops"  component={RestaurantsNavigator} />
             <Tab.Screen name="Checkout" component={CheckoutNavigator} />
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Settings" component={SettingsNavigator} />
