@@ -1,4 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
+
+import { LocationContext } from "../../services/location/location.context";
+
 
 import {
   createStackNavigator,
@@ -12,6 +15,7 @@ import { RestaurantDetailScreen } from "../../features/restaurants/screens/resta
 const RestaurantStack = createStackNavigator();
 
 export const RestaurantsNavigator = () => {
+  const { keyword: cityName} = useContext(LocationContext);
   return (
     <RestaurantStack.Navigator
       screenOptions={{
@@ -22,7 +26,7 @@ export const RestaurantsNavigator = () => {
       }}
     >
       <RestaurantStack.Screen
-        name="City Name"
+        name={cityName}
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen

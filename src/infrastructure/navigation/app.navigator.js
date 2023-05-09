@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons,Fontisto } from "@expo/vector-icons";
+import {Fontisto } from "@expo/vector-icons";
 
 
 import { RestaurantsNavigator } from "./restaurants.navigator";
@@ -16,14 +16,13 @@ const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
   Shops: "shopping-store",
-  Map: "md-map",
-  Checkout: "md-cart",
-  Settings: "md-settings",
+  Map: "map",
+  Checkout: "shopping-basket",
+  Settings: "player-settings",
 };
 
 const createScreenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
-  if(iconName === 'shopping-store'){
     return {
       "tabBarActiveTintColor": "#2683C0",
       "tabBarInactiveTintColor": "#C6DAF7",
@@ -35,29 +34,10 @@ const createScreenOptions = ({ route }) => {
       ],
       headerShown:false,
       tabBarIcon: ({ size, color }) => (
-          <Fontisto name={iconName} size={size} color={color} />
-          // <Ionicons name={iconName} size={size} color={color} />
-        
-      ),
-    };
-  }else{
-    return {
-      "tabBarActiveTintColor": "#2683C0",
-      "tabBarInactiveTintColor": "#C6DAF7",
-      "tabBarStyle": [
-        {
-          "display": "flex"
-        },
-        null
-      ],
-      headerShown:false,
-      tabBarIcon: ({ size, color }) =>( 
-          <Ionicons name={iconName} size={size} color={color} />
+          <Fontisto name={iconName} size={size} color={color} />        
       ),
     };
   }
-  
-};
 
 export const AppNavigator = () => (
     <LocationContextProvider>
