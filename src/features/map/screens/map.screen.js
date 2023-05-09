@@ -9,7 +9,7 @@ import { Search } from "../components/search.component";
 import { MapCallout } from "../components/map-callout.component";
 
 const Map = styled(MapView)`
-  height: 100%;
+  height: 70%;
   width: 100%;
 `;
 
@@ -35,7 +35,7 @@ export const MapScreen = ({ navigation }) => {
         region={{
           latitude: lat,
           longitude: lng,
-          latitudeDelta: 0.1,
+          latitudeDelta: latDelta,
           longitudeDelta: 0.01,
         }}
       >

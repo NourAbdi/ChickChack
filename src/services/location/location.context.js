@@ -10,7 +10,7 @@ export const LocationContext = React.createContext();
 export const LocationContextProvider = ({ children }) => {
   
   // const { city } = useContext(currentLocationContext);
-  const [keyword, setKeyword] = useState("San francisco");
+  const [keyword, setKeyword] = useState("kafr kanna");
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
