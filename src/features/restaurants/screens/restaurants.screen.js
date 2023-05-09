@@ -38,7 +38,7 @@ export const RestaurantsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={Colors.blue300} />
         </LoadingContainer>
       )}
-      {/* <Search/> */}
+      <Search/>
       {hasError && (
         <Spacer position="left" size="large">
           <Text variant="error">Something went wrong retrieving the data</Text>

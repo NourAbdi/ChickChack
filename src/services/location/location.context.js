@@ -9,12 +9,12 @@ export const LocationContext = React.createContext();
 
 export const LocationContextProvider = ({ children }) => {
   
-  const { city } = useContext(currentLocationContext);
-  const [keyword, setKeyword] = useState(city);
+  // const { city } = useContext(currentLocationContext);
+  const [keyword, setKeyword] = useState("San francisco");
   const [location, setLocation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log(city);
+  // console.log(city);
   
   const onSearch = (searchKeyword) => {
     setIsLoading(true);

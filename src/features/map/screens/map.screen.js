@@ -35,7 +35,7 @@ export const MapScreen = ({ navigation }) => {
         region={{
           latitude: lat,
           longitude: lng,
-          latitudeDelta: latDelta,
+          latitudeDelta: 0.1,
           longitudeDelta: 0.01,
         }}
       >

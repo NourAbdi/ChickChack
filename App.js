@@ -43,9 +43,9 @@ export default function App() {
     <>
       <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <CurrentLocationContextProvider>
+          {/* <CurrentLocationContextProvider> */}
             <Navigation />
-          </CurrentLocationContextProvider>
+          {/* </CurrentLocationContextProvider> */}
         </AuthenticationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
