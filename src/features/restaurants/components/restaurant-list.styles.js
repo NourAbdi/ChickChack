@@ -6,6 +6,8 @@ import { colors } from "../../../infrastructure/theme/colors";
 export const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
     padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })``;
 

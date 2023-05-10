@@ -41,7 +41,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
       </View>
       <Info>
         <Text variant="label">{name}</Text>
-        <Section>
+        {/* <Section>
           <Rating>
             {ratingArray.map((_, i) => (
               <SvgXml
@@ -64,7 +64,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
             </Spacer>
           </SectionEnd>
         </Section>
-        <Address>{address}</Address>
+        <Address>{address}</Address> */}
       </Info>
     </RestaurantCard>
   );

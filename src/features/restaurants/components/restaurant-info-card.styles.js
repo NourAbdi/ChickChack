@@ -8,12 +8,19 @@ export const Icon = styled.Image`
 
 export const RestaurantCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
-  width: 95%;
-  align-self: center;
+  width: 130px;
+  height: 200px;
+  margin: ${(props) => props.theme.space[1]};
+  margin-top: ${(props) => props.theme.space[1]};
+  
+  // align-self: center;
 `;
 
 export const RestaurantCardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space[3]};
+  // padding: ${(props) => props.theme.space[3]};
+  height:130px;
+  width: 130px;
+  align-self: center;
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 

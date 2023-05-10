@@ -3,6 +3,7 @@ import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
+import { View } from "react-native";
 import { FadeInView } from "../../../components/animations/fade.animation";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -47,6 +48,7 @@ export const RestaurantsScreen = ({ navigation }) => {
       {!hasError && (
         <RestaurantList
           data={restaurants}
+          numColumns={3}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity
@@ -56,6 +58,7 @@ export const RestaurantsScreen = ({ navigation }) => {
                   })
                 }
               >
+                
                 <Spacer position="bottom" size="large">
                   <FadeInView>
                     <RestaurantInfoCard restaurant={item} />
