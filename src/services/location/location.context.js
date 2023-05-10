@@ -10,43 +10,48 @@ export const LocationContext = React.createContext();
 export const LocationContextProvider = ({ children }) => {
   
   // const { city } = useContext(currentLocationContext);
-  const [keyword, setKeyword] = useState("kafr kanna");
+  const [city, setCity] = useState("kafr kanna");
   const [location, setLocation] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const [currentlocation, setcurrentlocation] = useState(null);
   // console.log(city);
   
-  const onSearch = (searchKeyword) => {
-    setIsLoading(true);
-    setKeyword(searchKeyword);
+  const onCity = (searchCity) => {
+    // setIsLoading(true);
+    setCity(searchCity);
   };
 
   useEffect(() => {
-    if (!keyword.length) {
+    if (!city) {
       // don't do anything
       return;
     }
-    locationRequest(keyword.toLowerCase())
+    locationRequest(city)
       .then(locationTransform)
       .then((result) => {
         setError(null);
-        setIsLoading(false);
+        // setIsLoading(false);
         setLocation(result);
       })
       .catch((err) => {
-        setIsLoading(false);
+        // setIsLoading(false);
         setError(err);
       });
-  }, [keyword]);
+  }, [city]);
 
   return (
     <LocationContext.Provider
       value={{
-        isLoading,
+        // isLoading,
         error,
         location,
-        search: onSearch,
-        keyword,
+        // search: onSearch,
+        // keyword,
+        onCity,
+        city,
+        currentlocation
       }}
     >
       {children}

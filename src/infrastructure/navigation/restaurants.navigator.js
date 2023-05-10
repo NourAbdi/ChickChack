@@ -15,7 +15,8 @@ import { RestaurantDetailScreen } from "../../features/restaurants/screens/resta
 const RestaurantStack = createStackNavigator();
 
 export const RestaurantsNavigator = () => {
-  const { keyword: cityName} = useContext(LocationContext);
+  const { city } = useContext(LocationContext);
+  console.log(city);
   return (
     <RestaurantStack.Navigator
       screenOptions={{
@@ -26,7 +27,7 @@ export const RestaurantsNavigator = () => {
       }}
     >
       <RestaurantStack.Screen
-        name={cityName}
+        name={city}
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen

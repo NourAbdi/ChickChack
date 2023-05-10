@@ -7,17 +7,7 @@ import { RestaurantsContext } from "../../../services/restaurants/restaurants.co
 
 import { Button } from 'react-native';
 import { Spacer } from "../../../components/spacer/spacer.component";
-import {
-  AccountBackground1,
-  AccountContainer1,
-  AccountCover1,
-  AuthButton,
-  Title1,
-  AnimationWrapper1,
-  AnimationWrapper2,
-} from "../../account/components/account.styles";
 
-import { Search } from "../components/search.component";
 import { MapCallout } from "../components/map-callout.component";
 
 const Map = styled(MapView)`
@@ -26,7 +16,7 @@ const Map = styled(MapView)`
 `;
 
 export const MapScreen = ({ navigation }) => {
-  const { location } = useContext(LocationContext);
+  const { city ,onCity, location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantsContext);
 
   const [latDelta, setLatDelta] = useState(0);
@@ -42,7 +32,7 @@ export const MapScreen = ({ navigation }) => {
 
   return (
     <>
-      <Search />
+      {/* <Search /> */}
       <Map
         region={{
           latitude: lat,
@@ -83,32 +73,40 @@ export const MapScreen = ({ navigation }) => {
       <Spacer size="small">
         <Button
           title="Kafr Kanna"
-          onPress={() =>
-            navigation.navigate("Restaurant", {
-              // "restaurant",
-            })
-          }
+          onPress={() => {
+            onCity("Kafr Kanna")
+            navigation.navigate(city)
+          }}
         >
         </Button>
       </Spacer>
       <Spacer size="small">
         <Button
           title="Mashhad"
-        // onPress={() => onCity("Mashhad")}
+          onPress={() => {
+            onCity("mashhad")
+            navigation.navigate(city)
+          }}
         >
         </Button>
       </Spacer>
       <Spacer size="small">
         <Button
-          title="Reineh"
-        // onPress={() => onCity("Rainy")}
+          title="Reyne"
+          onPress={() => {
+            onCity("reyne")
+            navigation.navigate(city)
+          }}
         >
         </Button>
       </Spacer>
       <Spacer size="small">
         <Button
           title="Turan"
-        // onPress={() => onCity("Touraan")}
+          onPress={() => {
+            onCity("turan")
+            navigation.navigate(city)
+          }}
         >
         </Button>
       </Spacer>
