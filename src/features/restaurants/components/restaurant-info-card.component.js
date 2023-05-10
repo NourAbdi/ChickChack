@@ -36,10 +36,10 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <RestaurantCard elevation={2}>
-      <View>
+      {/* <View> */}
         <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
-      </View>
-      <Info>
+      {/* </View> */}
+      {/* <Info> */}
         <Text variant="label">{name}</Text>
         {/* <Section>
           <Rating>
@@ -65,7 +65,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           </SectionEnd>
         </Section>
         <Address>{address}</Address> */}
-      </Info>
+      {/* </Info> */}
     </RestaurantCard>
   );
 };

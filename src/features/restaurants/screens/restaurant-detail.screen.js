@@ -17,11 +17,11 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
 
   const { restaurant } = route.params;
   const { addToCart } = useContext(CartContext);
-
+  console.log(restaurant["menu"][1]["price"]);
   return (
     <SafeArea>
       <RestaurantInfoCard restaurant={restaurant} />
-      <ScrollView>
+      {/* <ScrollView>
         <List.Accordion
           title="Breakfast"
           left={(props) => <List.Icon {...props} icon="bread-slice" />}
@@ -89,7 +89,7 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
         >
           Order Special Only 12.99!
         </OrderButton>
-      </Spacer>
+      </Spacer> */}
     </SafeArea>
   );
 };
