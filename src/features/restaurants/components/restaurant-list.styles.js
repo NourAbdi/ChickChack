@@ -8,6 +8,7 @@ export const RestaurantList = styled(FlatList).attrs({
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 100,
   },
 })``;
 

@@ -46,6 +46,7 @@ export const RestaurantsScreen = ({ navigation }) => {
         </Spacer>
       )}
       {!hasError && (
+        <View  >
         <RestaurantList
           data={restaurants}
           numColumns={3}
@@ -69,7 +70,9 @@ export const RestaurantsScreen = ({ navigation }) => {
           }}
           keyExtractor={(item) => item.name}
         />
+         </View>
       )}
+     
     </SafeArea>
   );
 };
