@@ -1,5 +1,13 @@
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
+import {Dimensions } from 'react-native';
+
+
+
+const screenWidth = Dimensions.get('window').width;
+const cardMargin = 4;
+const width = (screenWidth - cardMargin * 8) / 3;
+const cardWidth=Math.floor(width);
 
 export const Icon = styled.Image`
   width: 15px;
@@ -7,19 +15,17 @@ export const Icon = styled.Image`
 `;
 
 export const RestaurantCard = styled(Card)`
+  
   background-color: ${(props) => props.theme.colors.bg.primary};
-  width: 130px;
+  width: ${cardWidth}px;
   height: 200px;
   margin: ${(props) => props.theme.space[1]};
-  margin-top: ${(props) => props.theme.space[1]};
-  
-  // align-self: center;
 `;
 
 export const RestaurantCardCover = styled(Card.Cover)`
   // padding: ${(props) => props.theme.space[3]};
-  height:130px;
-  width: 130px;
+  width: ${cardWidth}px;
+  height:120px;
   align-self: center;
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
