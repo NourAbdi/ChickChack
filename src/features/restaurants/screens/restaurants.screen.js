@@ -30,7 +30,7 @@ export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, restaurants, error } = useContext(RestaurantsContext);
  
   const hasError = !!error || !!locationError;
-  // console.log(hasError + error + locationError);
+  console.log(hasError + error + locationError);
   return (
     <SafeArea>
       {isLoading && (
