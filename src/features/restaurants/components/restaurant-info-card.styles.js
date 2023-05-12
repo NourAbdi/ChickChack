@@ -6,7 +6,7 @@ import {Dimensions } from 'react-native';
 
 const screenWidth = Dimensions.get('window').width;
 const cardMargin = 4;
-const width = (screenWidth - cardMargin * 8) / 3;
+const width = (screenWidth - cardMargin * 6) / 3;
 const cardWidth=Math.floor(width);
 
 export const Icon = styled.Image`
@@ -18,7 +18,7 @@ export const RestaurantCard = styled(Card)`
   
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${cardWidth}px;
-  height: 200px;
+  height: 170px;
   margin: ${(props) => props.theme.space[1]};
 `;
 

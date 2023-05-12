@@ -8,9 +8,11 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
+import { Text } from "react-native";
 import { colors } from "../theme/colors";
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail.screen";
+import { FullWindowOverlay } from "react-native-screens";
 
 const RestaurantStack = createStackNavigator();
 
@@ -23,14 +25,19 @@ export const RestaurantsNavigator = () => {
         headerShown: true,
         headerTintColor:"white" ,
         headerStyle:{backgroundColor:colors.mainblue},
-        ...TransitionPresets.ModalPresentationIOS,
+        // ...TransitionPresets.ModalPresentationIOS
       }}
     >
-      <RestaurantStack.Screen
+      <RestaurantStack.Screen 
         name={city}
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen
+        options={{
+          title:"",
+          headerBackVisible :"true",
+          headerBackTitle:"",
+        }}
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
       />
