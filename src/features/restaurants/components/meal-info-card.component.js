@@ -20,7 +20,6 @@ export const MealInfoCard = ({ meal = {} }) => {
       ],
       price=20,
     } = meal; 
-    console.log(meal);
     return (
       <MealCard elevation={2}>
         <View>

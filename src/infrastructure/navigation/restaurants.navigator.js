@@ -18,7 +18,6 @@ const RestaurantStack = createStackNavigator();
 
 export const RestaurantsNavigator = () => {
   const { city } = useContext(LocationContext);
-  console.log(city);
   return (
     <RestaurantStack.Navigator
       screenOptions={{

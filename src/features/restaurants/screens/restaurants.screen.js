@@ -32,9 +32,6 @@ export const RestaurantsScreen = ({ navigation }) => {
  
   const hasError = !!error || !!locationError;
   console.log(hasError + error + locationError);
-  console.log("-------RestaurantsScreen---------"+restaurants[0]);
-  console.log(restaurants[0]);
-
 
   return (
     <SafeArea>
