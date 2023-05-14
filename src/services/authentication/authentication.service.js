@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { host } from "../../utils/env";
 
