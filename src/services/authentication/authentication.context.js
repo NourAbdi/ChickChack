@@ -6,7 +6,7 @@ import {
   getAuth,
 } from "firebase/auth";
 
-import { loginRequest } from "./authentication.service";
+import { loginRequest,addUser } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -48,6 +48,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       .then((u) => {
         setUser(u);
         setIsLoading(false);
+        addUser(u.uid, email); // call your server function to add the user
       })
       .catch((e) => {
         setIsLoading(false);
