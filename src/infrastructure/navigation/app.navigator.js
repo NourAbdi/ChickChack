@@ -39,8 +39,10 @@ const createScreenOptions = ({ route }) => {
     };
   }
 
+ 
+
 export const AppNavigator = () => (
-    <LocationContextProvider>
+   <LocationContextProvider>
       <RestaurantsContextProvider>
         <CartContextProvider>
           <Tab.Navigator screenOptions={createScreenOptions}>

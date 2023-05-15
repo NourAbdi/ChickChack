@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
 import {Dimensions } from 'react-native';
+import {FontAwesome } from "@expo/vector-icons";
 
 
 
@@ -71,7 +72,7 @@ export const InfoRestaurantCard = styled(Card)`
   
 background-color: ${(props) => props.theme.colors.bg.primary};
 width: ${screenWidth-20}px;
-height:  100px;
+height:  ${(props) => props.height}px;
 align-self: center;
 margin: ${(props) => props.theme.space[2]};
 border-radius:40px;
@@ -89,8 +90,8 @@ export const RestaurantInfo = styled.Text`
 
 export const IsOpenCard = styled(Card)`
   
-background-color: ${props => props.backgroundColor};
-border-color: ${props => props.backgroundColor};
+background-color: ${(props) => props.backgroundColor};
+border-color: ${(props) => props.backgroundColor};
 width: 70px;
 height:  30px;
 align-self: center;
@@ -105,4 +106,40 @@ export const IsOpenWord = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.button};
   color:${(props) => props.theme.colors.bg.primary};
   align-self: center;
+`;
+
+export const Row = styled.View`
+  flex-direction: row;
+`;
+export const Center = styled.View`
+  align-self: center;
+`;
+
+export const IconCard = styled(Card)`
+padding: ${(props) => props.theme.space[1]}; 
+margin: ${(props) => props.theme.space[1]};
+background-color: ${props => props.theme.colors.ui.tertiary};
+border-color: ${props => props.theme.colors.mainblue};
+border-width: 2px;
+width: 35px;
+height:  35px;
+border-radius:20px;
+overflow: hidden;
+`;
+
+export const StyledIcon = styled(FontAwesome)`
+  name:${(props) => props.name};
+  margin-top: 4px;
+  align-self: center;
+  color:${(props) => props.theme.colors.ui.secondary};
+  font-size: 15px;
+`;
+
+
+export const CheckIcon = styled(FontAwesome)`
+  name=${(props) => props.name};
+  font-size: 20px;
+  marginTop:20px;
+  marginLeft:27px;
+  position:absolute;
 `;

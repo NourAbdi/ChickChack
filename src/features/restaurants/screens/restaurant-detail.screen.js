@@ -7,6 +7,8 @@ import { OrderButton } from "../components/restaurant-list.styles";
 import star from "../../../../assets/star";
 import { MealInfoCard } from "../components/meal-info-card.component";
 import { colors } from "../../../infrastructure/theme/colors";
+import {FontAwesome } from "@expo/vector-icons";
+
 
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
@@ -19,11 +21,52 @@ import{
   RestaurantInfo,
   IsOpenCard,
   IsOpenWord,
+  IconCard,
+  Row,
+  StyledIcon,
+  CheckIcon,
+  Center,
  
   
 } from "../../../features/restaurants/components/meal-info-card.styles";
 
 
+const TAB_ICON = {
+  Takeaway: "shopping-bag",
+  Delivery: "motorcycle",
+  DineIn: "cutlery",
+};  
+const PrintGettingOrder = (takeOrder) => {
+  return (
+    <Center>
+      <Row>
+        {Object.entries(takeOrder).map(([key, value]) => {
+          const iconName = TAB_ICON[key];
+          return (
+            <Row key={key}>
+              <Row>
+              <IconCard><StyledIcon  name={iconName} /></IconCard>
+              {value ? (<CheckIcon name="check"  color={colors.button.green} />):(<CheckIcon name="close"  color={colors.button.red} />) }            
+              </Row>
+            </Row>
+          );
+        })}
+      </Row>
+    </Center>
+  );
+};
+
+const PrintDeliveryInfo = (deliveryInfo) => {
+  return (
+    <Center>
+      <Row>
+        <RestaurantInfo>
+          Delivery Cost: {deliveryInfo["deliveryCost"]}  | Delivery Time:  {deliveryInfo["timeToDeliver"]}
+        </RestaurantInfo>
+      </Row>
+    </Center>
+  );
+};
 
  const WorkingHoursComponent = (workingHours) => {
   const currentDay = new Date().getDay();
@@ -63,7 +106,7 @@ const isOpenCheck = (workingHours) => {
   }
 };
 
-
+// *******************************************************************************************************************************
 
 export const RestaurantDetailScreen = ({ navigation, route }) => {
   const [breakfastExpanded, setBreakfastExpanded] = useState(false);
@@ -75,6 +118,8 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
   const screenWidth = Dimensions.get('window').width;
   const { restaurant } = route.params;
   const todayWorkingHours=WorkingHoursComponent(restaurant["workingHours"]);
+  const MARGIN =170;
+  console.log(restaurant["DeliveryInfo"]);
   return (
     <SafeArea>
         <ScrollView >
@@ -83,16 +128,19 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
               source={{ uri:"https://www.foodiesfeed.com/wp-content/uploads/2020/08/detail-of-pavlova-strawberry-piece-of-cake-600x800.jpg"}}
               style={{ width: screenWidth, height: 200 }} 
             ></ImageBackground>
-            <View style={{ position: 'absolute', bottom: -90 }}>
-              <InfoRestaurantCard>
-                <RestaurantInfo>{restaurant["name"]}</RestaurantInfo>
+            <View style={{ position: 'absolute', bottom: -MARGIN }}>
+              <InfoRestaurantCard height={MARGIN+20}>
+               
+                  <RestaurantInfo>{restaurant["name"]}</RestaurantInfo>
                   {isOpenCheck(restaurant["workingHours"])}
-                <RestaurantInfo>Working Hours: {todayWorkingHours}</RestaurantInfo>
+                  <RestaurantInfo>Working Hours: {todayWorkingHours}</RestaurantInfo>
+                  {PrintDeliveryInfo(restaurant["DeliveryInfo"])}
+                  {PrintGettingOrder(restaurant["takeOrder"])}
               </InfoRestaurantCard>
             </View>
           </View>
           
-          <View style={{ marginTop:80}}>
+          <View style={{ marginTop:(MARGIN)}}>
           {(restaurant["menu"]).map((menuCategory,index) => {
             const categoryName = Object.keys(menuCategory)[0];
             const menuItems = menuCategory[categoryName];

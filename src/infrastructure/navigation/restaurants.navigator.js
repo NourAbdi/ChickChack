@@ -1,6 +1,7 @@
-import React, {useContext} from "react";
+import React, {useContext,useState} from "react";
 
 import { LocationContext } from "../../services/location/location.context";
+import { IconButton } from "react-native-paper";
 
 
 import {
@@ -8,23 +9,22 @@ import {
   TransitionPresets,
 } from "@react-navigation/stack";
 
-import { Text } from "react-native";
 import { colors } from "../theme/colors";
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail.screen";
-import { FullWindowOverlay } from "react-native-screens";
 
 const RestaurantStack = createStackNavigator();
 
-export const RestaurantsNavigator = () => {
+export const RestaurantsNavigator = ({navigation}) => {
   const { city } = useContext(LocationContext);
+
   return (
+    
     <RestaurantStack.Navigator
       screenOptions={{
         headerShown: true,
         headerTintColor:"white" ,
         headerStyle:{backgroundColor:colors.mainblue},
-        // ...TransitionPresets.ModalPresentationIOS
       }}
     >
       <RestaurantStack.Screen 
@@ -32,13 +32,22 @@ export const RestaurantsNavigator = () => {
         component={RestaurantsScreen}
       />
       <RestaurantStack.Screen
-        options={{
-          title:"",
-          headerBackVisible :"true",
-          headerBackTitle:"",
-        }}
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
+        options={{
+          title:"",
+          headerBackVisible :"false",
+          headerBackTitle:"",
+          headerLeft: () => (
+            <IconButton
+              icon="arrow-left"
+              color={colors.button.white}
+              size={30}
+              onPress={() => navigation.goBack()}
+            />
+          ),
+        }}
+        
       />
     </RestaurantStack.Navigator>
   );

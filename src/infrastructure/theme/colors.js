@@ -2,6 +2,7 @@ export const colors = {
   button:{
     green: `#32cd32`,
     red :`#ff0000`,
+    white:"#FFFFFF"
   },
   mainblue:"#2683C0",
   brand: {
