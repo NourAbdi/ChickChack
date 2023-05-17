@@ -19,7 +19,6 @@ export const Navigation = () => {
 
   useEffect(() => {
     console.log("isAuthenticated ...", isAuthenticated);
-    console.log("role ...", role)
   }, [isAuthenticated]);
   
   return (

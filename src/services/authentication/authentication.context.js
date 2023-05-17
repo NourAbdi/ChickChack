@@ -13,36 +13,30 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
-  const [roleLoading, setRoleLoading] = useState(false); // New state variable
+  // const [roleLoading, setRoleLoading] = useState(false); // New state variable
   const [error, setError] = useState(null);
   const auth = useRef(getAuth()).current;
 
   onAuthStateChanged(auth, (usr) => {
     if (usr) {
       setUser(usr);
-      setRoleLoading(true); // Start loading role
-      // fetchUserRole(usr.uid);
     } else {
       setUser(null);
-      setRole(null);
       // setIsLoading(false);
     }
   });
 
   useEffect(() => {
     if (user && user.uid &&!role) { 
-      console.log("11111111111111111111111 user: ", user.uid);
-      console.log("go get the role : ");
       getUserRole(user.uid)
         .then((response) => {
-          console.log("data: ", response);
           setRole(response);
         })
         .catch((error) => {
           console.error("Failed to get user role:", error);
         })
         .finally(() => {
-          setRoleLoading(false); // Finish loading role
+          // setRoleLoading(false); // Finish loading role
         });
     }
   }, [user]);
@@ -77,6 +71,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         addUser(user.uid, email, role)
           .then(() => {
             setUser(user);
+            setRole(role);
           })
           .catch((error) => {
             console.log("Error adding user:", error);

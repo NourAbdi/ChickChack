@@ -1,11 +1,10 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-const host = "https://us-central1-chickchack-3069a.cloudfunctions.net";
+import { host } from "../../utils/env";
 
 export const loginRequest = (auth, email, password) =>
   signInWithEmailAndPassword(auth, email, password);
 
 export const addUser = (uid, email, role) => {
-  console.log('Adding user : ', uid, email, role);
   console.log('Making addUser request:', JSON.stringify({ uid, email, role }));
   const requestOptions = {
     method: 'POST',
@@ -25,8 +24,6 @@ export const getUserRole = async (uid) => {
   };
   const response = await fetch(`${host}/getUserRole?uid=${uid}`, requestOptions);
   const data = await response.json();
-  console.log("data : " , data);
-  // setRole(data);
   return data;
     // .catch(error => console.log(error));
 };

@@ -6,12 +6,7 @@ import {Fontisto } from "@expo/vector-icons";
 
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { SettingsNavigator } from "./settings.navigator";
-import { MapScreen } from "../../features/map/screens/map.screen";
-import { CheckoutNavigator } from "./checkout.navigator";
-import { CartContextProvider } from "../../services/cart/cart.context";
-import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
-import { LocationContextProvider } from "../../services/location/location.context";
-import { colors } from "../../infrastructure/theme/colors";
+import { ShopsNavigator } from "./shops.navigator"; // Import the new navigator for the shopkeeper
 
 const Tab = createBottomTabNavigator();
 
@@ -44,6 +39,8 @@ const createScreenOptions = ({ route }) => {
 
 export const ShopkeeperNavigator = () => (
     <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Shopkeeper" component={SettingsNavigator} />
+        <Tab.Screen name="Shops" component={ShopsNavigator} /> 
+        <Tab.Screen name="Settings" component={SettingsNavigator} />
+        
     </Tab.Navigator>
 );
