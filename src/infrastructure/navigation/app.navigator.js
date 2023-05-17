@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {Fontisto } from "@expo/vector-icons";
+import{NavigationContainer} from "@react-navigation/native";
 
 
 import { RestaurantsNavigator } from "./restaurants.navigator";
@@ -46,7 +47,7 @@ export const AppNavigator = () => (
       <RestaurantsContextProvider>
         <CartContextProvider>
           <Tab.Navigator screenOptions={createScreenOptions}>
-            <Tab.Screen name="Shops"  component={RestaurantsNavigator} />
+            <Tab.Screen name="Shops"  component={RestaurantsNavigator} options={{tabBarStyle: { display: 'flex' }}} />
             <Tab.Screen name="Checkout" component={CheckoutNavigator} />
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Settings" component={SettingsNavigator} />

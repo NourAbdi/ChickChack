@@ -1,4 +1,6 @@
-import React, {useContext,useState} from "react";
+import React, {useContext,useEffect} from "react";
+
+
 
 import { LocationContext } from "../../services/location/location.context";
 import { IconButton } from "react-native-paper";
@@ -12,11 +14,14 @@ import {
 import { colors } from "../theme/colors";
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail.screen";
+import{MealDetailScreen} from "../../features/restaurants/screens/meal-detail.screen"
 
 const RestaurantStack = createStackNavigator();
 
-export const RestaurantsNavigator = ({navigation}) => {
+export const RestaurantsNavigator = ({navigation,route}) => {
   const { city } = useContext(LocationContext);
+  console.log("RestaurantsNavigator");
+  console.log(route.RestaurantDetailScreen);
 
   return (
     
@@ -30,6 +35,9 @@ export const RestaurantsNavigator = ({navigation}) => {
       <RestaurantStack.Screen 
         name={city}
         component={RestaurantsScreen}
+        options={{
+        tabBarStyle: { display: 'flex' }
+        }}
       />
       <RestaurantStack.Screen
         name="RestaurantDetail"
@@ -49,6 +57,14 @@ export const RestaurantsNavigator = ({navigation}) => {
         }}
         
       />
+      <RestaurantStack.Screen
+        name="MealDetailScreen"
+        component={MealDetailScreen}
+        options={{ tabBarStyle: { display: "none" } }} 
+      />
+      {/* navigation.setOptions(
+      tabBarStyle= { display= 'none' }
+    ); */}
     </RestaurantStack.Navigator>
   );
 };

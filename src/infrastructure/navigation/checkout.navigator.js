@@ -9,7 +9,8 @@ import { CheckoutErrorScreen } from "../../features/checkout/screens/checkout-er
 import { CheckoutSuccessScreen } from "../../features/checkout/screens/checkout-success.screen";
 
 
-export const CheckoutNavigator = () => (
+export const CheckoutNavigator = ({route}) => {
+  return(
   <CheckoutStack.Navigator screenOptions={{headerShown: true,headerTintColor:"white" ,headerStyle:{backgroundColor:colors.mainblue}}}>
     <CheckoutStack.Screen name="Checkout" component={CheckoutScreen} />
     <CheckoutStack.Screen
@@ -22,3 +23,4 @@ export const CheckoutNavigator = () => (
     />
   </CheckoutStack.Navigator>
 );
+};

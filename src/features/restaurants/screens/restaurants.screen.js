@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { ActivityIndicator, Colors } from "react-native-paper";
@@ -26,7 +26,18 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantsScreen = ({ navigation }) => {
+export const RestaurantsScreen = ({ navigation,route }) => {
+
+  // console.log("RestaurantsScreen");
+  // console.log(route.name);
+
+  // useEffect(()=>{
+  //   navigation.getParent().setOptions({tabBarStyle: { display: 'flex' }});
+  //   return()=>{
+  //     navigation.getParent().setOptions({tabBarStyle: { display: 'none' }});
+  //   };
+  // },[]);
+
   const { error: locationError } = useContext(LocationContext);
   const { isLoading, restaurants, error } = useContext(RestaurantsContext);
  

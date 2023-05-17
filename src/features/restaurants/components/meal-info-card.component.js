@@ -1,9 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-
-import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
-
 
   import{
     MealCard,
