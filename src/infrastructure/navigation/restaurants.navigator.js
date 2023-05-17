@@ -48,6 +48,7 @@ export const RestaurantsNavigator = ({navigation,route}) => {
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
         options={{
+          headerShown: false,
           title:"",
           headerBackVisible :"false",
           headerBackTitle:"",

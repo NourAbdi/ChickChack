@@ -26,17 +26,8 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantsScreen = ({ navigation,route }) => {
+export const RestaurantsScreen = ({ navigation }) => {
 
-  // console.log("RestaurantsScreen");
-  // console.log(route.name);
-
-  // useEffect(()=>{
-  //   navigation.getParent().setOptions({tabBarStyle: { display: 'flex' }});
-  //   return()=>{
-  //     navigation.getParent().setOptions({tabBarStyle: { display: 'none' }});
-  //   };
-  // },[]);
 
   const { error: locationError } = useContext(LocationContext);
   const { isLoading, restaurants, error } = useContext(RestaurantsContext);

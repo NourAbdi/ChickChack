@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
-import {Dimensions } from 'react-native';
+import {Dimensions,ImageBackground,Platform } from 'react-native';
 import {FontAwesome } from "@expo/vector-icons";
 
 
@@ -9,6 +9,7 @@ const cardMargin = 4;
 const width = (screenWidth - cardMargin * 6) / 2;
 const cardWidth=Math.floor(width);
 const borderRadius = 20;
+const MARGIN=200;
 
 export const MealsCard = styled(Card)`
 background-color: ${(props) => props.theme.colors.bg.primary};
@@ -18,9 +19,13 @@ align-self: center;
 margin: ${(props) => props.theme.space[2]};
 border-radius:${borderRadius}px;
 overflow: hidden;
-border-width: 5px;
+// border-width: 5px;
 border-color: ${(props) => props.theme.colors.ui.disabled};
-
+shadow-color: black;
+shadow-offset: 0px 2px;
+shadow-opacity: 0.25;
+shadow-radius: 20px;
+elevation: 200;
 `;
 
 export const CategoryName = styled.Text`
@@ -35,7 +40,7 @@ export const CategoryName = styled.Text`
 export const InfoRestaurantCard = styled(Card)`
 background-color: ${(props) => props.theme.colors.bg.primary};
 width: ${screenWidth-20}px;
-height:  ${(props) => props.height}px;
+height:  ${MARGIN+20}px;
 align-self: center;
 margin: ${(props) => props.theme.space[2]};
 border-radius:40px;
@@ -103,3 +108,19 @@ export const CheckIcon = styled(FontAwesome)`
   marginLeft:27px;
   position:absolute;
 `;
+
+export const HeaderImage = styled(ImageBackground)`
+  width: 100%;
+  height: 250px;
+`;
+
+export const ViewAbove = styled.View`
+  position: absolute; 
+  bottom: -${MARGIN}px;
+`;
+
+export const ViewMenu = styled.View`
+  margin-top:${MARGIN}px;
+`;
+
+

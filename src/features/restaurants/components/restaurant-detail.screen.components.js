@@ -1,7 +1,10 @@
 import React from "react";
-import { TouchableOpacity,Image,Linking } from "react-native";
+import { TouchableOpacity,Image,Linking,View,ScrollView } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+
 import { colors } from "../../../infrastructure/theme/colors";
 
+import { MealInfoCard } from "../components/meal-info-card.component";
 import{
     RestaurantInfo,
     IsOpenCard,
@@ -11,7 +14,10 @@ import{
     StyledIcon,
     CheckIcon,
     Center,
-  
+    ViewMenu,
+    CategoryName,
+    MealsCard,
+    
   } from "../../../features/restaurants/components/restaurant-detail.screen.style";
 
 const TAB_ICON = {
@@ -108,3 +114,34 @@ export const isOpenCheck = (workingHours) => {
       return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
     }
 };
+
+export const PrintMenu = (menu) => {
+  const navigation = useNavigation();
+  return(
+    <ViewMenu>
+      {(menu).map((menuCategory,index) => {
+        const categoryName = Object.keys(menuCategory)[0];
+        const menuItems = menuCategory[categoryName];
+        return (
+          <MealsCard key={index}>
+            <View>
+              <CategoryName>{categoryName}</CategoryName>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+                <Row>
+                  {menuItems.map((menuItem, subIndex) => (
+                    <View key={subIndex} >
+                      <TouchableOpacity onPress={() => navigation.navigate("MealDetailScreen")}>
+                        <MealInfoCard meal={menuItem} />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </Row>
+              </ScrollView>
+            </View>
+          </MealsCard>
+        );
+      })}
+    </ViewMenu>
+  );
+};
+
