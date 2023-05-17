@@ -1,16 +1,13 @@
-import React, {useContext,useEffect} from "react";
+import React, {useContext} from "react";
 
-
-
-import { LocationContext } from "../../services/location/location.context";
+import { getFocusedRouteNameFromRoute,useFocusEffect } from '@react-navigation/native';
 import { IconButton } from "react-native-paper";
-
-
 import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
 
+import { LocationContext } from "../../services/location/location.context";
 import { colors } from "../theme/colors";
 import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
 import { RestaurantDetailScreen } from "../../features/restaurants/screens/restaurant-detail.screen";
@@ -20,8 +17,16 @@ const RestaurantStack = createStackNavigator();
 
 export const RestaurantsNavigator = ({navigation,route}) => {
   const { city } = useContext(LocationContext);
-  console.log("RestaurantsNavigator");
-  console.log(route.RestaurantDetailScreen);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (getFocusedRouteNameFromRoute(route) === 'MealDetailScreen') {
+        navigation.setOptions({ tabBarStyle: { display: 'none' } });
+      } else {
+        navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+      }
+    }, [navigation, route])
+  );
 
   return (
     
@@ -55,16 +60,12 @@ export const RestaurantsNavigator = ({navigation,route}) => {
             />
           ),
         }}
-        
       />
       <RestaurantStack.Screen
         name="MealDetailScreen"
         component={MealDetailScreen}
         options={{ tabBarStyle: { display: "none" } }} 
       />
-      {/* navigation.setOptions(
-      tabBarStyle= { display= 'none' }
-    ); */}
     </RestaurantStack.Navigator>
   );
 };

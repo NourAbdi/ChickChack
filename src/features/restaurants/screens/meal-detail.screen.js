@@ -8,7 +8,11 @@ export const MealDetailScreen = ({ navigation, route }) => {
     //     //   navigation.getParent().setOptions({tabBarStyle: { display: 'flex' }});
     //     // };
     //   },[]);
+    // console.log( "ddsdsdsd",navigation.getParent().getState());
     
+    // console.log( "ddsdsdsd",navigation.getParent().getState());
+    //   console.log( "RestaurantsNavigator",navigation.setOptions({tabBarStyle: { display: 'none' }}));
+
     return(
             <Text> hioofpgokdpkdjhdkfjhzdp</Text>
     );
