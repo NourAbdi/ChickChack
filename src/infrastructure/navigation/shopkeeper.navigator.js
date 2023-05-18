@@ -1,46 +1,47 @@
 import React from "react";
-import { View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {Fontisto } from "@expo/vector-icons";
+import { Fontisto } from "@expo/vector-icons";
 
-
-import { RestaurantsNavigator } from "./restaurants.navigator";
-import { SettingsNavigator } from "./settings.navigator";
-import { ShopsNavigator } from "./shops.navigator"; // Import the new navigator for the shopkeeper
+import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+import { ShopDetailsScreen } from "../../features/shops/screens/shop-details.screen";
+import { EditShopScreen } from "../../features/shops/screens/edit-shop.screen";
+import { ShopContextProvider } from "../../services/shops/shop.context";
 
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-  Shops: "shopping-store",
-  Map: "map",
-  Checkout: "shopping-basket",
-  Settings: "player-settings",
+    Shop: "shopping-store",
+    Map: "map",
+    EditShop: "player-settings",
+    Settings: "player-settings",
 };
 
 const createScreenOptions = ({ route }) => {
-  const iconName = TAB_ICON[route.name];
+    const iconName = TAB_ICON[route.name];
     return {
-      "tabBarActiveTintColor": "#2683C0",
-      "tabBarInactiveTintColor": "#C6DAF7",
-      "tabBarStyle": [
-        {
-          "display": "flex"
-        },
-        null
-      ],
-      headerShown:false,
-      tabBarIcon: ({ size, color }) => (
-          <Fontisto name={iconName} size={size} color={color} />        
-      ),
+        "tabBarActiveTintColor": "#2683C0",
+        "tabBarInactiveTintColor": "#C6DAF7",
+        "tabBarStyle": [
+            {
+                "display": "flex"
+            },
+            null
+        ],
+        headerShown: false,
+        tabBarIcon: ({ size, color }) => (
+            <Fontisto name={iconName} size={size} color={color} />
+        ),
     };
-  }
-
+}
 
 
 export const ShopkeeperNavigator = () => (
-    <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Shops" component={ShopsNavigator} /> 
-        <Tab.Screen name="Settings" component={SettingsNavigator} />
-        
-    </Tab.Navigator>
+    <ShopContextProvider>
+        <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Shop" component={ShopDetailsScreen} />
+            <Tab.Screen name="EditShop" component={EditShopScreen} />
+            {/* <Tab.Screen name="Orders" component={OrdersScreen} /> */}
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+        </Tab.Navigator>
+    </ShopContextProvider>
 );

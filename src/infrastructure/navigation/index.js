@@ -5,12 +5,15 @@ import { AccountNavigator } from "./account.navigator";
 import { ShopkeeperNavigator } from "./shopkeeper.navigator";
 import { TransporterNavigator } from "./transporter.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
+import { ShopContextProvider } from "../../services/shops/shop.context";
 
 export const Navigation = () => {
-  const { isAuthenticated, user, role, isLoading } = useContext(AuthenticationContext);
+  const { isAuthenticated, user, role } = useContext(AuthenticationContext);
 
   useEffect(() => {
     console.log("user ...", user);
+    if (user) {
+    }
   }, [user]);
 
   useEffect(() => {
@@ -20,14 +23,16 @@ export const Navigation = () => {
   useEffect(() => {
     console.log("isAuthenticated ...", isAuthenticated);
   }, [isAuthenticated]);
-  
+
   return (
     <NavigationContainer>
       {(isAuthenticated && role) ? (
         role === "client" ? (
           <AppNavigator />
         ) : role === "shopkeeper" ? (
-          <ShopkeeperNavigator />
+          <ShopContextProvider >
+            <ShopkeeperNavigator />
+          </ShopContextProvider>
         ) : role === "transporter" ? (
           <TransporterNavigator />
         ) : (
