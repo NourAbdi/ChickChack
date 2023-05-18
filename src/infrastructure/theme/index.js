@@ -1,6 +1,6 @@
 import { colors } from "./colors";
 import { space, lineHeights } from "./spacing";
-import { sizes } from "./sizes";
+import { sizes,mealsCardSize,mealCardSize } from "./sizes";
 import { fonts, fontWeights, fontSizes } from "./fonts";
 
 export const theme = {
@@ -8,6 +8,8 @@ export const theme = {
   space,
   lineHeights,
   sizes,
+  mealsCardSize,
+  mealCardSize,
   fonts,
   fontSizes,
   fontWeights,

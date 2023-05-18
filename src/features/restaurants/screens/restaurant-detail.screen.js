@@ -1,12 +1,10 @@
 import React, {useContext} from "react";
 import { 
-  ScrollView,
   View,
 } from "react-native";
 
 import star from "../../../../assets/star";
-import { List, Divider } from "react-native-paper";
-
+import { List, Divider,IconButton } from "react-native-paper";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { OrderButton } from "../components/restaurant-list.styles";
 
@@ -17,6 +15,8 @@ import{
   RestaurantInfo,
   HeaderImage,
   ViewAbove,
+  StyledScrollView,
+  StyledIconButton,
 } from "../../../features/restaurants/components/restaurant-detail.screen.style";
 
 import{
@@ -31,17 +31,23 @@ import{
 
 // *******************************************************************************************************************************
 
-export const RestaurantDetailScreen = ({route}) => {
+export const RestaurantDetailScreen = ({navigation,route}) => {
   const { addToCart } = useContext(CartContext);
   const { restaurant } = route.params;
   const todayWorkingHours=WorkingHoursComponent(restaurant["workingHours"]);
   console.log(restaurant["DeliveryInfo"]);
   return (
-    <ScrollView >
+    <StyledScrollView >
       <View>
         <HeaderImage
           source={{ uri:"https://www.foodiesfeed.com/wp-content/uploads/2020/08/detail-of-pavlova-strawberry-piece-of-cake-600x800.jpg"}}
         ></HeaderImage>
+        <StyledIconButton
+              icon="arrow-left"
+              color="white"
+              size={30}
+              onPress={() => navigation.goBack()}
+            />
         <ViewAbove>
           <InfoRestaurantCard>
             <RestaurantInfo>{restaurant["name"]}</RestaurantInfo>
@@ -54,7 +60,7 @@ export const RestaurantDetailScreen = ({route}) => {
         </ViewAbove>
       </View>
       {PrintMenu(restaurant["menu"])}
-    </ScrollView>
+    </StyledScrollView>
   );
 };
 

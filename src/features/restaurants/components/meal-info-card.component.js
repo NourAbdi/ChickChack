@@ -6,7 +6,8 @@ import { Text } from "../../../components/typography/text.component";
     MealCard,
     MealCardCover,
     Price,
-    Info 
+    Info,
+    MealShadow, 
   } from "./meal-info-card.styles"
 
 export const MealInfoCard = ({ meal = {} }) => {
@@ -18,7 +19,8 @@ export const MealInfoCard = ({ meal = {} }) => {
       price=20,
     } = meal; 
     return (
-      <MealCard elevation={2}>
+      <MealShadow>
+      <MealCard elevation={2} >
         <View>
           <MealCardCover key={name} source={{ uri: "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg" }} />
         </View>
@@ -27,6 +29,7 @@ export const MealInfoCard = ({ meal = {} }) => {
             <Price>price: {price} shekel</Price>
         </Info>
       </MealCard>
+      </MealShadow>
     );
   };
   

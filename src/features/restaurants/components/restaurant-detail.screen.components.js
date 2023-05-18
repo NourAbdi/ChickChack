@@ -17,6 +17,7 @@ import{
     ViewMenu,
     CategoryName,
     MealsCard,
+    CardView,
     
   } from "../../../features/restaurants/components/restaurant-detail.screen.style";
 
@@ -127,15 +128,15 @@ export const PrintMenu = (menu) => {
             <View>
               <CategoryName>{categoryName}</CategoryName>
               <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-                <Row>
+                <CardView>
                   {menuItems.map((menuItem, subIndex) => (
-                    <View key={subIndex} >
+                    <View key={subIndex}  >
                       <TouchableOpacity onPress={() => navigation.navigate("MealDetailScreen")}>
                         <MealInfoCard meal={menuItem} />
                       </TouchableOpacity>
                     </View>
                   ))}
-                </Row>
+                </CardView>
               </ScrollView>
             </View>
           </MealsCard>

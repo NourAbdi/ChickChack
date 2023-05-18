@@ -20,6 +20,11 @@ export const RestaurantCard = styled(Card)`
   width: ${cardWidth}px;
   height: 170px;
   margin: ${(props) => props.theme.space[1]};
+  shadow-color: "#000";
+  shadow-offset: 0px 6px;
+  shadow-opacity: 0.39;
+  shadow-radius: 8.30px;
+  elevation: 13;
 `;
 
 export const RestaurantCardCover = styled(Card.Cover)`
@@ -55,3 +60,4 @@ export const SectionEnd = styled.View`
   flex-direction: row;
   justify-content: flex-end;
 `;
+

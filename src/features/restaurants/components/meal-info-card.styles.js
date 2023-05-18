@@ -4,33 +4,24 @@ import {Dimensions } from 'react-native';
 import {FontAwesome } from "@expo/vector-icons";
 
 
-
-const screenWidth = Dimensions.get('window').width;
-const cardMargin = 4;
-const width = (screenWidth - cardMargin * 6) / 2;
-const cardWidth=Math.floor(width);
-const cardHeight=190;
 const borderRadius = 20;
 
-
 export const MealCard = styled(Card)`
-  
 background-color: ${(props) => props.theme.colors.bg.primary};
-width: ${cardWidth}px;
-height: ${cardHeight}px;
+width: ${(props) => props.theme.mealCardSize}px;
+height:  ${(props) => props.theme.mealCardSize}px;
 margin: ${(props) => props.theme.space[1]};
 // padding: ${(props) => props.theme.space[3]};
 border-radius:${borderRadius}px;
 overflow: hidden;
-border-width: 2px;
-border-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
 export const MealCardCover = styled(Card.Cover)`
 // padding: ${(props) => props.theme.space[3]};
-width: ${cardWidth}px;
+width:${(props) => props.theme.mealCardSize}px;
 height:120px;
 align-self: center;
+overflow: hidden;
 background-color: ${(props) => props.theme.colors.bg.primary};
 
 `;
@@ -42,6 +33,14 @@ export const Price = styled.Text`
 
 export const Info = styled.View`
   padding: ${(props) => props.theme.space[1]};
+`;
+
+export const MealShadow = styled.View`
+  shadow-color: ${(props) => props.theme.colors.ui.secondary};
+  shadow-offset: 0px 3px;
+  shadow-opacity: 0.20;
+  shadow-radius: 4px;
+  elevation: 13;
 `;
 
 
