@@ -5,7 +5,6 @@ import { AccountNavigator } from "./account.navigator";
 import { ShopkeeperNavigator } from "./shopkeeper.navigator";
 import { TransporterNavigator } from "./transporter.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
-import { ShopContextProvider } from "../../services/ownerShop/ownerShop.context";
 
 export const Navigation = () => {
   const { isAuthenticated, user, role } = useContext(AuthenticationContext);
@@ -30,9 +29,7 @@ export const Navigation = () => {
         role === "client" ? (
           <AppNavigator />
         ) : role === "shopkeeper" ? (
-          <ShopContextProvider >
             <ShopkeeperNavigator />
-          </ShopContextProvider>
         ) : role === "transporter" ? (
           <TransporterNavigator />
         ) : (

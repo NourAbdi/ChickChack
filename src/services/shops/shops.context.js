@@ -1,15 +1,16 @@
-import React, { useState, useContext, createContext, useEffect } from "react";
+// shops.context.js
+import React, { useState, useEffect, createContext, useContext } from "react";
 
-import { getShopsByCityName, getShopMenu } from "./shops.service";
+import { getShopsByCityName } from "./shops.service";
 import { LocationContext } from "../location/location.context";
 
 export const ShopsContext = createContext();
 
 export const ShopsContextProvider = ({ children }) => {
-
   const [shops, setShops] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const { city } = useContext(LocationContext);
 
   useEffect(() => {
@@ -37,7 +38,6 @@ export const ShopsContextProvider = ({ children }) => {
     <ShopsContext.Provider
       value={{
         shops,
-        getShopMenu,
         isLoading,
         error,
       }}

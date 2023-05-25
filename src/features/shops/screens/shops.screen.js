@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+// ShopsScreen.js
+import React, { useContext } from "react";
 import { TouchableOpacity, View, FlatList, Image } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";

@@ -1,15 +1,14 @@
 import { host } from "../../utils/env";
 
-export const getShopDetails = async (shopOwnerUid) => {
+export const getShopByShopUid = async (shopUid) => {
     const requestOptions = {
         method: "GET",
         headers: { "Content-Type": "application/json" },
     };
 
     try {
-        const response = await fetch(`${host}/getShopDetails?shopOwnerUid=${shopOwnerUid}`, requestOptions);
+        const response = await fetch(`${host}/getShopByShopUid?shopUid=${shopUid}`, requestOptions);
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.log(error);
@@ -34,5 +33,37 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
     } catch (error) {
         console.log(error);
         throw new Error('Error updating shop details');
+    }
+};
+
+export const getShopByOwnerUid = async (ownerUid) => {
+    const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    };
+
+    try {
+        const response = await fetch(`${host}/getShopByOwnerUid?ownerUid=${ownerUid}`, requestOptions);
+        const data = await response.json();
+        return data[0];
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error getting shop details');
+    }
+};
+
+export const getShopMenuByShopUid = async (shopUid) => {
+    const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    };
+
+    try {
+        const response = await fetch(`${host}/getShopMenuByShopUid?shopUid=${shopUid}`, requestOptions);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Error getting shop details');
     }
 };

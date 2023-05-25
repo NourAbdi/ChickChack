@@ -8,6 +8,7 @@ import { MapScreen } from "../../features/map/screens/map.screen";
 import { CartNavigator } from "./cart.navigator";
 import { CartContextProvider } from "../../services/cart/cart.context";
 import { ShopsContextProvider } from "../../services/shops/shops.context";
+import { ShopContextProvider } from "../../services/shop/shop.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 
 const Tab = createBottomTabNavigator();
@@ -38,12 +39,14 @@ export const AppNavigator = () => (
   <LocationContextProvider>
     <CartContextProvider>
       <ShopsContextProvider>
-        <Tab.Navigator screenOptions={createScreenOptions}>
-          <Tab.Screen name="Shops" component={ShopsNavigator} />
-          <Tab.Screen name="Checkout" component={CartNavigator} />
-          <Tab.Screen name="Map" component={MapScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
-        </Tab.Navigator>
+        <ShopContextProvider>
+          <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Shops" component={ShopsNavigator} />
+            <Tab.Screen name="Checkout" component={CartNavigator} />
+            <Tab.Screen name="Map" component={MapScreen} />
+            <Tab.Screen name="Settings" component={SettingsScreen} />
+          </Tab.Navigator>
+        </ShopContextProvider>
       </ShopsContextProvider>
     </CartContextProvider>
   </LocationContextProvider>
