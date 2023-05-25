@@ -1,29 +1,77 @@
-import React, { useContext, useState } from "react";
-import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { SafeArea } from "../../../components/utility/safe-area.component";
+import React, { useRef,useContext,useState } from 'react';
+import { View, Animated,Button,Modal,Alert,TouchableOpacity,Text} from 'react-native';
+
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
+import { colors } from "../../../infrastructure/theme/colors";
 
-export const ShopDetailsScreen = () => {
+import{
+    HeaderImage,
+    RestaurantInfoCard,
+    RestaurantName,
+    RestaurantInfo,
+    ViewAbove,
+    AnimatedImageView,
+    AnimatedHeaderView,
+    AnimatedScrollView,
+    LoadingContainer,
+    Loading,
+    ShopIcon,
+    MarginTop,
+ } from '../components/shop-details.screen.style'
+
+import{
+    wazeButton,
+    PrintGettingOrder,
+    WorkingHoursComponent,
+    isOpenCheck,
+    headerTranslate,
+    titleScale,
+    titleTranslate,
+    titleOpacity,
+    PrintMenu,
+    SmallScreen,
+} from "../components/shop-details.screen.components"
+
+
+export const ShopDetailsScreen = ({navigation}) => {
     const { shop, menu, isLoading } = useContext(OwnerShopContext);
-
-    if (isLoading) {
-        // If shop details are not yet fetched, you can show a loading indicator
-        return <Text>Loading...</Text>;
-    }
+    const scrollY = useRef(new Animated.Value(0)).current;
     
-    console.log("shopshopshopshopshopshopshopshopshopshopshopshop:", shop);
-    console.log("menumenumenumenumenumenumenumenumenumenumenumenu:", menu);
-
+    if (isLoading) {
+      // If shop details are not yet fetched, you can show a loading indicator
+      return(
+              <LoadingContainer>
+                  <Loading size={50} color={colors.mainblue} animating={true} />
+              </LoadingContainer>
+      );
+  }
     return (
-        // <ImageBackground source={{ uri: shop.headerBackground }}style={styles.image}></ImageBackground>
-        <SafeArea>
-            <ScrollView>
-                <View>
-                    
-                </View>
-            </ScrollView>
-        </SafeArea>
+      <View style={{ flex: 1  ,  backgroundColor:"#F1F1F1" }}>
+      <AnimatedScrollView scrollY={scrollY}> 
+      <View>
+        <HeaderImage  source={{uri:shop.headerBackground}}/>
+        <ViewAbove>
+          <RestaurantInfoCard>
+            <RestaurantName>{shop.name}</RestaurantName>
+            {isOpenCheck(shop.workingHours,shop.isOpen)}
+            <RestaurantInfo>Working Hours: {WorkingHoursComponent(shop.workingHours)}</RestaurantInfo>
+            {PrintGettingOrder(shop.takeOrder)}
+            {wazeButton(shop.location,shop.address)}
+          </RestaurantInfoCard>
+        </ViewAbove>
+      </View>
+      {PrintMenu(menu,navigation)}
+      </AnimatedScrollView>
+
+    <AnimatedImageView  style={{ opacity: titleOpacity(scrollY),transform: [{ translateY: headerTranslate(scrollY) }]}}> 
+    </AnimatedImageView>
+
+    <AnimatedHeaderView style={[{ opacity: titleOpacity(scrollY), transform: [ { scale: titleScale(scrollY) },{translateY: titleTranslate(scrollY)}] }]} >
+      <MarginTop>
+      <ShopIcon source={{ uri: shop.icon }} />
+      </MarginTop>
+    </AnimatedHeaderView>
+      </View>   
     );
 };
