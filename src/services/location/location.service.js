@@ -1,15 +1,18 @@
-import camelize from "camelize";
-import { host, isMock } from "../../utils/env";
+import { host } from "../../utils/env";
 
-export const locationRequest = async (city) => {
-  const res = await fetch(`${host}/geocode?city=${city}&mock=${isMock}`);
-  return await res.json();
+export const getCityByName = async (cityName) => {
+  const requestOptions = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  };
+
+  try {
+    const response = await fetch(`${host}/getCityByName?cityName=${cityName}`, requestOptions);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Error getting city details');
+  }
 };
 
-export const locationTransform = (result) => {
-  const formattedResponse = camelize(result);
-  const { geometry = {} } = formattedResponse.results[0];
-  const { lat, lng } = geometry.location;
-
-  return { lat, lng, viewport: geometry.viewport };
-};

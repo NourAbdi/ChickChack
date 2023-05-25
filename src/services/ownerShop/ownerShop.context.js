@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import { getShopDetails, updateShopDetails } from "./shops.service";
-import { AuthenticationContext } from "../../services/authentication/authentication.context";
+import { getShopDetails, updateShopDetails } from "./ownerShop.service";
+import { AuthenticationContext } from "../authentication/authentication.context";
 
 export const ShopContext = createContext();
 

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { View, Text, ImageBackground, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { ShopContext } from "../../../services/shops/shop.context";
+import { ShopContext } from "../../../services/ownerShop/ownerShop.context";
 
 export const ShopDetailsScreen = () => {
     const { shop } = useContext(ShopContext);

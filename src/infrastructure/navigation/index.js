@@ -5,7 +5,7 @@ import { AccountNavigator } from "./account.navigator";
 import { ShopkeeperNavigator } from "./shopkeeper.navigator";
 import { TransporterNavigator } from "./transporter.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
-import { ShopContextProvider } from "../../services/shops/shop.context";
+import { ShopContextProvider } from "../../services/ownerShop/ownerShop.context";
 
 export const Navigation = () => {
   const { isAuthenticated, user, role } = useContext(AuthenticationContext);

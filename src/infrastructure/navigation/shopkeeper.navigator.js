@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
 
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
-import { ShopDetailsScreen } from "../../features/shops/screens/shop-details.screen";
-import { EditShopScreen } from "../../features/shops/screens/edit-shop.screen";
-import { ShopContextProvider } from "../../services/shops/shop.context";
+import { ShopDetailsScreen } from "../../features/ownerShop/screens/shop-details.screen";
+import { EditShopScreen } from "../../features/ownerShop/screens/edit-shop.screen";
+import { ShopContextProvider } from "../../services/ownerShop/ownerShop.context";
 
 const Tab = createBottomTabNavigator();
 

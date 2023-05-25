@@ -1,57 +1,36 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
-import { locationRequest, locationTransform } from "./location.service";
-import { currentLocationContext } from "../currentLocation/currentLocation.context";
-
+import { getCityByName } from "./location.service";
 
 export const LocationContext = React.createContext();
 
-
 export const LocationContextProvider = ({ children }) => {
-  
-  // const { city } = useContext(currentLocationContext);
-  const [city, setCity] = useState("kafr kanna");
-  const [location, setLocation] = useState(null);
-  // const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [cityIsLoading, setCityIsLoading] = useState(true);
+  const [city, setCity] = useState(null);
+  const [cityName, setCityName] = useState("mashhad");
 
-  const [currentlocation, setcurrentlocation] = useState(null);
-  // console.log(city);
   
-  const onCity = (searchCity) => {
-    // setIsLoading(true);
-    setCity(searchCity);
-  };
-
   useEffect(() => {
-    if (!city) {
-      // don't do anything
-      return;
-    }
-    locationRequest(city)
-      .then(locationTransform)
-      .then((result) => {
-        setError(null);
-        // setIsLoading(false);
-        setLocation(result);
-      })
-      .catch((err) => {
-        // setIsLoading(false);
-        setError(err);
-      });
-  }, [city]);
+    const fetchCity = async () => {
+      try {
+        const data = await getCityByName(cityName);
+        setCity(data);
+        setCityIsLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCity();
+  }, [cityName]);
 
   return (
     <LocationContext.Provider
       value={{
-        // isLoading,
-        error,
-        location,
-        // search: onSearch,
-        // keyword,
-        onCity,
+        cityIsLoading,
         city,
-        currentlocation
+        cityName,
+        setCityName,
       }}
     >
       {children}
