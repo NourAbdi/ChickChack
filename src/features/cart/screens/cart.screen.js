@@ -7,7 +7,7 @@ import { CartContext } from "../../../services/cart/cart.context";
 import { ShopContext } from "../../../services/shop/shop.context";
 
 export const CartScreen = () => {
-  const { cartItems, addToCart, removeFromCart, clearCart, checkout, totalPrice, save_Order } = useContext(CartContext);
+  const { cartItems, addToCart, removeFromCart, clearCart, checkout, totalPrice } = useContext(CartContext);
   const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
 
   const increaseQuantity = (item) => {
@@ -65,7 +65,6 @@ export const CartScreen = () => {
         <View style={styles.totalContainer}>
           <Text style={styles.totalPrice}>Total Price: {totalPrice.toFixed(2)}₪</Text>
           <Button title="Checkout" onPress={checkout} />
-          <Button title="Save Order" onPress={save_Order} />
           <Button title="Clear" onPress={clearCart} />
         </View>
       </View>

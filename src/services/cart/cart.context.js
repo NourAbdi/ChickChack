@@ -34,8 +34,12 @@ export const CartContextProvider = ({ children }) => {
 
   const checkout = () => {
     // Implement your checkout logic here
+    save_Order();
     console.log("Checkout");
+    console.log("cartItems :", cartItems);
+    console.log("order : ", order);
     saveOrder({ userUid: user.uid, orderDetails: order});
+    clearCart();
   };
 
   const getPastOrders = () => {
@@ -49,15 +53,11 @@ export const CartContextProvider = ({ children }) => {
       if (existingOrder) {
         existingOrder.cartItems.push({ ...item });
       } else {
-        merged.push({ shopUid: item.shopUid, orderStage: "fresh", orderOption:"TakeAway",locationToDeliver:"loc", cartItems: [{ ...item }] });
+        merged.push({ shopUid: item.shopUid, orderStage: "fresh", orderOption:"TakeAway",locationToDeliver:"loc", deliveryLocation:"loc", cartItems: [{ ...item }] });
       }
       return merged;
     }, []);
-
     setOrder(mergedOrder);
-    console.log("cartItems :", cartItems);
-    console.log("order : ", mergedOrder);
-    
   };
 
   const totalPrice = cartItems.reduce((total, item) => total + item.itemPrice * item.quantity, 0);
@@ -72,7 +72,6 @@ export const CartContextProvider = ({ children }) => {
         clearCart,
         checkout,
         totalPrice,
-        save_Order,
         getPastOrders,
       }}
     >

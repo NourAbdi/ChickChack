@@ -25,14 +25,14 @@ export const ShopDetailsScreen = ({ route }) => {
 
   useEffect(() => {
     if (shop) {
-      console.log("ShopDetailsScreen, shop changed:", shop);
+      // console.log("ShopDetailsScreen, shop changed:", shop);
       setSelectedShop(shop);
     }
   }, [shop]);
 
   useEffect(() => {
     if (selectedShop) {
-      console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
+      // console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
     }
   }, [selectedShop]);
 

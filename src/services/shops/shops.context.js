@@ -30,9 +30,9 @@ export const ShopsContextProvider = ({ children }) => {
     fetchShops();
   }, [city]);
 
-  useEffect(() => {
-    console.log("ShopsContext, shops changed:", JSON.stringify(shops, null, 2));
-  }, [shops]);
+  // useEffect(() => {
+  //   console.log("ShopsContext, shops changed:", JSON.stringify(shops, null, 2));
+  // }, [shops]);
 
   return (
     <ShopsContext.Provider

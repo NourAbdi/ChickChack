@@ -33,7 +33,7 @@ export const PastCartsScreen = () => {
         {pastOrders &&
           pastOrders.map((order, index) => (
             <View key={index} style={{ marginVertical: 10 }}>
-              <Text>Order ID: {order.orderId}</Text>
+              <Text>Order Details: {JSON.stringify(order.orderDetails)}</Text>
               <Text>User: {order.userUid}</Text>
               {/* Render other order details */}
             </View>
