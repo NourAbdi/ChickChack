@@ -7,7 +7,7 @@ export const LocationContext = React.createContext();
 export const LocationContextProvider = ({ children }) => {
   const [cityIsLoading, setCityIsLoading] = useState(true);
   const [city, setCity] = useState(null);
-  const [cityName, setCityName] = useState("mashhad");
+  const [cityName, setCityName] = useState("kafr kanna");
 
   
   useEffect(() => {

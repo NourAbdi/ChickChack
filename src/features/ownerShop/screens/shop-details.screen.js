@@ -4,7 +4,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
-//gdgdgdgdgdgd
+
 export const ShopDetailsScreen = () => {
     const { shop, menu, isLoading } = useContext(OwnerShopContext);
 

@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, ImageBackground, StyleSheet, Switch } fr
 import { ScrollView } from "react-native-gesture-handler";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
-//ffkfnjf
+
 export const EditShopScreen = () => {
   const { shop } = useContext(OwnerShopContext);
   

@@ -7,7 +7,7 @@ import { LocationContext } from "../location/location.context";
 export const ShopsContext = createContext();
 
 export const ShopsContextProvider = ({ children }) => {
-  const [shops, setShops] = useState([]);
+  const [shops, setShops] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 

@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     marginRight: 8,
     borderRadius: 8,
   },
-  itemInfoContainer: {
+  itemDetails: {
     flex: 1,
   },
   itemName: {
@@ -62,7 +62,25 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 4,
   },
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  quantityButton: {
+    fontSize: 24,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 4,
+    marginRight: 8,
+  },
   itemQuantity: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+  itemPrice: {
     fontSize: 14,
     color: "#888",
   },

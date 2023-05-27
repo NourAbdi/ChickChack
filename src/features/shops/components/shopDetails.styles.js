@@ -25,47 +25,48 @@ export const ShopName = styled(Text)`
   color: #333333;
 `;
 
-export const ShopInfoContainer = styled(View)`
-  margin-bottom: 16px;
-`;
-
-export const InfoLabel = styled(Text)`
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #555555;
-`;
-
-export const InfoText = styled(Text)`
+export const ButtonText = styled(Text)`
   font-size: 16px;
-  color: #777777;
+  color: #ffffff;
+  text-align: center;
+  padding: 8px 16px;
+  background-color: #333333;
+  border-radius: 8px;
+  margin-top: 8px;
 `;
 
-export const MenuContainer = styled(View)`
-  margin-bottom: 16px;
-`;
-
-export const CategoryText = styled(Text)`
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333333;
-`;
-
-export const MenuItemContainer = styled(View)`
+export const QuantityContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 8px;
+  margin-top: 8px;
+`;
+
+export const QuantityButton = styled.Text`
+  font-size: 20px;
+  padding-horizontal: 10px;
+`;
+
+export const ItemQuantity = styled.Text`
+  font-size: 16px;
+  margin-horizontal: 10px;
 `;
 
 export const MenuItemImage = styled(Image)`
-  width: 80px;
-  height: 80px;
-  margin-right: 16px;
+  width: 100px;
+  height: 100px;
   border-radius: 8px;
 `;
 
-export const MenuItemText = styled(Text)`
-  font-size: 16px;
-  color: #555555;
-`;
+export const styles = {
+  shopIcon: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  menuItemImage: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+  },
+};

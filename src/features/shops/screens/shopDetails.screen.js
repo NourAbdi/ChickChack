@@ -1,45 +1,77 @@
-// ShopDetailsScreen.js
-import React, { useContext, useEffect } from "react";
-import { ScrollView, View, Image } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { ScrollView, View, Image, ActivityIndicator, TouchableOpacity } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { ShopContext } from "../../../services/shop/shop.context";
 import { CartContext } from "../../../services/cart/cart.context";
-import { getShopMenuByShopUid } from "../../../services/shop/shop.service";
-import { ShopDetailsContainer, ShopHeaderBackground, ShopName } from "../components/shopDetails.styles";
+
+import {
+  ShopDetailsContainer,
+  ShopHeaderBackground,
+  ShopName,
+  ButtonText,
+  QuantityContainer,
+  QuantityButton,
+  ItemQuantity,
+  styles,
+} from "../components/shopDetails.styles";
 
 export const ShopDetailsScreen = ({ route }) => {
   const { shop } = route.params;
-  const { menu, setMenu } = useContext(ShopContext);
-  const { addToCart } = useContext(CartContext);
+  const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
+  const { cartItems, addToCart, clearCart, checkout, totalPrice } = useContext(CartContext);
+
 
   useEffect(() => {
-    console.log("ShopDetailsScreen, shop changed:", shop);
-    getShopMenuByShopUid(shop.shopUid); // Fetch menu data when the shop changes
+    if (shop) {
+      console.log("ShopDetailsScreen, shop changed:", shop);
+      setSelectedShop(shop);
+    }
   }, [shop]);
 
+  useEffect(() => {
+    if (selectedShop) {
+      console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
+    }
+  }, [selectedShop]);
+
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <ShopHeaderBackground source={{ uri: shop.headerBackground }}></ShopHeaderBackground>
+    <>
       <SafeArea>
-        <ShopDetailsContainer>
-          <View>
-            <ShopName>{shop.name}</ShopName>
-            <Image
-              source={{ uri: shop.icon }}
-              style={{ width: 100, height: 100, borderRadius: 8, marginBottom: 16 }}
-            />
+        {isLoading ? (
+          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <ActivityIndicator size="large" color="#000000" />
           </View>
-          {/* Render the menu */}
-          <View>
-            {menu.map((menuItem) => (
-              <Text key={menuItem.itemId}>{menuItem.name}</Text>
-              // Add other menu item details here
-            ))}
-          </View>
-        </ShopDetailsContainer>
+        ) : (
+          <ScrollView style={{ flex: 1 }}>
+            <ShopHeaderBackground source={{ uri: selectedShop.headerBackground }}></ShopHeaderBackground>
+            <ShopDetailsContainer>
+              <View>
+                <ShopName>{selectedShop.name}</ShopName>
+                <Image
+                  source={{ uri: selectedShop.icon }}
+                  style={styles.shopIcon}
+                />
+              </View>
+              {menu.map((menuItem) => (
+                <View key={menuItem.itemUid}>
+                  <Text>{menuItem.itemName}</Text>
+                  <Text>{menuItem.itemCategory}</Text>
+                  <Text>{menuItem.itemPrice}₪</Text>
+                  <Image
+                    source={{ uri: menuItem.itemPhoto }}
+                    style={styles.menuItemImage}
+                  />
+                  <TouchableOpacity onPress={() => addToCart(menuItem, 1, selectedShop.shopUid)}>
+                    <ButtonText>Add to Cart</ButtonText>
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ShopDetailsContainer>
+          </ScrollView>
+        )}
       </SafeArea>
-    </ScrollView>
+    </>
   );
 };

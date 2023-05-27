@@ -7,8 +7,9 @@ export const getShopMenuByShopUid = async (shopUid) => {
       throw new Error("Failed to fetch menu.");
     }
     const menuData = await response.json();
-    setMenu(menuData);
+    return menuData;
   } catch (error) {
     console.error("Error fetching menu:", error);
+    return null; 
   }
 };
