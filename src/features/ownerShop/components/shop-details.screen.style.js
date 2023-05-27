@@ -186,13 +186,6 @@ export const CheckIcon = styled(FontAwesome)`
 export const HeaderImage = styled(ImageBackground)`
   width: 100%;
   height: ${HeaderImageHeight}px;
-  // background-color: ${(props) => props.theme.colors.ui.tertiary};
-  shadow-color: "#000";
-  shadow-offset: 0px 12px;
-  shadow-opacity: 0.58;
-  shadow-radius: 16px;
-  elevation: 24;
-
 `;
 
 export const ViewAbove = styled.View`
