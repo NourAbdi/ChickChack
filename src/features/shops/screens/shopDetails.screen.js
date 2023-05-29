@@ -1,27 +1,32 @@
-import React, { useContext, useEffect, useState } from "react";
-import { ScrollView, View, Image, ActivityIndicator, TouchableOpacity } from "react-native";
-import { Text } from "../../../components/typography/text.component";
-import { SafeArea } from "../../../components/utility/safe-area.component";
+import React, { useContext, useEffect, useState,useRef } from "react";
+import {View,ActivityIndicator,Animated} from "react-native";
 
 import { ShopContext } from "../../../services/shop/shop.context";
 import { CartContext } from "../../../services/cart/cart.context";
 
-import {
-  ShopDetailsContainer,
-  ShopHeaderBackground,
-  ShopName,
-  ButtonText,
-  QuantityContainer,
-  QuantityButton,
-  ItemQuantity,
-  styles,
+import{
+  HeaderImage,
+  RestaurantInfoCard,
+  RestaurantName,
+  RestaurantInfo,
+  ViewAbove,
+  AnimatedScrollView,
 } from "../components/shopDetails.styles";
 
-export const ShopDetailsScreen = ({ route }) => {
+import{
+  wazeButton,
+  PrintGettingOrder,
+  WorkingHoursComponent,
+  isOpenCheck,
+  PrintMenu,
+  PrintHeader,
+} from "../components/shopDetails.component";
+
+export const ShopDetailsScreen = ({ route,navigation }) => {
   const { shop } = route.params;
   const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
   const { cartItems, addToCart, clearCart, checkout, totalPrice } = useContext(CartContext);
-
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     if (shop) {
@@ -38,40 +43,30 @@ export const ShopDetailsScreen = ({ route }) => {
 
   return (
     <>
-      <SafeArea>
-        {isLoading ? (
-          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <ActivityIndicator size="large" color="#000000" />
+      {isLoading ? (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator size="large" color="#000000" />
+        </View>
+      ) : (
+        <View style={{ flex: 1  }}>
+          <AnimatedScrollView scrollY={scrollY}> 
+          <View>
+            <HeaderImage  source={{uri:shop.headerBackground}}/>
+            <ViewAbove>
+              <RestaurantInfoCard>
+                <RestaurantName>{selectedShop.name}</RestaurantName>
+                {isOpenCheck(selectedShop.workingHours,selectedShop.IsTemporaryClose)}
+                <RestaurantInfo>Working Hours: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
+                {PrintGettingOrder(selectedShop.takeOrder)}
+                {wazeButton(selectedShop.location,selectedShop.address)}
+              </RestaurantInfoCard>
+            </ViewAbove>
           </View>
-        ) : (
-          <ScrollView style={{ flex: 1 }}>
-            <ShopHeaderBackground source={{ uri: selectedShop.headerBackground }}></ShopHeaderBackground>
-            <ShopDetailsContainer>
-              <View>
-                <ShopName>{selectedShop.name}</ShopName>
-                <Image
-                  source={{ uri: selectedShop.icon }}
-                  style={styles.shopIcon}
-                />
-              </View>
-              {menu.map((menuItem) => (
-                <View key={menuItem.itemUid}>
-                  <Text>{menuItem.itemName}</Text>
-                  <Text>{menuItem.itemCategory}</Text>
-                  <Text>{menuItem.itemPrice}₪</Text>
-                  <Image
-                    source={{ uri: menuItem.itemPhoto }}
-                    style={styles.menuItemImage}
-                  />
-                  <TouchableOpacity onPress={() => addToCart(menuItem, 1, selectedShop.shopUid)}>
-                    <ButtonText>Add to Cart</ButtonText>
-                  </TouchableOpacity>
-                </View>
-              ))}
-            </ShopDetailsContainer>
-          </ScrollView>
-        )}
-      </SafeArea>
+          {PrintMenu(menu,navigation)}
+          </AnimatedScrollView>
+          {PrintHeader(selectedShop.icon,scrollY,navigation)}
+        </View>
+      )}   
     </>
   );
 };

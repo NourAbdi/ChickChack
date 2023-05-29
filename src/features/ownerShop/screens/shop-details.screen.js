@@ -1,23 +1,17 @@
-import React, { useRef,useContext,useState } from 'react';
-import { View, Animated,Button,Modal,Alert,TouchableOpacity,Text} from 'react-native';
-
+import React, { useRef,useContext} from 'react';
+import { View, Animated} from 'react-native';
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
 import { colors } from "../../../infrastructure/theme/colors";
-
 import{
     HeaderImage,
     RestaurantInfoCard,
     RestaurantName,
     RestaurantInfo,
     ViewAbove,
-    AnimatedImageView,
-    AnimatedHeaderView,
     AnimatedScrollView,
     LoadingContainer,
     Loading,
-    ShopIcon,
-    MarginTop,
  } from '../components/shop-details.screen.style'
 
 import{
@@ -25,12 +19,8 @@ import{
     PrintGettingOrder,
     WorkingHoursComponent,
     isOpenCheck,
-    headerTranslate,
-    titleScale,
-    titleTranslate,
-    titleOpacity,
+    PrintHeader,
     PrintMenu,
-    SmallScreen,
 } from "../components/shop-details.screen.components"
 
 
@@ -63,15 +53,7 @@ export const ShopDetailsScreen = ({navigation}) => {
       </View>
       {PrintMenu(menu,navigation)}
       </AnimatedScrollView>
-
-    <AnimatedImageView  style={{ opacity: titleOpacity(scrollY),transform: [{ translateY: headerTranslate(scrollY) }]}}> 
-    </AnimatedImageView>
-
-    <AnimatedHeaderView style={[{ opacity: titleOpacity(scrollY), transform: [ { scale: titleScale(scrollY) },{translateY: titleTranslate(scrollY)}] }]} >
-      <MarginTop>
-      <ShopIcon source={{ uri: shop.icon }} />
-      </MarginTop>
-    </AnimatedHeaderView>
+      {PrintHeader(shop.icon,scrollY)}
       </View>   
     );
 };

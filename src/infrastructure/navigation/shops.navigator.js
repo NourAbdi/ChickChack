@@ -33,7 +33,7 @@ export const ShopsNavigator = ({ navigation }) => {
         name="ShopDetailsScreen"
         component={ShopDetailsScreen}
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarStyle: { display: "flex" },
         }}
       />

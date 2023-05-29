@@ -1,9 +1,10 @@
 import React from "react";
-import { Animated,View,TouchableOpacity,Text,Dimensions,ScrollView,Image,Linking } from "react-native";
+import { View,TouchableOpacity,ScrollView,Image,Linking} from "react-native";
+import { groupBy } from 'lodash';
+import { IconButton } from "react-native-paper";
+
 import { colors } from "../../../infrastructure/theme/colors";
 import { MealInfoCard } from "./meal-info-card.component";
-import { groupBy } from 'lodash'; // Import the groupBy function from Lodash
-
 import{
   RestaurantInfo,
   IsOpenCard,
@@ -20,14 +21,16 @@ import{
   AnimatedHeaderView,
   AnimatedIconView,
   ShopIcon,
-} from "./shop-details.screen.style";
+  AnimatedBackView,
+} from "./shopDetails.styles";
+
 
 const TAB_ICON = {
   TakeAway: "shopping-bag",
   Delivery: "motorcycle",
   DineIn: "cutlery",
 };
-//The same as shop-details.screen.style
+
 const HEADER_HEIGHT = 100;
  
 export const headerTranslate =(scrollY) =>{ 
@@ -38,7 +41,7 @@ export const headerTranslate =(scrollY) =>{
     extrapolate: 'clamp',
   })
   );
-};
+}
 
 export const titleScale =(scrollY) =>{
   return(
@@ -48,8 +51,7 @@ export const titleScale =(scrollY) =>{
       extrapolate: 'clamp',
     })
   );
-};
-
+}
 export const titleTranslate =(scrollY) =>{
    return(
     scrollY.interpolate({
@@ -58,7 +60,7 @@ export const titleTranslate =(scrollY) =>{
       extrapolate: 'clamp',
     })
    );
-};
+}
 
 export const titleOpacity =(scrollY) =>{
   return(
@@ -67,7 +69,7 @@ export const titleOpacity =(scrollY) =>{
       outputRange: [0,1],
     })
   );
-};
+}
 
 export const PrintMenu = (menu) => {
   // Group items by itemCategory
@@ -126,10 +128,10 @@ export const PrintGettingOrder = (takeOrder) => {
           return (
             <Row key={key}>
               <Row>
-              <IconCard>
-                <StyledIcon name={iconName} />
-              </IconCard>
-              {value ? (<CheckIcon name="check"  color={colors.button.green} />):(<CheckIcon name="close"  color={colors.button.red} />) }            
+                <IconCard>
+                    <StyledIcon name={iconName} />
+                </IconCard>
+                {value ? (<CheckIcon name="check"  color={colors.button.green} />):(<CheckIcon name="close"  color={colors.button.red} />) }            
               </Row>
             </Row>
           );
@@ -178,13 +180,20 @@ export const isOpenCheck = (workingHours,isOpen) => {
   }
 };
 
-export const PrintHeader = (icon,scrollY) => {
-  return(
-      <>
-          <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
-          <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
-              <ShopIcon source={{ uri: icon }} />
-          </AnimatedIconView>
-      </>
-  );
+export const PrintHeader = (icon,scrollY,navigation) => {
+    return(
+        <>
+            <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
+            <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
+                <ShopIcon source={{ uri: icon }} />
+            </AnimatedIconView>
+            <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
+                <IconButton
+                    icon="arrow-left"
+                    color="white"
+                    size={30}
+                    onPress={() => navigation.goBack()} />
+            </AnimatedBackView>
+        </>
+    );
 };
