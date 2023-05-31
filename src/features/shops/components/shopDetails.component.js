@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { View,TouchableOpacity,ScrollView,Image,Linking} from "react-native";
 import { groupBy } from 'lodash';
 import { IconButton } from "react-native-paper";
 
 import { colors } from "../../../infrastructure/theme/colors";
 import { MealInfoCard } from "./meal-info-card.component";
-import { CartContext } from "../../../services/cart/cart.context";
 import{
   RestaurantInfo,
   IsOpenCard,
@@ -72,10 +71,9 @@ export const titleOpacity =(scrollY) =>{
   );
 }
 
-export const PrintMenu = (menu,navigation,shopUid) => {
+export const PrintMenu = (menu,navigation,shopUid,addToCart) => {
   // Group items by itemCategory
   const groupedItems = groupBy(menu, 'itemCategory');
-  const { addToCart } = useContext(CartContext);
   return (
     <ViewMenu>
       {Object.entries(groupedItems).map(([menuCategory, menuItems]) => {
