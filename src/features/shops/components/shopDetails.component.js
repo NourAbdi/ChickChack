@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React from "react";
 import { View,TouchableOpacity,ScrollView,Image,Linking} from "react-native";
 import { groupBy } from 'lodash';
 import { IconButton } from "react-native-paper";
@@ -6,7 +6,6 @@ import { IconButton } from "react-native-paper";
 import { colors } from "../../../infrastructure/theme/colors";
 import { theme } from "../../../infrastructure/theme";
 import { MealInfoCard } from "./meal-info-card.component";
-import { LocationContext } from "../../../services/location/location.context";
 import{
   RestaurantInfo,
   IsOpenCard,

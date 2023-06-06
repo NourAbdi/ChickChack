@@ -1,7 +1,10 @@
 import React,{useState} from "react";
-import { Platform,View,StatusBar,Image,Text,TouchableOpacity,ScrollView,SafeAreaView } from "react-native";
+import { View,StatusBar,Image,Text,TouchableOpacity,ScrollView,SafeAreaView } from "react-native";
+import { IconButton } from "react-native-paper";
 import Swiper from 'react-native-swiper';
 import { groupBy } from 'lodash';
+import {FontAwesome } from "@expo/vector-icons";
+
 
 import { colors } from "../../../infrastructure/theme/colors";
 
@@ -25,6 +28,8 @@ import{
     AnimatedTitleView,
     AnimatedHeaderView,
     HeaderTitle,
+    AnimatedHederIcon,
+    StyledIcon,
 } from './ShopsScreen.styles'
 
 const shopsTypeImage = [
@@ -46,10 +51,18 @@ export const StatusBarPlaceHolder= () => {
 export const PrintHeader = (scrollY,headerTitle) => {
     return(
         <>
-            <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
-            <AnimatedTitleView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
-              <HeaderTitle>{headerTitle}</HeaderTitle>
-            </AnimatedTitleView>
+          <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
+          <AnimatedTitleView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
+            <HeaderTitle>{headerTitle}</HeaderTitle>
+          </AnimatedTitleView>
+          <AnimatedHederIcon>
+            <StyledIcon
+              name={"search"} 
+              size={30} 
+              color="white"
+              onPress={() => navigation.goBack()}            
+            />
+          </AnimatedHederIcon>
         </>
     );
 };

@@ -9,7 +9,6 @@ import{
     HeaderTitle,
 } from './shopsByType.screen.style'
 
-
 const HEADER_HEIGHT = theme.headerHeigth;
 
 export const printShops= (shops,navigation) => {

@@ -31,7 +31,7 @@ export const ShopsScreen = ({ navigation }) => {
   // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
   // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
   ];
-  
+
   if (isLoading) {
     return (
       <LoadingContainer>

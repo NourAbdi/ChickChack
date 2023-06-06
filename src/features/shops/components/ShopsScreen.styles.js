@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { ActivityIndicator,Card } from "react-native-paper";
 import { Dimensions,Animated } from "react-native";
+import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
 
 
@@ -122,5 +123,27 @@ export const AnimatedHeaderView = styled(Animated.View).attrs(({}) =>({
   backgroundColor: ${(props) => props.theme.colors.mainblue};
   overflow: hidden;
   height:${HEADER_HEIGHT}px; 
+`;
+
+export const AnimatedHederIcon = styled(Animated.View).attrs({
+    
+})`
+  backgroundColor: transparent;
+  marginTop: ${Platform.select({ios: '28px',android: '38px'})};
+  position: absolute;
+  align-self: center;
+  justifyContent:center;
+  matgin-left:5px;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
+
+export const StyledIcon = styled(FontAwesome)`
+  margin-left:10px;
+  margin-top:20px;
+  align-self: flex-start;
+  justifyContent:center;
+
 `;
 
