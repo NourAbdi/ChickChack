@@ -1,28 +1,41 @@
 // ShopsScreen.js
-import React, { useContext } from "react";
-import { TouchableOpacity, View, FlatList, Image } from "react-native";
-import { Text } from "../../../components/typography/text.component";
+import React, { useContext,useRef,useState } from "react";
+import { View,Animated,Text } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { Colors } from "react-native-paper";
-import { FadeInView } from "../../../components/animations/fade.animation";
 
 import { ShopsContext } from "../../../services/shops/shops.context";
+import { colors } from "../../../infrastructure/theme/colors";
+
 import {
   Loading,
   LoadingContainer,
-  ShopItemContainer,
-  ShopImage,
-  ShopNameContainer,
-  ShopNameText,
 } from "../components/ShopsScreen.styles";
 
-export const ShopsScreen = ({ navigation }) => {
-  const { isLoading, shops } = useContext(ShopsContext);
+import{
+  PrintHeader,
+  StatusBarPlaceHolder,
+  PrintSwiper,
+  ShopTypeSelector,
+  PrintShops,
+} from "../components/ShopsScreen.compoent";
 
+import{
+  AnimatedScrollView,
+} from "../components/shopDetails.styles";
+
+export const ShopsScreen = ({ navigation }) => {
+  const { isLoading, shops,swiperPhoto,cityName } = useContext(ShopsContext);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  //we should take this photo from database
+  const photos=["https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
+  // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+  // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
+  ];
+  
   if (isLoading) {
     return (
       <LoadingContainer>
-        <Loading size={50} animating={true} color={Colors.blue300} />
+        <Loading size={50} animating={true} color={colors.mainblue} />
       </LoadingContainer>
     );
   }
@@ -35,79 +48,15 @@ export const ShopsScreen = ({ navigation }) => {
     );
   }
 
-  const renderShopItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate("ShopDetailsScreen", {
-          shop: item,
-        })
-      }
-    >
-      <ShopItemContainer>
-        <FadeInView>
-          <ShopImage source={{ uri: item.headerBackground }} />
-          <ShopNameContainer>
-            <Image source={{ uri: item.icon }} style={{ width: 24, height: 24, marginRight: 8 }} />
-            <ShopNameText>{item.name}</ShopNameText>
-          </ShopNameContainer>
-        </FadeInView>
-      </ShopItemContainer>
-    </TouchableOpacity>
-  );
-
-  const renderShopSubject = (subjectType) => {
-    return (
-      <View>
-        <Text variant="caption" style={{ marginVertical: 8 }}>
-          {subjectType}
-        </Text>
-        <View style={{ borderBottomWidth: 1, borderBottomColor: "lightgray" }} />
-      </View>
-    );
-  };
-
-  const groupShopsByType = (shops) => {
-    const groupedShops = {};
-    shops.forEach((shop) => {
-      if (groupedShops[shop.type]) {
-        groupedShops[shop.type].push(shop);
-      } else {
-        groupedShops[shop.type] = [shop];
-      }
-    });
-    return groupedShops;
-  };
-
-  const groupedShops = groupShopsByType(shops);
-
-  const renderItem = ({ item }) => {
-    const [subjectType, shops] = item;
-    return (
-      <View>
-        {renderShopSubject(subjectType)}
-        <FlatList
-          data={shops}
-          keyExtractor={(item) => item.shopUid}
-          numColumns={2}
-          renderItem={renderShopItem}
-          ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-            marginBottom: 8,
-          }}
-        />
-      </View>
-    );
-  };
-
   return (
-    <SafeArea>
-      <FlatList
-        data={Object.entries(groupedShops)}
-        keyExtractor={(item) => item[0]}
-        contentContainerStyle={{ padding: 8 }}
-        renderItem={renderItem}
-      />
-    </SafeArea>
+    <View style={{ flex: 1  }}>
+      <StatusBarPlaceHolder/>
+      <AnimatedScrollView scrollY={scrollY}>
+        {PrintSwiper(photos)}
+        <ShopTypeSelector shops={shops} navigation={navigation}/>  
+        {PrintShops(shops,navigation)}
+      </AnimatedScrollView>
+      {PrintHeader(scrollY,cityName)}
+    </View>
   );
 };

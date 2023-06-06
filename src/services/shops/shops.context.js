@@ -10,9 +10,9 @@ export const ShopsContextProvider = ({ children }) => {
   const [shops, setShops] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [cityName, setCityName] = useState(null);
   const { city } = useContext(LocationContext);
-
+  
   useEffect(() => {
     const fetchShops = async () => {
       setIsLoading(true);
@@ -20,13 +20,26 @@ export const ShopsContextProvider = ({ children }) => {
         if (city) {
           const fetchedShops = await getShopsByCityName(city.cityName);
           setShops(fetchedShops);
+          setCityName(city.cityName);
           setIsLoading(false);
         }
       } catch (error) {
         setError(error.message);
       }
     };
-
+    // const fetchSwiper = async () => {
+    //   setIsLoading(true);
+    //   try {
+    //     if (city) {
+    //       const fetchedShops = await getShopsByCityName(city.cityName);
+    //       setShops(fetchedShops);
+    //       setIsLoading(false);
+    //     }
+    //   } catch (error) {
+    //     setError(error.message);
+    //   }
+    // };
+    // fetchSwiper();
     fetchShops();
   }, [city]);
 
@@ -40,6 +53,8 @@ export const ShopsContextProvider = ({ children }) => {
         shops,
         isLoading,
         error,
+        cityName,
+        // swiperPhoto,
       }}
     >
       {children}

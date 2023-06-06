@@ -1,6 +1,6 @@
 import { colors } from "./colors";
 import { space, lineHeights } from "./spacing";
-import { sizes,mealsCardSize,mealCardSize } from "./sizes";
+import { sizes,mealsCardSize,mealCardSize,headerHeigth } from "./sizes";
 import { fonts, fontWeights, fontSizes } from "./fonts";
 
 export const theme = {
@@ -13,4 +13,5 @@ export const theme = {
   fonts,
   fontSizes,
   fontWeights,
+  headerHeigth,
 };

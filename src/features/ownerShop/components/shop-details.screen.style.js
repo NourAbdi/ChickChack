@@ -112,7 +112,6 @@ export const IsOpenCard = styled(Card)`
   border-color: ${(props) => props.backgroundColor};
   width: 130px;
   height:  30px;
-  align-self: center;
   border-radius:20px;
   overflow: hidden;
   border-width: 4px;

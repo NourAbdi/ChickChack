@@ -55,7 +55,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
             <ViewAbove>
               <RestaurantInfoCard>
                 <RestaurantName>{selectedShop.name}</RestaurantName>
-                {isOpenCheck(selectedShop.workingHours,selectedShop.IsTemporaryClose)}
+                {isOpenCheck(selectedShop.workingHours,selectedShop.isTemporaryClose)}
                 <RestaurantInfo>Working Hours: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
                 {PrintGettingOrder(selectedShop.takeOrder)}
                 {wazeButton(selectedShop.location,selectedShop.address)}

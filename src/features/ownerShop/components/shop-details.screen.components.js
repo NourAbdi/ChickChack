@@ -149,7 +149,7 @@ export const WorkingHoursComponent = (workingHours) => {
     }
 };
 
-export const isOpenCheck = (workingHours,isOpen) => {
+export const isOpenCheck = (workingHours,isTemporaryClose) => {
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
   // Get the working hours for the current day
@@ -162,14 +162,15 @@ export const isOpenCheck = (workingHours,isOpen) => {
     // Set the start and end time for today's working hours
     const [startHour, startMinute] = todayWorkingHours.start.split(":");
     const [endHour, endMinute] = todayWorkingHours.end.split(":");
+    const isOpen=todayWorkingHours.isOpen;
     startTime.setHours(startHour, startMinute);
     endTime.setHours(endHour, endMinute);
     // Compare the current time with the start and end time
-    if (currentTime >= startTime && currentTime <= endTime) {
-      if(isOpen)
-        return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
+    if (isOpen==="Yes" && currentTime >= startTime && currentTime <= endTime) {
+      if(isTemporaryClose)
+        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
       else
-      return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
     } else {
       return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
     }

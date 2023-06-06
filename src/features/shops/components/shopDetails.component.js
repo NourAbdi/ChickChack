@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useContext} from "react";
 import { View,TouchableOpacity,ScrollView,Image,Linking} from "react-native";
 import { groupBy } from 'lodash';
 import { IconButton } from "react-native-paper";
 
 import { colors } from "../../../infrastructure/theme/colors";
+import { theme } from "../../../infrastructure/theme";
 import { MealInfoCard } from "./meal-info-card.component";
+import { LocationContext } from "../../../services/location/location.context";
 import{
   RestaurantInfo,
   IsOpenCard,
@@ -31,7 +33,7 @@ const TAB_ICON = {
   DineIn: "cutlery",
 };
 
-const HEADER_HEIGHT = 100;
+const HEADER_HEIGHT = theme.headerHeigth;
  
 export const headerTranslate =(scrollY) =>{ 
   return(
@@ -146,14 +148,14 @@ export const PrintGettingOrder = (takeOrder) => {
 export const WorkingHoursComponent = (workingHours) => {
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
-    if(workingHours[currentDay].start){
+    if(workingHours[currentDay].start && workingHours[currentDay].isOpen === "Yes"){
       return (workingHours[currentDay].start+"-"+workingHours[currentDay]["end"]);
     }else{
       return ("No working hours available for today");
     }
 };
 
-export const isOpenCheck = (workingHours,isOpen) => {
+export const isOpenCheck = (workingHours,isTemporaryClose) => {
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
   // Get the working hours for the current day
@@ -166,14 +168,15 @@ export const isOpenCheck = (workingHours,isOpen) => {
     // Set the start and end time for today's working hours
     const [startHour, startMinute] = todayWorkingHours.start.split(":");
     const [endHour, endMinute] = todayWorkingHours.end.split(":");
+    const isOpen=todayWorkingHours.isOpen;
     startTime.setHours(startHour, startMinute);
     endTime.setHours(endHour, endMinute);
     // Compare the current time with the start and end time
-    if (currentTime >= startTime && currentTime <= endTime) {
-      if(isOpen)
-        return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
+    if (isOpen==="Yes" && currentTime >= startTime && currentTime <= endTime) {
+      if(isTemporaryClose)
+        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
       else
-      return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
     } else {
       return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
     }
@@ -183,19 +186,29 @@ export const isOpenCheck = (workingHours,isOpen) => {
 };
 
 export const PrintHeader = (icon,scrollY,navigation) => {
+    // const {city } = useContext(LocationContext);
+    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",city)
+    // const handleCityChange = () => {
+    //   console.log("bbbbbbbbbbbbbbbbbbbbbbbbb",city)
+    //   navigation.navigate(city.cityName);
+    // };
     return(
-        <>
-            <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
-            <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
-                <ShopIcon source={{ uri: icon }} />
-            </AnimatedIconView>
-            <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
-                <IconButton
-                    icon="arrow-left"
-                    color="white"
-                    size={30}
-                    onPress={() => navigation.goBack()} />
-            </AnimatedBackView>
-        </>
+      <>
+        <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
+        <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
+          <ShopIcon source={{ uri: icon }} />
+        </AnimatedIconView>
+        <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
+          <IconButton
+            icon="arrow-left"
+            color="white"
+            size={30}
+            onPress={() => navigation.goBack()} 
+            // onPress={() => navigation.navigate(city.cityName)} 
+           
+          />
+        </AnimatedBackView>
+      </>
     );
 };
+

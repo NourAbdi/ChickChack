@@ -3,14 +3,13 @@ import { Animated,Platform,Image,Dimensions,ImageBackground } from "react-native
 import { Card,IconButton,ActivityIndicator } from "react-native-paper";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
-
  
 const screenWidth = Dimensions.get('window').width;
 const cardHeight=parseInt(theme.mealCardSize)+40;
 const MARGIN=200;
 const HeaderImageHeight=300;
 //The same as shop-details.screen.components
-const HEADER_HEIGHT = 100;
+const HEADER_HEIGHT = theme.headerHeigth;
 
 
 
@@ -91,15 +90,6 @@ export const MealsCard = styled(Card)`
   overflow: hidden;
 `;
 
-export const CategoryName = styled.Text`
-  margin-left: ${(props) => props.theme.space[3]};
-  font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.title};
-  font-weight: ${(props) => props.theme.fontWeights.regular};
-  border-color: ${(props) => props.theme.colors.bg.secondary};
-
-`;
-
 export const RestaurantInfoCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${screenWidth-16}px;
@@ -110,6 +100,39 @@ export const RestaurantInfoCard = styled(Card)`
   overflow: hidden;
   border-width: 4px;
   border-color: ${(props) => props.theme.colors.mainblue};
+`;
+
+export const IsOpenCard = styled(Card)`
+  background-color: ${(props) => props.backgroundColor};
+  border-color: ${(props) => props.backgroundColor};
+  margin-top: ${(props) => props.theme.space[1]};
+  width: 115px;
+  height:  30px;
+  align-self: center;
+  border-radius:20px;
+  overflow: hidden;
+  border-width: 4px;
+`;
+
+export const IconCard = styled(Card)`
+  padding: ${(props) => props.theme.space[1]}; 
+  margin: ${(props) => props.theme.space[1]};
+  background-color: ${props => props.theme.colors.ui.tertiary};
+  border-color: ${props => props.theme.colors.mainblue};
+  border-width: 2px;
+  width: 35px;
+  height:  35px;
+  border-radius:20px;
+  overflow: hidden;
+`;
+
+export const CategoryName = styled.Text`
+  margin-left: ${(props) => props.theme.space[3]};
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  font-weight: ${(props) => props.theme.fontWeights.regular};
+  border-color: ${(props) => props.theme.colors.bg.secondary};
+
 `;
 
 export const RestaurantInfo = styled.Text`
@@ -125,17 +148,6 @@ export const RestaurantName = styled.Text`
   align-self: center;
 `;
 
-export const IsOpenCard = styled(Card)`
-  background-color: ${(props) => props.backgroundColor};
-  border-color: ${(props) => props.backgroundColor};
-  width: 130px;
-  height:  30px;
-  align-self: center;
-  border-radius:20px;
-  overflow: hidden;
-  border-width: 4px;
-`;
-
 export const IsOpenWord = styled.Text`
   font-family: ${(props) => props.theme.fonts.monospace};
   font-size: ${(props) => props.theme.fontSizes.button};
@@ -148,18 +160,6 @@ export const Row = styled.View`
 `;
 export const Center = styled.View`
   align-self: center;
-`;
-
-export const IconCard = styled(Card)`
-  padding: ${(props) => props.theme.space[1]}; 
-  margin: ${(props) => props.theme.space[1]};
-  background-color: ${props => props.theme.colors.ui.tertiary};
-  border-color: ${props => props.theme.colors.mainblue};
-  border-width: 2px;
-  width: 35px;
-  height:  35px;
-  border-radius:20px;
-  overflow: hidden;
 `;
 
 export const StyledIcon = styled(FontAwesome)`

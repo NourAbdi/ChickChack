@@ -23,10 +23,11 @@ export const LoginScreen = ({ navigation }) => {
   const { onLogin, error, isLoading } = useContext(AuthenticationContext);
   return (
 
-    <><SafeAreaView style={{ backgroundColor: "#2683C0" }}>
-      <StatusBar
-        barStyle="light-content" />
-    </SafeAreaView>
+    <><SafeAreaView  style={{backgroundColor:"#2683C0"}}>
+        <StatusBar
+          barStyle ="light-content"
+        />
+      </SafeAreaView>
     <AccountBackground2>
         <AccountCover />
         <Title>Chick Chak</Title>
