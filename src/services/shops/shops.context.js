@@ -19,8 +19,10 @@ export const ShopsContextProvider = ({ children }) => {
       setIsLoading(true);
       try {
         if (city) {
-          console.log("AAAAAAAAAA:", city.swiperPhoto);
-          setSwiperPhoto(city.swiperPhoto);
+          if(city.swiperPhoto){
+            console.log("AAAAAAAAAA:", city.swiperPhoto);
+            setSwiperPhoto(city.swiperPhoto);
+          }
           const fetchedShops = await getShopsByCityName(city.cityName);
           setShops(fetchedShops);
           setCityName(city.cityName);
