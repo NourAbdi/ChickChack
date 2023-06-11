@@ -11,6 +11,7 @@ export const ShopsContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [cityName, setCityName] = useState(null);
+  const [swiperPhoto, setSwiperPhoto] = useState(null);
   const { city } = useContext(LocationContext);
   
   useEffect(() => {
@@ -18,6 +19,8 @@ export const ShopsContextProvider = ({ children }) => {
       setIsLoading(true);
       try {
         if (city) {
+          console.log("AAAAAAAAAA:", city.swiperPhoto);
+          setSwiperPhoto(city.swiperPhoto);
           const fetchedShops = await getShopsByCityName(city.cityName);
           setShops(fetchedShops);
           setCityName(city.cityName);
@@ -54,7 +57,7 @@ export const ShopsContextProvider = ({ children }) => {
         isLoading,
         error,
         cityName,
-        // swiperPhoto,
+        swiperPhoto,
       }}
     >
       {children}
