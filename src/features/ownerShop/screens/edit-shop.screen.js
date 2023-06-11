@@ -1,14 +1,14 @@
 import React, { useContext, useState,useRef } from "react";
-import { View,Animated} from "react-native";
+import { View,Animated,Switch,Text, Button } from "react-native";
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
-import { colors } from "../../../infrastructure/theme/colors";
+
 import{
     HeaderImage,
     AnimatedScrollView,
     LoadingContainer,
-    Loading,
-} from '../components/shop-details.screen.style'
+    Loading
+ } from '../components/shop-details.screen.style'
 
 import{
   PrintHeader
@@ -19,20 +19,17 @@ import {
 } from "../components/edit-shop.screen.component"
 
 export const EditShopScreen = () => {
-  const { shop,updateShop, isLoading } = useContext(OwnerShopContext);
-  const [isTemporaryClose, setTemporaryClose] = useState(shop.IstemporaryClose);
+  const { shop, updateShop, isLoading } = useContext(OwnerShopContext);
+  const [isTemporaryClose, setTemporaryClose] = useState(shop.IsTemporaryClose);
   const scrollY = useRef(new Animated.Value(0)).current;
   const workingHours = shop.workingHours;
-  // const handleSave = () => {
-  //   // Perform the saving action with the updated working hours
-  //   console.log("Updated working hours:", workingHours);
-  //   // TODO: Implement the saving logic here
-  //   updateShop( workingHours, isOpen );
-  // };
-  // console.log("workingHoursworkingHoursworkingHoursworkingHoursworkingHoursworkingHours11",workingHours);
-  
+
+  const handleSave = () => {
+    console.log("Updating workingHours, isTemporaryClose :", workingHours, isTemporaryClose);
+    updateShop(workingHours, isTemporaryClose);
+  };
+
   if (isLoading) {
-    // If shop details are not yet fetched, you can show a loading indicator
     return(
       <LoadingContainer>
         <Loading size={50} color={colors.mainblue} animating={true} />
@@ -48,9 +45,7 @@ export const EditShopScreen = () => {
       </AnimatedScrollView>
       {PrintHeader(shop.icon,scrollY)}
 
-
-      {/* <Button title="Save" onPress={handleSave()} /> */}
-      
+      <Button title="Save" onPress={handleSave} />
     </View>
   );
 };

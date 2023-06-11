@@ -4,6 +4,7 @@ import { Fontisto } from "@expo/vector-icons";
 
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ShopDetailsScreen } from "../../features/ownerShop/screens/shop-details.screen";
+import { OwnerShopOrdersScreen } from "../../features/ownerShop/screens/ownerShopOrders.screen";
 import { EditShopScreen } from "../../features/ownerShop/screens/edit-shop.screen";
 import { OwnerShopContextProvider } from "../../services/ownerShop/ownerShop.context";
 
@@ -40,7 +41,7 @@ export const ShopkeeperNavigator = () => (
         <Tab.Navigator screenOptions={createScreenOptions}>
             <Tab.Screen name="Shop" component={ShopDetailsScreen} />
             <Tab.Screen name="EditShop" component={EditShopScreen} />
-            {/* <Tab.Screen name="Orders" component={OrdersScreen} /> */}
+            <Tab.Screen name="Map" component={OwnerShopOrdersScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
         </Tab.Navigator>
     </OwnerShopContextProvider>

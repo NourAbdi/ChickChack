@@ -1,4 +1,6 @@
 import { host } from "../../utils/env";
+import { db } from '../../utils/env';
+import { collection, onSnapshot } from "firebase/firestore";
 
 export const getShopByShopUid = async (shopUid) => {
     const requestOptions = {
@@ -67,3 +69,46 @@ export const getShopMenuByShopUid = async (shopUid) => {
         throw new Error('Error getting shop details');
     }
 };
+
+export const getOrdersByShopUid = (shopUid, callback) => {
+    try {
+      const ordersSnapshot = collection(db, "orders");
+      const orders = [];
+  
+      const unsubscribe = onSnapshot(ordersSnapshot, (snapshot) => {
+        snapshot.docChanges().forEach((change) => {
+          const doc = change.doc;
+          if (change.type === "added") {
+            console.log("Added:", doc.id, "=>", doc.data());
+          } else if (change.type === "modified") {
+            console.log("Modified:", doc.id, "=>", doc.data());
+          } else if (change.type === "removed") {
+            console.log("Removed:", doc.id);
+          }
+        });
+  
+        orders.length = 0;
+        snapshot.forEach((doc) => {
+          const orderData = doc.data();
+          const orderDetails = orderData.orderDetails || [];
+  
+          const hasMatchingShopUid = orderDetails.some(
+            (detail) => detail.shopUid === shopUid
+          );
+  
+          if (hasMatchingShopUid) {
+            orders.push(orderData);
+          }
+        });
+  
+        console.log("Updated orders:", orders);
+        callback(orders); // Invoke the callback with the updated orders
+      });
+  
+      return unsubscribe;
+    } catch (error) {
+      console.error("Error getting orders:", error);
+      throw error;
+    }
+  };
+  
