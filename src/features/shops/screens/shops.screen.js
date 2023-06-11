@@ -26,11 +26,6 @@ import{
 export const ShopsScreen = ({ navigation }) => {
   const { isLoading, shops, swiperPhoto, cityName } = useContext(ShopsContext);
   const scrollY = useRef(new Animated.Value(0)).current;
-  //we should take this photo from database
-  // const photos=["https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
-  // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
-  // "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png"
-  // ];
 
   if (isLoading) {
     return (
