@@ -12,13 +12,14 @@ import{
     AnimatedScrollView,
     LoadingContainer,
     Loading,
+    Center,
  } from '../components/shop-details.screen.style'
 
 import{
     wazeButton,
     PrintGettingOrder,
     WorkingHoursComponent,
-    isOpenCheck,
+    IsOpenCheck,
     PrintHeader,
     PrintMenu,
 } from "../components/shop-details.screen.components"
@@ -44,7 +45,7 @@ export const ShopDetailsScreen = ({navigation}) => {
         <ViewAbove>
           <RestaurantInfoCard>
             <RestaurantName>{shop.name}</RestaurantName>
-            {isOpenCheck(shop.workingHours,shop.IstemporaryClose)}
+            <IsOpenCheck workingHours={shop.workingHours} isTemporaryClose={shop.isTemporaryClose}/>
             <RestaurantInfo>Working Hours: {WorkingHoursComponent(shop.workingHours)}</RestaurantInfo>
             {PrintGettingOrder(shop.takeOrder)}
             {wazeButton(shop.location,shop.address)}

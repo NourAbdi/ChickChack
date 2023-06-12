@@ -26,11 +26,11 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
     };
 
     try {
-        console.log("Trying to update shop details with requestOptions:", requestOptions.body);
-        console.log("and shop uid:", shopUid);
+        // console.log("Trying to update shop details with requestOptions:", requestOptions.body);
+        // console.log("and shop uid:", shopUid);
         const response = await fetch(`${host}/updateShopDetails?shopUid=${shopUid}`, requestOptions);
         const data = await response.text();
-        console.log("Response from updateShopDetails:", data); // Log the response data
+        // console.log("Response from updateShopDetails:", data); // Log the response data
         return data;
     } catch (error) {
         console.log(error);
@@ -79,11 +79,11 @@ export const getOrdersByShopUid = (shopUid, callback) => {
         snapshot.docChanges().forEach((change) => {
           const doc = change.doc;
           if (change.type === "added") {
-            console.log("Added:", doc.id, "=>", doc.data());
+            // console.log("Added:", doc.id, "=>", doc.data());
           } else if (change.type === "modified") {
-            console.log("Modified:", doc.id, "=>", doc.data());
+            // console.log("Modified:", doc.id, "=>", doc.data());
           } else if (change.type === "removed") {
-            console.log("Removed:", doc.id);
+            // console.log("Removed:", doc.id);
           }
         });
   
@@ -101,7 +101,7 @@ export const getOrdersByShopUid = (shopUid, callback) => {
           }
         });
   
-        console.log("Updated orders:", orders);
+        // console.log("Updated orders:", orders);
         callback(orders); // Invoke the callback with the updated orders
       });
   

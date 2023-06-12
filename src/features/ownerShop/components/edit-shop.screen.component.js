@@ -108,15 +108,15 @@ export const PrintWorkingHours = (workingHours,isTemporaryClose,setTemporaryClos
                         {/* print Is Open */}   
                         <ModalSelector
                             data={IsOpenData.map(open => ({ key: open, label: open }))}
-                            initValue={workingHours[day].IsOpen}
+                            initValue={workingHours[day].isOpen}
                             onChange={(option) => {
                             const updatedWorkingHours = { ...workingHours };
-                            updatedWorkingHours[day].IsOpen = option.label;
+                            updatedWorkingHours[day].isOpen = option.label;
                             setSelectedIsOpen(option.label);
                             }}
                         >
                             <TimeCard>   
-                                <Time>{workingHours[day].IsOpen}</Time>
+                                <Time>{workingHours[day].isOpen}</Time>
                             </TimeCard>
                         </ModalSelector>
                     </Row>

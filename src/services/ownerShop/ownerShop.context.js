@@ -44,7 +44,7 @@ export const OwnerShopContextProvider = ({ children }) => {
 
           // Subscribe to real-time updates of orders
           const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
-            console.log("New orders:", orders);
+            // console.log("New orders:", orders);
             setShopOrders(orders);
           });
         } catch (error) {

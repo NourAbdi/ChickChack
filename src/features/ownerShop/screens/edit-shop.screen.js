@@ -1,8 +1,8 @@
 import React, { useContext, useState,useRef } from "react";
-import { View,Animated,Switch,Text, Button } from "react-native";
+import { View,Animated,Button,Alert } from "react-native";
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
-
+import { colors } from "../../../infrastructure/theme/colors";
 import{
     HeaderImage,
     AnimatedScrollView,
@@ -20,13 +20,24 @@ import {
 
 export const EditShopScreen = () => {
   const { shop, updateShop, isLoading } = useContext(OwnerShopContext);
-  const [isTemporaryClose, setTemporaryClose] = useState(shop.IsTemporaryClose);
+  const [isTemporaryClose, setTemporaryClose] = useState(shop.isTemporaryClose);
   const scrollY = useRef(new Animated.Value(0)).current;
   const workingHours = shop.workingHours;
-
+  
   const handleSave = () => {
     console.log("Updating workingHours, isTemporaryClose :", workingHours, isTemporaryClose);
     updateShop(workingHours, isTemporaryClose);
+    showAlert(); // Show the alert after saving
+  };
+
+  const showAlert = () => {
+    Alert.alert(
+      "Changes Saved",
+      "Changes have been saved successfully!",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
   };
 
   if (isLoading) {
@@ -36,6 +47,7 @@ export const EditShopScreen = () => {
       </LoadingContainer>
     );
   }
+
   return (
     <View style={{ flex: 1 }}>
       <AnimatedScrollView scrollY={scrollY}>
@@ -45,7 +57,9 @@ export const EditShopScreen = () => {
       </AnimatedScrollView>
       {PrintHeader(shop.icon,scrollY)}
 
+      <View style={{ borderWidth: 1, borderColor: colors.mainblue, borderRadius: 5 }}>
       <Button title="Save" onPress={handleSave} />
+      </View>
     </View>
   );
 };

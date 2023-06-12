@@ -149,7 +149,8 @@ export const WorkingHoursComponent = (workingHours) => {
     }
 };
 
-export const isOpenCheck = (workingHours,isTemporaryClose) => {
+export const IsOpenCheck = ({workingHours,isTemporaryClose}) => {
+  console.log("AAAAAAAAAAAAAAAAAAaa",isTemporaryClose);
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
   // Get the working hours for the current day

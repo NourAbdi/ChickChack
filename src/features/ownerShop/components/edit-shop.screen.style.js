@@ -47,6 +47,6 @@ export const Row = styled.View`
 export const ViewIsTemClose = styled.View`
   flex-direction: row;
   align-self: center;
-  margin-top:${(props) => props.theme.space[2]};
+  margin-vertical:${(props) => props.theme.space[2]};
 `;
 

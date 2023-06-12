@@ -88,6 +88,8 @@ export const RestaurantInfoCard = styled(Card)`
   margin: ${(props) => props.theme.space[2]};
   height:  ${MARGIN+20}px;
   align-self: center;
+  align-items:center;
+  justify-content:center;
   border-radius:40px;
   overflow: hidden;
   border-width: 4px;
@@ -115,6 +117,7 @@ export const IsOpenCard = styled(Card)`
   border-radius:20px;
   overflow: hidden;
   border-width: 4px;
+  align-self: center;
 `;
 
 export const IsOpenWord = styled.Text`
