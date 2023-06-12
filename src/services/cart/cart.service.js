@@ -1,22 +1,33 @@
 import { host } from "../../utils/env";
+import { db } from '../../utils/env';
+import { collection, onSnapshot, updateDoc, doc, getDoc, addDoc } from "firebase/firestore";
 
 export const saveOrder = async (order) => {
-    console.log("trying to save the order :", order, JSON.stringify({ order }));
-    const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ order }),
-    };
-
     try {
-        const response = await fetch(`${host}/saveOrder`, requestOptions);
-        const data = await response.json();
-        return data;
+      const ordersCollectionRef = collection(db, "orders");
+      const newOrderRef = await addDoc(ordersCollectionRef, order);
+  
+      // Add the new order UID to the respective shop's shopOrders field
+      const shopUids = order.orderDetails.map((detail) => detail.shopUid);
+      for (const shopUid of shopUids) {
+        const shopDocRef = doc(db, "shops", shopUid);
+        const shopDocSnapshot = await getDoc(shopDocRef);
+        if (shopDocSnapshot.exists()) {
+          const shopData = shopDocSnapshot.data();
+          let shopOrders = shopData.shopOrders || [];
+          shopOrders.push(newOrderRef.id);
+          await updateDoc(shopDocRef, { shopOrders });
+        }
+      }
+  
+      return true; // Return true to indicate successful order saving
     } catch (error) {
-        console.log(error);
-        throw new Error("Error saving the order");
+      console.error("Error adding order:", error);
+      throw new Error("Error adding order");
     }
-};
+  };
+  
+  
 
 export const getPastOrdersByUserUid = async (userUid) => {
     console.log("trying to get the past orders:", userUid);
