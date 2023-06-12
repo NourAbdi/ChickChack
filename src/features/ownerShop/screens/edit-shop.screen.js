@@ -24,21 +24,25 @@ export const EditShopScreen = () => {
   const scrollY = useRef(new Animated.Value(0)).current;
   const workingHours = shop.workingHours;
   
-  const handleSave = () => {
-    console.log("Updating workingHours, isTemporaryClose :", workingHours, isTemporaryClose);
-    updateShop(workingHours, isTemporaryClose);
-    showAlert(); // Show the alert after saving
-  };
+  const handleSave = async () => {
+  console.log("Updating workingHours, isTemporaryClose :", workingHours, isTemporaryClose);
+  const isUpdateSuccessful = await updateShop(workingHours, isTemporaryClose);
+  if (isUpdateSuccessful) {
+    showAlert("Changes Saved", "Changes have been saved successfully!");
+  } else {
+    showAlert("Error", "Failed to save changes. Please try again later.");
+  }
+};
 
-  const showAlert = () => {
-    Alert.alert(
-      "Changes Saved",
-      "Changes have been saved successfully!",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-  };
+const showAlert = (title, message) => {
+  Alert.alert(
+    title,
+    message,
+    [
+      { text: "OK", onPress: () => console.log("OK Pressed") }
+    ]
+  );
+};
 
   if (isLoading) {
     return(

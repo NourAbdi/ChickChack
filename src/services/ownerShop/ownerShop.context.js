@@ -17,6 +17,7 @@ export const OwnerShopContextProvider = ({ children }) => {
   const [pastOrders, setPastOrders] = useState([]);
   const [newOrders, setNewOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     const fetchShopDetails = async () => {
@@ -82,15 +83,20 @@ export const OwnerShopContextProvider = ({ children }) => {
   }, [shopOrders, shop]);
 
   const updateShop = async (workingHours, isTemporaryClose) => {
-    try {
-      await updateShopDetails(shop.shopUid, workingHours, isTemporaryClose);
-      setShop((prevShop) => ({
-        ...prevShop,
-        workingHours,
-        isTemporaryClose,
-      }));
-    } catch (error) {
-      console.log("Error updating shop details:", error);
+    if (shop) {
+      try {
+        console.log("Trying to update shop details:", shop.shopUid, workingHours, isTemporaryClose);
+        await updateShopDetails(shop.shopUid, { workingHours, isTemporaryClose });
+        setShop((prevShop) => ({
+          ...prevShop,
+          workingHours,
+          isTemporaryClose,
+        }));
+        return true; // Return true if the update is successful
+      } catch (error) {
+        console.log("Error updating shop details:", error);
+        return false; // Return false if there's an error
+      }
     }
   };
 
@@ -100,6 +106,7 @@ export const OwnerShopContextProvider = ({ children }) => {
         shop,
         menu,
         isLoading,
+        isUpdating,
         updateShop,
         shopOrders,
         pastOrders,
