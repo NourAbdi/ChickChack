@@ -32,14 +32,17 @@ export const CartContextProvider = ({ children }) => {
     setCartItems(updatedItems);
   };
 
-  const checkout = () => {
-    // Implement your checkout logic here
-    save_Order();
-    console.log("Checkout");
-    console.log("cartItems :", cartItems);
-    console.log("order : ", order);
-    saveOrder({ userUid: user.uid, orderDetails: order});
-    clearCart();
+  const checkout = async () => {
+    try {
+      save_Order();
+      console.log("Checkout");
+      console.log("cartItems :", cartItems);
+      console.log("order : ", order);
+      await saveOrder({ userUid: user.uid, orderDetails: order,orderTime:(new Date()).toLocaleTimeString() });
+      clearCart(); // Clear the cart after a successful order
+    } catch (error) {
+      console.log("Error saving order:", error);
+    }
   };
 
   const getPastOrders = () => {
@@ -48,17 +51,22 @@ export const CartContextProvider = ({ children }) => {
   };
 
   const save_Order = () => {
+    // const currentTime = new Date();
+    // const formattedTime = currentTime.toLocaleTimeString(); // Format the time as desired
     const mergedOrder = cartItems.reduce((merged, item) => {
       const existingOrder = merged.find((orderItem) => orderItem.shopUid === item.shopUid);
       if (existingOrder) {
         existingOrder.cartItems.push({ ...item });
       } else {
-        merged.push({ shopUid: item.shopUid, orderStage: "fresh", orderOption:"TakeAway",locationToDeliver:"loc", deliveryLocation:"loc", cartItems: [{ ...item }] });
+        // console.log("formattedTimeformattedTimeformattedTimeformattedTimeformattedTimeformattedTime",formattedTime);
+        merged.push({ shopUid: item.shopUid, orderStage: "fresh", orderOption: "TakeAway", locationToDeliver: "loc", deliveryLocation: "loc", cartItems: [{ ...item }] });
+        console.log("mergedmergedmergedmergedmergedmergedmergedmergedmergedmergedmergedmergedmergedmerged",merged);
       }
       return merged;
     }, []);
     setOrder(mergedOrder);
   };
+  
 
   const totalPrice = cartItems.reduce((total, item) => total + item.itemPrice * item.quantity, 0);
 

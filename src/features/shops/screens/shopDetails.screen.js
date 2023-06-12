@@ -30,14 +30,14 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
 
   useEffect(() => {
     if (shop) {
-      // console.log("ShopDetailsScreen, shop changed:", shop);
+      console.log("ShopDetailsScreen, shop changed:", shop);
       setSelectedShop(shop);
     }
   }, [shop]);
 
   useEffect(() => {
     if (selectedShop) {
-      // console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
+      console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
     }
   }, [selectedShop]);
 
@@ -57,6 +57,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
                 <RestaurantName>{selectedShop.name}</RestaurantName>
                 {isOpenCheck(selectedShop.workingHours,selectedShop.isTemporaryClose)}
                 <RestaurantInfo>Working Hours: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
+                <RestaurantInfo>Tel: {selectedShop.Tel}</RestaurantInfo>
                 {PrintGettingOrder(selectedShop.takeOrder)}
                 {wazeButton(selectedShop.location,selectedShop.address)}
               </RestaurantInfoCard>
