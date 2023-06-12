@@ -13,8 +13,28 @@ import{
     ViewIsTemClose,
 } from "./edit-shop.screen.style"
 
-
-
+export const isWorkingHoursValid = (workingHours) => {
+    let isValid = true;
+    let invalidDay = null;
+  
+    for (const day in workingHours) {
+      const { start, end } = workingHours[day];
+      const startTime = start.split(":");
+      const endTime = end.split(":");
+      const startHour = parseInt(startTime[0]);
+      const startMinute = parseInt(startTime[1]);
+      const endHour = parseInt(endTime[0]);
+      const endMinute = parseInt(endTime[1]);
+  
+      if (startHour > endHour || (startHour === endHour && startMinute >= endMinute)) {
+        isValid = false;
+        invalidDay = day;
+        break;
+      }
+    }
+  
+    return { isValid, invalidDay };
+};
 
 export const PrintWorkingHours = (workingHours,isTemporaryClose,setTemporaryClose) => {
 
@@ -26,7 +46,6 @@ export const PrintWorkingHours = (workingHours,isTemporaryClose,setTemporaryClos
     const [selectedMinute, setSelectedMinute] = useState("");
     const [selectedIsOpen, setSelectedIsOpen] = useState("");
     
-
     return(
         <View>
             <Title>Working Hours:</Title>
@@ -135,4 +154,4 @@ export const PrintWorkingHours = (workingHours,isTemporaryClose,setTemporaryClos
             </ViewIsTemClose>
         </View>
     );
-    };
+};

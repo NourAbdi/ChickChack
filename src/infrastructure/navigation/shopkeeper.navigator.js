@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Fontisto } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ShopDetailsScreen } from "../../features/ownerShop/screens/shop-details.screen";
@@ -11,10 +11,10 @@ import { OwnerShopContextProvider } from "../../services/ownerShop/ownerShop.con
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-    Shop: "shopping-store",
-    Map: "map",
-    EditShop: "player-settings",
-    Settings: "player-settings",
+    Shop: "storefront",
+    EditShop: "database-edit",
+    Orders: "order-bool-descending-variant",
+    Account: "account-settings",
 };
 
 const createScreenOptions = ({ route }) => {
@@ -30,7 +30,7 @@ const createScreenOptions = ({ route }) => {
         ],
         headerShown: false,
         tabBarIcon: ({ size, color }) => (
-            <Fontisto name={iconName} size={size} color={color} />
+            <MaterialCommunityIcons name={iconName} size={30} color={color} />
         ),
     };
 }
@@ -41,8 +41,8 @@ export const ShopkeeperNavigator = () => (
         <Tab.Navigator screenOptions={createScreenOptions}>
             <Tab.Screen name="Shop" component={ShopDetailsScreen} />
             <Tab.Screen name="EditShop" component={EditShopScreen} />
-            <Tab.Screen name="Map" component={OwnerShopOrdersScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="Orders" component={OwnerShopOrdersScreen} />
+            <Tab.Screen name="Account" component={SettingsScreen} />
         </Tab.Navigator>
     </OwnerShopContextProvider>
 );

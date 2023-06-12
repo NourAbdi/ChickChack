@@ -7,14 +7,14 @@ const TimeCardHeigth=30;
 const TimeCradWidth=30;
 
 export const WorkingHoursCard = styled(Card)`
-    height: ${WorkingHoursCardHeight}px;
-    margin-top: ${(props) => props.theme.space[2]};
+  height: ${WorkingHoursCardHeight}px;
+  margin-top: ${(props) => props.theme.space[2]};
 `;
 
 export const TimeCard = styled(Card)`
-    height: ${TimeCardHeigth}px;
-    width: ${TimeCradWidth}px;
-    margin: ${(props) => props.theme.space[2]};
+  height: ${TimeCardHeigth}px;
+  width: ${TimeCradWidth}px;
+  margin: ${(props) => props.theme.space[2]};
 `;
 
 export const Title = styled.Text`
@@ -49,4 +49,11 @@ export const ViewIsTemClose = styled.View`
   align-self: center;
   margin-vertical:${(props) => props.theme.space[2]};
 `;
+
+export const SaveButton = styled.View`
+  border-width: 1px;
+  borderColor:  ${(props) => props.theme.colors.mainblue};
+  borderRadius: 5px; 
+`;
+
 

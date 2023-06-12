@@ -142,7 +142,7 @@ export const PrintGettingOrder = (takeOrder) => {
 export const WorkingHoursComponent = (workingHours) => {
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
-    if(workingHours[currentDay].start){
+    if(workingHours[currentDay].start && workingHours[currentDay].isOpen === "Yes"){
       return (workingHours[currentDay].start+"-"+workingHours[currentDay]["end"]);
     }else{
       return ("No working hours available for today");
