@@ -60,6 +60,16 @@ export const EditShopScreen = () => {
     );
   };
 
+  
+//   const handleSave = async () => {
+//   console.log("Updating workingHours, isTemporaryClose :", workingHours, isTemporaryClose);
+//   await updateShop(workingHours, isTemporaryClose);
+  
+// };
+
+
+
+
   if (isLoading) {
     return (
       <LoadingContainer>

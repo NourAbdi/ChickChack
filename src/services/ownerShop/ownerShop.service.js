@@ -1,6 +1,15 @@
-import { host } from "../../utils/env";
-import { db } from '../../utils/env';
-import { collection, onSnapshot, updateDoc, doc, getDoc } from "firebase/firestore";
+import { host, db } from "../../utils/env";
+import {
+  collection,
+  onSnapshot,
+  updateDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+
 
 export const getShopByShopUid = async (shopUid) => {
   const requestOptions = {
@@ -9,12 +18,15 @@ export const getShopByShopUid = async (shopUid) => {
   };
 
   try {
-    const response = await fetch(`${host}/getShopByShopUid?shopUid=${shopUid}`, requestOptions);
+    const response = await fetch(
+      `${host}/getShopByShopUid?shopUid=${shopUid}`,
+      requestOptions
+    );
     const data = await response.json();
     return data;
   } catch (error) {
     console.log(error);
-    throw new Error('Error getting shop details');
+    throw new Error("Error getting shop details");
   }
 };
 
@@ -35,7 +47,6 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
   }
 };
 
-
 export const getShopByOwnerUid = async (ownerUid) => {
   const requestOptions = {
     method: "GET",
@@ -43,12 +54,15 @@ export const getShopByOwnerUid = async (ownerUid) => {
   };
 
   try {
-    const response = await fetch(`${host}/getShopByOwnerUid?ownerUid=${ownerUid}`, requestOptions);
+    const response = await fetch(
+      `${host}/getShopByOwnerUid?ownerUid=${ownerUid}`,
+      requestOptions
+    );
     const data = await response.json();
     return data[0];
   } catch (error) {
     console.log(error);
-    throw new Error('Error getting shop details');
+    throw new Error("Error getting shop details");
   }
 };
 
@@ -59,53 +73,42 @@ export const getShopMenuByShopUid = async (shopUid) => {
   };
 
   try {
-    const response = await fetch(`${host}/getShopMenuByShopUid?shopUid=${shopUid}`, requestOptions);
+    const response = await fetch(
+      `${host}/getShopMenuByShopUid?shopUid=${shopUid}`,
+      requestOptions
+    );
     const data = await response.json();
     return data;
   } catch (error) {
     console.log(error);
-    throw new Error('Error getting shop details');
+    throw new Error("Error getting shop details");
   }
 };
 
 export const getOrdersByShopUid = (shopUid, callback) => {
-  try {
-    const ordersSnapshot = collection(db, "orders");
-    const orders = [];
+  const shopsRef = collection(db, "shops");
+  const shopDocRef = doc(shopsRef, shopUid);
+  const ordersRef = collection(db, "orders");
+  
+  const unsubscribe = onSnapshot(shopDocRef, (doc) => {
+    if (doc.exists()) {
+      const shopData = doc.data();
+      const shopOrders = shopData.shopOrders;
 
-    const unsubscribe = onSnapshot(ordersSnapshot, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        const doc = change.doc;
-        if (change.type === "added") {
-          // console.log("Added:", doc.id, "=>", doc.data());
-        } else if (change.type === "modified") {
-          // console.log("Modified:", doc.id, "=>", doc.data());
-        } else if (change.type === "removed") {
-          // console.log("Removed:", doc.id);
-        }
+      const queryRef = query(ordersRef, where("orderId", "in", shopOrders));
+      
+      // Fetch the orders that match the query
+      getDocs(queryRef).then((querySnapshot) => {
+        const orders = querySnapshot.docs.map((doc) => doc.data());
+        
+        // Call the callback function with the retrieved orders
+        callback(orders);
       });
+    }
+  });
 
-      orders.length = 0;
-      snapshot.forEach((doc) => {
-        const orderData = doc.data();
-        const orderDetails = orderData.orderDetails || [];
-
-        const hasMatchingShopUid = orderDetails.some(
-          (detail) => detail.shopUid === shopUid
-        );
-
-        if (hasMatchingShopUid) {
-          orders.push(orderData);
-        }
-      });
-
-      // console.log("Updated orders:", orders);
-      callback(orders); // Invoke the callback with the updated orders
-    });
-
-    return unsubscribe;
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    throw error;
-  }
+  // Return the unsubscribe function in case you want to stop listening later
+  return unsubscribe;
 };
+
+

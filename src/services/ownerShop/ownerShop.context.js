@@ -17,7 +17,6 @@ export const OwnerShopContextProvider = ({ children }) => {
   const [pastOrders, setPastOrders] = useState([]);
   const [newOrders, setNewOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     const fetchShopDetails = async () => {
@@ -42,41 +41,51 @@ export const OwnerShopContextProvider = ({ children }) => {
         try {
           const menu = await getShopMenuByShopUid(shop.shopUid);
           setMenu(menu);
-
+    
           // Subscribe to real-time updates of orders
           const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
-            // console.log("New orders:", orders);
             setShopOrders(orders);
           });
+    
+          return () => {
+            // Unsubscribe from the real-time updates when component unmounts
+            unsubscribe();
+          };
         } catch (error) {
           console.log("Error fetching shop menu and orders:", error);
         }
       }
     };
-
+    
     fetchShopMenuAndOrders();
   }, [shop]);
+  
+
 
   useEffect(() => {
     const getPastAndNewOrders = () => {
-      const pastOrders = shopOrders.filter(
-        (orders) =>
-          orders.orderDetails.some(
-            (orderDetail) =>
-              orderDetail.orderStage === "done" &&
-              orderDetail.shopUid === shop.shopUid
-          )
-      );
-      const newOrders = shopOrders.filter(
-        (order) =>
-          order.orderDetails.some(
-            (orderDetail) =>
-              orderDetail.orderStage !== "done" &&
-              orderDetail.shopUid === shop.shopUid
-          )
-      );
-      setPastOrders(pastOrders);
-      setNewOrders(newOrders);
+      if (shopOrders) {
+        const pastOrders = shopOrders.filter(
+          (orders) =>
+            orders.orderDetails &&
+            orders.orderDetails.some(
+              (orderDetail) =>
+                orderDetail.orderStage !== "fresh" &&
+                orderDetail.shopUid === shop.shopUid
+            )
+        );
+        const newOrders = shopOrders.filter(
+          (order) =>
+            order.orderDetails &&
+            order.orderDetails.some(
+              (orderDetail) =>
+                orderDetail.orderStage === "fresh" &&
+                orderDetail.shopUid === shop.shopUid
+            )
+        );
+        setPastOrders(pastOrders);
+        setNewOrders(newOrders);
+      }
     };
 
     getPastAndNewOrders();
@@ -85,8 +94,16 @@ export const OwnerShopContextProvider = ({ children }) => {
   const updateShop = async (workingHours, isTemporaryClose) => {
     if (shop) {
       try {
-        console.log("Trying to update shop details:", shop.shopUid, workingHours, isTemporaryClose);
-        await updateShopDetails(shop.shopUid, { workingHours, isTemporaryClose });
+        console.log(
+          "Trying to update shop details:",
+          shop.shopUid,
+          workingHours,
+          isTemporaryClose
+        );
+        await updateShopDetails(shop.shopUid, {
+          workingHours,
+          isTemporaryClose,
+        });
         setShop((prevShop) => ({
           ...prevShop,
           workingHours,
@@ -106,7 +123,6 @@ export const OwnerShopContextProvider = ({ children }) => {
         shop,
         menu,
         isLoading,
-        isUpdating,
         updateShop,
         shopOrders,
         pastOrders,
