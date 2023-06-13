@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Button, FlatList, Text } from 'react-native';
+import { View, Text, Button, Image, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerShopContext } from '../../../services/ownerShop/ownerShop.context';
@@ -16,33 +16,45 @@ export const OwnerShopPastOrdersScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <FlatList
-        data={pastOrders}
-        keyExtractor={(item) => item.orderUid}
-        renderItem={({ item }) => (
-          <View key={item.orderUid}>
-            <Text>Customer Uid: {item.userUid}</Text>
-            <Text>shopUid: {item.shopUid}</Text>
-            <Text>locationToDeliver: {item.orderDetails[0].locationToDeliver}</Text>
-            <Text>orderStage: {item.orderDetails[0].orderStage}</Text>
-            <Text>orderOption: {item.orderDetails[0].orderOption}</Text>
-            <Text>deliveryLocation: {item.orderDetails[0].deliveryLocation}</Text>
-
-            {item.orderDetails[0].cartItems.map((cartItem) => (
-              <View key={cartItem.itemUid}>
-                <Text>--- Cart Item ---</Text>
-                <Text>itemName: {cartItem.itemName}</Text>
-                <Text>itemCategory: {cartItem.itemCategory}</Text>
-                <Text>itemAddition: {cartItem.itemAddition}</Text>
-                <Text>itemPhoto: {cartItem.itemPhoto}</Text>
-                <Text>itemPrice: {cartItem.itemPrice}</Text>
-                <Text>itemUid: {cartItem.itemUid}</Text>
-                <Text>quantity: {cartItem.quantity}</Text>
+      <ScrollView>
+        <View>
+          {pastOrders.length > 0 ? (
+            pastOrders.map((order) => (
+              <View key={order.orderId}>
+                <Text>Order ID: {order.orderId}</Text>
+                <Text>orderTotalPrice: {order.orderTotalPrice} ₪</Text>
+                <Text>deliveryLocation: {order.deliveryLocation}</Text>
+                <Text>locationToDeliver: {order.locationToDeliver}</Text>
+                <Text>orderOption: {order.orderOption}</Text>
+                <Text>payOption: {order.payOption}</Text>
+                <Text>orderStage: {order.orderStage}</Text>
+                <Text>orderTime: {order.orderTime}</Text>
+                <Text>preparationTime: {order.preparationTime}</Text>
+                <Text>deliveryTime: {order.preparationTime}</Text>
+                <Text>shopUid: {order.shopUid}</Text>
+                <Text>userUid: {order.userUid}</Text>
+                <Text>Cart Items :</Text>
+                {order.cartItems.map((item) => (
+                  <View key={item.itemUid}>
+                    <Text>itemUid: {item.itemUid}</Text>
+                    <Text>itemName: {item.itemName}</Text>
+                    {item.itemPhoto && (
+                      <Image source={{ uri: item.itemPhoto }} style={{ width: 100, height: 100 }} />
+                    )}
+                    <Text>quantity: {item.quantity}</Text>
+                    <Text>itemPrice: {item.itemPrice} ₪</Text>
+                    {/* Display other item details as needed */}
+                  </View>
+                ))}
+                <Text>--------------------------------</Text>
+                {/* Display other order details as needed */}
               </View>
-            ))}
-          </View>
-        )}
-      />
+            ))
+          ) : (
+            <Text>No new orders found.</Text>
+          )}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

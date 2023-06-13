@@ -41,12 +41,13 @@ export const OwnerShopContextProvider = ({ children }) => {
         try {
           const menu = await getShopMenuByShopUid(shop.shopUid);
           setMenu(menu);
-    
+
           // Subscribe to real-time updates of orders
           const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
+            console.log(orders);
             setShopOrders(orders);
           });
-    
+
           return () => {
             // Unsubscribe from the real-time updates when component unmounts
             unsubscribe();
@@ -56,10 +57,10 @@ export const OwnerShopContextProvider = ({ children }) => {
         }
       }
     };
-    
+
     fetchShopMenuAndOrders();
   }, [shop]);
-  
+
 
 
   useEffect(() => {
@@ -67,24 +68,17 @@ export const OwnerShopContextProvider = ({ children }) => {
       if (shopOrders) {
         const pastOrders = shopOrders.filter(
           (orders) =>
-            orders.orderDetails &&
-            orders.orderDetails.some(
-              (orderDetail) =>
-                orderDetail.orderStage !== "fresh" &&
-                orderDetail.shopUid === shop.shopUid
-            )
+            orders.orderStage !== "fresh"
         );
         const newOrders = shopOrders.filter(
-          (order) =>
-            order.orderDetails &&
-            order.orderDetails.some(
-              (orderDetail) =>
-                orderDetail.orderStage === "fresh" &&
-                orderDetail.shopUid === shop.shopUid
-            )
+          (orders) =>
+            orders.orderStage === "fresh"
         );
         setPastOrders(pastOrders);
         setNewOrders(newOrders);
+        console.log("shopOrders:", shopOrders);
+        console.log("newOrders:", newOrders);
+        console.log("pastOrders:", pastOrders);
       }
     };
 
