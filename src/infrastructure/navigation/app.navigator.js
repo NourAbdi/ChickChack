@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const TAB_ICON = {
   Shops: "shopping-store",
   Map: "map",
-  Checkout: "shopping-basket",
+  Cart: "shopping-basket",
   Settings: "player-settings",
 };
 
@@ -42,7 +42,7 @@ export const AppNavigator = () => (
         <ShopContextProvider>
           <Tab.Navigator screenOptions={createScreenOptions}>
             <Tab.Screen name="Shops" component={ShopsNavigator} />
-            <Tab.Screen name="Checkout" component={CartNavigator} />
+            <Tab.Screen name="Cart" component={CartNavigator} />
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>

@@ -36,7 +36,7 @@ export const CartContextProvider = ({ children }) => {
   const getPastOrders = async () => {
     console.log("getPastOrdersByUserUid", user.uid);
     const pastOrders = await getPastOrdersByUserUid(user.uid);
-    // Process the past orders here if needed
+    console.log("pastOrderspastOrderspastOrderspastOrders", pastOrders);
     return pastOrders;
   };
 
@@ -49,10 +49,7 @@ export const CartContextProvider = ({ children }) => {
         } else {
           merged.push({
             shopUid: item.shopUid,
-            orderStage: "fresh",
-            orderOption: "TakeAway",
-            locationToDeliver: "loc",
-            deliveryLocation: "loc",
+            
             cartItems: [{ ...item }],
           });
         }
@@ -68,7 +65,19 @@ export const CartContextProvider = ({ children }) => {
       console.log("Checkout");
       console.log("cartItems :", cartItems);
       console.log("order : ", mergedOrder);
-      await saveOrder({ userUid: user.uid, orderDetails: mergedOrder, orderTime: new Date().toLocaleTimeString() });
+      await saveOrder({ 
+        userUid: user.uid, 
+        cartItems: cartItems, 
+        orderTime: new Date().toString(),
+        deliveryTime: "00:15:00",
+        orderStage: "fresh",
+        orderOption: "TakeAway",
+        orderTotalPrice: totalPrice,
+        payOption: "Cash",
+        locationToDeliver: "loc",
+        deliveryLocation: "loc",
+        shopUid: cartItems[0].shopUid
+       });
       clearCart(); // Clear the cart after a successful order
     } catch (error) {
       console.log("Error saving order:", error);

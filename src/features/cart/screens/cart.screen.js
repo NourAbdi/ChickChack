@@ -4,11 +4,9 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { styles } from "../components/cart.styles";
 
 import { CartContext } from "../../../services/cart/cart.context";
-import { ShopContext } from "../../../services/shop/shop.context";
 
 export const CartScreen = () => {
   const { cartItems, addToCart, removeFromCart, clearCart, checkout, totalPrice } = useContext(CartContext);
-  const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
 
   const increaseQuantity = (item) => {
     addToCart(item, 1);
