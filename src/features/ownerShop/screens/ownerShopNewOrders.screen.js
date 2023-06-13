@@ -1,20 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, FlatList, Text, Button } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { View, Text, Button, Image, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card, IconButton, ActivityIndicator } from "react-native-paper";
-
 
 import { OwnerShopContext } from '../../../services/ownerShop/ownerShop.context';
-
-import {
-  Row,
-  Title,
-  OrderCard,
-  OrderInfoCard,
-  ButtonCard,
-} from "../components/ownerShopNewOrders.screen.style";
-import { ScrollView } from 'react-native-gesture-handler';
-
 
 export const OwnerShopNewOrdersScreen = ({ navigation }) => {
   const { newOrders } = useContext(OwnerShopContext);
@@ -25,37 +13,46 @@ export const OwnerShopNewOrdersScreen = ({ navigation }) => {
     }
   }, [newOrders]);
 
-  const [isExpanded, setIsExpanded] = useState(false);
-  const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
-  };
-
   return (
     <SafeAreaView>
       <ScrollView>
-        <Title>YOUR NEW ORDERS:</Title>
-        <OrderCard isExpanded={isExpanded}>
-          <Row>
-            <ButtonCard></ButtonCard>
-            <OrderInfoCard>
-            </OrderInfoCard>
-            <ButtonCard></ButtonCard>
-          </Row>
-            <Button title={isExpanded ? "Collapse" : "Expand"} onPress={toggleExpand} />
-            <Text>
-              This is the initial content of the card. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
-              tincidunt vestibulum metus, vel finibus mauris pellentesque a. Sed cursus nunc eget diam consectetur, ac
-              vulputate dolor pulvinar. In at velit et sem aliquet facilisis. Duis pulvinar semper ex, sed egestas velit
-              iaculis non. Curabitur interdum ligula quis mauris mattis, eget dignissim ligula semper.
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-              AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            </Text>
-        </OrderCard>
+        <View>
+          {newOrders.length > 0 ? (
+            newOrders.map((order) => (
+              <View key={order.orderId}>
+                <Text>Order ID: {order.orderId}</Text>
+                <Text>orderTotalPrice: {order.orderTotalPrice} ₪</Text>
+                <Text>deliveryLocation: {order.deliveryLocation}</Text>
+                <Text>locationToDeliver: {order.locationToDeliver}</Text>
+                <Text>orderOption: {order.orderOption}</Text>
+                <Text>payOption: {order.payOption}</Text>
+                <Text>orderStage: {order.orderStage}</Text>
+                <Text>orderTime: {order.orderTime}</Text>
+                <Text>preparationTime: {order.preparationTime}</Text>
+                <Text>deliveryTime: {order.preparationTime}</Text>
+                <Text>shopUid: {order.shopUid}</Text>
+                <Text>userUid: {order.userUid}</Text>
+                <Text>Cart Items :</Text>
+                {order.cartItems.map((item) => (
+                  <View key={item.itemUid}>
+                    <Text>itemUid: {item.itemUid}</Text>
+                    <Text>itemName: {item.itemName}</Text>
+                    {item.itemPhoto && (
+                      <Image source={{ uri: item.itemPhoto }} style={{ width: 100, height: 100 }} />
+                    )}
+                    <Text>quantity: {item.quantity}</Text>
+                    <Text>itemPrice: {item.itemPrice} ₪</Text>
+                    {/* Display other item details as needed */}
+                  </View>
+                ))}
+                <Text>--------------------------------</Text>
+                {/* Display other order details as needed */}
+              </View>
+            ))
+          ) : (
+            <Text>No new orders found.</Text>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
