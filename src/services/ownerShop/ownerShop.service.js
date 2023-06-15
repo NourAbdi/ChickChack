@@ -47,6 +47,29 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
   }
 };
 
+export const updateOrderStage = async (orderId, newStage) => {
+  try {
+    const orderRef = doc(db, "orders", orderId);
+    const orderDoc = await getDoc(orderRef);
+
+    if (!orderDoc.exists()) {
+      throw new Error("Order not found");
+    }
+
+    const updatedOrder = {
+      ...orderDoc.data(),
+      orderStage: newStage,
+    };
+
+    await updateDoc(orderRef, updatedOrder);
+    return "Order stage updated successfully";
+  } catch (error) {
+    console.error("Error updating order stage:", error);
+    throw new Error("Error updating order stage");
+  }
+};
+
+
 export const getShopByOwnerUid = async (ownerUid) => {
   const requestOptions = {
     method: "GET",

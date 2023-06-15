@@ -20,7 +20,7 @@ import {
 
 
 export const OwnerShopNewOrdersScreen = () => {
-  const { newOrders } = useContext(OwnerShopContext);
+  const { newOrders, updateOrderNewStage } = useContext(OwnerShopContext);
 
   useEffect(() => {
     if (newOrders) {

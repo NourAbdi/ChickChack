@@ -4,6 +4,7 @@ import {
   getShopByOwnerUid,
   getShopMenuByShopUid,
   getOrdersByShopUid,
+  updateOrderStage,
 } from "./ownerShop.service";
 import { AuthenticationContext } from "../authentication/authentication.context";
 
@@ -111,6 +112,10 @@ export const OwnerShopContextProvider = ({ children }) => {
     }
   };
 
+  const updateOrderNewStage = (order, newStage)=>{
+    return (updateOrderStage(order, newStage));
+  }
+
   return (
     <OwnerShopContext.Provider
       value={{
@@ -121,6 +126,7 @@ export const OwnerShopContextProvider = ({ children }) => {
         shopOrders,
         pastOrders,
         newOrders,
+        updateOrderNewStage,
       }}
     >
       {children}
