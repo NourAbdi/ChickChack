@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { saveOrder, getPastOrdersByUserUid } from "./cart.service";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
@@ -6,97 +6,124 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
-  const [cartItems, setCartItems] = useState([]);
   const [order, setOrder] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const addToCart = (item, quantity = 1, shopUid) => {
-    const existingItem = cartItems.find((cartItem) => cartItem.itemUid === item.itemUid);
+  useEffect(() => {
+    setTotalPrice(calculateTotalPrice(order));
+  }, [order]);
 
-    if (existingItem) {
-      const updatedItems = cartItems.map((cartItem) =>
-        cartItem.itemUid === item.itemUid ? { ...cartItem, quantity: cartItem.quantity + quantity } : cartItem
+  const addToCart = (shop, item, quantity = 1) => {
+    const existingShop = order.find((orderItem) => orderItem.shop === shop);
+    if (existingShop) {
+      const existingItem = existingShop.cartItems.find(
+        (cartItem) => cartItem.item === item
       );
-      setCartItems(updatedItems);
+      if (existingItem) {
+        existingItem.quantity += quantity;
+        if (existingItem.quantity === 0) {
+          // Remove item if quantity becomes 0
+          removeFromCart(shop, item);
+        } else {
+          setOrder([...order]);
+        }
+      } else {
+        existingShop.cartItems.push({ item, quantity });
+        setOrder([...order]);
+      }
     } else {
-      setCartItems([...cartItems, { ...item, quantity, shopUid }]);
+      const newShop = { shop, cartItems: [{ item, quantity }] };
+      setOrder([...order, newShop]);
+    }
+  };
+
+  const removeFromCart = (shop, item) => {
+    const existingShop = order.find((orderItem) => orderItem.shop === shop);
+    if (existingShop) {
+      const updatedCartItems = existingShop.cartItems.filter(
+        (cartItem) => cartItem.item !== item
+      );
+      if (updatedCartItems.length === 0) {
+        // Remove shop if no cart items left
+        const updatedOrder = order.filter((orderShop) => orderShop.shop !== shop);
+        setOrder([...updatedOrder]);
+      } else {
+        existingShop.cartItems = updatedCartItems;
+        setOrder([...order]);
+      }
     }
   };
 
   const clearCart = () => {
-    setCartItems([]);
     setOrder([]);
   };
-
-  const removeFromCart = (item) => {
-    const updatedItems = cartItems.filter((cartItem) => cartItem.itemUid !== item.itemUid);
-    setCartItems(updatedItems);
-  };
-
 
   const getPastOrders = async () => {
     console.log("getPastOrdersByUserUid", user.uid);
     const pastOrders = await getPastOrdersByUserUid(user.uid);
-    console.log("pastOrderspastOrderspastOrderspastOrders", pastOrders);
+    console.log("pastOrderspastOrderspastOrderspastOrders", JSON.stringify(pastOrders));
     return pastOrders;
   };
 
-  const buildOrder = () => {
-    return new Promise((resolve) => {
-      const mergedOrder = cartItems.reduce((merged, item) => {
-        const existingOrder = merged.find((orderItem) => orderItem.shopUid === item.shopUid);
-        if (existingOrder) {
-          existingOrder.cartItems.push({ ...item });
-        } else {
-          merged.push({
-            shopUid: item.shopUid,
-            
-            cartItems: [{ ...item }],
-          });
-        }
-        return merged;
-      }, []);
-      resolve(mergedOrder);
-    });
-  };
+  const shopLengthCheck = () =>{
+    if (order.length > 1) {
+      return false;
+    }
+    return true;
+  }
+
+  const checkout = async (orderDeliveryOptions) => {
+    
   
-  const checkout = async () => {
     try {
-      const mergedOrder = await buildOrder();
       console.log("Checkout");
-      console.log("cartItems :", cartItems);
-      console.log("order : ", mergedOrder);
-      await saveOrder({ 
-        userUid: user.uid, 
-        cartItems: cartItems, 
+      console.log("order : ", order);
+      const orderSelected = order[0];
+      console.log("orderSelected : ", orderSelected);
+      const cartItems = orderSelected.cartItems;
+      console.log("cartItems : ", cartItems);
+      // const totalPrice = calculateTotalPrice(orderSelected); 
+      // console.log("totalPrice : ",totalPrice);
+      await saveOrder({
+        userUid: user.uid,
+        cartItems,
         orderTime: new Date().toString(),
         deliveryTime: "00:15:00",
         orderStage: "fresh",
-        orderOption: "TakeAway",
+        orderOption: orderDeliveryOptions,
         orderTotalPrice: totalPrice,
         payOption: "Cash",
         locationToDeliver: "loc",
         deliveryLocation: "loc",
-        shopUid: cartItems[0].shopUid
-       });
+        shopUid: orderSelected.shop.shopUid,
+      });
       clearCart(); // Clear the cart after a successful order
     } catch (error) {
       console.log("Error saving order:", error);
     }
   };
 
-  const totalPrice = cartItems.reduce((total, item) => total + item.itemPrice * item.quantity, 0);
+  const calculateTotalPrice = (order) => {
+    let totalPrice = 0;
+    for (const shop of order) {
+      for (const cartItem of shop.cartItems) {
+        totalPrice += cartItem.item.itemPrice * cartItem.quantity;
+      }
+    }
+    return totalPrice;
+  };
 
   return (
     <CartContext.Provider
       value={{
         order,
-        cartItems,
         addToCart,
         removeFromCart,
         clearCart,
         checkout,
-        totalPrice,
         getPastOrders,
+        totalPrice,
+        shopLengthCheck,
       }}
     >
       {children}

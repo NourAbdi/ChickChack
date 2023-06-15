@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
   },
   optionButton: {
     marginRight: 8,
+    marginBottom: 8, // Add margin bottom to create space between options
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 8,
@@ -36,7 +37,7 @@ export const styles = StyleSheet.create({
     borderColor: "#ccc",
     backgroundColor: "#fff",
   },
-  optionButtonHighlighted: {
+  selectedOption: {
     backgroundColor: "#f0f0f0",
   },
   optionLabel: {
