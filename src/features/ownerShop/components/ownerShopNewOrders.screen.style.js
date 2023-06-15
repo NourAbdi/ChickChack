@@ -5,63 +5,151 @@ import { Card,IconButton,ActivityIndicator } from "react-native-paper";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
 
+
 //Cards sizes
-const margin = 5;
+const margin =7;
 const screenWidth = Dimensions.get('window').width;
-const BigCardWidth = screenWidth - 2*margin; 
-const BigCardHeight = 300; 
+const bigCardWidth = screenWidth - 2*margin; 
+const bigCardHeight = 360; 
+const iteamCardHeight = 200; 
+const iteamCardWidth = bigCardWidth-2*margin; 
+const TimeCardHeigth=30;
+const TimeCradWidth=30;
+
 
 export const Title = styled.Text`
-  margin: ${(props) => props.theme.space[3]};
+  margin: ${(props) => props.theme.space[1]};
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.h5};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+  color:${(props) => props.theme.colors.mainblue};
+`;
+
+export const Field = styled.Text`
+  margin-left: ${(props) => props.theme.space[2]};
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+
+export const Heading = styled.Text`
+  margin-left: ${(props) => props.theme.space[2]};
+  font-family: ${(props) => props.theme.fonts.monospace};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+`;
+
+export const Category = styled.Text`
+  margin-left: ${(props) => props.theme.space[2]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
-  font-weight: ${(props) => props.theme.fontWeights.regular};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
 export const Row = styled.View`
   flex-direction: row;
 `;
 
+export const ButtonView = styled.View`
+
+`;
+
+export const Shadow = styled.View`
+  shadow-color: ${(props) => props.theme.colors.ui.secondary};
+  shadow-offset: 0px 5px;
+  shadow-opacity: 0.40;
+  shadow-radius: 8px;
+  elevation: 13;
+`;
+
+export const Center = styled.Text`
+  align-self: center;
+`;
+
+export const ConfirmingQus = styled.Text`
+  align-self: center;
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+  margin-left: ${(props) => props.theme.space[2]};
+
+`;
+
 export const OrderCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
-  width: ${BigCardWidth}px;
-  height: ${(props) => (props.isExpanded ? "auto" : `${BigCardHeight}px`)};
+  width: ${bigCardWidth}px;
+  height: auto;
   margin: ${margin}px;
+  margin-bottom:${2*margin}px;
   align-self: center;
-  align-items:center;
-  justify-content:center;
-  border-radius:20px;
+  // align-items:center;
+  // justify-content:center;
+  border-radius:10px;
   overflow: hidden;
-  border-width: 2px;
-  border-color: ${(props) => props.theme.colors.mainblue};
+  // border-width: 2px;
+  // border-color: ${(props) => props.theme.colors.mainblue};
 `;
 
 export const OrderInfoCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
-  width: ${BigCardWidth/2}px;
-  height: ${BigCardHeight/2}px;
+  width: ${bigCardWidth-2*margin}px;
+  height: 100px;
   margin: ${margin}px;
   align-self: center;
   align-items:center;
   justify-content:center;
-  border-radius:20px;
-  overflow: hidden;
-  border-width: 2px;
-  border-color: ${(props) => props.theme.colors.mainblue};
+  border-radius:10px;
+  // overflow: hidden;
+  shadow-color: ${(props) => props.theme.colors.ui.secondary};
+  shadow-offset: 0px 5px;
+  shadow-opacity: 0.20;
+  shadow-radius: 8px;
+  elevation: 13;
 `;
 
 export const ButtonCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
-  width: ${BigCardWidth/4-4*margin}px;
-  height: ${BigCardHeight/4}px;
+  width: ${100}px;
+  height:auto;
   margin: ${margin}px;
   align-self: center;
   align-items:center;
   justify-content:center;
   border-radius:20px;
-  overflow: hidden;
-  border-width: 2px;
-  border-color: ${(props) => props.theme.colors.mainblue};
+  shadow-color: ${(props) => props.theme.colors.ui.secondary};
+  shadow-offset: 0px 5px;
+  shadow-opacity: 0.20;
+  shadow-radius: 8px;
+  elevation: 13;
 `;
 
+export const IteamCard = styled(Card)`
+  background-color: ${(props) => props.theme.colors.bg.primary};
+  width: ${iteamCardWidth}px;
+  height auto;
+  margin: ${margin}px;
+  align-self: center;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  overflow: hidden;
+`;
+
+export const TimeCard = styled(Card)`
+  height: ${TimeCardHeigth}px;
+  width: ${TimeCradWidth}px;
+  margin-left: ${(props) => props.theme.space[1]};
+`;
+
+export const Time = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  margin-top:${(props) => props.theme.space[1]};
+  align-self: center;
+`;
+
+export const HeaderImage = styled(Image)`
+  width: ${iteamCardWidth}px;
+  height: ${100}px;
+`;
 
