@@ -112,26 +112,30 @@ export const getOrdersByShopUid = (shopUid, callback) => {
   const shopsRef = collection(db, "shops");
   const shopDocRef = doc(shopsRef, shopUid);
   const ordersRef = collection(db, "orders");
-  
+
   const unsubscribe = onSnapshot(shopDocRef, (doc) => {
     if (doc.exists()) {
       const shopData = doc.data();
       const shopOrders = shopData.shopOrders;
 
-      const queryRef = query(ordersRef, where("orderId", "in", shopOrders));
-      
-      // Fetch the orders that match the query
-      getDocs(queryRef).then((querySnapshot) => {
-        const orders = querySnapshot.docs.map((doc) => doc.data());
-        
-        // Call the callback function with the retrieved orders
-        callback(orders);
-      });
+      // Check if shopOrders is not empty
+      if (shopOrders.length > 0) {
+        const queryRef = query(ordersRef, where("orderId", "in", shopOrders));
+
+        // Fetch the orders that match the query
+        getDocs(queryRef).then((querySnapshot) => {
+          const orders = querySnapshot.docs.map((doc) => doc.data());
+
+          // Call the callback function with the retrieved orders
+          callback(orders);
+        });
+      }
     }
   });
 
   // Return the unsubscribe function in case you want to stop listening later
   return unsubscribe;
 };
+
 
 
