@@ -38,7 +38,6 @@ export const OwnerShopNewOrdersScreen = () => {
   const isItemExpanded = (orderId) => {
     return expandedItems.includes(orderId);
   };
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa",isLoading)
   if (isLoading) {
     // If new orders are not yet fetched, you can show a loading indicator
     return(
@@ -70,6 +69,7 @@ export const OwnerShopNewOrdersScreen = () => {
                     color="black"
                   />
                 </ButtonCard>
+                {/* {printCartIteam(order.cartItems)} */}
                 {isItemExpanded(order.orderId) && printCartIteam(order.cartItems)}
               </OrderCard>
             </Shadow>

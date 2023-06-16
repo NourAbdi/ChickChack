@@ -1,10 +1,6 @@
-import React from "react";
-import { Animated,Platform,Image,Dimensions,ImageBackground } from "react-native";
+import { Image,Dimensions } from "react-native";
 import styled from "styled-components/native";
-import { Card,IconButton,ActivityIndicator } from "react-native-paper";
-import {FontAwesome } from "@expo/vector-icons";
-import { theme } from "../../../infrastructure/theme";
-
+import { Card,ActivityIndicator } from "react-native-paper";
 
 //Cards sizes
 const margin =7;
@@ -15,7 +11,6 @@ const iteamCardHeight = 200;
 const iteamCardWidth = bigCardWidth-2*margin; 
 const TimeCardHeigth=30;
 const TimeCradWidth=30;
-
 
 export const Title = styled.Text`
   margin: ${(props) => props.theme.space[1]};
@@ -158,3 +153,7 @@ export const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
 
+export const HeaderImage = styled(Image)`
+  width: ${iteamCardWidth}px;
+  height: ${100}px;
+`;
