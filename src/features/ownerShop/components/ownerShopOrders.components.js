@@ -19,7 +19,7 @@ import {
     Center,
     ConfirmingQus,
     ButtonCard,
-  } from "../components/ownerShopNewOrders.screen.style";
+  } from "./ownerShopOrders.style";
   
 export const printOrderinfo = (order) =>{
     return(
@@ -51,10 +51,7 @@ export const printOrderinfo = (order) =>{
 };
 
 export const printCartIteam = (cartItems) => {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa",cartItems)
-    const cartItemsByCategory = groupBy(cartItems, 'item.itemCategory');
-    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",cartItemsByCategory)
-
+  const cartItemsByCategory = groupBy(cartItems, 'item.itemCategory');
   return Object.entries(cartItemsByCategory).map(([category, items]) => (
     <View key={category}>
       <Category>{category}:</Category>
@@ -87,32 +84,17 @@ export const printCartIteam = (cartItems) => {
   ));
 };
 
-export const PrintConfirmingOrder = ({preparationTime}) => {
+export const PrintConfirmingOrder = ({orderId,preparationTime,updateOrder}) => {
     const hours = Array.from({ length: 24 }, (_, index) => String(index).padStart(2, '0'));
     const minutes = Array.from({ length: 60 }, (_, index) => String(index).padStart(2, '0'));
-    const [selectedIsConfirmin, setSelectedIsConfirmin] = useState("Yes");
     const [selectedHour, setSelectedHour] = useState(preparationTime.substring(0, 2));
     const [selectedMinute, setSelectedMinute] = useState(preparationTime.substring(3, 5));
-    const Confirming = ["Yes", "No"];
-  
+    const getTimeString = () => {
+        return `${selectedHour}:${selectedMinute}:00`;
+    };
+
     return (
       <View>
-        {/* print confirming */}
-        <Row>
-          <ConfirmingQus>Can you prepare the order? </ConfirmingQus>
-          <ModalSelector
-            key="confirmingSelector"
-            data={Confirming.map((open) => ({ key: open, label: open }))}
-            initValue={selectedIsConfirmin}
-            onChange={(option) => {
-              setSelectedIsConfirmin(option.label);
-            }}
-          >
-            <TimeCard>
-              <Time>{selectedIsConfirmin}</Time>
-            </TimeCard>
-          </ModalSelector>
-        </Row>
         <Row>
           <ConfirmingQus>After how long time will the order be ready?</ConfirmingQus>
           <ModalSelector
@@ -142,9 +124,17 @@ export const PrintConfirmingOrder = ({preparationTime}) => {
             </TimeCard>
           </ModalSelector>
         </Row>
-        <ButtonCard>
-          <Button title={"Confirm"} onPress={() => null} color={colors.mainblue} />
-        </ButtonCard>
+        <Center>
+        <Row>
+            <ButtonCard color={colors.button.green}>
+                <Button title={"Confirm"} onPress={() => updateOrder(orderId,getTimeString(),"onProcess")} color={colors.button.white} />
+            </ButtonCard>
+            <ButtonCard color={colors.button.red}>
+                <Button title={"deny"} onPress={() => updateOrder(orderId,getTimeString(),"deny")} color={colors.button.white} />
+            </ButtonCard>
+        </Row>
+        </Center>
+        
       </View>
     );
   };

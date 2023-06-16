@@ -6,23 +6,21 @@ import { OwnerShopNewOrdersScreen } from "../../ownerShop/screens/ownerShopNewOr
 import { OwnerShopPastOrdersScreen } from "../../ownerShop/screens/ownerShopPastOrders.screen";
 
 export const OwnerShopOrdersScreen = ({navigation}) => {
-
-    const Tab = createMaterialTopTabNavigator();
-
-    return (
-        <SafeArea>
-        <Tab.Navigator>
-          <Tab.Screen
-            name="OwnerShopNewOrdersScreen"
-            component={OwnerShopNewOrdersScreen}
-            options={{ title: "New orders" }}
-          />
-          <Tab.Screen
-            name="OwnerShopPastOrdersScreen"
-            component={OwnerShopPastOrdersScreen}
-            options={{ title: "Past Orders" }}
-          />
-        </Tab.Navigator>
-        </SafeArea>
-      );
+  const Tab = createMaterialTopTabNavigator();
+  return (
+    <SafeArea>
+    <Tab.Navigator>
+      <Tab.Screen
+        name="OwnerShopNewOrdersScreen"
+        component={OwnerShopNewOrdersScreen}
+        options={{ title: "New orders" }}
+      />
+      <Tab.Screen
+        name="OwnerShopPastOrdersScreen"
+        component={OwnerShopPastOrdersScreen}
+        options={{ title: "Past Orders" }}
+      />
+    </Tab.Navigator>
+    </SafeArea>
+  );
 };

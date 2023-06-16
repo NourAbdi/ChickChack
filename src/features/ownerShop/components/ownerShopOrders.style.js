@@ -108,7 +108,7 @@ export const OrderInfoCard = styled(Card)`
 `;
 
 export const ButtonCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
+  background-color: ${(props) => props.color};
   width: ${100}px;
   height:auto;
   margin: ${margin}px;
@@ -148,8 +148,13 @@ export const Time = styled.Text`
   align-self: center;
 `;
 
-export const HeaderImage = styled(Image)`
-  width: ${iteamCardWidth}px;
-  height: ${100}px;
+export const LoadingContainer = styled.View`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+`;
+
+export const Loading = styled(ActivityIndicator)`
+  margin-left: -25px;
 `;
 

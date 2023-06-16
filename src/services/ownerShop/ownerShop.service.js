@@ -47,7 +47,7 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
   }
 };
 
-export const updateOrderStage = async (orderId, newStage) => {
+export const updateOrderStage = async (orderId,newPreparationTime, newStage) => {
   try {
     const orderRef = doc(db, "orders", orderId);
     const orderDoc = await getDoc(orderRef);
@@ -59,6 +59,7 @@ export const updateOrderStage = async (orderId, newStage) => {
     const updatedOrder = {
       ...orderDoc.data(),
       orderStage: newStage,
+      preparationTime: newPreparationTime,
     };
 
     await updateDoc(orderRef, updatedOrder);

@@ -112,8 +112,8 @@ export const OwnerShopContextProvider = ({ children }) => {
     }
   };
 
-  const updateOrderNewStage = (order, newStage)=>{
-    return (updateOrderStage(order, newStage));
+  const updateOrder = (orderId,newPreparationTime, newStage)=>{
+    return (updateOrderStage(orderId, newPreparationTime,newStage));
   }
 
   return (
@@ -126,7 +126,7 @@ export const OwnerShopContextProvider = ({ children }) => {
         shopOrders,
         pastOrders,
         newOrders,
-        updateOrderNewStage,
+        updateOrder,
       }}
     >
       {children}
