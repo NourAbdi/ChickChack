@@ -16,7 +16,7 @@ export const PastCartsScreen = () => {
                 <Text>Order ID: {order.orderId}</Text>
                 <Text>Order Total Price: {order.orderTotalPrice} ₪</Text>
                 <Text>Delivery Location: {order.deliveryLocation}</Text>
-                <Text>Location to Deliver: {order.locationToDeliver}</Text>
+                {/* <Text>Location to Deliver: {order.locationToDeliver}</Text> */}
                 <Text>Order Option: {order.orderOption}</Text>
                 <Text>Pay Option: {order.payOption}</Text>
                 <Text>Order Stage: {order.orderStage}</Text>
