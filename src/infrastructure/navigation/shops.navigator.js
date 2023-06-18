@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { IconButton } from "react-native-paper";
 
@@ -11,11 +11,10 @@ import { LocationContext } from "../../services/location/location.context";
 const ShopStack = createStackNavigator();
 
 export const ShopsNavigator = ({ navigation }) => {
-  const { city, cityName } = useContext(LocationContext);
-  // console.log("ShopsNavigator ...", city);
+  const { selectedCity } = useContext(LocationContext);
 
   return (
-
+    selectedCity &&
     <ShopStack.Navigator
       screenOptions={{
         headerTintColor: "white",
@@ -23,7 +22,7 @@ export const ShopsNavigator = ({ navigation }) => {
       }}
     >
       <ShopStack.Screen
-        name={cityName}
+        name="cityShops"
         component={ShopsScreen}
         options={{
           headerShown: false,
@@ -43,7 +42,7 @@ export const ShopsNavigator = ({ navigation }) => {
         component={ShopsByTypeScreen}
         options={{
           headerShown: true,
-          headerBackVisible :"false",
+          headerBackVisible: "false",
           headerLeft: () => (
             <IconButton
               icon="arrow-left"
@@ -52,7 +51,7 @@ export const ShopsNavigator = ({ navigation }) => {
               onPress={() => navigation.goBack()}
             />
           ),
-          headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: "bold" }, // Customize the style of the header title
+          headerTitleStyle: { color: 'white', fontSize: 20, fontWeight: "bold" },
         }}
       />
     </ShopStack.Navigator>

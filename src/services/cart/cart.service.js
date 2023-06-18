@@ -1,14 +1,15 @@
 import { host } from "../../utils/env";
 import { db } from '../../utils/env';
-import { collection, onSnapshot, updateDoc, doc, getDoc, getDocs, addDoc, query, where, } from "firebase/firestore";
+import { collection, onSnapshot, updateDoc, doc, getDoc, getDocs, addDoc, query, where } from "firebase/firestore";
 
 export const saveOrder = async (order) => {
   try {
     const ordersCollectionRef = collection(db, "orders");
     const newOrderRef = await addDoc(ordersCollectionRef, order);
     const shopUid = order.shopUid;
+    const userUid = order.userUid;
 
-    // Add the orderId and shopUidfield to the newly created order document
+    // Add the orderId field to the newly created order document
     const orderId = newOrderRef.id;
     await updateDoc(newOrderRef, { orderId });
 
@@ -19,8 +20,15 @@ export const saveOrder = async (order) => {
       let shopOrders = shopData.shopOrders || [];
       shopOrders.push(newOrderRef.id);
       await updateDoc(shopDocRef, { shopOrders });
-      let preparationTime = shopData.preparationTime ;
-      await updateDoc(newOrderRef, { preparationTime });
+    }
+
+    const userDocRef = doc(db, "users", userUid);
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (userDocSnapshot.exists()) {
+      const userData = userDocSnapshot.data();
+      let userOrders = userData.userOrders || [];
+      userOrders.push(newOrderRef.id);
+      await updateDoc(userDocRef, { userOrders });
     }
 
     return true; // Return true to indicate successful order saving
@@ -30,19 +38,31 @@ export const saveOrder = async (order) => {
   }
 };
 
-
-export const getPastOrdersByUserUid = async (userUid) => {
+export const getPastOrdersByUserUid = async (userUid, setPastOrders) => {
   try {
-    const ordersCollectionRef = collection(db, 'orders');
-    const querySnapshot = await getDocs(query(ordersCollectionRef, where('userUid', '==', userUid)));
+    const userDocRef = doc(db, "users", userUid);
+    const userOrdersSnapshot = await getDoc(userDocRef);
 
-    const pastOrders = querySnapshot.docs.map((doc) => doc.data());
+    if (userOrdersSnapshot.exists()) {
+      const userData = userOrdersSnapshot.data();
+      const userOrders = userData.userOrders || [];
 
-    console.log('Past orders:', pastOrders);
-    return pastOrders;
+
+      const unsubscribe = onSnapshot(
+        query(collection(db, "orders"), where("userUid", "==", userUid)), // Modify the query to filter orders by userUid
+        (snapshot) => {
+          const updatedOrders = snapshot.docs.map((doc) => doc.data());
+          setPastOrders(updatedOrders); // Set the past orders state with updated orders
+        }
+      );
+
+      return unsubscribe;
+    } else {
+      console.log("User document does not exist");
+      return null;
+    }
   } catch (error) {
-    console.error('Error retrieving past orders:', error);
-    throw new Error('Error retrieving past orders');
+    console.error("Error retrieving past orders:", error);
+    throw new Error("Error retrieving past orders");
   }
 };
-

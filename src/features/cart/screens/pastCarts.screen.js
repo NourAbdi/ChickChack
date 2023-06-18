@@ -1,30 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
-import { View, Text, Button, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import { View, Text, Image, ScrollView } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const PastCartsScreen = () => {
-  const { getPastOrders } = useContext(CartContext);
-  const [pastOrders, setPastOrders] = useState([]);
-
-  useEffect(() => {
-    getUserPastOrders();
-  }, []);
-
-  const getUserPastOrders = async () => {
-    const orders = await getPastOrders();
-    setPastOrders(orders);
-  };
+  const { pastOrders } = useContext(CartContext);
 
   return (
     <SafeArea>
       <ScrollView>
         <View>
-          <TouchableOpacity onPress={() => getUserPastOrders()}>
-            <Text>Get Past Orders</Text>
-          </TouchableOpacity>
-          {pastOrders.length > 0 ? (
+          {pastOrders ? (
             pastOrders.map((order) => (
               <View key={order.orderId}>
                 <Text>Order ID: {order.orderId}</Text>
@@ -50,6 +36,7 @@ export const PastCartsScreen = () => {
                     <Text>Quantity: {item.quantity}</Text>
                   </View>
                 ))}
+                <Text>---------------------------------------------------</Text>
               </View>
             ))
           ) : (

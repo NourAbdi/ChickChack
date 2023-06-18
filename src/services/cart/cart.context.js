@@ -6,8 +6,10 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
+  const [pastOrders, setPastOrders] = useState([]);
   const [order, setOrder] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [location2Deliver, setLocation2Deliver] = useState("loc");
 
   useEffect(() => {
     setTotalPrice(calculateTotalPrice(order));
@@ -58,42 +60,50 @@ export const CartContextProvider = ({ children }) => {
     setOrder([]);
   };
 
-  const getPastOrders = async () => {
-    console.log("getPastOrdersByUserUid", user.uid);
-    const pastOrders = await getPastOrdersByUserUid(user.uid);
-    console.log("pastOrderspastOrderspastOrderspastOrders", JSON.stringify(pastOrders));
-    return pastOrders;
-  };
+  useEffect(() => {
+    const unsubscribe = getPastOrdersByUserUid(user.uid, setPastOrders);
+    return () => {
+      unsubscribe();
+    };
+  }, [user.uid]);
 
-  const shopLengthCheck = () =>{
+  useEffect(() => {
+    if (pastOrders) {
+      console.log('Updated orders:', pastOrders);
+    }
+  }, [pastOrders]);
+
+  const shopLengthCheck = () => {
     if (order.length > 1) {
       return false;
     }
     return true;
-  }
+  };
 
   const checkout = async (orderDeliveryOptions) => {
-    
-  
     try {
+
       console.log("Checkout");
       console.log("order : ", order);
       const orderSelected = order[0];
+      if (!orderSelected) {
+        console.log("empty cart");
+        return;
+      }
       console.log("orderSelected : ", orderSelected);
       const cartItems = orderSelected.cartItems;
       console.log("cartItems : ", cartItems);
-      // const totalPrice = calculateTotalPrice(orderSelected); 
-      // console.log("totalPrice : ",totalPrice);
       await saveOrder({
         userUid: user.uid,
         cartItems,
         orderTime: new Date().toString(),
         deliveryTime: "00:15:00",
+        preparationTime: orderSelected.shop.preparationTime,
         orderStage: "fresh",
         orderOption: orderDeliveryOptions,
         orderTotalPrice: totalPrice,
         payOption: "Cash",
-        locationToDeliver: "loc",
+        locationToDeliver: location2Deliver,
         deliveryLocation: "loc",
         shopUid: orderSelected.shop.shopUid,
       });
@@ -117,13 +127,15 @@ export const CartContextProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         order,
+        pastOrders,
         addToCart,
         removeFromCart,
         clearCart,
         checkout,
-        getPastOrders,
         totalPrice,
         shopLengthCheck,
+        location2Deliver,
+        setLocation2Deliver,
       }}
     >
       {children}

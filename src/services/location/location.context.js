@@ -1,36 +1,51 @@
 import React, { useState, useEffect, useContext } from "react";
-
-import { getCityByName } from "./location.service";
+import { AuthenticationContext } from "../authentication/authentication.context";
+import { getAllCities, saveLastLocation, getLastLocation } from "./location.service";
 
 export const LocationContext = React.createContext();
 
 export const LocationContextProvider = ({ children }) => {
-  const [cityIsLoading, setCityIsLoading] = useState(true);
-  const [city, setCity] = useState(null);
-  const [cityName, setCityName] = useState("kafr kanna");
+  const { user } = useContext(AuthenticationContext);
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState();
+  const [currentLocation, setCurrentLocation] = useState({
+    location: null,
+    focused: false,
+  });
 
-  
   useEffect(() => {
-    const fetchCity = async () => {
+    const fetchCities = async () => {
       try {
-        const data = await getCityByName(cityName);
-        setCity(data);
-        setCityIsLoading(false);
+        const citiesData = await getAllCities();
+        setCities(citiesData);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchCity();
-  }, [cityName]);
+    fetchCities();
+  }, []);
+
+  useEffect(() => {
+    if (currentLocation.location) {
+      saveLastLocation(user.uid, currentLocation.location);
+    }
+  }, [currentLocation.location, user]);
+
+  useEffect(() => {
+    if (user) {
+      getLastLocation(user.uid, setCurrentLocation);
+    }
+  }, [user]);
 
   return (
     <LocationContext.Provider
       value={{
-        cityIsLoading,
-        city,
-        cityName,
-        setCityName,
+        selectedCity,
+        setSelectedCity,
+        cities,
+        currentLocation,
+        setCurrentLocation,
       }}
     >
       {children}

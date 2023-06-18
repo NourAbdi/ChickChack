@@ -37,32 +37,31 @@ export const OwnerShopContextProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    const fetchShopMenuAndOrders = async () => {
-      if (shop) {
-        try {
-          const menu = await getShopMenuByShopUid(shop.shopUid);
-          setMenu(menu);
+  const fetchShopMenuAndOrders = async () => {
+    if (shop) {
+      try {
+        const menu = await getShopMenuByShopUid(shop.shopUid);
+        setMenu(menu);
 
-          // Subscribe to real-time updates of orders
-          const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
-            console.log(orders);
-            setShopOrders(orders);
-          });
+        // Subscribe to real-time updates of the shop's orders
+        const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
+          console.log("Orders Updated:", orders);
+          // Handle the updated orders as required
+          setShopOrders(orders);
+        });
 
-          return () => {
-            // Unsubscribe from the real-time updates when component unmounts
-            unsubscribe();
-          };
-        } catch (error) {
-          console.log("Error fetching shop menu and orders:", error);
-        }
+        return () => {
+          // Unsubscribe from the real-time updates when component unmounts
+          unsubscribe();
+        };
+      } catch (error) {
+        console.log("Error fetching shop orders:", error);
       }
-    };
+    }
+  };
 
-    fetchShopMenuAndOrders();
-  }, [shop]);
-
-
+  fetchShopMenuAndOrders();
+}, [shop]);
 
   useEffect(() => {
     const getPastAndNewOrders = () => {

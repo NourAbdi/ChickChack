@@ -2,12 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import { View, Text, Button, Image, ScrollView, TouchableOpacity } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { styles } from "../components/cart.styles";
+import { useNavigation } from "@react-navigation/native";
 
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const CartScreen = () => {
-  const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck } = useContext(CartContext);
+  const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck, location2Deliver,setLocation2Deliver } = useContext(CartContext);
   const [availableOptions, setAvailableOptions] = useState([]);
+
+  const navigation = useNavigation();
+
 
   useEffect(() => {
     getAvailableOptions();
@@ -49,6 +53,10 @@ export const CartScreen = () => {
     );
   };
 
+  const takePaymentInstrument = () => {
+    return "Cash";
+  };
+
   const increaseQuantity = (shop, item) => {
     addToCart(shop, item, 1);
   };
@@ -62,9 +70,7 @@ export const CartScreen = () => {
       console.log("CAN'T CHECKOUT WITH ORDER FROM MULTIPLE SHOPS!");
       return;
     }
-  
     console.log("selectedOption", availableOptions);
-  
     // Check if any options are not selected for a shop
     for (const option of availableOptions) {
       if (!option || !option.selectedOption) {
@@ -72,13 +78,27 @@ export const CartScreen = () => {
         return;
       }
     }
-  
+    console.log("selectedOption: ", availableOptions[0]?.selectedOption);
+    if (availableOptions[0]?.selectedOption == "Delivery") {
+      if(false){
+        console.log("Please confirm location to deliver");
+        return;
+      }else{
+        console.log("location2Deliver",location2Deliver);
+      }
+    }
+    
+    const paymentInstrument = takePaymentInstrument();
+
     // All options are selected, proceed with the checkout
-    console.log("Checkout process initiated", availableOptions[0]?.selectedOption);
-    // Call the `checkout` function from the `CartContext` if needed
-    checkout(availableOptions[0]?.selectedOption);
+    // checkout(availableOptions[0]?.selectedOption);
+
+    console.log("checkout process finished successfully ...");
   };
-  
+
+  const handleLocationSelection = () => {
+    navigation.navigate("CartLocationScreen");
+  };
 
   return (
     <SafeArea>
@@ -87,7 +107,7 @@ export const CartScreen = () => {
         <ScrollView style={styles.scrollContainer}>
           {order.map((orderShop) => (
             <View key={orderShop.shop.shopUid}>
-              <Text style={styles.shopName}>Shop ID: {orderShop.shop.shopUid}</Text>
+              <Text style={styles.shopName}>shop Name: {orderShop.shop.name}</Text>
               {orderShop.cartItems.map((cartItem) => (
                 <View key={cartItem.item.itemUid} style={styles.itemContainer}>
                   <Image source={{ uri: cartItem.item.itemPhoto }} style={styles.itemImage} />
@@ -136,6 +156,9 @@ export const CartScreen = () => {
           <Text style={styles.totalPrice}>Total Price: {totalPrice.toFixed(2)}₪</Text>
           <Button title="Checkout" onPress={() => handleCheckout()} />
           <Button title="Clear" onPress={clearCart} />
+          <TouchableOpacity onPress={handleLocationSelection} style={styles.locationButton}>
+            <Text style={styles.locationButtonText}>Select Location</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeArea>

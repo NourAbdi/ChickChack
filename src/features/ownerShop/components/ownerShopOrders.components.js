@@ -51,9 +51,6 @@ export const printOrderinfo = (order) =>{
 };
 
 export const printCartIteam = (cartItems) => {
-  console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF")
-
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",cartItems)
   const cartItemsByCategory = groupBy(cartItems, 'item.itemCategory');
   return Object.entries(cartItemsByCategory).map(([category, items]) => (
     <View key={category}>

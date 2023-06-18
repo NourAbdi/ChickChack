@@ -1,3 +1,4 @@
+// Styles
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -52,11 +53,12 @@ export const styles = StyleSheet.create({
   itemImage: {
     width: 80,
     height: 80,
-    marginRight: 8,
     borderRadius: 8,
+    marginRight: 8,
   },
   itemDetails: {
     flex: 1,
+    marginRight: 8,
   },
   itemName: {
     fontSize: 16,
@@ -69,21 +71,30 @@ export const styles = StyleSheet.create({
     marginBottom: 4,
   },
   quantityButton: {
-    fontSize: 24,
+    fontSize: 18,
     paddingHorizontal: 8,
     paddingVertical: 4,
+    borderRadius: 4,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 4,
-    marginRight: 8,
+    marginRight: 4,
   },
   itemQuantity: {
     fontSize: 16,
-    marginRight: 8,
+  },
+  removeButton: {
+    fontSize: 16,
+    color: "red",
+    marginBottom: 4,
   },
   itemPrice: {
-    fontSize: 14,
-    color: "#888",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  availableOptions: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
   totalContainer: {
     borderTopWidth: 1,
@@ -91,8 +102,20 @@ export const styles = StyleSheet.create({
     paddingTop: 16,
   },
   totalPrice: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 8,
+  },
+  // Modal styles
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 16,
+    borderRadius: 8,
   },
 });

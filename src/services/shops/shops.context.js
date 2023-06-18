@@ -12,44 +12,27 @@ export const ShopsContextProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [cityName, setCityName] = useState(null);
   const [swiperPhoto, setSwiperPhoto] = useState([]);
-  const { city } = useContext(LocationContext);
-  
+  const { selectedCity } = useContext(LocationContext);
+
   useEffect(() => {
     const fetchShops = async () => {
       setIsLoading(true);
       try {
-        if (city) {
-          if(city.swiperPhoto){
-            setSwiperPhoto(city.swiperPhoto);
+        if (selectedCity) {
+          if (selectedCity.swiperPhoto) {
+            setSwiperPhoto(selectedCity.swiperPhoto);
           }
-          const fetchedShops = await getShopsByCityName(city.cityName);
+          const fetchedShops = await getShopsByCityName(selectedCity.cityName);
           setShops(fetchedShops);
-          setCityName(city.cityName);
+          setCityName(selectedCity.cityName);
           setIsLoading(false);
         }
       } catch (error) {
         setError(error.message);
       }
     };
-    // const fetchSwiper = async () => {
-    //   setIsLoading(true);
-    //   try {
-    //     if (city) {
-    //       const fetchedShops = await getShopsByCityName(city.cityName);
-    //       setShops(fetchedShops);
-    //       setIsLoading(false);
-    //     }
-    //   } catch (error) {
-    //     setError(error.message);
-    //   }
-    // };
-    // fetchSwiper();
     fetchShops();
-  }, [city]);
-
-  // useEffect(() => {
-  //   console.log("ShopsContext, shops changed:", JSON.stringify(shops, null, 2));
-  // }, [shops]);
+  }, [selectedCity]);
 
   return (
     <ShopsContext.Provider

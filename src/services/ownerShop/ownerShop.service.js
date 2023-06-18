@@ -47,7 +47,7 @@ export const updateShopDetails = async (shopUid, updatedShopDetails) => {
   }
 };
 
-export const updateOrderStage = async (orderId,newPreparationTime, newStage) => {
+export const updateOrderStage = async (orderId, newPreparationTime, newStage) => {
   try {
     const orderRef = doc(db, "orders", orderId);
     const orderDoc = await getDoc(orderRef);
@@ -110,33 +110,16 @@ export const getShopMenuByShopUid = async (shopUid) => {
 };
 
 export const getOrdersByShopUid = (shopUid, callback) => {
-  const shopsRef = collection(db, "shops");
-  const shopDocRef = doc(shopsRef, shopUid);
   const ordersRef = collection(db, "orders");
+  const shopOrdersQuery = query(ordersRef, where("shopUid", "==", shopUid));
 
-  const unsubscribe = onSnapshot(shopDocRef, (doc) => {
-    if (doc.exists()) {
-      const shopData = doc.data();
-      const shopOrders = shopData.shopOrders;
-
-      // Check if shopOrders is not empty
-      if (shopOrders.length > 0) {
-        const queryRef = query(ordersRef, where("orderId", "in", shopOrders));
-
-        // Fetch the orders that match the query
-        getDocs(queryRef).then((querySnapshot) => {
-          const orders = querySnapshot.docs.map((doc) => doc.data());
-
-          // Call the callback function with the retrieved orders
-          callback(orders);
-        });
-      }
-    }
+  const unsubscribe = onSnapshot(shopOrdersQuery, (snapshot) => {
+    const orders = [];
+    snapshot.forEach((doc) => {
+      orders.push(doc.data());
+    });
+    callback(orders); // Pass the orders array to the callback
   });
 
-  // Return the unsubscribe function in case you want to stop listening later
-  return unsubscribe;
+  return unsubscribe; // Return the unsubscribe function
 };
-
-
-

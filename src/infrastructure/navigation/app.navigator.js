@@ -41,9 +41,9 @@ export const AppNavigator = () => (
       <ShopsContextProvider>
         <ShopContextProvider>
           <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Shops" component={ShopsNavigator} />
             <Tab.Screen name="Cart" component={CartNavigator} />
-            <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Settings" component={SettingsScreen} />
           </Tab.Navigator>
         </ShopContextProvider>
