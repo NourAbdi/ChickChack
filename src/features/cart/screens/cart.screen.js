@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const CartScreen = () => {
-  const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck, location2Deliver,setLocation2Deliver } = useContext(CartContext);
+  const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck } = useContext(CartContext);
   const [availableOptions, setAvailableOptions] = useState([]);
 
   const navigation = useNavigation();
@@ -80,18 +80,13 @@ export const CartScreen = () => {
     }
     console.log("selectedOption: ", availableOptions[0]?.selectedOption);
     if (availableOptions[0]?.selectedOption == "Delivery") {
-      if(false){
-        console.log("Please confirm location to deliver");
-        return;
-      }else{
-        console.log("location2Deliver",location2Deliver);
-      }
+      
     }
     
     const paymentInstrument = takePaymentInstrument();
 
     // All options are selected, proceed with the checkout
-    // checkout(availableOptions[0]?.selectedOption);
+    checkout(availableOptions[0]?.selectedOption);
 
     console.log("checkout process finished successfully ...");
   };

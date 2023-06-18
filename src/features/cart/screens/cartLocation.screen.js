@@ -1,17 +1,18 @@
-import React, { useContext, useState, useEffect } from "react";
-import { View, Text, Button, Alert } from "react-native";
-import styled from "styled-components/native";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { View, Button, Alert, ActivityIndicator } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useNavigation } from "@react-navigation/native";
-
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const CartLocationScreen = () => {
     const navigation = useNavigation();
     const { location2Deliver, setLocation2Deliver } = useContext(CartContext);
-    const [ currentLocation, setCurrentLocation ] = useState();
+    const [currentLocation, setCurrentLocation] = useState();
     const [hasPermission, setHasPermission] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Loading state
+    const mapRef = useRef();
 
     const Map = styled(MapView)`
         height: 75%;
@@ -19,14 +20,16 @@ export const CartLocationScreen = () => {
         background-color: white;
     `;
 
-    const handleLocationSelection = () => {
-        if (location2Deliver?.location.latitude && location2Deliver?.location.longitude) {
-            console.log("selectedLocation:", location2Deliver);
-            navigation.navigate("CartScreen");
-        } else {
-            Alert.alert("No location selected", "Please select a location on the map.");
-        }
-    };
+    const LoadingContainer = styled(View)`
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+    `;
 
     const handleCurrentLocationSelection = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -34,17 +37,18 @@ export const CartLocationScreen = () => {
             Alert.alert(
                 "Permission Denied",
                 "Please grant location permissions in your device settings.",
-                [
-                    { text: "OK", onPress: () => console.log("OK Pressed") }
-                ]
+                [{ text: "OK", onPress: () => console.log("OK Pressed") }]
             );
             return;
         }
 
+        setIsLoading(true); 
+
         const location = await Location.getCurrentPositionAsync({});
         setCurrentLocation(location);
+        setLocation2Deliver(location.coords);
         setHasPermission(true);
-        // navigation.navigate("CartScreen");
+        setIsLoading(false); 
     };
 
     const handleMapPress = (event) => {
@@ -52,45 +56,59 @@ export const CartLocationScreen = () => {
         setLocation2Deliver(coordinate);
     };
 
-    useEffect(() => {
-        if (currentLocation) {
-            setLocation2Deliver(currentLocation);
+    const handleUseLocationOnMap = () => {
+        if (location2Deliver) {
+            console.log("Selected Location:", location2Deliver);
+        } else {
+            Alert.alert("No location selected", "Please select a location on the map.");
         }
-    }, [currentLocation]);
+    };
 
-    // useEffect(() => {
-    //       if (location2Deliver) {
-    //         const { latitude, longitude } = location2Deliver.location;
-    //         mapRef.current?.animateToRegion({
-    //           latitude,
-    //           longitude,
-    //           latitudeDelta: 0.05,
-    //           longitudeDelta: 0.05,
-    //         });
-    //       }
-    //   }, [location2Deliver]);
+    useEffect(() => {
+        if (location2Deliver) {
+            mapRef.current?.animateToRegion({
+                latitude: location2Deliver.latitude,
+                longitude: location2Deliver.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+            });
+        }
+    }, [location2Deliver]);
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <Map
-            // ref={mapRef}
-                initialRegion={console.log(currentLocation)&&{
-                    latitude: currentLocation ? currentLocation.coords.latitude : 32.742873,
-                    longitude: currentLocation ? currentLocation.coords.longitude : 35.337760,
+                ref={mapRef}
+                initialRegion={{
+                    latitude: location2Deliver ? location2Deliver.latitude : 0,
+                    longitude: location2Deliver ? location2Deliver.longitude : 0,
                     latitudeDelta: 0.05,
                     longitudeDelta: 0.05,
                 }}
                 showsUserLocation={hasPermission}
-                // onPress={handleMapPress}
+                onPress={handleMapPress}
             >
-                {/* {location2Deliver && (
-                    <Marker coordinate={location2Deliver} />
-                )} */}
+                {location2Deliver && (
+                    <Marker
+                        coordinate={{
+                            latitude: location2Deliver.latitude,
+                            longitude: location2Deliver.longitude,
+                        }}
+                    />
+                )}
             </Map>
 
-            {/* <Button title="Use My Current Location" onPress={handleCurrentLocationSelection} /> */}
-            {/* <Button title="Select Location on the Map" onPress={handleLocationSelection} /> */}
-            <Button title="Back" onPress={() => navigation.navigate("CartScreen")} />
+            {isLoading && (
+                <LoadingContainer>
+                    <ActivityIndicator size="large" color="blue" />
+                </LoadingContainer>
+            )}
+
+            <View>
+                <Button title="Use My Current Location" onPress={handleCurrentLocationSelection} />
+                <Button title="Use Location On Map" onPress={handleUseLocationOnMap} />
+                <Button title="Confirm" onPress={() => navigation.navigate("CartScreen")} />
+            </View>
         </View>
     );
 };

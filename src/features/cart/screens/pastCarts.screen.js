@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Text, Image, ScrollView } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { CartContext } from "../../../services/cart/cart.context";
 
 export const PastCartsScreen = () => {
   const { pastOrders } = useContext(CartContext);
+
+  useEffect(() => {
+    if(pastOrders){
+      console.log(pastOrders);
+    }
+  }, [pastOrders]);
 
   return (
     <SafeArea>
@@ -16,7 +22,7 @@ export const PastCartsScreen = () => {
                 <Text>Order ID: {order.orderId}</Text>
                 <Text>Order Total Price: {order.orderTotalPrice} ₪</Text>
                 <Text>Delivery Location: {order.deliveryLocation}</Text>
-                {/* <Text>Location to Deliver: {order.locationToDeliver}</Text> */}
+                <Text>Location to Deliver: {order.locationToDeliver.latitude}, {order.locationToDeliver.longitude}</Text>
                 <Text>Order Option: {order.orderOption}</Text>
                 <Text>Pay Option: {order.payOption}</Text>
                 <Text>Order Stage: {order.orderStage}</Text>

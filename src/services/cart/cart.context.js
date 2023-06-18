@@ -9,7 +9,8 @@ export const CartContextProvider = ({ children }) => {
   const [pastOrders, setPastOrders] = useState([]);
   const [order, setOrder] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [location2Deliver, setLocation2Deliver] = useState("loc");
+  const l = {latitude: "32.750073", longitude: "35.346591"};
+  const [location2Deliver, setLocation2Deliver] = useState(l);
 
   useEffect(() => {
     setTotalPrice(calculateTotalPrice(order));
@@ -23,9 +24,10 @@ export const CartContextProvider = ({ children }) => {
       );
       if (existingItem) {
         existingItem.quantity += quantity;
-        if (existingItem.quantity === 0) {
-          // Remove item if quantity becomes 0
-          removeFromCart(shop, item);
+        if (existingItem.quantity < 1) {
+          // Don't update anything if quantity is less than 1
+          existingItem.quantity -= quantity;
+          return;
         } else {
           setOrder([...order]);
         }
