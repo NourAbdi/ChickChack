@@ -21,7 +21,6 @@ export const PastCartsScreen = () => {
               <View key={order.orderId}>
                 <Text>Order ID: {order.orderId}</Text>
                 <Text>Order Total Price: {order.orderTotalPrice} ₪</Text>
-                <Text>Delivery Location: {order.deliveryLocation}</Text>
                 <Text>Location to Deliver: {order.locationToDeliver.latitude}, {order.locationToDeliver.longitude}</Text>
                 <Text>Order Option: {order.orderOption}</Text>
                 <Text>Pay Option: {order.payOption}</Text>
