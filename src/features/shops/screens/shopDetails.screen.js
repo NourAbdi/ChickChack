@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState,useRef } from "react";
 import {View,ActivityIndicator,Animated} from "react-native";
 
 import { ShopContext } from "../../../services/shop/shop.context";
-import { CartContext } from "../../../services/cart/cart.context";
 
 import{
   HeaderImage,
@@ -25,7 +24,6 @@ import{
 export const ShopDetailsScreen = ({ route,navigation }) => {
   const { shop } = route.params;
   const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
-  const { cartItems, addToCart, clearCart, checkout, totalPrice } = useContext(CartContext);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -63,7 +61,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
               </RestaurantInfoCard>
             </ViewAbove>
           </View>
-          {PrintMenu(menu,navigation,selectedShop,addToCart)}
+          {PrintMenu(menu,navigation,selectedShop)}
           </AnimatedScrollView>
           {PrintHeader(selectedShop.icon,scrollY,navigation)}
         </View>

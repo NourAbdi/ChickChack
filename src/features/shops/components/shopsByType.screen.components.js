@@ -21,12 +21,12 @@ export const printShops= (shops,navigation) => {
 
     return (
         <FlatList
-                data={shops}
-                keyExtractor={(item) => item.shopUid}
-                renderItem={renderShopCard}
-                numColumns={3} // Set the number of columns to 3
-                columnWrapperStyle={{ justifyContent: "space-between" }} // Adjust the spacing between columns
-            />
+            data={shops}
+            keyExtractor={(item) => item.shopUid}
+            renderItem={renderShopCard}
+            numColumns={3} // Set the number of columns to 3
+            columnWrapperStyle={{ justifyContent: "space-between" }} // Adjust the spacing between columns
+        />
     );
 }
 
@@ -41,7 +41,7 @@ export const PrintHeader = (navigation, headerTitle) => {
                 icon="arrow-left"
                 color="white"
                 size={30}
-                onPress={() => navigation.goBack()} 
+                onPress={() => navigation.goBack()}
                 style={{position:'absolute',justifyContent:'center',alignSelf:'center',marginTop:HEADER_HEIGHT/2}}
                 // onPress={() => navigation.navigate(city.cityName)} 
             />

@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { View } from "react-native";
 
 import {
-    printShops
+    printShops,
+    PrintHeader,
 } from "../components/shopsByType.screen.components"
 
 export const ShopsByTypeScreen = ({ navigation,route  }) => {
@@ -13,6 +14,7 @@ export const ShopsByTypeScreen = ({ navigation,route  }) => {
 
     return (
         <View>
+            {PrintHeader(navigation,category)}
             {printShops(shops,navigation)} 
         </View>
     );

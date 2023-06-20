@@ -72,11 +72,11 @@ export const MapScreen = ({ navigation }) => {
         });
       }
       // Reset the navigation stack to the Shops screen
-      const resetAction = CommonActions.reset({
-        index: 0,
-        routes: [{ name: "Shops" }],
-      });
-      navigation.dispatch(resetAction);
+      // const resetAction = CommonActions.reset({
+      //   index: 0,
+      //   routes: [{ name: "Shops" }],
+      // });
+      // navigation.dispatch(resetAction);
     }
   }, [cities, selectedCity]);
 

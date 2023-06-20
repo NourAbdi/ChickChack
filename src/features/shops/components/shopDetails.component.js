@@ -72,7 +72,7 @@ export const titleOpacity =(scrollY) =>{
   );
 }
 
-export const PrintMenu = (menu,navigation,shop,addToCart) => {
+export const PrintMenu = (menu,navigation,shop) => {
   // Group items by itemCategory
   const groupedItems = groupBy(menu, 'itemCategory');
   return (
@@ -85,7 +85,7 @@ export const PrintMenu = (menu,navigation,shop,addToCart) => {
               <CardView>
                 {menuItems.map((item) => (
                   <View key={item.itemUid}>
-                    <TouchableOpacity onPress={() => addToCart(shop, item, 1)}>
+                    <TouchableOpacity onPress={() => navigation.navigate("OrderDetailsScreen", { shop, item })} >
                       <MealInfoCard meal={item} />
                     </TouchableOpacity>
                   </View>
@@ -185,12 +185,6 @@ export const isOpenCheck = (workingHours,isTemporaryClose) => {
 };
 
 export const PrintHeader = (icon,scrollY,navigation) => {
-    // const {city } = useContext(LocationContext);
-    // console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",city)
-    // const handleCityChange = () => {
-    //   console.log("bbbbbbbbbbbbbbbbbbbbbbbbb",city)
-    //   navigation.navigate(city.cityName);
-    // };
     return(
       <>
         <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
@@ -198,14 +192,24 @@ export const PrintHeader = (icon,scrollY,navigation) => {
           <ShopIcon source={{ uri: icon }} />
         </AnimatedIconView>
         <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
-          <IconButton
-            icon="arrow-left"
-            color="white"
-            size={30}
-            onPress={() => navigation.goBack()} 
-            // onPress={() => navigation.navigate(city.cityName)} 
-           
-          />
+          <Row style={{ justifyContent: 'space-between' }}>
+            <IconButton
+              icon="arrow-left"
+              color="white"
+              size={30}
+              onPress={() => navigation.goBack()} 
+              style={{alignSelf:'flex-start'}}
+
+            />
+            <IconButton
+              icon="cart"
+              color="white"
+              size={30}
+              onPress={() => navigation.navigate("Cart")} 
+              style={{alignSelf:"flex-end"}}
+            />
+          </Row>
+          
         </AnimatedBackView>
       </>
     );
