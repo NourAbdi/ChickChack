@@ -1,16 +1,21 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Fontisto } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { TransporterEditScreen } from "../../features/transporter/screens/transporterEdit.screen";
+import { TransporterOrdersScreen } from "../../features/transporter/screens/transporterOrders.screen";
+import { TransporterMapScreen } from "../../features/transporter/screens/transporterMap.screen";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+
+import { TransporterContextProvider } from "../../services/transporter/transporter.context";
 
 const Tab = createBottomTabNavigator();
 
 const TAB_ICON = {
-    myShop: "shopping-store",
+    Edits: "database-edit",
+    Orders: "order-bool-descending-variant",
     Map: "map",
-    Checkout: "shopping-basket",
-    Settings: "player-settings",
+    Account: "account-settings",
 };
 
 const createScreenOptions = ({ route }) => {
@@ -26,14 +31,18 @@ const createScreenOptions = ({ route }) => {
         ],
         headerShown: false,
         tabBarIcon: ({ size, color }) => (
-            <Fontisto name={iconName} size={size} color={color} />
+            <MaterialCommunityIcons name={iconName} size={30} color={color} />
         ),
     };
 }
 
-
 export const TransporterNavigator = () => (
-    <Tab.Navigator screenOptions={createScreenOptions}>
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-    </Tab.Navigator>
+    <TransporterContextProvider>
+        <Tab.Navigator screenOptions={createScreenOptions}>
+            <Tab.Screen name="Edits" component={TransporterEditScreen} />
+            <Tab.Screen name="Orders" component={TransporterOrdersScreen} />
+            <Tab.Screen name="Map" component={TransporterMapScreen} />
+            <Tab.Screen name="Account" component={SettingsScreen} />
+        </Tab.Navigator>
+    </TransporterContextProvider>
 );
