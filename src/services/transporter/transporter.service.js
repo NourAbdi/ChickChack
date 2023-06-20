@@ -71,16 +71,22 @@ export const fetchAreaOrders = async (citiesUid, setAreaOrders) => {
     try {
         const shopUids = await getShopUidsByCities(citiesUid);
         const ordersRef = collection(db, "orders");
-        const areaOrdersQuery = query(
-            ordersRef,
+        const areaOrdersQuery = query(ordersRef,
             where("shopUid", "in", shopUids),
-            where("orderOption", "==", "Delivery")
+            where("orderOption", "==", "Delivery"),
         );
-        const snapshot = await getDocs(areaOrdersQuery);
+        const unsubscribe = onSnapshot(areaOrdersQuery, (snapshot) => {
+            const orders = [];
+            snapshot.forEach((doc) => {
+                const order = doc.data();
+                orders.push(order);
+            });
+            console.log("orders: ", orders);
+            setAreaOrders(orders);
+        });
 
-        const orders = snapshot.docs.map((doc) => doc.data());
-        console.log("orders: ", orders);
-        setAreaOrders(orders);
+        // Return the unsubscribe function to clean up the listener
+        return unsubscribe;
     } catch (error) {
         console.log("Error fetching area orders:", error);
     }

@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, View, Button, ActivityIndicator, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Polyline } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
 
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from "../../../infrastructure/theme/colors";
 
 import { TransporterContext } from '../../../services/transporter/transporter.context';
 
 const Map = styled(MapView)`
-  height: 92%;
+  height: 94%;
   width: 100%;
   background-color: white;
 `;
@@ -62,6 +61,16 @@ export const TransporterMapScreen = () => {
         );
     };
 
+    const renderRoute = (order) => {
+        const { shopLocation, locationToDeliver } = order;
+        const routeCoordinates = [
+            { latitude: shopLocation.latitude, longitude: shopLocation.longitude },
+            { latitude: locationToDeliver.latitude, longitude: locationToDeliver.longitude },
+        ];
+
+        return <Polyline coordinates={routeCoordinates} strokeColor="blue" strokeWidth={2} />;
+    };
+
     if (isLoading || !currentOrders || !newOrders) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -84,48 +93,56 @@ export const TransporterMapScreen = () => {
                 showsMyLocationButton={false}
             >
                 {newOrders && newOrders.map(order => (
+                    <React.Fragment key={order.orderId}>
                     <Marker
-                        key={order.orderId}
-                        coordinate={{
-                            latitude: order.locationToDeliver.latitude,
-                            longitude: order.locationToDeliver.longitude
-                        }}
-                        title="locationToDeliver"
-                        description={order.orderStage}
-                        pinColor="red"
-                        onPress={() => teleportToCoordinate(order.locationToDeliver.latitude, order.locationToDeliver.longitude)}
-                    />
-                ))}
-
-                {/* Markers for currentOrders */}
-                {/* {currentOrders.map(order => (
-                    <Marker
-                        key={order.orderId}
                         coordinate={{
                             latitude: order.shopLocation.latitude,
                             longitude: order.shopLocation.longitude
                         }}
-                        title="Current Order"
+                        title="Shop Location"
                         description={order.orderStage}
-                        pinColor="yellow"
-                        onPress={() => handleMarkerPress(order.shopLocation)}
+                        pinColor="red"
+                        onPress={() => teleportToCoordinate(order.shopLocation.latitude, order.shopLocation.longitude)}
                     />
-                ))} */}
-
-                {/* Markers for currentOrders */}
-                {currentOrders && currentOrders.map(order => (
-
                     <Marker
-                        key={order.orderId}
                         coordinate={{
                             latitude: order.locationToDeliver.latitude,
                             longitude: order.locationToDeliver.longitude
                         }}
                         title="locationToDeliver"
                         description={order.orderStage}
-                        pinColor="green"
+                        pinColor="blue"
                         onPress={() => teleportToCoordinate(order.locationToDeliver.latitude, order.locationToDeliver.longitude)}
                     />
+                    {renderRoute(order)}
+                </React.Fragment>
+                ))}
+
+                {/* Markers and routes for currentOrders */}
+                {currentOrders && currentOrders.map(order => (
+                    <React.Fragment key={order.orderId}>
+                        <Marker
+                            coordinate={{
+                                latitude: order.shopLocation.latitude,
+                                longitude: order.shopLocation.longitude
+                            }}
+                            title="Shop Location"
+                            description={order.orderStage}
+                            pinColor="yellow"
+                            onPress={() => teleportToCoordinate(order.shopLocation.latitude, order.shopLocation.longitude)}
+                        />
+                        <Marker
+                            coordinate={{
+                                latitude: order.locationToDeliver.latitude,
+                                longitude: order.locationToDeliver.longitude
+                            }}
+                            title="locationToDeliver"
+                            description={order.orderStage}
+                            pinColor="green"
+                            onPress={() => teleportToCoordinate(order.locationToDeliver.latitude, order.locationToDeliver.longitude)}
+                        />
+                        {renderRoute(order)}
+                    </React.Fragment>
                 ))}
             </Map>
 

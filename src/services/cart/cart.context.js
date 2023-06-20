@@ -107,6 +107,7 @@ export const CartContextProvider = ({ children }) => {
         payOption: "Cash",
         locationToDeliver: location2Deliver,
         deliveryLocation: "loc",
+        shopLocation: orderSelected.shop.shopLocation,
         shopUid: orderSelected.shop.shopUid,
       });
       clearCart(); // Clear the cart after a successful order
