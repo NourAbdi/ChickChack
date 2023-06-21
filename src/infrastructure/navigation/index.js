@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { AppNavigator } from "./app.navigator";
+import { ClientNavigator } from "./client.navigator";
 import { AccountNavigator } from "./account.navigator";
 import { ShopkeeperNavigator } from "./shopkeeper.navigator";
 import { TransporterNavigator } from "./transporter.navigator";
@@ -27,7 +27,7 @@ export const Navigation = () => {
     <NavigationContainer>
       {(isAuthenticated && role) ? (
         role === "client" ? (
-          <AppNavigator />
+          <ClientNavigator />
         ) : role === "shopkeeper" ? (
             <ShopkeeperNavigator />
         ) : role === "transporter" ? (

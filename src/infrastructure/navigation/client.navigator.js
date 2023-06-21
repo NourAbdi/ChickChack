@@ -35,7 +35,7 @@ const createScreenOptions = ({ route }) => {
   };
 };
 
-export const AppNavigator = () => (
+export const ClientNavigator = () => (
   <LocationContextProvider>
     <CartContextProvider>
       <ShopsContextProvider>
