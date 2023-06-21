@@ -3,7 +3,6 @@ import { ScrollView, Button, ActivityIndicator, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
-import { CommonActions } from "@react-navigation/native";
 
 import { LocationContext } from "../../../services/location/location.context";
 
@@ -71,12 +70,6 @@ export const MapScreen = ({ navigation }) => {
           longitudeDelta: 0.05,
         });
       }
-      // Reset the navigation stack to the Shops screen
-      // const resetAction = CommonActions.reset({
-      //   index: 0,
-      //   routes: [{ name: "Shops" }],
-      // });
-      // navigation.dispatch(resetAction);
     }
   }, [cities, selectedCity]);
 
@@ -85,7 +78,6 @@ export const MapScreen = ({ navigation }) => {
       const kafrKannaCity = cities.find((city) => city.cityName === "kafr kanna");
       if (kafrKannaCity) {
         setSelectedCity(kafrKannaCity);
-        navigation.navigate("Shops");
       }
     }
   }, [cities]);
@@ -111,6 +103,10 @@ export const MapScreen = ({ navigation }) => {
               longitude: city.location.longitude,
             }}
             title={city.cityName}
+            onPress={() => {
+              setSelectedCity(city);
+              navigation.navigate("Shops");
+            }}
           />
         ))}
       </Map>
