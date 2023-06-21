@@ -14,17 +14,6 @@ import { Navigation } from "./src/infrastructure/navigation";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyAWkA7XZsBTOGfiRh9YGTDrbzcusOJUhcs",
-//   authDomain: "chickchack-3069a.firebaseapp.com",
-//   projectId: "chickchack-3069a",
-//   storageBucket: "chickchack-3069a.appspot.com",
-//   messagingSenderId: "497036758885",
-//   appId: "1:497036758885:web:6c1d2e545d8a8bf35cdb8c"
-// };
-
-// initializeApp(firebaseConfig);
-
 export default function App() {
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,

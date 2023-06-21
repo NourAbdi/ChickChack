@@ -84,7 +84,6 @@ export const TransporterContextProvider = ({ children }) => {
 
     const updateOrderStageAndTime = async (orderId, orderStage, deliveryTime) => {
         try {
-            console.log(orderId, orderStage, deliveryTime);
             if (orderId && orderStage && deliveryTime) {
                 await updateOrderStageAndTimeData(orderId, orderStage, deliveryTime);
             }
@@ -93,26 +92,26 @@ export const TransporterContextProvider = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        if (user) {
-            console.log("user changed: ", user);
-        }
-        if (transporter) {
-            console.log("transporter changed: ", transporter);
-        }
-        if (areaOrders) {
-            console.log("areaOrders changed: ", areaOrders);
-        }
-        if (newOrders) {
-            console.log("newOrders changed: ", newOrders);
-        }
-        if (currentOrders) {
-            console.log("currentOrders changed: ", currentOrders);
-        }
-        if (pastOrders) {
-            console.log("pastOrders changed: ", pastOrders);
-        }
-    }, [user, transporter, areaOrders, newOrders, currentOrders, pastOrders]);
+    // useEffect(() => {
+    //     if (user) {
+    //         console.log("user changed: ", user);
+    //     }
+    //     if (transporter) {
+    //         console.log("transporter changed: ", transporter);
+    //     }
+    //     if (areaOrders) {
+    //         console.log("areaOrders changed: ", areaOrders);
+    //     }
+    //     if (newOrders) {
+    //         console.log("newOrders changed: ", newOrders);
+    //     }
+    //     if (currentOrders) {
+    //         console.log("currentOrders changed: ", currentOrders);
+    //     }
+    //     if (pastOrders) {
+    //         console.log("pastOrders changed: ", pastOrders);
+    //     }
+    // }, [user, transporter, areaOrders, newOrders, currentOrders, pastOrders]);
 
     return (
         <TransporterContext.Provider

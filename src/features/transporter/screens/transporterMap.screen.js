@@ -111,7 +111,7 @@ export const TransporterMapScreen = () => {
                         }}
                         title="locationToDeliver"
                         description={order.orderStage}
-                        pinColor="blue"
+                        pinColor="yellow"
                         onPress={() => teleportToCoordinate(order.locationToDeliver.latitude, order.locationToDeliver.longitude)}
                     />
                     {renderRoute(order)}
@@ -128,7 +128,7 @@ export const TransporterMapScreen = () => {
                             }}
                             title="Shop Location"
                             description={order.orderStage}
-                            pinColor="yellow"
+                            pinColor="red"
                             onPress={() => teleportToCoordinate(order.shopLocation.latitude, order.shopLocation.longitude)}
                         />
                         <Marker

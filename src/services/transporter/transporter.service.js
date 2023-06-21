@@ -16,7 +16,6 @@ export const getTransporterByUserUid = async (userUid) => {
         const userSnapshot = await getDoc(userRef);
 
         if (userSnapshot.exists()) {
-            // User document exists
             const userData = userSnapshot.data();
             const transporterUid = userData.transporterUid;
 
@@ -25,16 +24,11 @@ export const getTransporterByUserUid = async (userUid) => {
                 const transporterSnapshot = await getDoc(transporterRef);
 
                 if (transporterSnapshot.exists()) {
-                    // Transporter document exists
                     const transporterData = transporterSnapshot.data();
-                    console.log(transporterData);
-                    // Process the transporter data as needed
                     return transporterData;
                 }
             }
         }
-
-        // User or transporter document does not exist
         return null;
     } catch (error) {
         throw new Error("Error fetching transporter: " + error.message);
@@ -47,7 +41,6 @@ export const updateTransporterData = async (transporterUid, workingHours, openSt
         const transporterSnapshot = await getDoc(transporterRef);
 
         if (transporterSnapshot.exists()) {
-            // Transporter document exists
             const transporterData = transporterSnapshot.data();
 
             const updatedTransporterData = {
@@ -81,7 +74,6 @@ export const fetchAreaOrders = async (citiesUid, setAreaOrders) => {
                 const order = doc.data();
                 orders.push(order);
             });
-            console.log("orders: ", orders);
             setAreaOrders(orders);
         });
 
@@ -110,12 +102,10 @@ const getShopUidsByCities = async (citiesUid) => {
 
 export const updateOrderStageAndTimeData = async (orderId, _orderStage, _deliveryTime) => {
     try {
-        console.log("11111111111111",orderId, _orderStage, _deliveryTime);
         const orderRef = doc(db, "orders", orderId);
         const orderSnapshot = await getDoc(orderRef);
 
         if (orderSnapshot.exists()) {
-            console.log("222222222222", orderSnapshot.exists());
             const existingOrderData = orderSnapshot.data();
             const updatedOrderData = {
                 ...existingOrderData,
@@ -132,5 +122,3 @@ export const updateOrderStageAndTimeData = async (orderId, _orderStage, _deliver
         throw new Error("Error updating order data: " + error.message);
     }
 };
-
-
