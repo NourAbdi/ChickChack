@@ -1,7 +1,6 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
-// import { initializeApp } from "firebase/app";
 
 import {
   useFonts as useOswald,
