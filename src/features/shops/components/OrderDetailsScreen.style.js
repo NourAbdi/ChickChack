@@ -115,6 +115,7 @@ export const Price = styled.Text`
 export const TotalPrice = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
+  color: ${(props) => props.theme.colors.text.inverse};
   align-self: center;
   margin:5px;
 `;
