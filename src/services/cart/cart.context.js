@@ -20,7 +20,7 @@ export const CartContextProvider = ({ children }) => {
     const existingShop = order.find((orderItem) => orderItem.shop === shop);
     if (existingShop) {
       const existingItem = existingShop.cartItems.find(
-        (cartItem) => cartItem.item === item
+        (cartItem) => cartItem.item === item && JSON.stringify(cartItem.additions) === JSON.stringify(additions) 
       );
       if (existingItem) {
         existingItem.quantity += quantity;

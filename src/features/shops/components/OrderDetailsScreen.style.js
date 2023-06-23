@@ -1,12 +1,9 @@
 import styled from "styled-components/native";
 import { ImageBackground,Dimensions,TouchableOpacity,Image } from "react-native";
 import { Card } from "react-native-paper";
-// import { BlurView } from "react-native-fast-blur";
-import { theme } from "../../../infrastructure/theme";
 
 const OrderImageHeight = 300;
 const screenWidth = Dimensions.get('window').width;
-const screenHeigth = Dimensions.get('window').height;
 const MARGIN = 5;
 
 export const InfoCard = styled(Card)`

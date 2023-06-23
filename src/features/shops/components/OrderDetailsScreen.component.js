@@ -1,18 +1,11 @@
 import React,{useState} from "react";
 import { View,SafeAreaView,StatusBar,Animated} from "react-native";
-import { IconButton } from "react-native-paper";
 import Icons from "@expo/vector-icons/MaterialIcons";
-// import CheckBox from 'react-native-check-box';
 import { CheckBox } from 'react-native-elements'
 
 import { colors } from "../../../infrastructure/theme/colors";
-import { theme } from "../../../infrastructure/theme";
 import{
     Row,
-    AnimatedHeaderView,
-    AnimatedIconView,
-    ShopIcon,
-    AnimatedBackView,
     ViewCounter,
     CounterButton,
     Count,
@@ -28,13 +21,10 @@ import{
 import { ScrollView } from "react-native-gesture-handler";
 
 export const PrintCounter = (count,setCount,addToCart,shop,item,additions={}) => {
-  console.log(additions)
   const [buttonAnimation] = useState(new Animated.Value(1));
 
   const handlePress = () => {
-    // Perform any necessary logic
     addToCart(shop, item, count, additions);
-
     // Start the button animation
     Animated.sequence([
       Animated.timing(buttonAnimation, {
@@ -81,19 +71,13 @@ export const PrintCounter = (count,setCount,addToCart,shop,item,additions={}) =>
   );
 };
 
-export const StatusBarPlaceHolder= () => {
-  return (
-      <SafeAreaView style={{ backgroundColor: colors.mainblue}}>
-        <StatusBar barStyle="light-content"/>
-      </SafeAreaView>
-  );
-}
-
 export const printHeader = (headerImage,buttonColor,navigation) => {
   
   return (
     <>
-      <StatusBarPlaceHolder />
+      <SafeAreaView style={{ backgroundColor: colors.mainblue}}>
+        <StatusBar barStyle="light-content"/>
+      </SafeAreaView>      
       <OrderImage source={{ uri: headerImage }} />
       <SafeAreaView style={{ position: 'absolute' }}>
         <HeaderView>
@@ -148,105 +132,4 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems) => {
       </ScrollView>
     )
   );
-};
-
-
-export const PrintAdditionCard = (additionInfo,setSelectedItems) => {
-  // console.log(additionInfo)
-  const [isChecked, setIsChecked] = useState(false);
-  const [checkedValue, setCheckedValue] = useState('');
-
-  const handleCheckboxChange = (item) => {
-    setIsChecked(!isChecked);
-    // setCheckedValue(additionInfo.additionName);
-    console.log(checkedValue);
-    // setSelectedItems((prevItems) => [...prevItems, item]);
-  };
-
-  return (
-    <ViewAddition>
-      <AdditionImage source={{uri:additionInfo.additionPhoto}} />
-      <AdditionInfo>{additionInfo.additionName}</AdditionInfo>
-      <View style={{flex:1}}/>
-      <AdditionInfo>{additionInfo.additionPrice}₪</AdditionInfo>
-      <CheckBox
-        checked={isChecked}
-        onPress={handleCheckboxChange}
-        checkedColor={colors.ui.secondary} // Set the desired color here
-        size={20}
-        // save={additionInfo.additionName}
-      />
-    </ViewAddition>
-  );
-}
-//------------------------------------------------------------------------------------------------------------------------------------
-const HEADER_HEIGHT = theme.headerHeigth;
- 
-export const headerTranslate =(scrollY) =>{ 
-  return(
-  scrollY.interpolate({
-    inputRange: [0, HEADER_HEIGHT],
-    outputRange: [0,0],
-    extrapolate: 'clamp',
-  })
-  );
-}
-
-export const titleScale =(scrollY) =>{
-  return(
-    scrollY.interpolate({
-      inputRange: [0,HEADER_HEIGHT, 2*HEADER_HEIGHT],
-      outputRange: [1, 1, 0.8],
-      extrapolate: 'clamp',
-    })
-  );
-}
-export const titleTranslate =(scrollY) =>{
-   return(
-    scrollY.interpolate({
-      inputRange: [0, HEADER_HEIGHT / 2, HEADER_HEIGHT],
-      outputRange: [0, 0, -8],
-      extrapolate: 'clamp',
-    })
-   );
-}
-
-export const titleOpacity =(scrollY) =>{
-  return(
-    scrollY.interpolate({
-      inputRange: [HEADER_HEIGHT,HEADER_HEIGHT+100],
-      outputRange: [0,1],
-    })
-  );
-}
-
-export const PrintHeader = (icon,scrollY,navigation) => {
-    return(
-      <>
-        <AnimatedHeaderView style={{ opacity: titleOpacity(scrollY), transform: [{ translateY: headerTranslate(scrollY) }] }} />
-        <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
-          <ShopIcon source={{ uri: icon }} />
-        </AnimatedIconView>
-        <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
-          <Row style={{ justifyContent: 'space-between' }}>
-            <IconButton
-              icon="arrow-left"
-              color="white"
-              size={30}
-              onPress={() => navigation.goBack()} 
-              style={{alignSelf:'flex-start'}}
-
-            />
-            <IconButton
-              icon="cart"
-              color="white"
-              size={30}
-              onPress={() => navigation.navigate("Cart")} 
-              style={{alignSelf:"flex-end"}}
-            />
-          </Row>
-          
-        </AnimatedBackView>
-      </>
-    );
 };

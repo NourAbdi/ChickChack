@@ -102,14 +102,14 @@ export const CartScreen = () => {
           {order.map((orderShop) => (
             <View key={orderShop.shop.shopUid}>
               <Text style={styles.shopName}>shop Name: {orderShop.shop.name}</Text>
-              {orderShop.cartItems.map((cartItem) => (
-                <View key={cartItem.item.itemUid} style={styles.itemContainer}>
+              {orderShop.cartItems.map((cartItem,index) => (
+                <View key={index} style={styles.itemContainer}>
                   <Image source={{ uri: cartItem.item.itemPhoto }} style={styles.itemImage} />
                   <View style={styles.itemDetails}>
                     <Text style={styles.itemName}>{cartItem.item.itemName}</Text>
                     <Text style={styles.itemName}>
-                      {Object.entries(cartItem.additions).map(([additionName, additionPrice]) => (
-                        <Text key={additionName}>
+                      {Object.entries(cartItem.additions).map(([additionName, additionPrice],index) => (
+                        <Text key={index}>
                           {additionName}: {additionPrice}₪{'\n'}
                         </Text>
                       ))}
