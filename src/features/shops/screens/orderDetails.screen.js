@@ -1,58 +1,62 @@
-import React, { useRef, useState, useContext } from "react";
-import { View, Animated, Text, Image,TouchableOpacity } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import Icons from "@expo/vector-icons/MaterialIcons";
-import { StatusBar } from "expo-status-bar";
-const SIZES = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
-
+import React, { useState, useContext } from "react";
+import { View,Dimensions } from "react-native";
 
 import { CartContext } from "../../../services/cart/cart.context";
 import { colors } from "../../../infrastructure/theme/colors";
-
 import {
-  OrderImage,
   InfoCard,
   InfoCardShadow,
-  HeaderButton,
-  HeaderView,
   OrderName,
-  Center,
   Description,
-  Row,
-  CounterButton
+  Price,
+  TotalPrice,
+  BlueBackGround,
 } from '../components/OrderDetailsScreen.style'
 
 import{
   PrintCounter,
-  StatusBarPlaceHolder,
+  printHeader,
+  PrintIteamAdditions,
 } from '../components/OrderDetailsScreen.component'
-import { add } from "lodash";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const OrderDetailsScreen = ({ navigation,route}) => {
   const { shop, item } = route.params;
   const { addToCart } = useContext(CartContext);
   const [count, setCount] = useState(1);
-  const insets = useSafeAreaInsets();
-
+  const [checkedItems, setCheckedItems] = useState(
+    Object.fromEntries(
+      Object.entries(item.itemAdditions).flatMap(([additionType, additionsOfType]) =>
+        additionsOfType.map((addition) => [addition.additionName, { isChecked: false, price: addition.additionPrice }])
+      )
+    )
+  );
+  const filteredItems = Object.fromEntries(
+    Object.entries(checkedItems)
+      .filter(([_, item]) => item.isChecked)
+      .map(([key, { price }]) => [key, price])
+  );
+  const MyComponent = () => {
+    const insets = useSafeAreaInsets();
+    return Dimensions.get('window').height - insets.top - insets.bottom;
+  };
+  const checkedItemsTotalPrice = Object.entries(checkedItems)
+  .filter(([_, item]) => item.isChecked)
+  .reduce((total, [_, item]) => total + item.price, 0);
 
   return (
     <View style={{ flex: 1}}>
-      <StatusBarPlaceHolder/>
-        <OrderImage source={{uri:item.itemPhoto}}/> 
-        <SafeAreaView style={{position: 'absolute'}}>
-          <HeaderButton  onPress={() => navigation.goBack() } color={colors.mainblue} >
-            <Icons name="arrow-back" size={24} color={colors.mainblue} />
-          </HeaderButton>
-        </SafeAreaView>
-        
+        {printHeader(item.itemPhoto,colors.text.inverse,navigation)}
         <InfoCardShadow>
-          <InfoCard>
+          <InfoCard safeAreaViewHeight={ MyComponent()}>
+            {PrintCounter(count,setCount,addToCart,shop,item,filteredItems)}
             <OrderName>{item.itemName}</OrderName>
+            <Price>Price for unite:{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
-              {PrintCounter(count,setCount,addToCart,shop,item)}
+            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems)}
+            <BlueBackGround>
+              <TotalPrice>Total price:{item.itemPrice *count + checkedItemsTotalPrice}</TotalPrice>
+            </BlueBackGround>
           </InfoCard>
         </InfoCardShadow>
     </View>

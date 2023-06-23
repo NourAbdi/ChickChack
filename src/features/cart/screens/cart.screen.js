@@ -94,7 +94,6 @@ export const CartScreen = () => {
   const handleLocationSelection = () => {
     navigation.navigate("CartLocationScreen");
   };
-
   return (
     <SafeArea>
       <View style={styles.container}>
@@ -108,6 +107,13 @@ export const CartScreen = () => {
                   <Image source={{ uri: cartItem.item.itemPhoto }} style={styles.itemImage} />
                   <View style={styles.itemDetails}>
                     <Text style={styles.itemName}>{cartItem.item.itemName}</Text>
+                    <Text style={styles.itemName}>
+                      {Object.entries(cartItem.additions).map(([additionName, additionPrice]) => (
+                        <Text key={additionName}>
+                          {additionName}: {additionPrice}₪{'\n'}
+                        </Text>
+                      ))}
+                    </Text>                    
                     <View style={styles.quantityContainer}>
                       <TouchableOpacity onPress={() => decreaseQuantity(orderShop.shop, cartItem.item)}>
                         <Text style={styles.quantityButton}>-</Text>

@@ -16,7 +16,7 @@ export const CartContextProvider = ({ children }) => {
     setTotalPrice(calculateTotalPrice(order));
   }, [order]);
 
-  const addToCart = (shop, item, quantity = 1) => {
+  const addToCart = (shop, item, quantity = 1,additions={}) => {
     const existingShop = order.find((orderItem) => orderItem.shop === shop);
     if (existingShop) {
       const existingItem = existingShop.cartItems.find(
@@ -32,11 +32,11 @@ export const CartContextProvider = ({ children }) => {
           setOrder([...order]);
         }
       } else {
-        existingShop.cartItems.push({ item, quantity });
+        existingShop.cartItems.push({ item, quantity,additions });
         setOrder([...order]);
       }
     } else {
-      const newShop = { shop, cartItems: [{ item, quantity }] };
+      const newShop = { shop, cartItems: [{ item, quantity,additions }] };
       setOrder([...order, newShop]);
     }
   };
