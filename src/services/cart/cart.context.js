@@ -118,9 +118,11 @@ export const CartContextProvider = ({ children }) => {
 
   const calculateTotalPrice = (order) => {
     let totalPrice = 0;
+    let additionsPrice =0;
     for (const shop of order) {
       for (const cartItem of shop.cartItems) {
-        totalPrice += cartItem.item.itemPrice * cartItem.quantity;
+        additionsPrice =  Object.values(cartItem.additions).reduce((sum, price) => sum + price, 0);
+        totalPrice += cartItem.item.itemPrice * cartItem.quantity + additionsPrice;
       }
     }
     return totalPrice;
