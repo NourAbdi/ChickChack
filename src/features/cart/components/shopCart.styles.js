@@ -57,7 +57,7 @@ export const ViewCounter = styled.View`
   border-radius: 10px;
   margin:${(props) => props.theme.space[1]};
   margin-left:${(props) => props.theme.space[4]};
-
+  alignSelf: flex-end;
 `;
 
 export const CounterButton = styled(TouchableOpacity)`

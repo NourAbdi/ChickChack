@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+import { TouchableOpacity,View } from "react-native";
+
 import Icons from "@expo/vector-icons/MaterialIcons";
 
 
@@ -28,15 +30,21 @@ const decreaseQuantity = (shop, item,additions,addToCart) => {
 
 export const printButtons = (shop,item,additions,quantity,addToCart) => {
     return (
-        <ViewCounter>
-            <CounterButton onPress={() => decreaseQuantity(shop,item,additions,addToCart)}>
-                <Icons name="remove" size={20} color='black' />
-            </CounterButton>
-            <Count>{quantity}</Count>
-            <CounterButton onPress={() => increaseQuantity(shop,item,additions,addToCart)}>
-                <Icons name="add" size={20} color='black' />
-            </CounterButton>
-        </ViewCounter>
+        <View style={{marginRight:5}}>
+            <TouchableOpacity onPress={() => removeFromCart(shopOrder.shop, cartItem.item, cartItem.additions)} style={{ alignSelf:'flex-end'}}>
+                <Icons name="delete" size={25} color='red' />
+            </TouchableOpacity>
+            <View style={{flex:1}}/>
+            <ViewCounter>
+                <CounterButton onPress={() => decreaseQuantity(shop, item, additions, addToCart)}>
+                    <Icons name="remove" size={20} color='black' />
+                </CounterButton>
+                <Count>{quantity}</Count>
+                <CounterButton onPress={() => increaseQuantity(shop, item, additions, addToCart)}>
+                    <Icons name="add" size={20} color='black' />
+                </CounterButton>
+            </ViewCounter>
+        </View>
     );
 }
 

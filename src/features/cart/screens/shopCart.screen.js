@@ -133,13 +133,13 @@ export const ShopCart = ({route}) => {
                     <Info>Price: {singleOrderPrice(cartItem.item.itemPrice,cartItem.additions,cartItem.quantity)}₪</Info>
                   <Price>Price for unite: {cartItem.item.itemPrice}₪</Price>
                     </View>
-                {printButtons(shopOrder.shop, cartItem.item,cartItem.additions,cartItem.quantity,addToCart)}
                   </Row>
+
                 </View>
                 <View style={{flex:1}}/>
-                <TouchableOpacity onPress={() => removeFromCart(shopOrder.shop, cartItem.item,cartItem.additions) }  style={{alignSelf:'flex-start',margin:5}}>
-                  <Icons name="delete" size={25} color='red' />
-                </TouchableOpacity>
+                
+                {printButtons(shopOrder.shop, cartItem.item,cartItem.additions,cartItem.quantity,addToCart)}
+
               </ItemCard>
             ))}
             <Text style={styles.availableOptions}>Available Options:</Text>
