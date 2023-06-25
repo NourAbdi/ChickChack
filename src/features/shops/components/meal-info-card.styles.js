@@ -8,6 +8,8 @@ background-color: ${(props) => props.theme.colors.bg.primary};
 width: ${(props) => props.theme.mealCardSize}px;
 height:  ${(props) => props.theme.mealCardSize}px;
 margin: ${(props) => props.theme.space[1]};
+margin-bottom: ${(props) => props.theme.space[3]};
+
 // padding: ${(props) => props.theme.space[3]};
 border-radius:${borderRadius}px;
 overflow: hidden;

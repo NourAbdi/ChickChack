@@ -41,20 +41,29 @@ export const CartContextProvider = ({ children }) => {
     }
   };
 
-  const removeFromCart = (shop, item) => {
+  const removeFromCart = (shop, item,additions) => {
     const existingShop = order.find((orderItem) => orderItem.shop === shop);
     if (existingShop) {
       const updatedCartItems = existingShop.cartItems.filter(
-        (cartItem) => cartItem.item !== item
+        (cartItem) => cartItem.item !== item || JSON.stringify(cartItem.additions) !== JSON.stringify(additions)
       );
       if (updatedCartItems.length === 0) {
         // Remove shop if no cart items left
-        const updatedOrder = order.filter((orderShop) => orderShop.shop !== shop);
+        console.log("EEEEEEEEEEEEEEEEEEEEEEEEEE",order)
+        const updatedOrder = order.filter((orderShop) => orderShop.shop.shopUid !== shop.shopUid);
         setOrder([...updatedOrder]);
       } else {
         existingShop.cartItems = updatedCartItems;
         setOrder([...order]);
       }
+    }
+  };
+
+  const removeShopFromCart = (shopUid) => {
+    const existingShop = order.find((orderItem) => orderItem.shop.shopUid === shopUid);
+    if (existingShop) {
+      const updatedOrder = order.filter((orderShop) => orderShop.shop.shopUid !== shopUid);
+      setOrder([...updatedOrder]);
     }
   };
 
@@ -122,7 +131,7 @@ export const CartContextProvider = ({ children }) => {
     for (const shop of order) {
       for (const cartItem of shop.cartItems) {
         additionsPrice =  Object.values(cartItem.additions).reduce((sum, price) => sum + price, 0);
-        totalPrice += cartItem.item.itemPrice * cartItem.quantity + additionsPrice;
+        totalPrice += cartItem.item.itemPrice * cartItem.quantity + additionsPrice * cartItem.quantity;
       }
     }
     return totalPrice;
@@ -135,6 +144,7 @@ export const CartContextProvider = ({ children }) => {
         pastOrders,
         addToCart,
         removeFromCart,
+        removeShopFromCart,
         clearCart,
         checkout,
         totalPrice,

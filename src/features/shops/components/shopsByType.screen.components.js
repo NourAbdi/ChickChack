@@ -1,6 +1,6 @@
 import React from "react";
-import { StatusBar,TouchableOpacity,SafeAreaView,FlatList } from "react-native";
-import { IconButton } from "react-native-paper";
+import { StatusBar,TouchableOpacity,SafeAreaView,FlatList,View } from "react-native";
+import Icons from "@expo/vector-icons/MaterialIcons";
 
 import { theme } from "../../../infrastructure/theme";
 import { colors } from "../../../infrastructure/theme/colors";
@@ -32,19 +32,21 @@ export const printShops= (shops,navigation) => {
 
 export const PrintHeader = (navigation, headerTitle) => {
     return (
-        <SafeAreaView style={{ backgroundColor: colors.mainblue,height:HEADER_HEIGHT,justifyContent:'center',alignItems:'center' }}>
+        <SafeAreaView style={{ backgroundColor: colors.mainblue,height:HEADER_HEIGHT }}>
             <StatusBar
             barStyle="light-content"
             />
-            <HeaderTitle>{headerTitle}</HeaderTitle>
-            <IconButton
-                icon="arrow-left"
-                color="white"
-                size={30}
-                onPress={() => navigation.goBack()}
-                style={{position:'absolute',justifyContent:'center',alignSelf:'center',marginTop:HEADER_HEIGHT/2}}
-                // onPress={() => navigation.navigate(city.cityName)} 
-            />
+            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Icons
+                        name="chevron-left"
+                        color="white"
+                        size={40}
+                    />
+                </TouchableOpacity>  
+                <HeaderTitle style={{  textAlign: 'center' }}>{headerTitle}</HeaderTitle>
+            </View>
+            
         </SafeAreaView> 
     );
 };

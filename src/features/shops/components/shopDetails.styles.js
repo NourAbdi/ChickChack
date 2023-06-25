@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Animated,Platform,Image,Dimensions,ImageBackground } from "react-native";
+import { Animated,Platform,Image,Dimensions,ImageBackground,TouchableOpacity } from "react-native";
 import { Card,IconButton,ActivityIndicator } from "react-native-paper";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
@@ -83,7 +83,7 @@ export const ShopIcon = styled(Image)`
 export const MealsCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(props) => props.theme.mealsCardSize}px;
-  height: ${cardHeight}px;
+  height:  ${cardHeight}px;
   align-self: center;
   margin: ${(props) => props.theme.space[2]};
   border-radius:15px;
@@ -216,3 +216,33 @@ export const StyledIconButton = styled(IconButton)`
   padding: 10px;
 `;
 
+export const HeaderView = styled.View`
+  flex-direction:row;
+  width: 100%;
+`;
+
+export const LeftHeaderButton = styled(TouchableOpacity)`
+  width: 40px;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 52px;
+  border-width: 2px;
+  border-color:  ${(props) => props.color};
+  margin:${(props) => props.theme.space[2]};
+  margin-right: auto;
+  background-color: rgba(150, 150, 150, 0.5);
+`;
+
+export const RightHeaderButton = styled(TouchableOpacity)`
+  width: 40px;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 52px;
+  border-width: 2px;
+  border-color:  ${(props) => props.color};
+  margin:${(props) => props.theme.space[2]};
+  margin-left: auto;
+  background-color: rgba(150, 150, 150, 0.5);
+`;

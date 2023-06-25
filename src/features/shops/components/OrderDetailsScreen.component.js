@@ -22,7 +22,6 @@ import { ScrollView } from "react-native-gesture-handler";
 
 export const PrintCounter = (count,setCount,addToCart,shop,item,additions={}) => {
   const [buttonAnimation] = useState(new Animated.Value(1));
-
   const handlePress = () => {
     addToCart(shop, item, count, additions);
     // Start the button animation

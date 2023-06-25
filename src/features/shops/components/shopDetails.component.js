@@ -1,7 +1,7 @@
 import React from "react";
-import { View,TouchableOpacity,ScrollView,Image,Linking} from "react-native";
+import { View,TouchableOpacity,ScrollView,Image,Linking,SafeAreaView} from "react-native";
 import { groupBy } from 'lodash';
-import { IconButton } from "react-native-paper";
+import Icons from "@expo/vector-icons/MaterialIcons";
 
 import { colors } from "../../../infrastructure/theme/colors";
 import { theme } from "../../../infrastructure/theme";
@@ -23,6 +23,9 @@ import{
   AnimatedIconView,
   ShopIcon,
   AnimatedBackView,
+  HeaderView,
+  LeftHeaderButton,
+  RightHeaderButton,
 } from "./shopDetails.styles";
 
 
@@ -91,6 +94,7 @@ export const PrintMenu = (menu,navigation,shop) => {
                   </View>
                 ))}
               </CardView>
+
             </ScrollView>
           </MealsCard>
         );
@@ -192,24 +196,16 @@ export const PrintHeader = (icon,scrollY,navigation) => {
           <ShopIcon source={{ uri: icon }} />
         </AnimatedIconView>
         <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
-          <Row style={{ justifyContent: 'space-between' }}>
-            <IconButton
-              icon="arrow-left"
-              color="white"
-              size={30}
-              onPress={() => navigation.goBack()} 
-              style={{alignSelf:'flex-start'}}
-
-            />
-            <IconButton
-              icon="cart"
-              color="white"
-              size={30}
-              onPress={() => navigation.navigate("Cart")} 
-              style={{alignSelf:"flex-end"}}
-            />
-          </Row>
-          
+        <SafeAreaView style={{ position: 'absolute' }}>
+          <HeaderView>
+            <LeftHeaderButton onPress={() => navigation.goBack()} color="white">
+              <Icons name="arrow-back" size={24} color="white" />
+            </LeftHeaderButton>
+            <RightHeaderButton onPress={() => navigation.navigate("Cart")} color="white">
+              <Icons name="shopping-cart" size={24} color="white" />
+            </RightHeaderButton>
+          </HeaderView>
+        </SafeAreaView>
         </AnimatedBackView>
       </>
     );

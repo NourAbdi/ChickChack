@@ -31,8 +31,8 @@ export const PastCartsScreen = () => {
                 <Text>Shop UID: {order.shopUid}</Text>
                 <Text>User UID: {order.userUid}</Text>
                 <Text>Cart Items:</Text>
-                {order.cartItems.map((item) => (
-                  <View key={item.item.itemUid}>
+                {order.cartItems.map((item,index) => (
+                  <View key={index}>
                     <Text>Item UID: {item.item.itemUid}</Text>
                     <Text>Item Name: {item.item.itemName}</Text>
                     {item.item.itemPhoto && (
