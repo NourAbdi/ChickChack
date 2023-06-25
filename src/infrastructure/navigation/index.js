@@ -9,19 +9,19 @@ import { AuthenticationContext } from "../../services/authentication/authenticat
 export const Navigation = () => {
   const { isAuthenticated, user, role } = useContext(AuthenticationContext);
 
-  useEffect(() => {
-    console.log("user ...", user);
-    if (user) {
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("user ...", user);
+  //   if (user) {
+  //   }
+  // }, [user]);
 
-  useEffect(() => {
-    console.log("role ...", role);
-  }, [role]);
+  // useEffect(() => {
+  //   console.log("role ...", role);
+  // }, [role]);
 
-  useEffect(() => {
-    console.log("isAuthenticated ...", isAuthenticated);
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   console.log("isAuthenticated ...", isAuthenticated);
+  // }, [isAuthenticated]);
 
   return (
     <NavigationContainer>

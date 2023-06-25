@@ -1,6 +1,7 @@
 import React, { useContext, useState, useRef } from "react";
 import { View, Animated, Button, Alert } from "react-native";
 import Modal from "react-native-modal";
+import { useTranslation } from "react-i18next";
 
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
 import { colors } from "../../../infrastructure/theme/colors";
@@ -30,33 +31,33 @@ export const EditShopScreen = () => {
   const [isSaving, setIsSaving] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
   const workingHours = shop.workingHours;
+  const { t } = useTranslation();
 
   const handleSave = async () => {
-    setIsSaving(true); 
+    setIsSaving(true);
 
-    if(isWorkingHoursValid(workingHours).isValid){
-      console.log("Updating workingHours, isTemporaryClose:", workingHours, isTemporaryClose);
+    if (isWorkingHoursValid(workingHours).isValid) {
       const isUpdateSuccessful = await updateShop(workingHours, isTemporaryClose);
       setIsSaving(false);
       if (isUpdateSuccessful) {
-        showAlert("Changes Saved", "Changes have been saved successfully!");
+        showAlert(t("Changes Saved"), t("Changes have been saved successfully!"));
       } else {
-        showAlert("Error", "Failed to save changes. Please try again later.");
+        showAlert(t("Error"), t("Failed to save changes. Please try again later."));
       }
-    }else{
+    } else {
       setIsSaving(false);
-      showAlert("Error",`${"Start hour shold be smaller than End hour"}\nInvalid day: ${isWorkingHoursValid(workingHours).invalidDay}`);
+      showAlert(
+        t("Error"),
+        `${t("Start hour should be smaller than End hour")}\n${t("Invalid day")}: ${isWorkingHoursValid(workingHours).invalidDay}`
+      );
     }
   };
 
   const showAlert = (title, message) => {
-
     Alert.alert(
       title,
       message,
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      [{ text: t("OK"), onPress: () => console.log("OK Pressed") }]
     );
   };
 
@@ -78,13 +79,12 @@ export const EditShopScreen = () => {
       {PrintHeader(shop.icon, scrollY)}
 
       <SaveButton>
-        <Button title="Save" onPress={handleSave} />
+        <Button title={t("Save")} onPress={handleSave} />
       </SaveButton>
 
       <Modal isVisible={isSaving}>
-        <Loading size={50} color={colors.mainblue} animating={true} />      
+        <Loading size={50} color={colors.mainblue} animating={true} />
       </Modal>
-     
     </View>
   );
 };

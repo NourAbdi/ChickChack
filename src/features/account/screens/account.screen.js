@@ -13,9 +13,10 @@ import {
   AnimationWrapper1,
   AnimationWrapper2,
 } from "../components/account.styles";
-
+import { useTranslation } from "react-i18next";
 
 export const AccountScreen = ({ navigation }) => {
+  const { t } = useTranslation();
   return (
     <><SafeAreaView  style={{backgroundColor:"#2683C0"}}>
       <StatusBar
@@ -27,7 +28,7 @@ export const AccountScreen = ({ navigation }) => {
       <AccountCover1 />
 
       <View style={containerStyle.rowContainer}>
-        <Title1>Chick      Chak</Title1>
+        <Title1>{t("ChickChack")}</Title1>
         <AnimationWrapper1>
             <LottieView
               key="animation"
@@ -49,7 +50,7 @@ export const AccountScreen = ({ navigation }) => {
             mode="contained"
             onPress={() => navigation.navigate("Login")}
           >
-            Login
+            {t("login")}
           </AuthButton>
           <Spacer size="large">
             <AuthButton
@@ -57,7 +58,7 @@ export const AccountScreen = ({ navigation }) => {
               mode="contained"
               onPress={() => navigation.navigate("Register")}
             >
-              Register
+              {t("register")}
             </AuthButton>
           </Spacer>
         </AccountContainer1>

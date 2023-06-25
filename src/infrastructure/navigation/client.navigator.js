@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Fontisto } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 
 import { ShopsNavigator } from "./shops.navigator";
 import { SettingsScreen } from "../../features/settings/screens/settings.screen";
@@ -21,17 +22,22 @@ const TAB_ICON = {
 };
 
 const createScreenOptions = ({ route }) => {
+  const { t, i18n } = useTranslation();
   const iconName = TAB_ICON[route.name];
+  const iconTitle = t(route.name);
+
   return {
     tabBarActiveTintColor: "#2683C0",
     tabBarInactiveTintColor: "#C6DAF7",
     tabBarStyle: {
       display: "flex",
+      direction: i18n.dir(),
     },
     headerShown: false,
     tabBarIcon: ({ size, color }) => (
       <Fontisto name={iconName} size={size} color={color} />
     ),
+    tabBarLabel: iconTitle,
   };
 };
 

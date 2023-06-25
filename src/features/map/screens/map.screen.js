@@ -3,6 +3,7 @@ import { ScrollView, Button, ActivityIndicator, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
+import { useTranslation } from "react-i18next";
 
 import { LocationContext } from "../../../services/location/location.context";
 
@@ -13,8 +14,9 @@ const Map = styled(MapView)`
 `;
 
 export const MapScreen = ({ navigation }) => {
-  const { selectedCity, setSelectedCity, cities, setCurrentLocation } = useContext(LocationContext);
   const mapRef = useRef(null);
+  const { t } = useTranslation();
+  const { selectedCity, setSelectedCity, cities, setCurrentLocation } = useContext(LocationContext);
   const [isLocationGranted, setLocationGranted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,10 +24,10 @@ export const MapScreen = ({ navigation }) => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       Alert.alert(
-        "Permission Denied",
-        "Please grant location permissions in your device settings.",
+        t("permissionDeniedTitle"),
+        t("permissionDeniedMessage"),
         [
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: t("OK"), onPress: () => console.log("OK Pressed") }
         ]
       );
       return;
@@ -36,18 +38,17 @@ export const MapScreen = ({ navigation }) => {
     let location = await Location.getCurrentPositionAsync({});
     setCurrentLocation({ location, focused: false });
     setLocationGranted(true);
-    console.log("Location:");
-    console.log(location);
 
     // Reverse geocoding to get the city name
     const { latitude, longitude } = location.coords;
     const address = await Location.reverseGeocodeAsync({ latitude, longitude });
     if (address && address.length > 0) {
       const city = address[0].city.toLowerCase();
-      console.log("Current city:", city);
-
+      const translatedCity = t(city);
+      console.log(city);
+      console.log(translatedCity);
       // Update the selected city based on the current location
-      const matchingCity = cities.find((c) => c.cityName.toLowerCase() === city);
+      const matchingCity = cities.find((c) => c.cityName.toLowerCase() === translatedCity.toLowerCase());
       if (matchingCity) {
         setSelectedCity(matchingCity);
         navigation.navigate("Shops");
@@ -112,7 +113,7 @@ export const MapScreen = ({ navigation }) => {
       </Map>
 
       <Button
-        title="Use my current location"
+        title={t("useCurrentLocation")}
         onPress={getPermissions}
       />
 
@@ -123,7 +124,7 @@ export const MapScreen = ({ navigation }) => {
           {cities.map((city) => (
             <Button
               key={city.cityUid}
-              title={city.cityName}
+              title={t(city.cityName)}
               onPress={() => {
                 setSelectedCity(city);
                 navigation.navigate("Shops");

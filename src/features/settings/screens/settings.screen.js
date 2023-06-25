@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components/native";
-
+import { StatusBar, StyleSheet, View } from "react-native";
 import { List, Avatar } from "react-native-paper";
 
 import { Text } from "../../../components/typography/text.component";
@@ -12,14 +12,6 @@ import { AuthenticationContext } from "../../../services/authentication/authenti
 const TransparentSafeArea = styled(SafeArea)`
   background-color: transparent;
 `;
-const SettingsBackground = styled.ImageBackground.attrs({
-  source: require("../../../../assets/home_bg.jpg"),
-})`
-  position: absolute;
-  height: 100%;
-  width: 100%;
-`;
-
 const SettingsItem = styled(List.Item)`
   padding: ${(props) => props.theme.space[3]};
   background-color: rgba(255, 255, 255, 0.4);
@@ -28,10 +20,19 @@ const AvatarContainer = styled.View`
   align-items: center;
 `;
 
+import { useTranslation } from "react-i18next";
+
 export const SettingsScreen = ({ navigation }) => {
   const { onLogout, user } = useContext(AuthenticationContext);
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang, () => {
+    });
+  };
+
   return (
-    <SettingsBackground>
       <TransparentSafeArea>
         <AvatarContainer>
           <Avatar.Icon
@@ -45,28 +46,40 @@ export const SettingsScreen = ({ navigation }) => {
         </AvatarContainer>
 
         <List.Section>
+          <View style={containerStyle.languageSwitcher}>
+            <Text style={containerStyle.languageText}>{t("language")}</Text>
+            <View style={containerStyle.languageButtons}>
+              <Text
+                style={[
+                  containerStyle.languageButton,
+                  language === "en" && containerStyle.activeLanguageButton,
+                ]}
+                onPress={() => changeLanguage("en")}
+              >
+                English
+              </Text>
+              <Text
+                style={[
+                  containerStyle.languageButton,
+                  language === "ar" && containerStyle.activeLanguageButton,
+                ]}
+                onPress={() => changeLanguage("ar")}
+              >
+                العربية
+              </Text>
+              <Text
+                style={[
+                  containerStyle.languageButton,
+                  language === "he" && containerStyle.activeLanguageButton,
+                ]}
+                onPress={() => changeLanguage("he")}
+              >
+                עברית
+              </Text>
+            </View>
+          </View>
           <SettingsItem
-            title="Payment"
-            left={(props) => (
-              <List.Icon {...props} color={colors.ui.secondary} icon="cart" />
-            )}
-            onPress={() => null}
-          />
-          <Spacer />
-          <SettingsItem
-            title="Past Orders"
-            left={(props) => (
-              <List.Icon
-                {...props}
-                color={colors.ui.secondary}
-                icon="history"
-              />
-            )}
-            onPress={() => null}
-          />
-          <Spacer />
-          <SettingsItem
-            title="Logout"
+            title={t("logout")}
             left={(props) => (
               <List.Icon {...props} color={colors.ui.secondary} icon="door" />
             )}
@@ -74,6 +87,40 @@ export const SettingsScreen = ({ navigation }) => {
           />
         </List.Section>
       </TransparentSafeArea>
-    </SettingsBackground>
   );
 };
+
+const containerStyle = StyleSheet.create({
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  languageSwitcher: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginVertical: 10,
+  },
+  languageText: {
+    fontSize: 16,
+    marginRight: 5,
+  },
+  languageButtons: {
+    flexDirection: "row",
+  },
+  languageButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    fontSize: 16,
+    color: "#2683C0",
+    marginRight: 5,
+    borderWidth: 1,
+    borderColor: "#2683C0",
+    borderRadius: 5,
+  },
+  activeLanguageButton: {
+    backgroundColor: "#2683C0",
+    color: "#FFF",
+  },
+});
