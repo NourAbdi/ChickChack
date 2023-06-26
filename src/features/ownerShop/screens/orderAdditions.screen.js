@@ -47,7 +47,6 @@ export const OrderAdditionsScreen = ({ navigation,route,}) => {
         {printHeader(item.itemPhoto,colors.text.inverse,navigation)}
         <InfoCardShadow>
           <InfoCard safeAreaViewHeight={ MyComponent()}>
-            {PrintCounter(count,setCount,shop,item,filteredItems)}
             <OrderName>{item.itemName}</OrderName>
             <Price>Price for unite:{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
