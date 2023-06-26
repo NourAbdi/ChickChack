@@ -1,5 +1,5 @@
 import React from "react";
-import { Animated,View,TouchableOpacity,Text,Dimensions,ScrollView,Image,Linking } from "react-native";
+import { View,TouchableOpacity,ScrollView,Image,Linking } from "react-native";
 import { colors } from "../../../infrastructure/theme/colors";
 import { MealInfoCard } from "./meal-info-card.component";
 import { groupBy } from 'lodash'; // Import the groupBy function from Lodash
@@ -69,7 +69,7 @@ export const titleOpacity =(scrollY) =>{
   );
 };
 
-export const PrintMenu = (menu) => {
+export const PrintMenu = (menu,navigation,shop) => {
   // Group items by itemCategory
   const groupedItems = groupBy(menu, 'itemCategory');
   return (
@@ -82,7 +82,9 @@ export const PrintMenu = (menu) => {
               <CardView>
                 {menuItems.map((item) => (
                   <View key={item.itemUid}>
+                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item })} >
                     <MealInfoCard meal={item} />
+                    </TouchableOpacity>
                   </View>
                 ))}
               </CardView>

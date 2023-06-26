@@ -137,9 +137,7 @@ export const ShopCart = ({route}) => {
 
                 </View>
                 <View style={{flex:1}}/>
-                
                 {printButtons(shopOrder.shop, cartItem.item,cartItem.additions,cartItem.quantity,addToCart)}
-
               </ItemCard>
             ))}
             <Text style={styles.availableOptions}>Available Options:</Text>

@@ -67,7 +67,9 @@ export const ShopIcon = styled(Image)`
 export const MealsCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(props) => props.theme.mealsCardSize}px;
-  height: ${cardHeight}px;
+  // height: ${cardHeight}px;
+  height: auto;
+
   align-self: center;
   margin: ${(props) => props.theme.space[2]};
   border-radius:15px;

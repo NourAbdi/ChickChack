@@ -69,7 +69,6 @@ export const OwnerShopNewOrdersScreen = () => {
                     color="black"
                   />
                 </ButtonCard>
-                {/* {printCartIteam(order.cartItems)} */}
                 {isItemExpanded(order.orderId) && printCartIteam(order.cartItems)}
               </OrderCard>
             </Shadow>

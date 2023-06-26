@@ -68,10 +68,24 @@ export const printCartIteam = (cartItems) => {
                 <Field>Item Price:</Field>
                 <Field>{cartItem.item.itemPrice}₪</Field>
               </Row>
-              <Row>
-                <Field>Item Addition:</Field>
-                <Field>{cartItem.item.itemAddition.toString()}</Field>
-              </Row>
+              {Object.keys(cartItem.additions).length > 0 && (
+                <Row>
+                  <Field>Item Addition:</Field>
+                  <View>
+                    {Object.entries(cartItem.additions).map(([additionName, additionPrice]) => (
+                      <Field key={additionName}>
+                        {additionName}: {additionPrice}₪
+                      </Field>
+                    ))}
+                  </View>
+                </Row>
+              )}
+              {Object.keys(cartItem.additions).length === 0 && (
+                <Row>
+                  <Field>Item Addition:</Field>
+                  <Field>no additions!</Field>
+                </Row>
+              )}
               <Row>
                 <Field>Quantity:</Field>
                 <Field>{cartItem.quantity}</Field>

@@ -25,6 +25,8 @@ export const Field = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
   font-weight: ${(props) => props.theme.fontWeights.bold};
+  margin-bottom: 5px; /* Add margin bottom to create space between each addition */
+
 `;
 
 export const Heading = styled.Text`

@@ -12,7 +12,6 @@ import{
     AnimatedScrollView,
     LoadingContainer,
     Loading,
-    Center,
  } from '../components/shop-details.screen.style'
 
 import{
@@ -47,12 +46,13 @@ export const ShopDetailsScreen = ({navigation}) => {
             <RestaurantName>{shop.name}</RestaurantName>
             <IsOpenCheck workingHours={shop.workingHours} isTemporaryClose={shop.isTemporaryClose}/>
             <RestaurantInfo>Working Hours: {WorkingHoursComponent(shop.workingHours)}</RestaurantInfo>
+            <RestaurantInfo>Tel: {shop.Tel}</RestaurantInfo>
             {PrintGettingOrder(shop.takeOrder)}
             {wazeButton(shop.location,shop.address)}
           </RestaurantInfoCard>
         </ViewAbove>
       </View>
-      {PrintMenu(menu,navigation)}
+      {PrintMenu(menu,navigation,shop)}
       </AnimatedScrollView>
       {PrintHeader(shop.icon,scrollY)}
       </View>   
