@@ -69,7 +69,7 @@ export const titleOpacity =(scrollY) =>{
   );
 };
 
-export const PrintMenu = (menu,navigation,shop) => {
+export const PrintMenu = (menu,navigation,shop,updateItemAvailable,updateAddItemAvailable) => {
   // Group items by itemCategory
   const groupedItems = groupBy(menu, 'itemCategory');
   return (
@@ -82,8 +82,8 @@ export const PrintMenu = (menu,navigation,shop) => {
               <CardView>
                 {menuItems.map((item) => (
                   <View key={item.itemUid}>
-                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item })} >
-                    <MealInfoCard meal={item} />
+                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item, updateAddItemAvailable })} >
+                    <MealInfoCard meal={item} updateItemAvailable={updateItemAvailable}/>
                     </TouchableOpacity>
                   </View>
                 ))}

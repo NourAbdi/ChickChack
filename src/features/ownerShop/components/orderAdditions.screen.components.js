@@ -87,7 +87,7 @@ export const printHeader = (headerImage,buttonColor,navigation) => {
   );
 }
 
-export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems) => {
+export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,updateAddItemAvailable,itemUid) => {
   const isEmpty = Object.keys(additions).length === 0;
   const [isRemoveIcon, setIsRemoveIcon] = useState(() => {
     const initialRemoveIconState = {};
@@ -99,11 +99,13 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems) => {
     return initialRemoveIconState;
   });
   const handleButtonPress = (additionName) => {
-    // Toggle the state variable for the clicked addition
-    setIsRemoveIcon((prevState) => ({
-      ...prevState,
-      [additionName]: !prevState[additionName]
-    }));
+    if(updateAddItemAvailable(itemUid,additionName,isRemoveIcon[additionName])){
+      setIsRemoveIcon((prevState) => ({
+        ...prevState,
+        [additionName]: !prevState[additionName]
+      })
+      );
+    }
   };
   return (
     !isEmpty && (

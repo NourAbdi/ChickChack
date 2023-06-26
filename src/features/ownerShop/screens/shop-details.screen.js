@@ -25,7 +25,7 @@ import{
 
 
 export const ShopDetailsScreen = ({navigation}) => {
-    const { shop, menu, isLoading } = useContext(OwnerShopContext);
+    const { shop, menu, isLoading, updateItemAvailable, updateAddItemAvailable } = useContext(OwnerShopContext);
     const scrollY = useRef(new Animated.Value(0)).current;
     
     if (isLoading) {
@@ -52,7 +52,7 @@ export const ShopDetailsScreen = ({navigation}) => {
           </RestaurantInfoCard>
         </ViewAbove>
       </View>
-      {PrintMenu(menu,navigation,shop)}
+      {PrintMenu(menu,navigation,shop,updateItemAvailable,updateAddItemAvailable)}
       </AnimatedScrollView>
       {PrintHeader(shop.icon,scrollY)}
       </View>   

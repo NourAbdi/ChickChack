@@ -19,8 +19,8 @@ import{
 } from '../components/orderAdditions.screen.components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const OrderAdditionsScreen = ({ navigation,route}) => {
-  const { shop, item } = route.params;
+export const OrderAdditionsScreen = ({ navigation,route,}) => {
+  const { shop, item, updateAddItemAvailable } = route.params;
   const [count, setCount] = useState(1);
   const [checkedItems, setCheckedItems] = useState(
     Object.fromEntries(
@@ -51,7 +51,7 @@ export const OrderAdditionsScreen = ({ navigation,route}) => {
             <OrderName>{item.itemName}</OrderName>
             <Price>Price for unite:{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
-            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems)}
+            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems,updateAddItemAvailable,item.itemUid)}
             
           </InfoCard>
         </InfoCardShadow>

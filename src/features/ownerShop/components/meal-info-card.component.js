@@ -12,7 +12,7 @@ import Icons from "@expo/vector-icons/MaterialIcons";
     CounterButton, 
   } from "./meal-info-card.styles"
 
-export const MealInfoCard = ({meal = {} }) => {
+export const MealInfoCard = ({meal = {} ,updateItemAvailable}) => {
     const {
       itemName = "Some meal",
       itemPhoto = [
@@ -23,8 +23,9 @@ export const MealInfoCard = ({meal = {} }) => {
     } = meal; 
     const [isRemoveIcon, setIsRemoveIcon] = useState(itemAvailability);
     const handleButtonPress = () => {
-      // Toggle the state variable
-      setIsRemoveIcon((prevState) => !prevState);
+      if(updateItemAvailable(meal.itemUid, !isRemoveIcon)){
+        setIsRemoveIcon((prevState) => !prevState);
+      }
     };
     return (
       <View>
@@ -38,7 +39,7 @@ export const MealInfoCard = ({meal = {} }) => {
           </MealCard>
         </MealShadow>
         <CounterButton onPress={handleButtonPress}>
-          <Icons name={isRemoveIcon ? 'add' : 'remove'} size={20} color="white" />
+          <Icons name={isRemoveIcon ? 'remove' : 'add'} size={20} color="white" />
         </CounterButton>
       </View>
     );

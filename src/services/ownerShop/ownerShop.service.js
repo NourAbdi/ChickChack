@@ -118,8 +118,83 @@ export const getOrdersByShopUid = (shopUid, callback) => {
     snapshot.forEach((doc) => {
       orders.push(doc.data());
     });
-    callback(orders); // Pass the orders array to the callback
+    callback(orders);
   });
 
-  return unsubscribe; // Return the unsubscribe function
+  return unsubscribe; 
+};
+
+export const updateItemAvailability = async (itemUid, availability) => {
+  try {
+    const itemRef = doc(db, "items", itemUid);
+    const itemDoc = await getDoc(itemRef);
+    
+    if (!itemDoc.exists()) {
+      throw new Error("Item not found");
+    }
+    const updatedItem = {
+      ...itemDoc.data(),
+      itemAvailability: availability,
+    };
+
+    await updateDoc(itemRef, updatedItem);
+    return true;
+  } catch (error) {
+    console.error("Error updating item availability:", error);
+    throw new Error("Error updating item availability");
+  }
+};
+
+export const updateAddItemAvailability = async (itemUid, additionName, availability) => {
+  try {
+    const itemRef = doc(db, "items", itemUid);
+    const itemDoc = await getDoc(itemRef);
+    
+    if (!itemDoc.exists()) {
+      throw new Error("Item not found");
+    }
+
+    const itemData = itemDoc.data();
+    
+    // Recursive function to search for the additionName within the itemData object
+    const findAndModifyAvailability = (data) => {
+      if (Array.isArray(data)) {
+        // If the current data is an array, iterate over its elements
+        return data.map((item) => findAndModifyAvailability(item));
+      } else if (typeof data === "object" && data !== null) {
+        // If the current data is an object, search for the additionName property
+        if (data.additionName === additionName) {
+          // If the additionName matches, update the availability property
+          return {
+            ...data,
+            additionAvailability: availability,
+          };
+        } else {
+          // Recursively search for the additionName property in nested objects
+          const newData = {};
+          for (const key in data) {
+            newData[key] = findAndModifyAvailability(data[key]);
+          }
+          return newData;
+        }
+      } else {
+        // For other data types, simply return the value
+        return data;
+      }
+    };
+
+    // Search for the additionName within the itemData object and update availability
+    const updatedItemData = findAndModifyAvailability(itemData);
+
+    // Update the Firestore document with the updated itemData
+    await updateDoc(itemRef, {
+      ...itemData,
+      itemAdditions: updatedItemData.itemAdditions
+    });
+    
+    return true;
+  } catch (error) {
+    console.error("Error updating item availability:", error);
+    throw new Error("Error updating item availability");
+  }
 };

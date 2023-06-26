@@ -5,6 +5,8 @@ import {
   getShopMenuByShopUid,
   getOrdersByShopUid,
   updateOrderStage,
+  updateItemAvailability,
+  updateAddItemAvailability,
 } from "./ownerShop.service";
 import { AuthenticationContext } from "../authentication/authentication.context";
 
@@ -115,11 +117,20 @@ export const OwnerShopContextProvider = ({ children }) => {
     return (updateOrderStage(orderId, newPreparationTime,newStage));
   }
 
+  const updateItemAvailable = (itemUid, availability)=>{
+    return (updateItemAvailability(itemUid, availability));
+  }
+  const updateAddItemAvailable = (itemUid, additionName, availability)=>{
+    return (updateAddItemAvailability(itemUid, additionName, availability));
+  }
+
   return (
     <OwnerShopContext.Provider
       value={{
         shop,
         menu,
+        updateItemAvailable,
+        updateAddItemAvailable,
         isLoading,
         updateShop,
         shopOrders,
