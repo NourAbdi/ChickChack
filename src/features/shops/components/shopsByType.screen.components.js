@@ -8,6 +8,7 @@ import{ShopInfoCard} from "../components/ShopsScreen.compoent"
 import{
     HeaderTitle,
 } from './shopsByType.screen.style'
+import { useTranslation } from "react-i18next";
 
 const HEADER_HEIGHT = theme.headerHeigth;
 
@@ -31,6 +32,7 @@ export const printShops= (shops,navigation) => {
 }
 
 export const PrintHeader = (navigation, headerTitle) => {
+    const { t } = useTranslation();
     return (
         <SafeAreaView style={{ backgroundColor: colors.mainblue,height:HEADER_HEIGHT }}>
             <StatusBar
@@ -44,7 +46,7 @@ export const PrintHeader = (navigation, headerTitle) => {
                         size={40}
                     />
                 </TouchableOpacity>  
-                <HeaderTitle style={{  textAlign: 'center' }}>{headerTitle}</HeaderTitle>
+                <HeaderTitle style={{  textAlign: 'center' }}>{t(headerTitle)}</HeaderTitle>
             </View>
             
         </SafeAreaView> 

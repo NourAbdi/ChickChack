@@ -1,17 +1,18 @@
 // ShopsScreen.js
-import React, { useContext,useRef,useState } from "react";
-import { View,Animated,Text } from "react-native";
+import React, { useContext, useRef, useState, useEffect } from "react";
+import { View, Animated, Text } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { ShopsContext } from "../../../services/shops/shops.context";
 import { colors } from "../../../infrastructure/theme/colors";
+import { useTranslation } from "react-i18next";
 
 import {
   Loading,
   LoadingContainer,
 } from "../components/ShopsScreen.styles";
 
-import{
+import {
   PrintHeader,
   StatusBarPlaceHolder,
   PrintSwiper,
@@ -19,12 +20,13 @@ import{
   PrintShops,
 } from "../components/ShopsScreen.compoent";
 
-import{
+import {
   AnimatedScrollView,
 } from "../components/shopDetails.styles";
 
 export const ShopsScreen = ({ navigation }) => {
-  const { isLoading, shops, swiperPhoto, cityName } = useContext(ShopsContext);
+  const { t } = useTranslation();
+  const { isLoading, isShopsLoading, shops, swiperPhoto, cityName } = useContext(ShopsContext);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   if (isLoading) {
@@ -35,23 +37,25 @@ export const ShopsScreen = ({ navigation }) => {
     );
   }
 
-  if (!isLoading && (shops && shops.length === 0)) {
+  if (!isLoading && isShopsLoading) {
     return (
       <SafeArea>
-        <Text>No shops available</Text>
+        <Text>{t("No shops available in this city")}</Text>
       </SafeArea>
     );
   }
 
-  return (
-    <View style={{ flex: 1  }}>
-      <StatusBarPlaceHolder/>
-      <AnimatedScrollView scrollY={scrollY}>
-        {PrintSwiper(swiperPhoto)}
-        <ShopTypeSelector shops={shops} navigation={navigation}/>  
-        {PrintShops(shops,navigation)}
-      </AnimatedScrollView>
-      {PrintHeader(scrollY,cityName)}
-    </View>
-  );
+  if (!isLoading && !isShopsLoading) {
+    return (
+      <View style={{ flex: 1 }}>
+        <StatusBarPlaceHolder />
+        <AnimatedScrollView scrollY={scrollY}>
+          {PrintSwiper(swiperPhoto)}
+          <ShopTypeSelector shops={shops} navigation={navigation} />
+          {PrintShops(shops, navigation)}
+        </AnimatedScrollView>
+        {PrintHeader(scrollY, cityName)}
+      </View>
+    );
+  }
 };

@@ -9,7 +9,7 @@ import {
 export const ShopsByTypeScreen = ({ navigation,route  }) => {
     const { category,shops }= route.params;
     useEffect(() => {
-        navigation.setOptions({ title: category }); // Set the title dynamically
+        navigation.setOptions({ title: category }); 
       }, [category]);
 
     return (

@@ -20,7 +20,8 @@ import{
   } from "./OrderDetailsScreen.style";
 import { ScrollView } from "react-native-gesture-handler";
 
-export const PrintCounter = (count,setCount,addToCart,shop,item,additions={}) => {
+export const PrintCounter = (count,setCount,addToCart,shop,item,additions={},t) => {
+  
   const [buttonAnimation] = useState(new Animated.Value(1));
   const handlePress = () => {
     addToCart(shop, item, count, additions);
@@ -62,7 +63,7 @@ export const PrintCounter = (count,setCount,addToCart,shop,item,additions={}) =>
           <CounterButton onPress={() => handlePress()}>
             <Icons name="add-shopping-cart" size={24} color={colors.mainblue} />
           </CounterButton>
-          <Count>Add to cart</Count>
+          <Count>{t("Add to cart")}</Count>
         </ViewCounter>
       </Animated.View>
 

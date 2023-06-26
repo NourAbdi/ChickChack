@@ -2,7 +2,7 @@ import React from "react";
 import { View,TouchableOpacity,ScrollView,Image,Linking,SafeAreaView} from "react-native";
 import { groupBy } from 'lodash';
 import Icons from "@expo/vector-icons/MaterialIcons";
-
+import { useTranslation } from "react-i18next";
 import { colors } from "../../../infrastructure/theme/colors";
 import { theme } from "../../../infrastructure/theme";
 import { MealInfoCard } from "./meal-info-card.component";
@@ -158,7 +158,8 @@ export const WorkingHoursComponent = (workingHours) => {
     }
 };
 
-export const isOpenCheck = (workingHours,isTemporaryClose) => {
+export const isOpenCheck = (workingHours,isTemporaryClose, t) => {
+  
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
   // Get the working hours for the current day
@@ -177,14 +178,14 @@ export const isOpenCheck = (workingHours,isTemporaryClose) => {
     // Compare the current time with the start and end time
     if (isOpen==="Yes" && currentTime >= startTime && currentTime <= endTime) {
       if(isTemporaryClose)
-        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
+        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>{t("CLOSED TEMPORARY")}</IsOpenWord></IsOpenCard>);
       else
-      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>{t("open")}</IsOpenWord></IsOpenCard>);
     } else {
-      return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>{t("closed")}</IsOpenWord></IsOpenCard>);
     }
   } else {
-    return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
+    return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>{t("closed")}</IsOpenWord></IsOpenCard>);
   }
 };
 

@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 
 import { CartContext } from "../../../services/cart/cart.context";
-import { 
+import {
   styles,
-  Title, 
+  Title,
   Row,
   LeftIcon,
   ShopIcon,
@@ -18,18 +18,20 @@ import {
   Price,
 } from "../components/shopCart.styles";
 
-import { 
+import {
   printButtons,
   singleOrderPrice,
 } from "../components/shopCart.component";
+import { useTranslation } from "react-i18next";
 
-export const ShopCart = ({route}) => {
+export const ShopCart = ({ route }) => {
+  const { t } = useTranslation();
   const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck } = useContext(CartContext);
   const [availableOptions, setAvailableOptions] = useState([]);
   const navigation = useNavigation();
-  const desiredShopUid=route.params.shopUid;
+  const desiredShopUid = route.params.shopUid;
   const shopOrder = order.find(order => order.shop.shopUid === desiredShopUid);
-  console.log("CCCCCCCCCCCCCCCCCCCCCCCCC",shopOrder)
+  console.log("CCCCCCCCCCCCCCCCCCCCCCCCC", shopOrder)
   useEffect(() => {
     getAvailableOptions();
   }, [order]);
@@ -89,9 +91,9 @@ export const ShopCart = ({route}) => {
     }
     console.log("selectedOption: ", availableOptions[0]?.selectedOption);
     if (availableOptions[0]?.selectedOption == "Delivery") {
-      
+
     }
-    
+
     const paymentInstrument = takePaymentInstrument();
 
     // All options are selected, proceed with the checkout
@@ -103,44 +105,44 @@ export const ShopCart = ({route}) => {
   const handleLocationSelection = () => {
     navigation.navigate("CartLocationScreen");
   };
-  if(!shopOrder){
+  if (!shopOrder) {
     navigation.navigate("CartScreen");
     return;
   }
   return (
     <SafeArea>
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Row>
           <TouchableOpacity onPress={() => navigation.navigate("CartScreen")} >
             <LeftIcon name="angle-left" size={40} color="black" />
           </TouchableOpacity>
-            <ShopIcon source={{uri:shopOrder.shop.icon}} />
+          <ShopIcon source={{ uri: shopOrder.shop.icon }} />
           <Title>{shopOrder.shop.name}</Title>
         </Row>
         <ScrollView>
-            {shopOrder.cartItems.map((cartItem,index) => (
-              <ItemCard key={index} >
-                <ItemImage source={{ uri: cartItem.item.itemPhoto }} />
-                <View >
-                  <ItemName>{cartItem.item.itemName}</ItemName>
-                  {Object.entries(cartItem.additions).map(([additionName, additionPrice],index) => (
-                    <Info key={index}>
-                      {additionName}: {additionPrice}₪{''}
-                    </Info>
-                  ))}
-                  <Row>
-                    <View>
-                    <Info>Price: {singleOrderPrice(cartItem.item.itemPrice,cartItem.additions,cartItem.quantity)}₪</Info>
-                  <Price>Price for unite: {cartItem.item.itemPrice}₪</Price>
-                    </View>
-                  </Row>
+          {shopOrder.cartItems.map((cartItem, index) => (
+            <ItemCard key={index} >
+              <ItemImage source={{ uri: cartItem.item.itemPhoto }} />
+              <View >
+                <ItemName>{cartItem.item.itemName}</ItemName>
+                {Object.entries(cartItem.additions).map(([additionName, additionPrice], index) => (
+                  <Info key={index}>
+                    {additionName}: {additionPrice}₪{''}
+                  </Info>
+                ))}
+                <Row>
+                  <View>
+                    <Info>{t("price")}: {singleOrderPrice(cartItem.item.itemPrice, cartItem.additions, cartItem.quantity)}₪</Info>
+                    <Price>{t("Price for unit")}: {cartItem.item.itemPrice}₪</Price>
+                  </View>
+                </Row>
 
                 </View>
                 <View style={{flex:1}}/>
                 {printButtons(shopOrder.shop, cartItem.item,cartItem.additions,cartItem.quantity,addToCart)}
               </ItemCard>
             ))}
-            <Text style={styles.availableOptions}>Available Options:</Text>
+            <Text style={styles.availableOptions}>{t("Available Options")}:</Text>
             <View style={styles.shopOptionsContainer}>
               {availableOptions.map((option) => {
                 if (option.shopUid === shopOrder.shop.shopUid) {
@@ -153,7 +155,7 @@ export const ShopCart = ({route}) => {
                         option.selectedOption === opt ? styles.selectedOption : null,
                       ]}
                     >
-                      <Text style={styles.optionText}>{opt}</Text>
+                      <Text style={styles.optionText}>{t(opt)}</Text>
                     </TouchableOpacity>
                   ));
                 }
@@ -162,9 +164,9 @@ export const ShopCart = ({route}) => {
             </View>
     </ScrollView>
     <View style={styles.totalContainer}>
-      <Text style={styles.totalPrice}>Total Price: {totalPrice.toFixed(2)}₪</Text>
-      <Button title="Checkout" onPress={() => handleCheckout()} />
-      <Button title="Clear" onPress={clearCart} />
+      <Text style={styles.totalPrice}>{t("Total price")}: {totalPrice.toFixed(2)}₪</Text>
+      <Button title={t("Checkout")} onPress={() => handleCheckout()} />
+      <Button title={t("Clear")} onPress={clearCart} />
       <TouchableOpacity onPress={handleLocationSelection} style={styles.locationButton}>
         <Text style={styles.locationButtonText}>Select Location</Text>
       </TouchableOpacity>

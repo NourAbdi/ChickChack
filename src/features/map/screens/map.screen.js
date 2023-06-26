@@ -44,9 +44,7 @@ export const MapScreen = ({ navigation }) => {
     const address = await Location.reverseGeocodeAsync({ latitude, longitude });
     if (address && address.length > 0) {
       const city = address[0].city.toLowerCase();
-      const translatedCity = t(city);
-      console.log(city);
-      console.log(translatedCity);
+      const translatedCity = t(city, { lng: 'en' });
       // Update the selected city based on the current location
       const matchingCity = cities.find((c) => c.cityName.toLowerCase() === translatedCity.toLowerCase());
       if (matchingCity) {

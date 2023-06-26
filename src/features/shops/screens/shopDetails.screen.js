@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState,useRef } from "react";
 import {View,ActivityIndicator,Animated} from "react-native";
-
+import { useTranslation } from "react-i18next";
 import { ShopContext } from "../../../services/shop/shop.context";
 
 import{
@@ -25,6 +25,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
   const { shop } = route.params;
   const { selectedShop, setSelectedShop, menu, isLoading } = useContext(ShopContext);
   const scrollY = useRef(new Animated.Value(0)).current;
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (shop) {
@@ -53,9 +54,9 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
             <ViewAbove>
               <RestaurantInfoCard>
                 <RestaurantName>{selectedShop.name}</RestaurantName>
-                {isOpenCheck(selectedShop.workingHours,selectedShop.isTemporaryClose)}
-                <RestaurantInfo>Working Hours: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
-                <RestaurantInfo>Tel: {selectedShop.Tel}</RestaurantInfo>
+                {isOpenCheck(selectedShop.workingHours,selectedShop.isTemporaryClose, t)}
+                <RestaurantInfo>{t("workingHours")}: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
+                <RestaurantInfo>{t("Tel")}: {selectedShop.Tel}</RestaurantInfo>
                 {PrintGettingOrder(selectedShop.takeOrder)}
                 {wazeButton(selectedShop.location,selectedShop.address)}
               </RestaurantInfoCard>

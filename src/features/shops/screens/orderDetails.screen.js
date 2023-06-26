@@ -19,8 +19,10 @@ import{
   PrintIteamAdditions,
 } from '../components/OrderDetailsScreen.component'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from "react-i18next";
 
 export const OrderDetailsScreen = ({ navigation,route}) => {
+  const { t } = useTranslation();
   const { shop, item } = route.params;
   const { addToCart } = useContext(CartContext);
   const [count, setCount] = useState(1);
@@ -49,13 +51,13 @@ export const OrderDetailsScreen = ({ navigation,route}) => {
         {printHeader(item.itemPhoto,colors.text.inverse,navigation)}
         <InfoCardShadow>
           <InfoCard safeAreaViewHeight={ MyComponent()}>
-            {PrintCounter(count,setCount,addToCart,shop,item,filteredItems)}
+            {PrintCounter(count,setCount,addToCart,shop,item,filteredItems, t)}
             <OrderName>{item.itemName}</OrderName>
-            <Price>Price for unite:{item.itemPrice}₪</Price>
+            <Price>{t("Price for unit")}:{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
             {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems)}
             <BlueBackGround>
-              <TotalPrice>Total price:{item.itemPrice *count + checkedItemsTotalPrice}</TotalPrice>
+              <TotalPrice>{t("Total price")}:{item.itemPrice *count + checkedItemsTotalPrice}₪</TotalPrice>
             </BlueBackGround>
           </InfoCard>
         </InfoCardShadow>

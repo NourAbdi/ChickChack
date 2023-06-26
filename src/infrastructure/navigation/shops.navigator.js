@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { IconButton } from "react-native-paper";
 import { getFocusedRouteNameFromRoute,useFocusEffect } from '@react-navigation/native';
 
-
 import { colors } from "../theme/colors";
 import { ShopsScreen } from "../../features/shops/screens/shops.screen";
 import { ShopDetailsScreen } from "../../features/shops/screens/shopDetails.screen";
