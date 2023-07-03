@@ -4,8 +4,10 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { OwnerShopNewOrdersScreen } from "../../ownerShop/screens/ownerShopNewOrders.screen";
 import { OwnerShopPastOrdersScreen } from "../../ownerShop/screens/ownerShopPastOrders.screen";
+import { useTranslation } from "react-i18next";
 
 export const OwnerShopOrdersScreen = ({navigation}) => {
+  const { t } = useTranslation();
   const Tab = createMaterialTopTabNavigator();
   return (
     <SafeArea>
@@ -13,12 +15,12 @@ export const OwnerShopOrdersScreen = ({navigation}) => {
       <Tab.Screen
         name="OwnerShopNewOrdersScreen"
         component={OwnerShopNewOrdersScreen}
-        options={{ title: "New orders" }}
+        options={{ title: t("New orders") }}
       />
       <Tab.Screen
         name="OwnerShopPastOrdersScreen"
         component={OwnerShopPastOrdersScreen}
-        options={{ title: "Past Orders" }}
+        options={{ title: t("Past orders") }}
       />
     </Tab.Navigator>
     </SafeArea>

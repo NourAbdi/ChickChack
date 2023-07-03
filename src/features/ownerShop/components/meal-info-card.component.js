@@ -12,7 +12,7 @@ import Icons from "@expo/vector-icons/MaterialIcons";
     CounterButton, 
   } from "./meal-info-card.styles"
 
-export const MealInfoCard = ({meal = {} ,updateItemAvailable}) => {
+export const MealInfoCard = ({meal = {} ,updateItemAvailable, t}) => {
     const {
       itemName = "Some meal",
       itemPhoto = [
@@ -34,7 +34,7 @@ export const MealInfoCard = ({meal = {} ,updateItemAvailable}) => {
             <MealCardCover key={itemName} source={{ uri: itemPhoto }} />
             <Info>
               <Text variant="label">{itemName}</Text>
-              <Price>price: {itemPrice}₪</Price>
+              <Price>{t("price")} : {itemPrice}₪</Price>
             </Info>
           </MealCard>
         </MealShadow>

@@ -69,7 +69,7 @@ export const titleOpacity =(scrollY) =>{
   );
 };
 
-export const PrintMenu = (menu,navigation,shop,updateItemAvailable,updateAddItemAvailable) => {
+export const PrintMenu = (menu,navigation,shop,updateItemAvailable,t) => {
   // Group items by itemCategory
   const groupedItems = groupBy(menu, 'itemCategory');
   return (
@@ -82,8 +82,8 @@ export const PrintMenu = (menu,navigation,shop,updateItemAvailable,updateAddItem
               <CardView>
                 {menuItems.map((item) => (
                   <View key={item.itemUid}>
-                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item, updateAddItemAvailable })} >
-                    <MealInfoCard meal={item} updateItemAvailable={updateItemAvailable}/>
+                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item })} >
+                    <MealInfoCard meal={item} updateItemAvailable={updateItemAvailable} t={t}/>
                     </TouchableOpacity>
                   </View>
                 ))}
@@ -151,7 +151,7 @@ export const WorkingHoursComponent = (workingHours) => {
     }
 };
 
-export const IsOpenCheck = ({workingHours,isTemporaryClose}) => {
+export const IsOpenCheck = ({workingHours,isTemporaryClose,t}) => {
   // console.log("AAAAAAAAAAAAAAAAAAaa",isTemporaryClose);
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
@@ -171,14 +171,14 @@ export const IsOpenCheck = ({workingHours,isTemporaryClose}) => {
     // Compare the current time with the start and end time
     if (isOpen==="Yes" && currentTime >= startTime && currentTime <= endTime) {
       if(isTemporaryClose)
-        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>CLOSED TEMPORARY</IsOpenWord></IsOpenCard>);
+        return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>{t("closedTemporary")}</IsOpenWord></IsOpenCard>);
       else
-      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>OPEN</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.green}><IsOpenWord>{t("open")}</IsOpenWord></IsOpenCard>);
     } else {
-      return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
+      return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>{t("closed")}</IsOpenWord></IsOpenCard>);
     }
   } else {
-    return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>CLOSE</IsOpenWord></IsOpenCard>);
+    return (<IsOpenCard backgroundColor={colors.button.red}><IsOpenWord>{t("closed")}</IsOpenWord></IsOpenCard>);
   }
 };
 

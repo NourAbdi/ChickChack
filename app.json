@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ChickChack",
-    "slug": "ChickChack",
+    "slug": "chickchack",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,14 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.nourtheboss.ChickChack"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0ff3ac09-132d-49ed-9b94-7347ad37d330"
       }
-    }
+    },
+    "owner": "chick"
   }
 }

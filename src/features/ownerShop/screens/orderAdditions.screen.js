@@ -18,10 +18,11 @@ import{
   PrintIteamAdditions,
 } from '../components/orderAdditions.screen.components'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from "react-i18next";
 
 export const OrderAdditionsScreen = ({ navigation,route,}) => {
-  const { shop, item, updateAddItemAvailable } = route.params;
-  const [count, setCount] = useState(1);
+  const { t } = useTranslation();
+  const { shop, item } = route.params;
   const [checkedItems, setCheckedItems] = useState(
     Object.fromEntries(
       Object.entries(item.itemAdditions).flatMap(([additionType, additionsOfType]) =>
@@ -48,13 +49,11 @@ export const OrderAdditionsScreen = ({ navigation,route,}) => {
         <InfoCardShadow>
           <InfoCard safeAreaViewHeight={ MyComponent()}>
             <OrderName>{item.itemName}</OrderName>
-            <Price>Price for unite:{item.itemPrice}₪</Price>
+            <Price>{t("Price for unit")} :{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
-            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems,updateAddItemAvailable,item.itemUid)}
-            
+            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems,item.itemUid)}
           </InfoCard>
         </InfoCardShadow>
     </View>
-    
   );
 };

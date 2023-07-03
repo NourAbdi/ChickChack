@@ -20,8 +20,10 @@ import {
   printCartIteam,
   PrintConfirmingOrder,
 } from "../components/ownerShopOrders.components";
+import { useTranslation } from "react-i18next";
 
 export const OwnerShopNewOrdersScreen = () => {
+  const { t } = useTranslation();
   const { newOrders, updateOrder, isLoading } = useContext(OwnerShopContext);
   const sortedOrders = newOrders.sort((a, b) => new Date(a.orderTime) - new Date(b.orderTime));
   const [expandedItems, setExpandedItems] = useState([]);
@@ -49,27 +51,27 @@ export const OwnerShopNewOrdersScreen = () => {
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView >
         {sortedOrders.map((order, index) => (
           <View key={order.orderId}>
-            <Title>Order {index + 1}:</Title>
+            <Title>{t("order")} {index + 1}:</Title>
             <Shadow>
               <OrderCard isExpanded={isItemExpanded(order.orderId)}>
-                <Heading>Order information:</Heading>
-                {printOrderinfo(order)}
-                <Heading>Confirming order:</Heading>
-                <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} />
+                <Heading>{t("Order information")} :</Heading>
+                {printOrderinfo(order, t)}
+                <Heading>{t("Confirming order")} :</Heading>
+                <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/>
                 <Row>
-                  <Heading>Cart items:</Heading>
+                  <Heading>{t("Cart items")} :</Heading>
                 </Row>
                 <ButtonCard color={colors.button.white}>
                   <Button
-                    title={isItemExpanded(order.orderId) ? "Collapse" : "Expand"}
+                    title={isItemExpanded(order.orderId) ? t("Collapse") : t("Expand")}
                     onPress={() => toggleItemExpand(order.orderId)}
                     color="black"
                   />
                 </ButtonCard>
-                {isItemExpanded(order.orderId) && printCartIteam(order.cartItems)}
+                {isItemExpanded(order.orderId) && printCartIteam(order.cartItems, t)}
               </OrderCard>
             </Shadow>
           </View>

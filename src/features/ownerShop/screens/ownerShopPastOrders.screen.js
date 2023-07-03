@@ -18,9 +18,10 @@ import {
   printOrderinfo,
   printCartIteam,
 } from "../components/ownerShopOrders.components";
-
+import { useTranslation } from "react-i18next";
 
 export const OwnerShopPastOrdersScreen = () => {
+  const { t } = useTranslation();
   const { pastOrders, isLoading } = useContext(OwnerShopContext);
   const sortedOrders = pastOrders.sort((a, b) => new Date(a.orderTime) - new Date(b.orderTime));
   const [expandedItems, setExpandedItems] = useState([]);
@@ -53,19 +54,19 @@ export const OwnerShopPastOrdersScreen = () => {
             <View key={order.orderId}>
             <Shadow> 
               <OrderCard isExpanded = {isItemExpanded(order.orderId)}>
-                <Heading>Order information:</Heading>
-                  {printOrderinfo(order)} 
+                <Heading>{t("Order information")} :</Heading>
+                  {printOrderinfo(order, t)}
                 <Row>
-                  <Heading>Cart items:</Heading>
+                  <Heading>{t("Cart items")} :</Heading>
                 </Row>
                 <ButtonCard color={colors.button.white}>
                   <Button
-                    title={isItemExpanded(order.orderId) ? "Collapse" : "Expand"}
+                    title={isItemExpanded(order.orderId) ? t("Collapse") : t("Expand")}
                     onPress={() => toggleItemExpand(order.orderId)}
                     color="black"
                   />
                 </ButtonCard>
-                {isItemExpanded(order.orderId) && printCartIteam(order.cartItems)}
+                {isItemExpanded(order.orderId) && printCartIteam(order.cartItems, t)}
               </OrderCard>
             </Shadow>
           </View>

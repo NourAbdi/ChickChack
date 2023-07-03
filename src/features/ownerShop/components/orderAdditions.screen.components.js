@@ -1,7 +1,8 @@
-import React,{useState} from "react";
+import React,{useState, useContext} from "react";
 import { View,SafeAreaView,StatusBar,Animated,ScrollView} from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { CheckBox } from 'react-native-elements'
+import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
 
 import { colors } from "../../../infrastructure/theme/colors";
 import{
@@ -39,7 +40,8 @@ export const printHeader = (headerImage,buttonColor,navigation) => {
   );
 }
 
-export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,updateAddItemAvailable,itemUid) => {
+export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,itemUid) => {
+  const { updateAddItemAvailable } = useContext(OwnerShopContext);
   const isEmpty = Object.keys(additions).length === 0;
   const [isRemoveIcon, setIsRemoveIcon] = useState(() => {
     const initialRemoveIconState = {};
