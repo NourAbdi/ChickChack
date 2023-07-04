@@ -6,9 +6,8 @@ import english from './english.json';
 import arabic from './arabic.json';
 import hebrew from './hebrew.json';
 
-const fallbackLanguage = 'en'; // Set your fallback language here
-
 const languageTag = Localization.locale.split('-')[0];
+const fallbackLanguage = 'en';
 
 i18n
   .use(initReactI18next)
@@ -27,7 +26,7 @@ i18n
       escapeValue: false,
     },
     react: {
-      useSuspense: true,
+      useSuspense: false,
     },
   });
 

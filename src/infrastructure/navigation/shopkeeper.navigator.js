@@ -26,7 +26,6 @@ const createScreenOptions = ({ route }) => {
   const { t, i18n } = useTranslation();
   const iconName = TAB_ICON[route.name];
   const iconTitle = t(route.name);
-
   return {
     tabBarActiveTintColor: "#2683C0",
     tabBarInactiveTintColor: "#C6DAF7",
@@ -43,12 +42,13 @@ const createScreenOptions = ({ route }) => {
 };
 
 const ShopStack = ({navigation,route}) => {
+  const { i18n } = useTranslation();
   useFocusEffect(
     React.useCallback(() => {
       if (getFocusedRouteNameFromRoute(route) === 'OrderAdditionsScreen') {
         navigation.setOptions({ tabBarStyle: { display: 'none' } });
       } else {
-        navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+        navigation.setOptions({ tabBarStyle: { display: 'flex' ,direction: i18n.dir()} });
       }
     }, [navigation, route])
   );

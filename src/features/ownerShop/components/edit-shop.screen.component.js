@@ -123,26 +123,19 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
                 <Time>{workingHours[day].end.split(":")[1]}</Time>
               </TimeCard>
             </ModalSelector>
-
-            {/* <Center>, {t("Is Open")}:</Center> */}
-            {/* print Is Open */}
             <CheckBox
-              title={t("Is Open")}
-              checked={workingHours[day].isOpen === "Yes"}
+              title={workingHours[day].isOpen ? t("open") : t("closed")}
+              checked={workingHours[day].isOpen == true}
               onPress={() => {
                 const updatedWorkingHours = { ...workingHours };
-                updatedWorkingHours[day].isOpen = workingHours[day].isOpen === "Yes" ? "No" : "Yes";
+                updatedWorkingHours[day].isOpen = !workingHours[day].isOpen;
                 setSelectedIsOpen(updatedWorkingHours[day].isOpen);
               }}
             />
           </Row>
         </WorkingHoursCard>
       ))}
-      {/* print Is Temporary Close */}
       <ViewIsTemClose>
-        {/* <Center>
-          <Title>{t("Is Temporary Close")}</Title>
-        </Center> */}
         <CheckBox
           title={t("Is Temporary Close")}
           checked={isTemporaryClose}
