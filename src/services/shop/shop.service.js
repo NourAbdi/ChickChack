@@ -10,7 +10,7 @@ export const getShopMenuByShopUid = async (shopUid) => {
       const shopData = shopDoc.data();
       const menu = shopData.menu || [];
 
-      const itemsCollection = collection(db, "items"); // Replace "items" with the actual collection name in your Firestore
+      const itemsCollection = collection(db, "items"); 
       const q = query(itemsCollection, where("itemUid", "in", menu));
       const querySnapshot = await getDocs(q);
 
