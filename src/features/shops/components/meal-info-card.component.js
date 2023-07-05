@@ -9,6 +9,9 @@ import {
   Price,
   Info,
   MealShadow,
+  MealCardOverlay,
+  UnavailableText,
+  UnavailableContainer,
 } from "./meal-info-card.styles"
 
 export const MealInfoCard = ({ meal = {} }) => {
@@ -20,19 +23,26 @@ export const MealInfoCard = ({ meal = {} }) => {
       "https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made-600x899.jpg",
     ],
     itemPrice = 20,
-    // itemAddition=false,
+    itemAvailability=true,
   } = meal;
   return (
     <MealShadow>
       <MealCard elevation={2} >
-        <View>
-          <MealCardCover key={itemName} source={{ uri: itemPhoto }} />
-        </View>
+        <MealCardCover source={{ uri: itemPhoto }} />
         <Info>
           <Text variant="label">{itemName}</Text>
           <Price>{t("price")}: {itemPrice}₪</Price>
         </Info>
+        {itemAvailability ? null: ( 
+          <>
+            <MealCardOverlay />
+            <UnavailableContainer>
+              <UnavailableText>Meal not available</UnavailableText>
+            </UnavailableContainer>
+          </>
+        )}
       </MealCard>
     </MealShadow>
+
   );
 };

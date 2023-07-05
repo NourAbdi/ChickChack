@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { View,SafeAreaView,StatusBar,Animated,Alert } from "react-native";
+import { View,SafeAreaView,StatusBar,Animated,Alert,Text } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { CheckBox } from 'react-native-elements'
 
@@ -17,6 +17,8 @@ import{
     AdditionImage,
     AdditionInfo,
     CategoryName,
+    AdditionOverlay,
+    UnavailableText,
   } from "./OrderDetailsScreen.style";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -135,6 +137,11 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems) => {
                   checkedColor={colors.ui.secondary} // Set the desired color here
                   size={20}
                 />
+                {addition.additionAvailability ? null : 
+                <AdditionOverlay>
+                  <UnavailableText>Addition not available</UnavailableText>
+                </AdditionOverlay>
+                }
               </ViewAddition>
             ))}
           </View>

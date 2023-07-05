@@ -1,5 +1,5 @@
 import React from "react";
-import { View,TouchableOpacity,ScrollView,Image,Linking,SafeAreaView} from "react-native";
+import { View,TouchableOpacity,ScrollView,Image,Linking,SafeAreaView,Text} from "react-native";
 import { groupBy } from 'lodash';
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
@@ -86,15 +86,22 @@ export const PrintMenu = (menu,navigation,shop) => {
             <CategoryName>{menuCategory}</CategoryName>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <CardView>
-                {menuItems.map((item) => (
-                  <View key={item.itemUid}>
-                    <TouchableOpacity onPress={() => navigation.navigate("OrderDetailsScreen", { shop, item })} >
-                      <MealInfoCard meal={item} />
-                    </TouchableOpacity>
-                  </View>
-                ))}
+                {menuItems.map((item) =>
+                  item.itemAvailability ? (
+                    <View key={item.itemUid}>
+                      <TouchableOpacity onPress={() => navigation.navigate("OrderDetailsScreen", { shop, item })}>
+                        <MealInfoCard meal={item} />
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <View key={item.itemUid}>
+                      <TouchableOpacity onPress={() =>null}>
+                        <MealInfoCard meal={item} />
+                      </TouchableOpacity>
+                    </View>
+                  )
+                )}
               </CardView>
-
             </ScrollView>
           </MealsCard>
         );

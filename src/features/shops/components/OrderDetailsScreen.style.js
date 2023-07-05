@@ -69,6 +69,27 @@ export const ViewCounter = styled.View`
   margin:${(props) => props.theme.space[2]};
 `;
 
+export const AdditionOverlay = styled.View`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(150,150,150,0.7);
+`;
+
+export const UnavailableText = styled.Text`
+  align-self: center;
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  background-color:${(props) => props.theme.colors.bg.primary};
+  top:20%;
+  border-width: 1px;
+  border-color: ${(props) => props.theme.colors.mainblue};
+  border-radius:15px;
+  overflow: hidden;
+  padding:4px;
+
+`;
+
 export const OrderName = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h5};
