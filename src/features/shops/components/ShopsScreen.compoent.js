@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { View, StatusBar, Image, Text, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
-import { IconButton } from "react-native-paper";
 import Swiper from 'react-native-swiper';
 import { groupBy } from 'lodash';
-import { FontAwesome } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 
 import { colors } from "../../../infrastructure/theme/colors";

@@ -36,7 +36,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
 
   useEffect(() => {
     if (selectedShop) {
-      console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
+      // console.log("ShopDetailsScreen, selectedShop changed:", selectedShop);
     }
   }, [selectedShop]);
 

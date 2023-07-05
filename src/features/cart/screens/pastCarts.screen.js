@@ -3,46 +3,93 @@ import { View, Text, Image, ScrollView } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { CartContext } from "../../../services/cart/cart.context";
 
+import{
+  ViewOrder,
+  Row,
+  TitleRow,
+  ShopIcon,
+  ShopName,
+  Flex,
+  Line,
+  Caption,
+  Info,
+  Center,
+  CartItem,
+  CartItemImage,
+} from "../components/pastCarts.screen.style"
+
 export const PastCartsScreen = () => {
   const { pastOrders } = useContext(CartContext);
 
   useEffect(() => {
-    if(pastOrders){
+    if (pastOrders) {
       console.log(pastOrders);
     }
   }, [pastOrders]);
+
+  // Sort past orders by orderTime in descending order
+  const sortedPastOrders = pastOrders
+    ? [...pastOrders].sort((a, b) => new Date(b.orderTime) - new Date(a.orderTime))
+    : [];
 
   return (
     <SafeArea>
       <ScrollView>
         <View>
-          {pastOrders ? (
-            pastOrders.map((order) => (
-              <View key={order.orderId}>
-                <Text>Order ID: {order.orderId}</Text>
-                <Text>Order Total Price: {order.orderTotalPrice} ₪</Text>
-                <Text>Location to Deliver: {order.locationToDeliver.latitude}, {order.locationToDeliver.longitude}</Text>
-                <Text>Order Option: {order.orderOption}</Text>
-                <Text>Pay Option: {order.payOption}</Text>
-                <Text>Order Stage: {order.orderStage}</Text>
-                <Text>Order Time: {order.orderTime}</Text>
-                <Text>Preparation Time: {order.preparationTime}</Text>
-                <Text>Delivery Time: {order.deliveryTime}</Text>
-                <Text>Shop UID: {order.shopUid}</Text>
-                <Text>User UID: {order.userUid}</Text>
-                <Text>Cart Items:</Text>
-                {order.cartItems.map((item,index) => (
-                  <View key={index}>
-                    <Text>Item UID: {item.item.itemUid}</Text>
-                    <Text>Item Name: {item.item.itemName}</Text>
+          {sortedPastOrders.length > 0 ? (
+            sortedPastOrders.map((order, index) => (
+              <ViewOrder key={index}>
+                <TitleRow>
+                  <Info>Order ID: {order.orderId}</Info>
+                  <Flex/>
+                  <Info>
+                    {new Date(order.orderTime).toLocaleDateString()},{" "}  
+                    {new Date(order.orderTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit",})} 
+                  </Info>
+                </TitleRow>
+                <Line/>
+                <Center>
+                  <Info>Shop UID: {order.shopUid}</Info>
+                </Center>
+                {order.cartItems.map((item, index) => (
+                  <CartItem key={index}>
                     {item.item.itemPhoto && (
-                      <Image source={{ uri: item.item.itemPhoto }} style={{ width: 100, height: 100 }} />
+                      <CartItemImage source={{ uri: item.item.itemPhoto }} />
                     )}
-                    <Text>Quantity: {item.quantity}</Text>
-                  </View>
+                    <View>
+                      <Info>{item.item.itemName}</Info>
+                      {item.additions.length === 0 ? null : (
+                        <>
+                          {Object.entries(item.additions).map(([additionName, additionPrice], index) => (
+                            <Caption key={index}>
+                              {additionName}{""}
+                            </Caption>
+                          ))}
+                        </>
+                      )}
+                      <Caption>Price for unit: {item.item.itemPrice}₪</Caption>
+                      <Info>Quantity: {item.quantity}</Info>
+                    </View>
+                  </CartItem>
                 ))}
-                <Text>---------------------------------------------------</Text>
-              </View>
+                <Line/>
+                <Line/>
+                <Row>
+                  <Info>Order Total Price: {order.orderTotalPrice} ₪</Info>
+                  <Flex/>
+                  <Info>Pay Option: {order.payOption}</Info>
+                </Row>
+                <Row>
+                  <Info>Preparation Time: {order.preparationTime}</Info>
+                  <Flex/>
+                  <Info>Delivery Time: {order.deliveryTime}</Info>
+                </Row>
+                <Row>
+                  <Info>Order Option: {order.orderOption}</Info>
+                  <Flex/>
+                  <Info>Order Stage: {order.orderStage}</Info>
+                </Row>
+              </ViewOrder>
             ))
           ) : (
             <Text>No past orders found.</Text>
@@ -52,3 +99,4 @@ export const PastCartsScreen = () => {
     </SafeArea>
   );
 };
+

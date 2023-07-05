@@ -151,7 +151,7 @@ export const PrintGettingOrder = (takeOrder) => {
 export const WorkingHoursComponent = (workingHours) => {
   const options = { weekday: 'long' };
   const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
-    if(workingHours[currentDay].start && workingHours[currentDay].isOpen === "Yes"){
+    if(workingHours[currentDay].start && workingHours[currentDay].isOpen){
       return (workingHours[currentDay].start+"-"+workingHours[currentDay]["end"]);
     }else{
       return ("No working hours available for today");
@@ -176,7 +176,7 @@ export const isOpenCheck = (workingHours,isTemporaryClose, t) => {
     startTime.setHours(startHour, startMinute);
     endTime.setHours(endHour, endMinute);
     // Compare the current time with the start and end time
-    if (isOpen==="Yes" && currentTime >= startTime && currentTime <= endTime) {
+    if (isOpen  && currentTime >= startTime && currentTime <= endTime) {
       if(isTemporaryClose)
         return (<IsOpenCard backgroundColor={colors.mainblue}><IsOpenWord>{t("CLOSED TEMPORARY")}</IsOpenWord></IsOpenCard>);
       else

@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { View,SafeAreaView,StatusBar,Animated} from "react-native";
+import { View,SafeAreaView,StatusBar,Animated,Alert } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { CheckBox } from 'react-native-elements'
 
@@ -45,30 +45,40 @@ export const PrintCounter = (count,setCount,addToCart,shop,item,additions={},t) 
     outputRange: [0, 1],
     extrapolate: 'clamp',
   });
-
-  return(
-    <Row style={{position:'relative'}}>
-      <ViewCounter>
-        <CounterButton onPress={() => setCount((count) => Math.max(1, count - 1))}>
-          <Icons name="remove" size={20} color={colors.mainblue} />
-        </CounterButton>
-        <Count>{count}</Count>
-        <CounterButton onPress={() => setCount((count) => count + 1)}>
-          <Icons name="add" size={20} color={colors.mainblue} />
-        </CounterButton>
-      </ViewCounter>
-      <View style={{flex:1}}/>
-      <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
+  if(shop.route === 'A'){
+    return(
+      <Row style={{position:'relative'}}>
         <ViewCounter>
-          <CounterButton onPress={() => handlePress()}>
-            <Icons name="add-shopping-cart" size={24} color={colors.mainblue} />
+          <CounterButton onPress={() => setCount((count) => Math.max(1, count - 1))}>
+            <Icons name="remove" size={20} color={colors.mainblue} />
           </CounterButton>
-          <Count>{t("Add to cart")}</Count>
+          <Count>{count}</Count>
+          <CounterButton onPress={() => setCount((count) => count + 1)}>
+            <Icons name="add" size={20} color={colors.mainblue} />
+          </CounterButton>
         </ViewCounter>
-      </Animated.View>
+        <View style={{flex:1}}/>
+        <Animated.View style={{ transform: [{ scale: buttonScale }] }}>
+          <ViewCounter>
+            <CounterButton onPress={() => handlePress()}>
+              <Icons name="add-shopping-cart" size={24} color={colors.mainblue} />
+            </CounterButton>
+            <Count>{t("Add to cart")}</Count>
+          </ViewCounter>
+        </Animated.View>
+      </Row>
+    );
+  }else{
+    Alert.alert(
+      "Note",
+      "Sorry,you can't buy from this shop.",
+      [{ text: "OK" }]
+    );
+    return;
 
-    </Row>
-  );
+  }
+
+  
 };
 
 export const printHeader = (headerImage,buttonColor,navigation) => {

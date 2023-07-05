@@ -8,13 +8,8 @@ export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
   const [pastOrders, setPastOrders] = useState([]);
   const [order, setOrder] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
   const l = {latitude: "32.750073", longitude: "35.346591"};
   const [location2Deliver, setLocation2Deliver] = useState(l);
-
-  useEffect(() => {
-    setTotalPrice(calculateTotalPrice(order));
-  }, [order]);
 
   const addToCart = (shop, item, quantity = 1,additions={}) => {
     const existingShop = order.find((orderItem) => orderItem.shop === shop);
@@ -49,7 +44,6 @@ export const CartContextProvider = ({ children }) => {
       );
       if (updatedCartItems.length === 0) {
         // Remove shop if no cart items left
-        console.log("EEEEEEEEEEEEEEEEEEEEEEEEEE",order)
         const updatedOrder = order.filter((orderShop) => orderShop.shop.shopUid !== shop.shopUid);
         setOrder([...updatedOrder]);
       } else {
@@ -91,19 +85,14 @@ export const CartContextProvider = ({ children }) => {
     return true;
   };
 
-  const checkout = async (orderDeliveryOptions) => {
+  const checkout = async (orderDeliveryOptions,shopUid) => {
     try {
-
-      console.log("Checkout");
-      console.log("order : ", order);
-      const orderSelected = order[0];
+      const orderSelected = order.find(item => item.shop.shopUid === shopUid);
       if (!orderSelected) {
         console.log("empty cart");
         return;
       }
-      console.log("orderSelected : ", orderSelected);
       const cartItems = orderSelected.cartItems;
-      console.log("cartItems : ", cartItems);
       await saveOrder({
         userUid: user.uid,
         cartItems,
@@ -112,27 +101,26 @@ export const CartContextProvider = ({ children }) => {
         preparationTime: orderSelected.shop.preparationTime,
         orderStage: "fresh",
         orderOption: orderDeliveryOptions,
-        orderTotalPrice: totalPrice,
+        orderTotalPrice: calculateTotalPrice(shopUid),
         payOption: "Cash",
         locationToDeliver: location2Deliver,
         deliveryLocation: "loc",
         shopLocation: orderSelected.shop.shopLocation,
         shopUid: orderSelected.shop.shopUid,
       });
-      clearCart(); // Clear the cart after a successful order
-    } catch (error) {
+      removeShopFromCart(shopUid)
+      } catch (error) {
       console.log("Error saving order:", error);
     }
   };
 
-  const calculateTotalPrice = (order) => {
+  const calculateTotalPrice = (shopUid) => {
+    const existingShop = order.find((orderItem) => orderItem.shop.shopUid === shopUid);
     let totalPrice = 0;
     let additionsPrice =0;
-    for (const shop of order) {
-      for (const cartItem of shop.cartItems) {
-        additionsPrice =  Object.values(cartItem.additions).reduce((sum, price) => sum + price, 0);
-        totalPrice += cartItem.item.itemPrice * cartItem.quantity + additionsPrice * cartItem.quantity;
-      }
+    for (const cartItem of existingShop.cartItems) {
+      additionsPrice =  Object.values(cartItem.additions).reduce((sum, price) => sum + price, 0);
+      totalPrice += cartItem.item.itemPrice * cartItem.quantity + additionsPrice * cartItem.quantity;
     }
     return totalPrice;
   };
@@ -147,7 +135,7 @@ export const CartContextProvider = ({ children }) => {
         removeShopFromCart,
         clearCart,
         checkout,
-        totalPrice,
+        calculateTotalPrice,
         shopLengthCheck,
         location2Deliver,
         setLocation2Deliver,

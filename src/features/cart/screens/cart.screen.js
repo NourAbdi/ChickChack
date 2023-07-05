@@ -18,7 +18,7 @@ export const CartScreen = ({navigation}) => {
       <ScrollView>
         <Title>Your Orders:</Title>
         {order.map((item, index) => (
-          <TouchableOpacity key={index} onPress={() => navigation.navigate("ShopCart", { shopUid: item.shop.shopUid})}>
+          <TouchableOpacity key={index} onPress={() => navigation.navigate("ShopCart", { desiredShopUid: item.shop.shopUid, shopWorkingHours: item.shop.workingHours,isTemporaryClose: item.shop.isTemporaryClose})}>
             <ViewShop>
               <TouchableOpacity onPress={() => removeShopFromCart(item.shop.shopUid) } >
                 <Icons name="delete" size={25} color='red' />

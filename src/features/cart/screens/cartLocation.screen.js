@@ -1,18 +1,23 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { View, Button, Alert, ActivityIndicator } from "react-native";
+import { View, Button, Alert, ActivityIndicator,SafeAreaView,StatusBar } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useNavigation } from "@react-navigation/native";
 import { CartContext } from "../../../services/cart/cart.context";
+import{colors} from "../../../infrastructure/theme/colors";
 
-export const CartLocationScreen = () => {
+
+
+export const CartLocationScreen = ({route}) => {
     const navigation = useNavigation();
-    const { location2Deliver, setLocation2Deliver } = useContext(CartContext);
+    const { location2Deliver, setLocation2Deliver,checkout } = useContext(CartContext);
     const [currentLocation, setCurrentLocation] = useState();
     const [hasPermission, setHasPermission] = useState(false);
     const [isLoading, setIsLoading] = useState(false); // Loading state
     const mapRef = useRef();
+    const {desiredShopUid,orderDeliveryOption} = route.params;
+
 
     const Map = styled(MapView)`
         height: 75%;
@@ -64,6 +69,13 @@ export const CartLocationScreen = () => {
         }
     };
 
+    const handleConfirmPress= () => {
+        checkout(orderDeliveryOption,desiredShopUid);
+        console.log("checkout process finished successfully ...");
+        navigation.navigate("CartScreen");
+    };
+
+
     useEffect(() => {
         if (location2Deliver) {
             mapRef.current?.animateToRegion({
@@ -75,8 +87,17 @@ export const CartLocationScreen = () => {
         }
     }, [location2Deliver]);
 
+    useEffect(() => {
+        Alert.alert(
+          "Note",
+          "Please select your desired location",
+          [{ text: "OK" }]
+        );
+      }, []);
+
     return (
         <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />     
             <Map
                 ref={mapRef}
                 initialRegion={{
@@ -107,7 +128,7 @@ export const CartLocationScreen = () => {
             <View>
                 <Button title="Use My Current Location" onPress={handleCurrentLocationSelection} />
                 <Button title="Use Location On Map" onPress={handleUseLocationOnMap} />
-                <Button title="Confirm" onPress={() => navigation.navigate("CartScreen")} />
+                <Button title="Confirm" onPress={() => handleConfirmPress() } />
             </View>
         </View>
     );
