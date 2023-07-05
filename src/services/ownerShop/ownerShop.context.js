@@ -27,12 +27,11 @@ export const OwnerShopContextProvider = ({ children }) => {
       try {
         const response = await getShopByOwnerUid(user.uid);
         setShop(response);
-        setIsLoading(false);
       } catch (error) {
         console.log("Error fetching shop details:", error);
       }
     };
-
+    
     if (user) {
       fetchShopDetails();
     }
@@ -44,7 +43,7 @@ export const OwnerShopContextProvider = ({ children }) => {
       try {
         const menu = await getShopMenuByShopUid(shop.shopUid);
         setMenu(menu);
-
+        setIsLoading(false);
         // Subscribe to real-time updates of the shop's orders
         const unsubscribe = getOrdersByShopUid(shop.shopUid, (orders) => {
           console.log("Orders Updated:", orders);

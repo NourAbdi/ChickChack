@@ -14,12 +14,13 @@ const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 const CartLocationStack = ({ navigation,route }) => {
+  const { i18n } = useTranslation();
   useFocusEffect(
     React.useCallback(() => {
       if (getFocusedRouteNameFromRoute(route) === 'CartLocationScreen') {
         navigation.setOptions({ tabBarStyle: { display: 'none' } });
       } else {
-        navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+        navigation.setOptions({ tabBarStyle: { display: 'flex', direction: i18n.dir() } });
       }
     }, [navigation, route])
   );

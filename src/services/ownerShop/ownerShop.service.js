@@ -1,4 +1,4 @@
-import { host, db } from "../../utils/env";
+import { db } from "../../utils/env";
 import {
   collection,
   onSnapshot,
@@ -10,25 +10,6 @@ import {
   where,
 } from "firebase/firestore";
 
-
-export const getShopByShopUid = async (shopUid) => {
-  const requestOptions = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  };
-
-  try {
-    const response = await fetch(
-      `${host}/getShopByShopUid?shopUid=${shopUid}`,
-      requestOptions
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Error getting shop details");
-  }
-};
 
 export const updateShopDetails = async (shopUid, updatedShopDetails) => {
   try {
@@ -70,44 +51,55 @@ export const updateOrderStage = async (orderId, newPreparationTime, newStage) =>
   }
 };
 
-
 export const getShopByOwnerUid = async (ownerUid) => {
-  const requestOptions = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  };
+  const usersRef = collection(db, "users");
+  const userQuery = query(usersRef, where("uid", "==", ownerUid));
+  const userSnapshot = await getDocs(userQuery);
 
-  try {
-    const response = await fetch(
-      `${host}/getShopByOwnerUid?ownerUid=${ownerUid}`,
-      requestOptions
-    );
-    const data = await response.json();
-    return data[0];
-  } catch (error) {
-    console.log(error);
-    throw new Error("Error getting shop details");
+  if (userSnapshot.empty) {
+    throw new Error("User not found");
   }
+
+  const userDoc = userSnapshot.docs[0];
+  const userData = userDoc.data();
+  const shopUid = userData.shopUid;
+
+  const shopRef = doc(db, "shops", shopUid);
+  const shopDoc = await getDoc(shopRef);
+
+  if (!shopDoc.exists()) {
+    throw new Error("Shop not found");
+  }
+
+  const shopData = shopDoc.data();
+
+  return shopData;
 };
 
 export const getShopMenuByShopUid = async (shopUid) => {
-  const requestOptions = {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  };
+  const shopRef = doc(db, "shops", shopUid);
+  const shopDoc = await getDoc(shopRef);
 
-  try {
-    const response = await fetch(
-      `${host}/getShopMenuByShopUid?shopUid=${shopUid}`,
-      requestOptions
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw new Error("Error getting shop details");
+  if (!shopDoc.exists()) {
+    throw new Error("Shop not found");
   }
+
+  const shopData = shopDoc.data();
+  const menu = shopData.menu;
+
+  const itemsRef = collection(db, "items");
+  const itemsQuery = query(itemsRef, where("itemUid", "in", menu));
+  const itemsSnapshot = await getDocs(itemsQuery);
+
+  const menuItems = [];
+  itemsSnapshot.forEach((itemDoc) => {
+    const itemData = itemDoc.data();
+    menuItems.push(itemData);
+  });
+
+  return menuItems;
 };
+
 
 export const getOrdersByShopUid = (shopUid, callback) => {
   const ordersRef = collection(db, "orders");
@@ -121,14 +113,14 @@ export const getOrdersByShopUid = (shopUid, callback) => {
     callback(orders);
   });
 
-  return unsubscribe; 
+  return unsubscribe;
 };
 
 export const updateItemAvailability = async (itemUid, availability) => {
   try {
     const itemRef = doc(db, "items", itemUid);
     const itemDoc = await getDoc(itemRef);
-    
+
     if (!itemDoc.exists()) {
       throw new Error("Item not found");
     }
@@ -149,13 +141,13 @@ export const updateAddItemAvailability = async (itemUid, additionName, availabil
   try {
     const itemRef = doc(db, "items", itemUid);
     const itemDoc = await getDoc(itemRef);
-    
+
     if (!itemDoc.exists()) {
       throw new Error("Item not found");
     }
 
     const itemData = itemDoc.data();
-    
+
     // Recursive function to search for the additionName within the itemData object
     const findAndModifyAvailability = (data) => {
       if (Array.isArray(data)) {
@@ -191,7 +183,7 @@ export const updateAddItemAvailability = async (itemUid, additionName, availabil
       ...itemData,
       itemAdditions: updatedItemData.itemAdditions
     });
-    
+
     return true;
   } catch (error) {
     console.error("Error updating item availability:", error);
