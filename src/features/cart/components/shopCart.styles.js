@@ -18,6 +18,28 @@ export const ItemName = styled.Text`
   margin-bottom:${(props) => props.theme.space[1]};
 `;
 
+export const AvailableOptionsText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  margin-bottom:${(props) => props.theme.space[1]};
+  color: ${(props) => props.theme.colors.text.inverse};
+`;
+
+export const AvailableOptionsButton = styled(TouchableOpacity)`
+  margin-bottom: ${(props) => props.theme.space[1]};
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  justify-content: center;
+  border-radius:5px;
+  padding:5px;
+  opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
+`;
+
+export const SummaryInfo = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.title};
+`;
+
 export const Info = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
@@ -57,7 +79,7 @@ export const ViewCounter = styled.View`
   border-radius: 10px;
   margin:${(props) => props.theme.space[1]};
   margin-left:${(props) => props.theme.space[4]};
-  alignSelf: flex-end;
+  align-self: flex-end;
 `;
 
 export const CounterButton = styled(TouchableOpacity)`
@@ -67,6 +89,23 @@ export const CounterButton = styled(TouchableOpacity)`
   align-items: center;
   justify-content: center;
   border-radius: 34px;
+`;
+
+export const CheckOutButton = styled(TouchableOpacity)`
+  margin-bottom: ${(props) => props.theme.space[2]};
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  justify-content: center;
+  border-radius:10px;
+  align-self:center;
+  width:90%;
+  height:50px;
+`;
+
+export const CheckOutText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  fontSize:  ${(props) => props.theme.fontSizes.h5};
+  color: ${(props) => props.theme.colors.text.inverse};
 `;
 
 export const Count = styled.Text`
@@ -203,11 +242,13 @@ export const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "#ccc",
     paddingTop: 16,
+    alignItems:'center',
   },
   totalPrice: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 8,
+    alignSelf:'center',
   },
   // Modal styles
   modalContainer: {

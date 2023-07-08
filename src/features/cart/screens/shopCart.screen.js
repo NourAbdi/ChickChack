@@ -15,6 +15,11 @@ import {
   ItemName,
   Info,
   Price,
+  CheckOutButton,
+  CheckOutText,
+  SummaryInfo,
+  AvailableOptionsText,
+  AvailableOptionsButton,
 } from "../components/shopCart.styles";
 
 import {
@@ -149,29 +154,33 @@ export const ShopCart = ({ route }) => {
             </ItemCard>
           ))}
         </ScrollView>
-        <Text style={styles.availableOptions}>{t("Available Options")}:</Text>
+        
+        <View style={styles.totalContainer}>
+        <SummaryInfo>{t("Available Options")}:</SummaryInfo>
           <View style={styles.shopOptionsContainer}>
             {availableOptions.map((option) => {
               if (option.shopUid === shopOrder.shop.shopUid) {
                 return option.options.map((opt) => (
-                  <TouchableOpacity
+                  <AvailableOptionsButton
                     key={opt}
                     onPress={() => selectOption(option.shopUid, opt)}
-                    style={[
-                      styles.optionButton,
-                      option.selectedOption === opt ? styles.selectedOption : null,
-                    ]}
+                    isSelected={ option.selectedOption === opt }
+                    // style={[
+                    //   styles.optionButton,
+                    //   option.selectedOption === opt ? styles.selectedOption : null,
+                    // ]}
                   >
-                    <Text style={styles.optionText}>{t(opt)}</Text>
-                  </TouchableOpacity>
+                    <AvailableOptionsText >{t(opt)}</AvailableOptionsText>
+                  </AvailableOptionsButton>
                 ));
               }
               return null;
             })}
           </View>
-        <View style={styles.totalContainer}>
-          <Text style={styles.totalPrice}>{t("Total price")}: {calculateTotalPrice(desiredShopUid)}₪</Text>
-          <Button title={t("Checkout")} onPress={() => handleCheckout()} />
+          <SummaryInfo>{t("Total price")}: {calculateTotalPrice(desiredShopUid)}₪</SummaryInfo>
+          <CheckOutButton onPress={() => handleCheckout() }>
+            <CheckOutText>{t("Checkout")}</CheckOutText>
+          </CheckOutButton>
         </View>
       </View>
     </SafeArea>
