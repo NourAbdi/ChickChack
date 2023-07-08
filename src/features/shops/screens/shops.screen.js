@@ -37,7 +37,7 @@ export const ShopsScreen = ({ navigation }) => {
     );
   }
 
-  if (!isLoading && isShopsLoading) {
+  if ((!isLoading && !shops) || (!isLoading && shops && shops.length == 0)) {
     return (
       <SafeArea>
         <Text>{t("No shops available in this city")}</Text>
@@ -45,14 +45,14 @@ export const ShopsScreen = ({ navigation }) => {
     );
   }
 
-  if (!isLoading && !isShopsLoading) {
+  if (!isLoading && shops && shops.length > 0) {
     return (
       <View style={{ flex: 1 }}>
         <StatusBarPlaceHolder />
         <AnimatedScrollView scrollY={scrollY}>
           {PrintSwiper(swiperPhoto)}
           <ShopTypeSelector shops={shops} navigation={navigation} />
-          {PrintShops(shops, navigation)}
+          {PrintShops(shops, navigation, t)}
         </AnimatedScrollView>
         {PrintHeader(scrollY, cityName)}
       </View>

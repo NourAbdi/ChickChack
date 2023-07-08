@@ -30,7 +30,7 @@ export const ShopsContextProvider = ({ children }) => {
           setShops(fetchedShops);
           setIsShopsLoading(false);
         }
-        console.log(isLoading, selectedCity);
+        // console.log(isLoading, selectedCity);
       } catch (error) {
         setError(error.message);
       }

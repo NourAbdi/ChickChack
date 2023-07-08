@@ -58,6 +58,7 @@ export const MapScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    // console.log("selectedCity: ", selectedCity);
     if (cities && selectedCity) {
       const city = cities.find((city) => city.cityUid === selectedCity.cityUid);
       if (city) {

@@ -55,5 +55,5 @@ export const ClientNavigator = () => (
         </ShopContextProvider>
       </ShopsContextProvider>
     </CartContextProvider>
-  </LocationContextProvider>
+    </LocationContextProvider>
 );

@@ -114,8 +114,7 @@ export const ShopTypeSelector = ({ shops, navigation }) => {
   );
 };
 
-export const PrintShops = (shops, navigation) => {
-  const { t } = useTranslation();
+export const PrintShops = (shops, navigation, t) => {
   const groupedItems = groupBy(shops, 'type');
   return (
     <>
