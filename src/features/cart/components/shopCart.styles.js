@@ -127,6 +127,8 @@ export const styles = StyleSheet.create({
   shopOptionsContainer: {
     flexDirection: "row",
     marginBottom: 8,
+    alignItems:'center',
+    alignSelf:'center'
   },
   optionButton: {
     marginRight: 8,
@@ -195,6 +197,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     marginBottom: 4,
+    alignSelf:'center'
   },
   totalContainer: {
     borderTopWidth: 1,

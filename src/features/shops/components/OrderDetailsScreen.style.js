@@ -110,8 +110,8 @@ export const AdditionInfo = styled.Text`
 `;
 
 export const Count = styled.Text`
-  fontSize:  ${(props) => props.theme.fontSizes.body};
-  fontWeight: ${(props) => props.theme.fontWeights.medium};
+  font-size:${(props) => props.theme.fontSizes.body};
+  font-family: ${(props) => props.theme.fonts.body};
   color: ${(props) => props.theme.colors.text.inverse};
 `;
 

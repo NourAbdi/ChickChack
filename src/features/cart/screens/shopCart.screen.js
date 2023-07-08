@@ -148,7 +148,8 @@ export const ShopCart = ({ route }) => {
               {printButtons(shopOrder.shop, cartItem.item, cartItem.additions, cartItem.quantity, addToCart, removeFromCart)}
             </ItemCard>
           ))}
-          <Text style={styles.availableOptions}>{t("Available Options")}:</Text>
+        </ScrollView>
+        <Text style={styles.availableOptions}>{t("Available Options")}:</Text>
           <View style={styles.shopOptionsContainer}>
             {availableOptions.map((option) => {
               if (option.shopUid === shopOrder.shop.shopUid) {
@@ -168,7 +169,6 @@ export const ShopCart = ({ route }) => {
               return null;
             })}
           </View>
-        </ScrollView>
         <View style={styles.totalContainer}>
           <Text style={styles.totalPrice}>{t("Total price")}: {calculateTotalPrice(desiredShopUid)}₪</Text>
           <Button title={t("Checkout")} onPress={() => handleCheckout()} />

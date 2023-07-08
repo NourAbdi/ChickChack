@@ -55,14 +55,14 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
               <RestaurantInfoCard>
                 <RestaurantName>{selectedShop.name}</RestaurantName>
                 {isOpenCheck(selectedShop.workingHours,selectedShop.isTemporaryClose, t)}
-                <RestaurantInfo>{t("workingHours")}: {WorkingHoursComponent(selectedShop.workingHours)}</RestaurantInfo>
+                <WorkingHoursComponent workingHours={selectedShop.workingHours} t={t}/>
                 <RestaurantInfo>{t("Tel")}: {selectedShop.Tel}</RestaurantInfo>
                 {PrintGettingOrder(selectedShop.takeOrder)}
                 {wazeButton(selectedShop.location,selectedShop.address)}
               </RestaurantInfoCard>
             </ViewAbove>
           </View>
-          {PrintMenu(menu,navigation,selectedShop)}
+          <PrintMenu menu ={menu} navigation={navigation} shop={selectedShop}/>
           </AnimatedScrollView>
           {PrintHeader(selectedShop.icon,scrollY,navigation)}
         </View>

@@ -21,7 +21,6 @@ export const AnimatedHeaderView = styled(Animated.View).attrs(({}) =>({
   left: 0;
   right: 0;
   backgroundColor: ${(props) => props.theme.colors.mainblue};
-  overflow: hidden;
   height:${HEADER_HEIGHT}px;  
 `;
 
@@ -42,7 +41,7 @@ export const AnimatedBackView = styled(Animated.View).attrs({
     
 })`
   backgroundColor: transparent;
-  marginTop: ${Platform.select({ios: '28px',android: '38px'})};
+  // marginTop: ${Platform.select({ios: '28px',android: '38px'})};
   height: 90px;
   position: absolute;
   align-self: center;
@@ -83,7 +82,7 @@ export const ShopIcon = styled(Image)`
 export const MealsCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(props) => props.theme.mealsCardSize}px;
-  height:  ${cardHeight}px;
+  // height:  ${cardHeight}px;
   align-self: center;
   margin: ${(props) => props.theme.space[2]};
   border-radius:15px;
@@ -162,6 +161,13 @@ export const Center = styled.View`
   align-self: center;
 `;
 
+export const RowCenter = styled.View`
+  flex-direction: row;
+  align-self: center;
+  align-items: center;
+  align-content:center;
+`;
+
 export const StyledIcon = styled(FontAwesome)`
   name=${(props) => props.name};
   margin-top: 4px;
@@ -204,9 +210,29 @@ export const StyledScrollView = styled.ScrollView`
 `;
 
 export const CardView = styled.View`
-  flex-direction: row;
   margin-start: ${(props) => props.theme.space[2]};
   margin-end: ${(props) => props.theme.space[2]};
+`;
+
+export const ReadMoreButton =styled(TouchableOpacity)`
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  padding:10px;
+  border-radius: 52px;
+  width:auto;
+  align-items: center;
+`;
+
+export const ReadMoreView = styled.View`
+  align-items: center;
+  margin-bottom: ${(props) => props.theme.space[2]};
+`;
+
+export const ReadMoreText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  color:${(props) => props.theme.colors.text.inverse};
+  align-self: center;
 `;
 
 export const StyledIconButton = styled(IconButton)`
@@ -216,9 +242,11 @@ export const StyledIconButton = styled(IconButton)`
   padding: 10px;
 `;
 
-export const HeaderView = styled.View`
+export const HeaderView = styled.SafeAreaView`
   flex-direction:row;
   width: 100%;
+  position:absolute;
+  marginTop:${HEADER_HEIGHT/2}px; 
 `;
 
 export const LeftHeaderButton = styled(TouchableOpacity)`
@@ -229,7 +257,7 @@ export const LeftHeaderButton = styled(TouchableOpacity)`
   border-radius: 52px;
   border-width: 2px;
   border-color:  ${(props) => props.color};
-  margin:${(props) => props.theme.space[2]};
+  margin-left:${(props) => props.theme.space[2]};
   margin-right: auto;
   background-color: rgba(150, 150, 150, 0.5);
 `;
@@ -242,7 +270,7 @@ export const RightHeaderButton = styled(TouchableOpacity)`
   border-radius: 52px;
   border-width: 2px;
   border-color:  ${(props) => props.color};
-  margin:${(props) => props.theme.space[2]};
+  margin-right:${(props) => props.theme.space[2]};
   margin-left: auto;
   background-color: rgba(150, 150, 150, 0.5);
 `;

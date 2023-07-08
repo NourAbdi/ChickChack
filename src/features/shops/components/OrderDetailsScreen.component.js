@@ -94,10 +94,10 @@ export const printHeader = (headerImage,buttonColor,navigation) => {
       <SafeAreaView style={{ position: 'absolute' }}>
         <HeaderView>
           <LeftHeaderButton onPress={() => navigation.goBack()} color={buttonColor}>
-            <Icons name="arrow-back" size={24} color={buttonColor} />
+            <Icons name="arrow-back" size={25} color={buttonColor} />
           </LeftHeaderButton>
           <RightHeaderButton onPress={() => navigation.navigate("Cart")} color={buttonColor}>
-            <Icons name="shopping-cart" size={24} color={buttonColor} />
+            <Icons name="shopping-cart" size={25} color={buttonColor} />
           </RightHeaderButton>
         </HeaderView>
       </SafeAreaView>

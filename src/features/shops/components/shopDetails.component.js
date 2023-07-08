@@ -1,8 +1,8 @@
-import React from "react";
-import { View,TouchableOpacity,ScrollView,Image,Linking,SafeAreaView,Text} from "react-native";
+import React,{useState} from "react";
+import { View,TouchableOpacity,Image,Linking,Text,Alert } from "react-native";
 import { groupBy } from 'lodash';
 import Icons from "@expo/vector-icons/MaterialIcons";
-import { useTranslation } from "react-i18next";
+
 import { colors } from "../../../infrastructure/theme/colors";
 import { theme } from "../../../infrastructure/theme";
 import { MealInfoCard } from "./meal-info-card.component";
@@ -26,6 +26,10 @@ import{
   HeaderView,
   LeftHeaderButton,
   RightHeaderButton,
+  RowCenter,
+  ReadMoreView,
+  ReadMoreButton,
+  ReadMoreText,
 } from "./shopDetails.styles";
 
 
@@ -75,34 +79,62 @@ export const titleOpacity =(scrollY) =>{
   );
 }
 
-export const PrintMenu = (menu,navigation,shop) => {
-  // Group items by itemCategory
+export const PrintMenu = ({ menu, navigation, shop }) => {
+  const [showAllItems, setShowAllItems] = useState(false);
   const groupedItems = groupBy(menu, 'itemCategory');
+
+  const toggleShowAllItems = () => {
+    setShowAllItems(!showAllItems);
+  };
+
+  const renderMenuItem = ( item ) => {
+    return(item.itemAvailability ? (
+      <TouchableOpacity onPress={() => navigation.navigate("OrderDetailsScreen", { shop, item })}>
+        <MealInfoCard meal={item} />
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity onPress={() => null}>
+        <MealInfoCard meal={item} />
+      </TouchableOpacity>
+    ));
+  };
+
+  const renderMenuItems = (displayedItems) => {
+    const renderedItems = [];
+    for (let i = 0; i < displayedItems.length; i += 2) {
+      const item1 = displayedItems[i];
+      const item2 = displayedItems[i + 1];
+
+      const row = (
+        <View key={i} style={{ flexDirection: 'row' }}>
+          { item1 &&  renderMenuItem(item1)}
+          { item2 &&  renderMenuItem(item2)}
+        </View>
+      );
+      renderedItems.push(row);
+    }
+    return renderedItems;
+  };
+
   return (
     <ViewMenu>
       {Object.entries(groupedItems).map(([menuCategory, menuItems]) => {
+        const displayedItems = showAllItems ? menuItems : menuItems.slice(0, 2);
         return (
           <MealsCard key={menuCategory}>
             <CategoryName>{menuCategory}</CategoryName>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <CardView>
-                {menuItems.map((item) =>
-                  item.itemAvailability ? (
-                    <View key={item.itemUid}>
-                      <TouchableOpacity onPress={() => navigation.navigate("OrderDetailsScreen", { shop, item })}>
-                        <MealInfoCard meal={item} />
-                      </TouchableOpacity>
-                    </View>
-                  ) : (
-                    <View key={item.itemUid}>
-                      <TouchableOpacity onPress={() =>null}>
-                        <MealInfoCard meal={item} />
-                      </TouchableOpacity>
-                    </View>
-                  )
-                )}
-              </CardView>
-            </ScrollView>
+            <CardView>
+              {renderMenuItems(displayedItems)}
+            </CardView>
+            {menuItems.length > 2 && (
+              <ReadMoreView>
+                <ReadMoreButton onPress={toggleShowAllItems}>
+                  <ReadMoreText>
+                    {showAllItems ? 'Read Less' : 'Read More'}
+                  </ReadMoreText>
+                </ReadMoreButton>
+              </ReadMoreView>
+            )}
           </MealsCard>
         );
       })}
@@ -155,14 +187,43 @@ export const PrintGettingOrder = (takeOrder) => {
   );
 };
 
-export const WorkingHoursComponent = (workingHours) => {
-  const options = { weekday: 'long' };
-  const currentDay = new Intl.DateTimeFormat('en-US', options).format(new Date());
-    if(workingHours[currentDay].start && workingHours[currentDay].isOpen){
-      return (workingHours[currentDay].start+"-"+workingHours[currentDay]["end"]);
-    }else{
-      return ("No working hours available for today");
-    }
+export const WorkingHoursComponent = ({ workingHours, t }) => {
+  const options = { weekday: "long" };
+  const currentDay = new Intl.DateTimeFormat("en-US", options).format(new Date());
+  let data = "";
+
+  const handleShowAlert = () => {
+    const days = Object.keys(workingHours);
+    const sortedDays = days.sort((a, b) => {
+      const dayOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      return dayOrder.indexOf(a) - dayOrder.indexOf(b);
+    });
+  
+    const allHours = sortedDays
+      .map((day) => {
+        const { start, end, isOpen } = workingHours[day];
+        const hours = isOpen ? `${start} - ${end}` : t("closed");
+        return `${t(day)}: ${hours}`;
+      })
+      .join("\n");
+  
+    Alert.alert(t("WorkingHours"), allHours);
+  };
+
+  if (workingHours[currentDay].start && workingHours[currentDay].isOpen) {
+    data = `${t("workingHours")}: ${workingHours[currentDay].start} - ${workingHours[currentDay].end}`;
+  } else {
+    data = `${t("workingHours")}: ${t("No working hours available for today")}`;
+  }
+  
+  return (
+    <TouchableOpacity onPress={handleShowAlert}>
+      <RowCenter>
+        <RestaurantInfo>{data}</RestaurantInfo>
+        <Icons name="add-circle-outline" size={20} color="black" />
+      </RowCenter>
+    </TouchableOpacity>
+  );
 };
 
 export const isOpenCheck = (workingHours,isTemporaryClose, t) => {
@@ -203,18 +264,14 @@ export const PrintHeader = (icon,scrollY,navigation) => {
         <AnimatedIconView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
           <ShopIcon source={{ uri: icon }} />
         </AnimatedIconView>
-        <AnimatedBackView style={[{ transform: [{ translateY: titleTranslate(scrollY) }] }]}>
-        <SafeAreaView style={{ position: 'absolute' }}>
-          <HeaderView>
-            <LeftHeaderButton onPress={() => navigation.goBack()} color="white">
-              <Icons name="arrow-back" size={24} color="white" />
-            </LeftHeaderButton>
-            <RightHeaderButton onPress={() => navigation.navigate("Cart")} color="white">
-              <Icons name="shopping-cart" size={24} color="white" />
-            </RightHeaderButton>
-          </HeaderView>
-        </SafeAreaView>
-        </AnimatedBackView>
+        <HeaderView>
+          <LeftHeaderButton onPress={() => navigation.goBack()} color="white">
+            <Icons name="arrow-back" size={25} color="white" />
+          </LeftHeaderButton>
+          <RightHeaderButton onPress={() => navigation.navigate("Cart")} color="white">
+            <Icons name="shopping-cart" size={25} color="white" />
+          </RightHeaderButton>
+        </HeaderView>
       </>
     );
 };

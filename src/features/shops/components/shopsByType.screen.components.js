@@ -1,14 +1,17 @@
 import React from "react";
 import { StatusBar,TouchableOpacity,SafeAreaView,FlatList,View } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
+import { useTranslation } from "react-i18next";
 
 import { theme } from "../../../infrastructure/theme";
 import { colors } from "../../../infrastructure/theme/colors";
 import{ShopInfoCard} from "../components/ShopsScreen.compoent"
 import{
     HeaderTitle,
+    HeaderView,
+    LeftHeaderButton,
+    Flex,
 } from './shopsByType.screen.style'
-import { useTranslation } from "react-i18next";
 
 const HEADER_HEIGHT = theme.headerHeigth;
 
@@ -33,22 +36,20 @@ export const printShops= (shops,navigation) => {
 
 export const PrintHeader = (navigation, headerTitle) => {
     const { t } = useTranslation();
+  
     return (
-        <SafeAreaView style={{ backgroundColor: colors.mainblue,height:HEADER_HEIGHT }}>
-            <StatusBar
-            barStyle="light-content"
-            />
-            <View style={{ flexDirection: 'row',alignItems:'center' }}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icons
-                        name="chevron-left"
-                        color="white"
-                        size={40}
-                    />
-                </TouchableOpacity>  
-                <HeaderTitle style={{  textAlign: 'center' }}>{t(headerTitle)}</HeaderTitle>
-            </View>
-            
-        </SafeAreaView> 
+        <>
+            <SafeAreaView style={{ backgroundColor: colors.mainblue, height: HEADER_HEIGHT }}>
+                <StatusBar barStyle="light-content" />
+            </SafeAreaView>
+            <HeaderView>
+                <LeftHeaderButton onPress={() => navigation.goBack()} >
+                    <Icons name="arrow-back" color="white" size={34} />
+                </LeftHeaderButton>
+                <HeaderTitle>{t(headerTitle)}</HeaderTitle>
+                <Flex />
+            </HeaderView>
+        </>
     );
-};
+  };
+  

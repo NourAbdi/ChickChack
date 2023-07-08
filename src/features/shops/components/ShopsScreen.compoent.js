@@ -53,14 +53,14 @@ export const PrintHeader = (scrollY, headerTitle) => {
       <AnimatedTitleView style={[{ opacity: titleOpacity(scrollY), transform: [{ scale: titleScale(scrollY) }, { translateY: titleTranslate(scrollY) }] }]}>
         <HeaderTitle>{headerTitle}</HeaderTitle>
       </AnimatedTitleView>
-      <AnimatedHederIcon>
+      {/* <AnimatedHederIcon>
         <StyledIcon
           name={"search"}
           size={30}
           color="white"
           onPress={() => navigation.goBack()}
         />
-      </AnimatedHederIcon>
+      </AnimatedHederIcon> */}
     </>
   );
 };
