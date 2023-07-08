@@ -5,7 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import { CartContext } from "../../../services/cart/cart.context";
 import {
-  styles,
   Title,
   Row,
   LeftIcon,
@@ -20,6 +19,9 @@ import {
   SummaryInfo,
   AvailableOptionsText,
   AvailableOptionsButton,
+  Flex,
+  TotalContainer,
+  ShopOptionsContainer,
 } from "../components/shopCart.styles";
 
 import {
@@ -123,7 +125,7 @@ export const ShopCart = ({ route }) => {
 
   return (
     <SafeArea>
-      <View style={{ flex: 1 }}>
+      <Flex>
         <Row>
           <TouchableOpacity onPress={() => navigation.navigate("CartScreen")}>
             <LeftIcon name="angle-left" size={40} color="black" />
@@ -149,40 +151,35 @@ export const ShopCart = ({ route }) => {
                   </View>
                 </Row>
               </View>
-              <View style={{ flex: 1 }} />
+              <Flex/>
               {printButtons(shopOrder.shop, cartItem.item, cartItem.additions, cartItem.quantity, addToCart, removeFromCart)}
             </ItemCard>
           ))}
         </ScrollView>
         
-        <View style={styles.totalContainer}>
+        <TotalContainer>
         <SummaryInfo>{t("Available Options")}:</SummaryInfo>
-          <View style={styles.shopOptionsContainer}>
+          <ShopOptionsContainer >
             {availableOptions.map((option) => {
               if (option.shopUid === shopOrder.shop.shopUid) {
                 return option.options.map((opt) => (
                   <AvailableOptionsButton
                     key={opt}
                     onPress={() => selectOption(option.shopUid, opt)}
-                    isSelected={ option.selectedOption === opt }
-                    // style={[
-                    //   styles.optionButton,
-                    //   option.selectedOption === opt ? styles.selectedOption : null,
-                    // ]}
-                  >
+                    isSelected={ option.selectedOption === opt } >
                     <AvailableOptionsText >{t(opt)}</AvailableOptionsText>
                   </AvailableOptionsButton>
                 ));
               }
               return null;
             })}
-          </View>
+          </ShopOptionsContainer>
           <SummaryInfo>{t("Total price")}: {calculateTotalPrice(desiredShopUid)}₪</SummaryInfo>
           <CheckOutButton onPress={() => handleCheckout() }>
             <CheckOutText>{t("Checkout")}</CheckOutText>
           </CheckOutButton>
-        </View>
-      </View>
+        </TotalContainer>
+      </Flex>
     </SafeArea>
   );
 };

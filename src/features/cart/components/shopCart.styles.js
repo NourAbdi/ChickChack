@@ -27,6 +27,7 @@ export const AvailableOptionsText = styled.Text`
 
 export const AvailableOptionsButton = styled(TouchableOpacity)`
   margin-bottom: ${(props) => props.theme.space[1]};
+  margin-right: ${(props) => props.theme.space[2]};
   background-color: ${(props) => props.theme.colors.mainblue};
   align-items: center;
   justify-content: center;
@@ -57,6 +58,10 @@ export const ViewItem = styled.View`
   borderWidth:0px;
 `;
 
+export const Flex = styled.View`
+  flex:1;
+`;
+
 export const Row = styled.View`
   flex-direction:row;
   align-items:center;
@@ -68,6 +73,20 @@ export const ItemCard = styled.View`
   align-items:center;
   margin-bottom: ${(props) => props.theme.space[2]};
   background-color: rgba(200, 200, 200, 0.2);
+`;
+
+export const TotalContainer = styled.View`
+  borderTopWidth: 1px;
+  borderColor: #ccc;
+  paddingTop: 16px;
+  alignItems:center;
+`;
+
+export const ShopOptionsContainer = styled.View`
+  flexDirection: row;
+  marginBottom: 8px;
+  alignItems:center;
+  alignSelf:center;
 `;
 
 export const ViewCounter = styled.View`
@@ -137,129 +156,3 @@ export const ItemImage = styled(Image)`
 
 `;
 
-// Styles
-import { StyleSheet } from "react-native";
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#fff",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  scrollContainer: {
-    flex: 1,
-    marginBottom: 16,
-  },
-  shopContainer: {
-    marginBottom: 16,
-  },
-  shopName: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  shopOptionsContainer: {
-    flexDirection: "row",
-    marginBottom: 8,
-    alignItems:'center',
-    alignSelf:'center'
-  },
-  optionButton: {
-    marginRight: 8,
-    marginBottom: 8, // Add margin bottom to create space between options
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#fff",
-  },
-  selectedOption: {
-    backgroundColor: "#f0f0f0",
-  },
-  optionLabel: {
-    marginRight: 8,
-    fontSize: 16,
-  },
-  itemContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  itemImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
-    marginRight: 8,
-  },
-  itemDetails: {
-    flex: 1,
-    marginRight: 8,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 4,
-  },
-  quantityButton: {
-    fontSize: 18,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginRight: 4,
-  },
-  itemQuantity: {
-    fontSize: 16,
-  },
-  removeButton: {
-    fontSize: 16,
-    color: "red",
-    marginBottom: 4,
-  },
-  itemPrice: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  availableOptions: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-    alignSelf:'center'
-  },
-  totalContainer: {
-    borderTopWidth: 1,
-    borderColor: "#ccc",
-    paddingTop: 16,
-    alignItems:'center',
-  },
-  totalPrice: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 8,
-    alignSelf:'center',
-  },
-  // Modal styles
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 8,
-  },
-});
