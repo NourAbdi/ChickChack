@@ -27,12 +27,20 @@ import {
 
 export const EditShopScreen = () => {
   const { shop, updateShop, isLoading } = useContext(OwnerShopContext);
-  const [isTemporaryClose, setTemporaryClose] = useState(shop.isTemporaryClose);
+  const [isTemporaryClose, setTemporaryClose] = useState(shop?.isTemporaryClose);
   const [isSaving, setIsSaving] = useState(false);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const workingHours = shop.workingHours;
+  const workingHours = shop?.workingHours;
   const { t } = useTranslation();
 
+  if (isLoading) {
+    return (
+      <LoadingContainer>
+        <Loading size={50} color={colors.mainblue} animating={true} />
+      </LoadingContainer>
+    );
+  }
+  
   const handleSave = async () => {
     setIsSaving(true);
 
@@ -60,14 +68,6 @@ export const EditShopScreen = () => {
       [{ text: t("OK"), onPress: () => console.log("OK Pressed") }]
     );
   };
-
-  if (isLoading) {
-    return (
-      <LoadingContainer>
-        <Loading size={50} color={colors.mainblue} animating={true} />
-      </LoadingContainer>
-    );
-  }
 
   return (
     <View style={{ flex: 1 }}>
