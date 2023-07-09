@@ -28,3 +28,20 @@ export const getShopMenuByShopUid = async (shopUid) => {
     return null;
   }
 };
+
+export const getShopByShopUid = async (shopUid) => {
+  try {
+    const shopRef = doc(db, "shops", shopUid);
+    const shopDoc = await getDoc(shopRef);
+
+    if (shopDoc.exists()) {
+      const shopData = shopDoc.data();
+      return shopData;
+    } else {
+      throw new Error("Shop not found.");
+    }
+  } catch (error) {
+    console.error("Error fetching shop:", error);
+    return null;
+  }
+};
