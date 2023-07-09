@@ -26,7 +26,8 @@ export const PastCartsScreen = () => {
       console.log(pastOrders);
     }
   }, [pastOrders]);
-
+  const orderTime = new Date(pastOrders[0].orderTime);
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",orderTime);
   // Sort past orders by orderTime in descending order
   const sortedPastOrders = pastOrders
     ? [...pastOrders].sort((a, b) => new Date(b.orderTime) - new Date(a.orderTime))
@@ -82,7 +83,7 @@ export const PastCartsScreen = () => {
                 <Row>
                   <Info>Preparation Time: {order.preparationTime}</Info>
                   <Flex/>
-                  <Info>Delivery Time: {order.deliveryTime}</Info>
+                  {order.orderOption === 'Delivery' ? (<Info>Delivery Time: {order.deliveryTime}</Info>):(<Info>Delivery Time: ---</Info>)}                  
                 </Row>
                 <Row>
                   <Info>Order Option: {order.orderOption}</Info>

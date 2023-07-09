@@ -93,7 +93,7 @@ export const PrintMenu = ({ menu, navigation, shop }) => {
         <MealInfoCard meal={item} />
       </TouchableOpacity>
     ) : (
-      <TouchableOpacity onPress={() => null}>
+      <TouchableOpacity onPress={() =>null}>
         <MealInfoCard meal={item} />
       </TouchableOpacity>
     ));

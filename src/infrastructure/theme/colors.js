@@ -1,7 +1,7 @@
 export const colors = {
   button:{
     green: `#32cd32`,
-    red :`#ff0000`,
+    red :`#D0421B`,
     white:"#FFFFFF",
     waze:"#05c8f7",
   },

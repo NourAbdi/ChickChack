@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { View, ScrollView, TouchableOpacity,SafeAreaView } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 
+import { colors } from "../../../infrastructure/theme/colors";
 import { CartContext } from "../../../services/cart/cart.context";
 import {
   Title,
@@ -25,7 +26,7 @@ export const CartScreen = ({navigation}) => {
               <RightIcon name="angle-right" size={30} color="black" />
               <View style={{flex:1}} />
               <TouchableOpacity onPress={() => removeShopFromCart(item.shop.shopUid) } >
-              <Icons name="delete" size={25} color='red' />
+              <Icons name="delete" size={25} color={colors.button.red} />
               </TouchableOpacity>
             </ViewShop>
           </TouchableOpacity>

@@ -46,6 +46,13 @@ export const Info = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
+
+export const Error = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.caption};
+  color:${(props) => props.theme.colors.text.error};
+`;
+
 export const Price = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.caption};

@@ -1,20 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { TouchableOpacity,View } from "react-native";
-
 import Icons from "@expo/vector-icons/MaterialIcons";
 
-
+import { colors } from "../../../infrastructure/theme/colors";
 import { 
-    styles,
-    Title, 
-    ViewItem,
-    Row,
-    LeftIcon,
-    ShopIcon,
-    ItemCard,
-    ItemImage,
-    ItemName,
-    Info,
     ViewCounter,
     CounterButton,
     Count,
@@ -32,7 +21,7 @@ export const printButtons = (shop,item,additions,quantity,addToCart,removeFromCa
     return (
         <View style={{marginRight:5}}>
             <TouchableOpacity onPress={() => removeFromCart(shop, item, additions)} style={{ alignSelf:'flex-end'}}>
-                <Icons name="delete" size={25} color='red' />
+                <Icons name="delete" size={25} color={colors.text.error} />
             </TouchableOpacity>
             <View style={{flex:1}}/>
             <ViewCounter>

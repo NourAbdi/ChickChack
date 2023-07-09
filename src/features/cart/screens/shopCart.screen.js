@@ -22,6 +22,7 @@ import {
   Flex,
   TotalContainer,
   ShopOptionsContainer,
+  Error,
 } from "../components/shopCart.styles";
 
 import {
@@ -38,7 +39,6 @@ export const ShopCart = ({ route }) => {
   const navigation = useNavigation();
   const { desiredShopUid, shopWorkingHours, isTemporaryClose } = route.params;
   const shopOrder = order.find(order => order.shop.shopUid === desiredShopUid);
-
   useEffect(() => {
     getAvailableOptions();
   }, [order]);
@@ -83,6 +83,15 @@ export const ShopCart = ({ route }) => {
     return "Cash";
   };
 
+  const checkAvailability = (items) => {
+    for (let i = 0; i < items.length; i++) {
+      if (!items[i].item.itemAvailability) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   const handleCheckout = () => {
     // Check if any options are not selected for a shop
     const shopOption = availableOptions.find(item => item.shopUid === desiredShopUid);
@@ -95,17 +104,26 @@ export const ShopCart = ({ route }) => {
       return;
     }
     if (isOpenCheck(shopWorkingHours, isTemporaryClose)) {
-      console.log("selectedOption: ", availableOptions[0]?.selectedOption);
-      if (availableOptions[0]?.selectedOption === "Delivery") {
-        navigation.navigate("CartLocationScreen", { desiredShopUid: desiredShopUid, orderDeliveryOption: availableOptions[0]?.selectedOption });
-      } else {
-        checkout(availableOptions[0]?.selectedOption, desiredShopUid);
-        console.log("checkout process finished successfully ...");
+      if(checkAvailability(shopOrder.cartItems)){
+        console.log("selectedOption: ", availableOptions[0]?.selectedOption);
+        if (availableOptions[0]?.selectedOption === "Delivery") {
+          navigation.navigate("CartLocationScreen", { desiredShopUid: desiredShopUid, orderDeliveryOption: availableOptions[0]?.selectedOption });
+        } else {
+          checkout(availableOptions[0]?.selectedOption, desiredShopUid);
+          console.log("checkout process finished successfully ...");
+        }
+        const paymentInstrument = takePaymentInstrument();
+      }else{
+        Alert.alert(
+          "Error",
+          "Sorry,some items not avilable!",
+          [{ text: "OK" }]
+        );
+        return;
       }
-      const paymentInstrument = takePaymentInstrument();
     } else {
       Alert.alert(
-        "Warning",
+        "Error",
         "The shop is closed.",
         [{ text: "OK" }]
       );
@@ -144,12 +162,9 @@ export const ShopCart = ({ route }) => {
                     {additionName}: {additionPrice}₪{''}
                   </Info>
                 ))}
-                <Row>
-                  <View>
-                    <Info>{t("price")}: {singleOrderPrice(cartItem.item.itemPrice, cartItem.additions, cartItem.quantity)}₪</Info>
-                    <Price>{t("Price for unit")}: {cartItem.item.itemPrice}₪</Price>
-                  </View>
-                </Row>
+                  <Info>{t("price")}: {singleOrderPrice(cartItem.item.itemPrice, cartItem.additions, cartItem.quantity)}₪</Info>
+                  <Price>{t("Price for unit")}: {cartItem.item.itemPrice}₪</Price>
+                  {cartItem.item.itemAvailability ? (null):(<Error>{t("item not Avilable !")}</Error>)}
               </View>
               <Flex/>
               {printButtons(shopOrder.shop, cartItem.item, cartItem.additions, cartItem.quantity, addToCart, removeFromCart)}

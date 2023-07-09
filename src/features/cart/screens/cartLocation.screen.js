@@ -1,12 +1,24 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { View, Button, Alert, ActivityIndicator,SafeAreaView,StatusBar } from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import styled from "styled-components/native";
+import { View,SafeAreaView, Alert, ActivityIndicator,StatusBar } from "react-native";
+import { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
 import { useNavigation } from "@react-navigation/native";
+import Icons from "@expo/vector-icons/MaterialIcons";
+
 import { CartContext } from "../../../services/cart/cart.context";
 import{colors} from "../../../infrastructure/theme/colors";
 
+import {
+    Map,
+    LoadingContainer,
+    Row,
+    Loction2DeleivreyButton,
+    Loction2DeleivreyText,
+    CheckOutButton,
+    CheckOutText,
+    HeaderView,
+    LeftHeaderButton,
+} from "../components/cartLocation.screen.style"
 
 
 export const CartLocationScreen = ({route}) => {
@@ -14,29 +26,14 @@ export const CartLocationScreen = ({route}) => {
     const { location2Deliver, setLocation2Deliver,checkout } = useContext(CartContext);
     const [currentLocation, setCurrentLocation] = useState();
     const [hasPermission, setHasPermission] = useState(false);
-    const [isLoading, setIsLoading] = useState(false); // Loading state
+    const [isLoading, setIsLoading] = useState(false);
+    const [isCurrentLocationSelected, setIsCurrentLocationSelected] = useState(false);
+    const [isMapLocationSelected, setIsMapLocationSelected] = useState(false);
     const mapRef = useRef();
     const {desiredShopUid,orderDeliveryOption} = route.params;
 
-
-    const Map = styled(MapView)`
-        height: 75%;
-        width: 100%;
-        background-color: white;
-    `;
-
-    const LoadingContainer = styled(View)`
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        align-items: center;
-        justify-content: center;
-        background-color: rgba(0, 0, 0, 0);
-    `;
-
     const handleCurrentLocationSelection = async () => {
+        
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
             Alert.alert(
@@ -46,9 +43,10 @@ export const CartLocationScreen = ({route}) => {
             );
             return;
         }
-
+        setIsCurrentLocationSelected(true);
+        setIsMapLocationSelected(false);
         setIsLoading(true); 
-
+        console.log("setIsCurrentLocationSelected",isCurrentLocationSelected)
         const location = await Location.getCurrentPositionAsync({});
         setCurrentLocation(location);
         setLocation2Deliver(location.coords);
@@ -62,19 +60,26 @@ export const CartLocationScreen = ({route}) => {
     };
 
     const handleUseLocationOnMap = () => {
-        if (location2Deliver) {
-            console.log("Selected Location:", location2Deliver);
-        } else {
-            Alert.alert("No location selected", "Please select a location on the map.");
-        }
+        if(!isLoading){
+            setIsCurrentLocationSelected(false);
+            setIsMapLocationSelected(true);
+            if (location2Deliver) {
+                console.log("Selected Location:", location2Deliver);
+            } else {
+                Alert.alert("No location selected", "Please select a location on the map.");
+            }
+        }else 
+            return;
     };
 
     const handleConfirmPress= () => {
-        checkout(orderDeliveryOption,desiredShopUid);
-        console.log("checkout process finished successfully ...");
-        navigation.navigate("CartScreen");
+        if(!isLoading){
+            checkout(orderDeliveryOption,desiredShopUid);
+            console.log("checkout process finished successfully ...");
+            navigation.navigate("CartScreen");
+        }else
+            return;
     };
-
 
     useEffect(() => {
         if (location2Deliver) {
@@ -124,12 +129,25 @@ export const CartLocationScreen = ({route}) => {
                     <ActivityIndicator size="large" color="blue" />
                 </LoadingContainer>
             )}
-
-            <View>
-                <Button title="Use My Current Location" onPress={handleCurrentLocationSelection} />
-                <Button title="Use Location On Map" onPress={handleUseLocationOnMap} />
-                <Button title="Confirm" onPress={() => handleConfirmPress() } />
-            </View>
+            <SafeAreaView style={{ position: 'absolute' }}>
+                <HeaderView>
+                <LeftHeaderButton onPress={() => navigation.goBack()} color={colors.text.inverse}>
+                    <Icons name="arrow-back" size={25} color={colors.text.inverse} />
+                </LeftHeaderButton>
+                </HeaderView>
+            </SafeAreaView>
+            <Row>
+                <Loction2DeleivreyButton  onPress={() =>handleCurrentLocationSelection() } isSelected={isCurrentLocationSelected}>
+                    <Loction2DeleivreyText>Use My Current Location</Loction2DeleivreyText>
+                </Loction2DeleivreyButton>
+                <Loction2DeleivreyButton  onPress={() =>handleUseLocationOnMap() } isSelected={isMapLocationSelected}>
+                    <Loction2DeleivreyText>Use Location On Map</Loction2DeleivreyText>
+                </Loction2DeleivreyButton>
+            </Row>
+            <View style={{flex:1}}/>
+            <CheckOutButton  onPress={() =>handleConfirmPress() } isSelected={isCurrentLocationSelected}>
+                <CheckOutText>Checkout</CheckOutText>
+            </CheckOutButton>
         </View>
     );
 };
