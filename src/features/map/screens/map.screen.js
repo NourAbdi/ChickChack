@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ScrollView, Button, ActivityIndicator, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,6 @@ import { LocationContext } from "../../../services/location/location.context";
 const Map = styled(MapView)`
   height: 75%;
   width: 100%;
-  background-color: white;
 `;
 
 export const MapScreen = ({ navigation }) => {
@@ -85,6 +84,7 @@ export const MapScreen = ({ navigation }) => {
   return (
     <>
       <Map
+      provider={PROVIDER_GOOGLE}
         ref={mapRef}
         initialRegion={{
           latitude: selectedCity ? selectedCity.location.latitude : 0,
