@@ -4,13 +4,13 @@ import { Fontisto } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 
 import { ShopsNavigator } from "./shops.navigator";
-import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { MapScreen } from "../../features/map/screens/map.screen";
 import { CartNavigator } from "./cart.navigator";
 import { CartContextProvider } from "../../services/cart/cart.context";
 import { ShopsContextProvider } from "../../services/shops/shops.context";
 import { ShopContextProvider } from "../../services/shop/shop.context";
 import { LocationContextProvider } from "../../services/location/location.context";
+import { SettingNavigator } from "./setting.navigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -50,7 +50,7 @@ export const ClientNavigator = () => (
             <Tab.Screen name="Map" component={MapScreen} />
             <Tab.Screen name="Shops" component={ShopsNavigator} />
             <Tab.Screen name="Cart" component={CartNavigator} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Screen name="Settings" component={SettingNavigator} />
           </Tab.Navigator>
         </ShopContextProvider>
       </ShopsContextProvider>

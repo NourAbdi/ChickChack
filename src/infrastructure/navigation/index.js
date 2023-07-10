@@ -7,6 +7,7 @@ import { TransporterNavigator } from "./transporter.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 import { OwnerShopContextProvider } from "../../services/ownerShop/ownerShop.context";
 
+
 export const Navigation = () => {
   const { isAuthenticated, role } = useContext(AuthenticationContext);
 

@@ -5,12 +5,13 @@ import { useTranslation } from "react-i18next";
 import { createStackNavigator } from "@react-navigation/stack";
 import { getFocusedRouteNameFromRoute, useFocusEffect } from '@react-navigation/native';
 
-import { SettingsScreen } from "../../features/settings/screens/settings.screen";
 import { ShopDetailsScreen } from "../../features/ownerShop/screens/shop-details.screen";
 import { OrderAdditionsScreen } from "../../features/ownerShop/screens/orderAdditions.screen";
 import { OwnerShopOrdersScreen } from "../../features/ownerShop/screens/ownerShopOrders.screen";
 import { EditShopScreen } from "../../features/ownerShop/screens/edit-shop.screen";
 import { OwnerShopContext } from "../../services/ownerShop/ownerShop.context";
+import { SettingNavigator } from "./setting.navigator";
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -88,6 +89,6 @@ export const ShopkeeperNavigator = () => (
     <Tab.Screen name="Shop" component={ShopStack} />
     <Tab.Screen name="EditShop" component={EditShopScreen} />
     <Tab.Screen name="Orders" component={OwnerShopOrdersScreen} />
-    <Tab.Screen name="Account" component={SettingsScreen} />
+    <Tab.Screen name="Account" component={SettingNavigator} />
   </Tab.Navigator>
 );

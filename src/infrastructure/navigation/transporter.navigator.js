@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TransporterEditScreen } from "../../features/transporter/screens/transporterEdit.screen";
 import { TransporterOrdersScreen } from "../../features/transporter/screens/transporterOrders.screen";
 import { TransporterMapScreen } from "../../features/transporter/screens/transporterMap.screen";
-import { SettingsScreen } from "../../features/settings/screens/settings.screen";
+import { SettingNavigator } from "./setting.navigator";
 
 import { TransporterContextProvider } from "../../services/transporter/transporter.context";
 
@@ -42,7 +42,7 @@ export const TransporterNavigator = () => (
             <Tab.Screen name="Edits" component={TransporterEditScreen} />
             <Tab.Screen name="Orders" component={TransporterOrdersScreen} />
             <Tab.Screen name="Map" component={TransporterMapScreen} />
-            <Tab.Screen name="Account" component={SettingsScreen} />
+            <Tab.Screen name="Account" component={SettingNavigator} />
         </Tab.Navigator>
     </TransporterContextProvider>
 );
