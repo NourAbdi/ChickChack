@@ -1,42 +1,35 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { host } from "../../utils/env";
+import {  db, auth } from "../../utils/env";
+import {  collection, query, where, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
 
-export const loginRequest = (auth, email, password) =>
-  signInWithEmailAndPassword(auth, email, password);
+export const checkUserExistence = async (phoneNumber) => {
+  try {
+    // Query the "users" collection for a user with the given phone number
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("phoneNumber", "==", phoneNumber));
+    const querySnapshot = await getDocs(q);
+    const uid = auth.currentUser.uid;
 
-export const addUser = (uid, email, role) => {
-  console.log('Making addUser request:', JSON.stringify({ uid, email, role }));
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ uid, email, role })
-  };
-  fetch(`${host}/addUser`, requestOptions)
-    .then(response => response.json())
-    .then(data => console.log('addUser response:', data))
-    .catch(error => console.error('addUser error:', error));
-};
+    // If no user with the given phone number exists, add them to the database
+    if (querySnapshot.empty) {
+      const newUser = {
+        phoneNumber: phoneNumber,
+        role: "client",
+        uid: uid
+        // Add other user data as needed
+      };
 
-export const getUserRole = async (uid) => {
-  const requestOptions = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  };
-  const response = await fetch(`${host}/getUserRole?uid=${uid}`, requestOptions);
-  const data = await response.json();
-  return data;
-    // .catch(error => console.log(error));
-};
-
-
-
-export const getUsers = () => {
-  const requestOptions = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-  };
-  fetch(`${host}/getUsers`, requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log(error));
+      const newUserRef = doc(collection(db, "users"), auth.currentUser.uid);
+      await setDoc(newUserRef, newUser);
+      console.log("New user added to the database:", newUser);
+      return newUser;
+    } else {
+      console.log("User already exists in the database.");
+      const existingUserDoc = querySnapshot.docs[0];
+      const existingUser = existingUserDoc.data();
+      console.log("Existing user data:", existingUser);
+      return existingUser;
+    }
+  } catch (err) {
+    console.log("Error:", err);
+  }
 };

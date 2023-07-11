@@ -1,108 +1,62 @@
-import React, { useState, useEffect, createContext, useRef } from "react";
-import {
-  signOut,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  getAuth,
-} from "firebase/auth";
-import { loginRequest, addUser, getUserRole } from "./authentication.service";
+import React, { createContext, useState, useEffect } from "react";
+import { auth } from "../../utils/env";
+import { onAuthStateChanged, PhoneAuthProvider, signInWithCredential } from "firebase/auth";
+
+import { checkUserExistence } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
 export const AuthenticationContextProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
-  // const [roleLoading, setRoleLoading] = useState(false); // New state variable
-  const [error, setError] = useState(null);
-  const auth = useRef(getAuth()).current;
+  const [user, setUser] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [verificationId, setVerificationId] = useState();
+  const [verificationCode, setVerificationCode] = useState();
 
-  onAuthStateChanged(auth, (usr) => {
-    if (usr) {
-      setUser(usr);
-    } else {
-      setUser(null);
-      // setIsLoading(false);
-    }
-  });
-
-  useEffect(() => {
-    if (user && user.uid &&!role) { 
-      getUserRole(user.uid)
-        .then((response) => {
-          setRole(response);
-        })
-        .catch((error) => {
-          console.error("Failed to get user role:", error);
-        })
-        .finally(() => {
-          // setRoleLoading(false); // Finish loading role
-        });
-    }
+  useEffect( () => {
+    console.log("ooooooooooo", user);
   }, [user]);
   
-
-  const onLogin = (email, password) => {
-    setIsLoading(true);
-    loginRequest(auth, email, password)
-      .then((u) => {
-        setUser(u);
-        // fetchUserRole(u.user.uid)
-      })
-      .catch((e) => {
-        // setIsLoading(false);
-        setError(e.toString());
-      });
-      // setIsLoading(false);
-  };
-
-  const onRegister = (email, password, repeatedPassword) => {
-    setIsLoading(true);
-    const role = "client"; // declare role here
-    setRole(role);
-    if (password !== repeatedPassword) {
-      setError("Error: Passwords do not match");
-      return;
+  // Function to send verification code
+  const sendVerificationCode = async (recaptchaVerifier) => {
+    try {
+      const phoneProvider = new PhoneAuthProvider(auth);
+      const verificationId = await phoneProvider.verifyPhoneNumber(
+        phoneNumber,
+        recaptchaVerifier.current
+      );
+      setVerificationId(verificationId);
+      console.log("Verification code has been sent to your phone:", verificationId);
+    } catch (err) {
+      console.log("Error:", err);
     }
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const { user } = userCredential;
-        addUser(user.uid, email, role)
-          .then(() => {
-            setUser(user);
-            setRole(role);
-          })
-          .catch((error) => {
-            console.log("Error adding user:", error);
-            setError(error.message);
-          });
-      })
-      .catch((error) => {
-        // setIsLoading(false);
-        setError(error.toString());
-      });
   };
 
-  const onLogout = () => {
-    signOut(auth).then(() => {
-      setUser(null);
-      setRole(null);
-      setError(null);
-    });
+  // Function to confirm verification code
+  const confirmVerificationCode = async () => {
+    try {
+      const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
+      await signInWithCredential(auth, credential);
+      console.log("Check User Existence with phone number :", phoneNumber);
+      const u = await checkUserExistence(phoneNumber);
+      setUser(u);
+      console.log("You are in!");
+    } catch (err) {
+      console.log("Error:", err);
+    }
   };
 
   return (
     <AuthenticationContext.Provider
       value={{
-        isAuthenticated: !!user,
         user,
-        role,
-        isLoading: !!(user&&role),
-        error,
-        onLogin,
-        onRegister,
-        onLogout,
+        phoneNumber,
+        setPhoneNumber,
+        verificationId,
+        setVerificationId,
+        verificationCode,
+        setVerificationCode,
+        sendVerificationCode,
+        confirmVerificationCode,
       }}
     >
       {children}

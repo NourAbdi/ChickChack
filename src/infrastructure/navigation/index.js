@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { ClientNavigator } from "./client.navigator";
 import { AccountNavigator } from "./account.navigator";
@@ -9,18 +9,22 @@ import { OwnerShopContextProvider } from "../../services/ownerShop/ownerShop.con
 
 
 export const Navigation = () => {
-  const { isAuthenticated, role } = useContext(AuthenticationContext);
+  const { user } = useContext(AuthenticationContext);
+
+  useEffect(() => {
+      console.log("User :", user);
+  }, [user]);
 
   return (
     <NavigationContainer>
-      {(isAuthenticated && role) ? (
-        role === "client" ? (
+      {user ? (
+        user.role === "client" ? (
           <ClientNavigator />
-        ) : role === "shopkeeper" ? (
+        ) : user.role === "shopkeeper" ? (
           <OwnerShopContextProvider>
             <ShopkeeperNavigator />
           </OwnerShopContextProvider>
-        ) : role === "transporter" ? (
+        ) : user.role === "transporter" ? (
           <TransporterNavigator />
         ) : (
           <AccountNavigator />
