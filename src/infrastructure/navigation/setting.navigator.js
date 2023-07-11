@@ -19,8 +19,13 @@ export const SettingNavigator = () => {
         screenOptions={{
           tabBarIndicatorStyle: { backgroundColor: colors.mainblue }
         }}>
-        <Tab.Screen name="UserProfile" component={UserProfileScreen} options={{ title: t("My Account") ,tabBarButton: () => null, tabBarVisible: false }} />
-        <Tab.Screen name="Application" component={ApplicationScreen} options={{ title: t("Application") }} />
+       
+        {/* <Tab.Screen name="UserProfile" component={UserProfileScreen} options={{ title: t("My Account") ,tabBarButton: () => null, tabBarVisible: false }} /> */}
+        <Tab.Screen name="UserProfile" component={UserProfileScreen} options={{ title: "My Account" ,tabBarButton: () => null, tabBarVisible: false }} />
+
+        {/* <Tab.Screen name="Application" component={ApplicationScreen} options={{ title: t("Application") }} /> */}
+        <Tab.Screen name="Application" component={ApplicationScreen} options={{ title: "Application" }} />
+
       </Tab.Navigator>
     </SafeArea>
   );
