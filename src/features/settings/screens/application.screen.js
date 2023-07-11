@@ -16,7 +16,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 export const ApplicationScreen = ({ navigation }) => {
-  const { onLogout, user } = useContext(AuthenticationContext);
+  const { signOutUser, user } = useContext(AuthenticationContext);
   const { t, i18n } = useTranslation();
   const language = i18n.language;
 
@@ -75,7 +75,7 @@ export const ApplicationScreen = ({ navigation }) => {
             left={(props) => (
               <List.Icon {...props} color={colors.ui.secondary} icon="door" />
             )}
-            onPress={onLogout}
+            onPress={signOutUser}
           />
         </List.Section>
       </TransparentSafeArea>
