@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { ClientNavigator } from "./client.navigator";
-import { AccountNavigator } from "./account.navigator";
+import { AccountScreen } from "../../features/account/screens/account.screen";
 import { ShopkeeperNavigator } from "./shopkeeper.navigator";
 import { TransporterNavigator } from "./transporter.navigator";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
@@ -27,10 +27,10 @@ export const Navigation = () => {
         ) : user.role === "transporter" ? (
           <TransporterNavigator />
         ) : (
-          <AccountNavigator />
+          <AccountScreen />
         )
       ) : (
-        <AccountNavigator />
+        <AccountScreen />
       )}
     </NavigationContainer>
   );

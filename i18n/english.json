@@ -4,7 +4,10 @@
         "ChickChack": "Chick      Chack",
 
         "login": "Login",
-        "register": "Register",
+        "Enter phone number": "Enter phone number",
+        "Send Verification Code": "Send Verification Code",
+        "Enter Verification code": "Enter Verification code",
+        "Confirm Verification Code": "Confirm Verification Code",
         "logout": "Logout",
 
         "Shops": "Shops",

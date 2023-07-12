@@ -46,27 +46,27 @@ export const AccountScreen = ({ navigation }) => {
             firebaseConfig={firebaseConfig}
             attemptInvisibleVerification
           />
-          <Text style={{ marginTop: 20 }}>Enter phone number</Text>
+          <Text style={{ marginTop: 20 }}>{t("Enter phone number")}</Text>
           <TextInput
-            placeholder="Enter phone number"
+            placeholder="+972..."
             autoCompleteType="tel"
             keyboardType="phone-pad"
             textContentType="telephoneNumber"
             onChangeText={setPhoneNumber}
           />
           <Button
-            title="Send Verification Code"
+            title={t("Send Verification Code")}
             disabled={!phoneNumber}
             onPress={() => sendVerificationCode(recaptchaVerifier)}
           />
-          <Text>Enter Verification code</Text>
+          <Text>{t("Enter Verification code")}</Text>
           <TextInput
             editable={!!verificationId}
             placeholder="123456"
             onChangeText={setVerificationCode}
           />
           <Button
-            title="Confirm Verification Code"
+            title={t("Confirm Verification Code")}
             disabled={!verificationId}
             onPress={confirmVerificationCode}
           />
