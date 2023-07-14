@@ -19,7 +19,7 @@ export const ShopsNavigator = ({ navigation,route }) => {
   const { i18n } = useTranslation();
   useFocusEffect(
     React.useCallback(() => {
-      if (getFocusedRouteNameFromRoute(route) === 'OrderDetailsScreen') {
+      if (getFocusedRouteNameFromRoute(route) === 'OrderDetailsScreen' || getFocusedRouteNameFromRoute(route) === 'ShopDetailsScreen') {
         navigation.setOptions({ tabBarStyle: { display: 'none' } });
       } else {
         navigation.setOptions({ tabBarStyle: { display: 'flex',direction: i18n.dir() } });
