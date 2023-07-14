@@ -17,7 +17,6 @@ const ShopStack = createStackNavigator();
 export const ShopsNavigator = ({ navigation,route }) => {
   const { selectedCity } = useContext(LocationContext);
   const { i18n } = useTranslation();
-  
   useFocusEffect(
     React.useCallback(() => {
       if (getFocusedRouteNameFromRoute(route) === 'OrderDetailsScreen') {

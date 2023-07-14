@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, Button, ActivityIndicator, Alert } from "react-native";
+import { ScrollView, Button, ActivityIndicator, Alert,TouchableOpacity } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
@@ -8,8 +8,24 @@ import { useTranslation } from "react-i18next";
 import { LocationContext } from "../../../services/location/location.context";
 
 const Map = styled(MapView)`
-  height: 75%;
+  height: 70%;
   width: 100%;
+`;
+ const CityButton = styled(TouchableOpacity)`
+  margin: ${(props) => props.theme.space[1]};
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  border-radius:10px;
+  width:200px;
+  padding: ${(props) => props.theme.space[2]};
+`;
+
+ const ButtonText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  color:${props => props.theme.colors.text.inverse};
 `;
 
 export const MapScreen = ({ navigation }) => {
@@ -111,24 +127,17 @@ export const MapScreen = ({ navigation }) => {
         ))}
       </Map>
 
-      <Button
-        title={t("useCurrentLocation")}
-        onPress={getPermissions}
-      />
-
+      <CityButton onPress={ getPermissions } >
+        <ButtonText>{t("useCurrentLocation")}</ButtonText>
+      </CityButton>
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <ScrollView>
           {cities.map((city) => (
-            <Button
-              key={city.cityUid}
-              title={t(city.cityName)}
-              onPress={() => {
-                setSelectedCity(city);
-                navigation.navigate("Shops");
-              }}
-            />
+            <CityButton key={city.cityUid} onPress={() => {setSelectedCity(city); navigation.navigate("Shops");}}>
+              <ButtonText>{t(city.cityName)}</ButtonText>
+            </CityButton>
           ))}
         </ScrollView>
       )}
