@@ -5,17 +5,32 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "ios":{
-        "simulator":true
-      },
-      "android":{
+      "distribution": "internal",
+      "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
       }
     },
-    "production": {}
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "buildConfiguration": "Release",
+        "simulator": true
+      }
+    },
+    "production": {
+      "android": {
+        "releaseChannel": "default"
+      },
+      "ios": {
+        "releaseChannel": "default"
+      }
+    }
   },
   "submit": {
     "production": {}
