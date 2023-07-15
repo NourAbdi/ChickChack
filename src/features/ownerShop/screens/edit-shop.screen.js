@@ -79,7 +79,7 @@ export const EditShopScreen = () => {
       {PrintHeader(shop.icon, scrollY)}
 
       <SaveButton>
-        <Button title={t("Save")} onPress={handleSave} />
+        <Button title={t("Save")} onPress={handleSave} color={colors.text.inverse} />
       </SaveButton>
 
       <Modal isVisible={isSaving}>

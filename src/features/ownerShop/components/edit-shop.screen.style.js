@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "styled-components/native";
 import {Card,} from "react-native-paper";
+import { CheckBox } from "react-native-elements";
 
 const WorkingHoursCardHeight=80;
 const TimeCardHeigth=30;
@@ -38,10 +38,13 @@ export const Time = styled.Text`
 
 export const Center = styled.Text`
   align-self: center;
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
 export const Row = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 export const ViewIsTemClose = styled.View`
@@ -53,7 +56,11 @@ export const ViewIsTemClose = styled.View`
 export const SaveButton = styled.View`
   border-width: 1px;
   borderColor:  ${(props) => props.theme.colors.mainblue};
-  borderRadius: 5px; 
+  borderRadius: 5px;
+  background-color: ${(props) => props.theme.colors.mainblue}; 
 `;
 
+export const StyledCheckBox = styled(CheckBox)`
+  color: red;
+`;
 

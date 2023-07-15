@@ -4,6 +4,7 @@ import { CheckBox } from "react-native-elements";
 import ModalSelector from "react-native-modal-selector";
 import { useTranslation } from "react-i18next";
 
+import { colors } from "../../../infrastructure/theme/colors";
 import {
   WorkingHoursCard,
   Title,
@@ -13,6 +14,7 @@ import {
   Time,
   Center,
   ViewIsTemClose,
+  StyledCheckBox,
 } from "./edit-shop.screen.style";
 
 export const isWorkingHoursValid = (workingHours) => {
@@ -126,15 +128,17 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
               </TimeCard>
             </ModalSelector>
             </>
-            <CheckBox
-              title={workingHours[day].isOpen ? t("open") : t("closed")}
-              checked={workingHours[day].isOpen == true}
-              onPress={() => {
-                const updatedWorkingHours = { ...workingHours };
-                updatedWorkingHours[day].isOpen = !workingHours[day].isOpen;
-                setSelectedIsOpen(updatedWorkingHours[day].isOpen);
-              }}
-            />
+              <CheckBox
+                checked={workingHours[day].isOpen == true}
+                onPress={() => {
+                  const updatedWorkingHours = { ...workingHours };
+                  updatedWorkingHours[day].isOpen = !workingHours[day].isOpen;
+                  setSelectedIsOpen(updatedWorkingHours[day].isOpen);
+                }}
+                checkedColor={colors.ui.secondary} 
+                size={24}
+              />
+              <Center>{workingHours[day].isOpen ? t("open") : t("closed")}</Center>
           </Row>
         </WorkingHoursCard>
       ))}
@@ -143,6 +147,8 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
           title={t("Is Temporary Close")}
           checked={isTemporaryClose}
           onPress={() => setTemporaryClose(!isTemporaryClose)}
+          checkedColor={colors.ui.secondary} 
+          size={24}
         />
       </ViewIsTemClose>
     </View>

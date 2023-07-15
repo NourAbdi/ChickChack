@@ -134,7 +134,7 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems) => {
                 <CheckBox
                   checked={checkedItems[addition.additionName]?.isChecked || false}
                   onPress={() => handleCheckboxChange(addition.additionName)}
-                  checkedColor={colors.ui.secondary} // Set the desired color here
+                  checkedColor={colors.ui.secondary} 
                   size={20}
                 />
                 {addition.additionAvailability ? null : 
