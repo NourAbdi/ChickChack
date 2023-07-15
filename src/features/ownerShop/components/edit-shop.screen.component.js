@@ -58,40 +58,42 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
           <Row>
             <Center>{t("Start")}:</Center>
             {/* print start working hour */}
-            <ModalSelector
-              data={hours.map(hour => ({ key: hour, label: hour }))}
-              initValue={workingHours[day].start.split(":")[0]}
-              onChange={(option) => {
-                const updatedWorkingHours = { ...workingHours };
-                updatedWorkingHours[day].start = `${option.label}:${updatedWorkingHours[day].start.split(":")[1]}`;
-                setSelectedHour(option.label);
-              }}
-              optionContainerStyle={{ height: 500 }}
-            >
-              <TimeCard>
-                <Time>{workingHours[day].start.split(":")[0]}</Time>
-              </TimeCard>
-            </ModalSelector>
+            <>
+              <ModalSelector
+                data={hours.map(hour => ({ key: hour, label: hour }))}
+                initValue={workingHours[day].start.split(":")[0]}
+                onChange={(option) => {
+                  const updatedWorkingHours = { ...workingHours };
+                  updatedWorkingHours[day].start = `${option.label}:${updatedWorkingHours[day].start.split(":")[1]}`;
+                  setSelectedHour(option.label);
+                }}
+                optionContainerStyle={{ height: 500 }}
+              >
+                <TimeCard>
+                  <Time>{workingHours[day].start.split(":")[0]}</Time>
+                </TimeCard>
+              </ModalSelector>
 
-            <Center>:</Center>
-            {/* print start working minute */}
-            <ModalSelector
-              data={minutes.map(minute => ({ key: minute, label: minute }))}
-              initValue={workingHours[day].start.split(":")[1]}
-              onChange={(option) => {
-                const updatedWorkingHours = { ...workingHours };
-                updatedWorkingHours[day].start = `${updatedWorkingHours[day].start.split(":")[0]}:${option.label}`;
-                setSelectedMinute(option.label);
-              }}
-              optionContainerStyle={{ height: 500 }}
-            >
-              <TimeCard>
-                <Time>{workingHours[day].start.split(":")[1]}</Time>
-              </TimeCard>
-            </ModalSelector>
-
+              <Center>:</Center>
+              {/* print start working minute */}
+              <ModalSelector
+                data={minutes.map(minute => ({ key: minute, label: minute }))}
+                initValue={workingHours[day].start.split(":")[1]}
+                onChange={(option) => {
+                  const updatedWorkingHours = { ...workingHours };
+                  updatedWorkingHours[day].start = `${updatedWorkingHours[day].start.split(":")[0]}:${option.label}`;
+                  setSelectedMinute(option.label);
+                }}
+                optionContainerStyle={{ height: 500 }}
+              >
+                <TimeCard>
+                  <Time>{workingHours[day].start.split(":")[1]}</Time>
+                </TimeCard>
+              </ModalSelector>
+            </>
             <Center>, {t("End")}:</Center>
             {/* print End working hour */}
+            <>
             <ModalSelector
               data={hours.map(hour => ({ key: hour, label: hour }))}
               initValue={workingHours[day].end.split(":")[0]}
@@ -123,6 +125,7 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
                 <Time>{workingHours[day].end.split(":")[1]}</Time>
               </TimeCard>
             </ModalSelector>
+            </>
             <CheckBox
               title={workingHours[day].isOpen ? t("open") : t("closed")}
               checked={workingHours[day].isOpen == true}

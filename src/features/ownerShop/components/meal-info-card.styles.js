@@ -52,3 +52,29 @@ export const CounterButton = styled(TouchableOpacity)`
   Right:15px;
 `;
 
+export const MealCardOverlay = styled.View`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(230,230,230,0.5);
+`;
+
+export const UnavailableContainer =  styled.View`
+  align-items: center;
+  background-color: white;
+  top: 40%;
+  left:10%;
+  right:10%;
+  position: absolute;
+  border-width: 1px;
+  border-color: ${(props) => props.theme.colors.mainblue};
+  padding: 5px;
+  border-radius:${borderRadius}px;
+
+`;
+
+export const UnavailableText =  styled.Text`
+  align-self: center;
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+`;

@@ -102,7 +102,6 @@ export const CartLocationScreen = ({route}) => {
 
     return (
         <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" />     
             <Map
                 ref={mapRef}
                 initialRegion={{

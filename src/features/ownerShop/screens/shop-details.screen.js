@@ -21,6 +21,7 @@ import {
   IsOpenCheck,
   PrintHeader,
   PrintMenu,
+  StatusBarPlaceHolder,
 } from "../components/shop-details.screen.components"
 import { useTranslation } from "react-i18next";
 
@@ -39,6 +40,7 @@ export const ShopDetailsScreen = ({ navigation }) => {
   }
   return (
     <View style={{ flex: 1 }}>
+      <StatusBarPlaceHolder/>
       <AnimatedScrollView scrollY={scrollY}>
         <View>
           <HeaderImage source={{ uri: shop.headerBackground }} />
@@ -53,7 +55,8 @@ export const ShopDetailsScreen = ({ navigation }) => {
             </RestaurantInfoCard>
           </ViewAbove>
         </View>
-        {PrintMenu(menu, navigation, shop, updateItemAvailable,t)}
+        <PrintMenu menu={menu} navigation={navigation} shop={shop} updateItemAvailable={updateItemAvailable} t={t} />
+        {/* {PrintMenu(menu, navigation, shop, updateItemAvailable,t)} */}
       </AnimatedScrollView>
       {PrintHeader(shop.icon, scrollY)}
     </View>

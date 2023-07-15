@@ -1,5 +1,5 @@
-import { Animated,Platform,Image,Dimensions,ImageBackground } from "react-native";
 import styled from "styled-components/native";
+import { Animated,Image,Dimensions,ImageBackground,TouchableOpacity } from "react-native";
 import { Card,IconButton,ActivityIndicator } from "react-native-paper";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
@@ -67,9 +67,7 @@ export const ShopIcon = styled(Image)`
 export const MealsCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(props) => props.theme.mealsCardSize}px;
-  // height: ${cardHeight}px;
   height: auto;
-
   align-self: center;
   margin: ${(props) => props.theme.space[2]};
   border-radius:15px;
@@ -190,7 +188,6 @@ export const StyledScrollView = styled.ScrollView`
 `;
 
 export const CardView = styled.View`
-  flex-direction: row;
   margin-start: ${(props) => props.theme.space[2]};
   margin-end: ${(props) => props.theme.space[2]};
 `;
@@ -200,4 +197,25 @@ export const StyledIconButton = styled(IconButton)`
   top: 40px;
   left: 10px;
   padding: 10px;
+`;
+
+export const ReadMoreButton =styled(TouchableOpacity)`
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  padding:10px;
+  border-radius: 52px;
+  width:auto;
+  align-items: center;
+`;
+
+export const ReadMoreView = styled.View`
+  align-items: center;
+  margin-bottom: ${(props) => props.theme.space[2]};
+`;
+
+export const ReadMoreText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  color:${(props) => props.theme.colors.text.inverse};
+  align-self: center;
 `;

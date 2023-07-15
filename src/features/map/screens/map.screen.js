@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, Button, ActivityIndicator, Alert,TouchableOpacity } from "react-native";
+import { ScrollView, Button, ActivityIndicator, Alert,TouchableOpacity,View,SafeAreaView ,StatusBar} from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useTranslation } from "react-i18next";
 
 import { LocationContext } from "../../../services/location/location.context";
+import { colors } from "../../../infrastructure/theme/colors";
+
 
 const Map = styled(MapView)`
   height: 70%;
@@ -99,7 +101,12 @@ export const MapScreen = ({ navigation }) => {
 
   return (
     <>
-      <Map
+   { isLoading ? (<View><ActivityIndicator size="large" color="#0000ff" /></View>):(<View>  
+    <SafeAreaView style={{backgroundColor:colors.mainblue}}>
+      <StatusBar barStyle="light-content"/>
+    </SafeAreaView>
+     
+    <Map
       provider={PROVIDER_GOOGLE}
         ref={mapRef}
         initialRegion={{
@@ -140,7 +147,8 @@ export const MapScreen = ({ navigation }) => {
             </CityButton>
           ))}
         </ScrollView>
-      )}
+      )}</View>)}
+     
     </>
   );
 };

@@ -87,7 +87,6 @@ export const UnavailableText = styled.Text`
   border-radius:15px;
   overflow: hidden;
   padding:4px;
-
 `;
 
 export const OrderName = styled.Text`

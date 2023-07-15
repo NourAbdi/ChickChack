@@ -10,6 +10,9 @@ import Icons from "@expo/vector-icons/MaterialIcons";
     Info,
     MealShadow,
     CounterButton, 
+    MealCardOverlay,
+    UnavailableContainer,
+    UnavailableText,
   } from "./meal-info-card.styles"
 
 export const MealInfoCard = ({meal = {} ,updateItemAvailable, t}) => {
@@ -36,6 +39,14 @@ export const MealInfoCard = ({meal = {} ,updateItemAvailable, t}) => {
               <Text variant="label">{itemName}</Text>
               <Price>{t("price")} : {itemPrice}₪</Price>
             </Info>
+            {isRemoveIcon ? null: ( 
+              <>
+                <MealCardOverlay />
+                <UnavailableContainer>
+                  <UnavailableText>Meal not available</UnavailableText>
+                </UnavailableContainer>
+              </>
+            )}
           </MealCard>
         </MealShadow>
         <CounterButton onPress={handleButtonPress}>

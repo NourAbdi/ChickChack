@@ -17,6 +17,8 @@ import{
     AdditionImage,
     AdditionInfo,
     CategoryName,
+    AdditionOverlay,
+    UnavailableText,
   } from "./orderAdditions.screen.style";
 
 
@@ -40,10 +42,10 @@ export const printHeader = (headerImage,buttonColor,navigation) => {
   );
 }
 
-export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,itemUid) => {
+export const PrintIteamAdditions = (additions,itemUid) => {
   const { updateAddItemAvailable } = useContext(OwnerShopContext);
   const isEmpty = Object.keys(additions).length === 0;
-  const [isRemoveIcon, setIsRemoveIcon] = useState(() => {
+  const [isAvailable, setIsAvailable] = useState(() => {
     const initialRemoveIconState = {};
     Object.entries(additions).forEach(([additionType, additionsOfType]) => {
       additionsOfType.forEach((addition) => {
@@ -53,8 +55,8 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,itemU
     return initialRemoveIconState;
   });
   const handleButtonPress = (additionName) => {
-    if(updateAddItemAvailable(itemUid,additionName,isRemoveIcon[additionName])){
-      setIsRemoveIcon((prevState) => ({
+    if(updateAddItemAvailable(itemUid,additionName,!isAvailable[additionName])){
+      setIsAvailable((prevState) => ({
         ...prevState,
         [additionName]: !prevState[additionName]
       })
@@ -73,8 +75,13 @@ export const PrintIteamAdditions = (additions,checkedItems,setCheckedItems,itemU
                 <AdditionInfo>{addition.additionName}</AdditionInfo>
                 <View style={{ flex: 1 }} />
                 <AdditionInfo>{addition.additionPrice}₪</AdditionInfo>
+                {isAvailable[addition.additionName] ? null : 
+                <AdditionOverlay>
+                  <UnavailableText>Addition not available</UnavailableText>
+                </AdditionOverlay>
+                }
                 <CounterButton onPress={() => handleButtonPress(addition.additionName)}>
-                  <Icons name={isRemoveIcon[addition.additionName] ? 'add' : 'remove'} size={20} color="black" />
+                  <Icons name={isAvailable[addition.additionName] ? 'remove' : 'add'} size={20} color="black" />
                 </CounterButton>
               </ViewAddition>
             ))}

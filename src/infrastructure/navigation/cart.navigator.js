@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { SafeArea } from "../../components/utility/safe-area.component";
 import { getFocusedRouteNameFromRoute,useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from "react-i18next";
+import { StatusBar } from 'react-native';
 
 import { CartScreen } from "../../features/cart/screens/cart.screen";
 import { ShopCart } from "../../features/cart/screens/shopCart.screen";
@@ -39,10 +40,12 @@ const CartLocationStack = ({ navigation,route }) => {
 export const CartNavigator = () => {
   const { t } = useTranslation();
   return (
-    <SafeArea>
+    <SafeArea style={{ backgroundColor: colors.mainblue }}s>
+      <StatusBar barStyle="light-content"/>
       <Tab.Navigator
         screenOptions={{
-          tabBarIndicatorStyle: { backgroundColor: colors.mainblue }
+          tabBarIndicatorStyle: { backgroundColor: colors.mainblue },
+          tabBarLabelStyle: { color: colors.mainblue } 
         }}>
         <Tab.Screen name="Carts" component={CartLocationStack} options={{ title: t("Carts") ,tabBarButton: () => null, tabBarVisible: false }} />
         <Tab.Screen name="PastCartsScreen" component={PastCartsScreen} options={{ title: t("Past orders") }} />

@@ -1,5 +1,5 @@
-import React from "react";
-import { View,TouchableOpacity,ScrollView,Image,Linking } from "react-native";
+import React,{useState} from "react";
+import { View,TouchableOpacity,Image,Linking,SafeAreaView,StatusBar } from "react-native";
 import { colors } from "../../../infrastructure/theme/colors";
 import { MealInfoCard } from "./meal-info-card.component";
 import { groupBy } from 'lodash'; // Import the groupBy function from Lodash
@@ -20,6 +20,9 @@ import{
   AnimatedHeaderView,
   AnimatedIconView,
   ShopIcon,
+  ReadMoreButton,
+  ReadMoreView,
+  ReadMoreText,
 } from "./shop-details.screen.style";
 
 const TAB_ICON = {
@@ -68,27 +71,58 @@ export const titleOpacity =(scrollY) =>{
     })
   );
 };
-
-export const PrintMenu = (menu,navigation,shop,updateItemAvailable,t) => {
-  // Group items by itemCategory
+export const PrintMenu = ({ menu,navigation,shop,updateItemAvailable,t }) => {
+  const [showAllItems, setShowAllItems] = useState(false);
   const groupedItems = groupBy(menu, 'itemCategory');
+
+  const toggleShowAllItems = () => {
+    setShowAllItems(!showAllItems);
+  };
+
+  const renderMenuItem = ( item ) => {
+    return(
+      <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item })}>
+        <MealInfoCard meal={item} updateItemAvailable={updateItemAvailable} t={t}/>
+      </TouchableOpacity>
+    )
+  };
+
+  const renderMenuItems = (displayedItems) => {
+    const renderedItems = [];
+    for (let i = 0; i < displayedItems.length; i += 2) {
+      const item1 = displayedItems[i];
+      const item2 = displayedItems[i + 1];
+
+      const row = (
+        <View key={i} style={{ flexDirection: 'row' }}>
+          { item1 &&  renderMenuItem(item1)}
+          { item2 &&  renderMenuItem(item2)}
+        </View>
+      );
+      renderedItems.push(row);
+    }
+    return renderedItems;
+  };
+
   return (
     <ViewMenu>
       {Object.entries(groupedItems).map(([menuCategory, menuItems]) => {
+        const displayedItems = showAllItems ? menuItems : menuItems.slice(0, 2);
         return (
           <MealsCard key={menuCategory}>
             <CategoryName>{menuCategory}</CategoryName>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <CardView>
-                {menuItems.map((item) => (
-                  <View key={item.itemUid}>
-                    <TouchableOpacity onPress={() => navigation.navigate("OrderAdditionsScreen", { shop, item })} >
-                    <MealInfoCard meal={item} updateItemAvailable={updateItemAvailable} t={t}/>
-                    </TouchableOpacity>
-                  </View>
-                ))}
-              </CardView>
-            </ScrollView>
+            <CardView>
+              {renderMenuItems(displayedItems)}
+            </CardView>
+            {menuItems.length > 2 && (
+              <ReadMoreView>
+                <ReadMoreButton onPress={toggleShowAllItems}>
+                  <ReadMoreText>
+                    {showAllItems ? 'Read Less' : 'Read More'}
+                  </ReadMoreText>
+                </ReadMoreButton>
+              </ReadMoreView>
+            )}
           </MealsCard>
         );
       })}
@@ -192,3 +226,13 @@ export const PrintHeader = (icon,scrollY) => {
       </>
   );
 };
+
+export const StatusBarPlaceHolder = () => {
+  return (
+    <SafeAreaView style={{ backgroundColor: colors.mainblue }}>
+      <StatusBar
+        barStyle="light-content"
+      />
+    </SafeAreaView>
+  );
+}

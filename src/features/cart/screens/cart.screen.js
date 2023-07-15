@@ -12,10 +12,14 @@ import {
   RightIcon,
 } from "../components/cart.style";
 
+import{
+  StatusBarPlaceHolder
+} from "../components/cart.components";
 export const CartScreen = ({navigation}) => {
   const { order,removeShopFromCart } = useContext(CartContext);
   return (
     <SafeAreaView>
+      {/* <StatusBarPlaceHolder /> */}
       <ScrollView>
         <Title>Your Orders:</Title>
         {order.map((item, index) => (

@@ -8,12 +8,10 @@ import {
   OrderName,
   Description,
   Price,
-  TotalPrice,
   BlueBackGround,
 } from '../components/orderAdditions.screen.style'
 
 import{
-  PrintCounter,
   printHeader,
   PrintIteamAdditions,
 } from '../components/orderAdditions.screen.components'
@@ -22,26 +20,11 @@ import { useTranslation } from "react-i18next";
 
 export const OrderAdditionsScreen = ({ navigation,route,}) => {
   const { t } = useTranslation();
-  const { shop, item } = route.params;
-  const [checkedItems, setCheckedItems] = useState(
-    Object.fromEntries(
-      Object.entries(item.itemAdditions).flatMap(([additionType, additionsOfType]) =>
-        additionsOfType.map((addition) => [addition.additionName, { isChecked: false, price: addition.additionPrice }])
-      )
-    )
-  );
-  const filteredItems = Object.fromEntries(
-    Object.entries(checkedItems)
-      .filter(([_, item]) => item.isChecked)
-      .map(([key, { price }]) => [key, price])
-  );
+  const { item } = route.params;
   const MyComponent = () => {
     const insets = useSafeAreaInsets();
     return Dimensions.get('window').height - insets.top - insets.bottom;
   };
-  const checkedItemsTotalPrice = Object.entries(checkedItems)
-  .filter(([_, item]) => item.isChecked)
-  .reduce((total, [_, item]) => total + item.price, 0);
 
   return (
     <View style={{ flex: 1}}>
@@ -51,7 +34,7 @@ export const OrderAdditionsScreen = ({ navigation,route,}) => {
             <OrderName>{item.itemName}</OrderName>
             <Price>{t("Price for unit")} :{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>
-            {PrintIteamAdditions(item.itemAdditions,checkedItems,setCheckedItems,item.itemUid)}
+            {PrintIteamAdditions(item.itemAdditions,item.itemUid)}
           </InfoCard>
         </InfoCardShadow>
     </View>
