@@ -23,6 +23,7 @@ import{
 import {
   PrintWorkingHours,
   isWorkingHoursValid,
+  StatusBarPlaceHolder
 } from "../components/edit-shop.screen.component";
 
 export const EditShopScreen = () => {
@@ -71,17 +72,15 @@ export const EditShopScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      <StatusBarPlaceHolder/>
       <AnimatedScrollView scrollY={scrollY}>
         <HeaderImage source={{ uri: shop.headerBackground }} />
         {PrintWorkingHours(workingHours, isTemporaryClose, setTemporaryClose)}
       </AnimatedScrollView>
-
       {PrintHeader(shop.icon, scrollY)}
-
       <SaveButton>
         <Button title={t("Save")} onPress={handleSave} color={colors.text.inverse} />
       </SaveButton>
-
       <Modal isVisible={isSaving}>
         <Loading size={50} color={colors.mainblue} animating={true} />
       </Modal>

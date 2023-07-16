@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 export const OwnerShopPastOrdersScreen = () => {
   const { t } = useTranslation();
   const { pastOrders, isLoading } = useContext(OwnerShopContext);
-  const sortedOrders = pastOrders.sort((a, b) => new Date(a.orderTime) - new Date(b.orderTime));
+  const sortedOrders = pastOrders.sort((a, b) => new Date(b.orderTime) - new Date(a.orderTime));
   const [expandedItems, setExpandedItems] = useState([]);
   const toggleItemExpand = (orderId) => {
     setExpandedItems((prevExpandedItems) => {

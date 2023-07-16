@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text } from "react-native";
+import { View, SafeAreaView,StatusBar } from "react-native";
 import { CheckBox } from "react-native-elements";
 import ModalSelector from "react-native-modal-selector";
 import { useTranslation } from "react-i18next";
@@ -154,3 +154,13 @@ export const PrintWorkingHours = (workingHours, isTemporaryClose, setTemporaryCl
     </View>
   );
 };
+
+export const StatusBarPlaceHolder = () => {
+  return (
+    <SafeAreaView style={{ backgroundColor: colors.mainblue }}>
+      <StatusBar
+        barStyle="light-content"
+      />
+    </SafeAreaView>
+  );
+}

@@ -7,11 +7,7 @@ import { StatusBar } from 'react-native';
 import {UserProfileScreen} from "../../features/settings/screens/userProfile.screen";
 import {ApplicationScreen} from "../../features/settings/screens/application.screen";
 import { colors } from "../theme/colors";
-
-
 const Tab = createMaterialTopTabNavigator();
-
-
 export const SettingNavigator = () => {
   const { t, i18n } = useTranslation();
   return (
@@ -23,9 +19,7 @@ export const SettingNavigator = () => {
           tabBarLabelStyle: { color:  colors.mainblue },
         }}>
         <Tab.Screen name="UserProfile" component={UserProfileScreen} options={{ title: t("My Account") ,tabBarButton: () => null, tabBarVisible: false }} />
-
         <Tab.Screen name="Application" component={ApplicationScreen} options={{ title: t("Application") }} />
-
       </Tab.Navigator>
     </SafeArea>
   );

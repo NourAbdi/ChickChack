@@ -12,7 +12,6 @@ import { PastCartsScreen } from "../../features/cart/screens/pastCarts.screen";
 import { CartLocationScreen } from "../../features/cart/screens/cartLocation.screen";
 import { colors } from "../theme/colors";
 
-
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 

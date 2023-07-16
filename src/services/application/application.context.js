@@ -11,8 +11,8 @@ export const ApplicationContextProvider = ({ children }) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const citiesData = await getApplicationData();
-        setApplicationData(citiesData);
+        const applicationData = await getApplicationData();
+        setApplicationData(applicationData);
         setIsLoading(false);
         
       } catch (error) {

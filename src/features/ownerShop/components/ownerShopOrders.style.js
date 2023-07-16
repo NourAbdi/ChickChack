@@ -69,7 +69,15 @@ export const ConfirmingQus = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.body};
   font-weight: ${(props) => props.theme.fontWeights.bold};
   margin-left: ${(props) => props.theme.space[2]};
+`;
 
+export const Timer = styled.Text`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
+  margin-left: ${(props) => props.theme.space[2]};
+  margin-top: ${(props) => props.theme.space[3]};
+  margin-bottom: ${(props) => props.theme.space[3]};
 `;
 
 export const OrderCard = styled(Card)`
@@ -106,7 +114,7 @@ export const OrderInfoCard = styled(Card)`
 
 export const ButtonCard = styled(Card)`
   background-color: ${(props) => props.color};
-  width: ${100}px;
+  width:${120}px;
   height:auto;
   margin: ${margin}px;
   align-self: center;
@@ -157,5 +165,5 @@ export const Loading = styled(ActivityIndicator)`
 
 export const HeaderImage = styled(Image)`
   width: ${iteamCardWidth}px;
-  height: ${100}px;
+  height:200px;
 `;

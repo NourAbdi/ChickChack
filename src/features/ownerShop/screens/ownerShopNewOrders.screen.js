@@ -53,14 +53,14 @@ export const OwnerShopNewOrdersScreen = () => {
     <SafeAreaView>
       <ScrollView >
         {sortedOrders.map((order, index) => (
-          <View key={order.orderId}>
+          <View key={index}>
             <Title>{t("order")} {index + 1}:</Title>
-            <Shadow>
+            <Shadow key={order.orderId}>
               <OrderCard isExpanded={isItemExpanded(order.orderId)}>
                 <Heading>{t("Order information")} :</Heading>
                 {printOrderinfo(order, t)}
                 <Heading>{t("Confirming order")} :</Heading>
-                <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/>
+                {/* <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/> */}
                 <Row>
                   <Heading>{t("Cart items")} :</Heading>
                 </Row>

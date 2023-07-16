@@ -1,5 +1,5 @@
-import React,{useState} from "react";
-import { View,Button } from "react-native";
+import React,{useState,useEffect} from "react";
+import { View,Button,Alert } from "react-native";
 import { colors } from "../../../infrastructure/theme/colors";
 import { groupBy } from 'lodash'; 
 import ModalSelector from 'react-native-modal-selector';
@@ -17,6 +17,7 @@ import {
     Center,
     ConfirmingQus,
     ButtonCard,
+    Timer,
   } from "./ownerShopOrders.style";
   
 export const printOrderinfo = (order, t) =>{
@@ -42,6 +43,10 @@ export const printOrderinfo = (order, t) =>{
             <Row>
                 <Field>{t("Pay Option")} :</Field>
                 <Field>{order.payOption}</Field>
+            </Row>
+            <Row>
+                <Field>{t("Order Stage")} :</Field>
+                <Field>{order.orderStage}</Field>
             </Row>
             </View>
         </View>
@@ -96,19 +101,51 @@ export const printCartIteam = (cartItems, t) => {
   ));
 };
 
-export const PrintConfirmingOrder = ({orderId,preparationTime,updateOrder,t}) => {
-    const hours = Array.from({ length: 24 }, (_, index) => String(index).padStart(2, '0'));
-    const minutes = Array.from({ length: 60 }, (_, index) => String(index).padStart(2, '0'));
-    const [selectedHour, setSelectedHour] = useState(preparationTime.substring(0, 2));
-    const [selectedMinute, setSelectedMinute] = useState(preparationTime.substring(3, 5));
-    const getTimeString = () => {
-        return `${selectedHour}:${selectedMinute}:00`;
-    };
+export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t }) => {
+  const hours = Array.from({ length: 24 }, (_, index) => String(index).padStart(2, '0'));
+  const minutes = Array.from({ length: 60 }, (_, index) => String(index).padStart(2, '0'));
+  const [selectedHour, setSelectedHour] = useState(preparationTime.substring(0, 2));
+  const [selectedMinute, setSelectedMinute] = useState(preparationTime.substring(3, 5));
+  const getTimeString = () => {
+    return `${selectedHour}:${selectedMinute}`;
+  };
+  const [timer, setTimer] = useState(null);
+  const [remainingTime, setRemainingTime] = useState(60 * 60); // 10 minutes in seconds
 
-    return (
-      <View>
-        <Row>
-          <ConfirmingQus>{t("Preparation time")} :</ConfirmingQus>
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setRemainingTime((prevTime) => prevTime - 1);
+    }, 1000); // Update every second
+
+    setTimer(timerId);
+
+    // Clean up the timer when the component unmounts
+    return () => {
+      clearInterval(timerId);
+      clearTimeout(timerId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (remainingTime === 0) {
+      // Perform the deletion logic here
+      // Call the `updateOrder` function to delete the order
+      clearTimeout(timer);
+      updateOrder(orderId, getTimeString(), 'deny');
+    }
+  }, [remainingTime]);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  return (
+    <View>
+      <Row>
+        <ConfirmingQus>{t("Preparation time")} :</ConfirmingQus>
+        <>
           <ModalSelector
             key="hourSelector"
             data={hours.map((hour) => ({ key: hour, label: hour }))}
@@ -135,22 +172,62 @@ export const PrintConfirmingOrder = ({orderId,preparationTime,updateOrder,t}) =>
               <Time>{selectedMinute}</Time>
             </TimeCard>
           </ModalSelector>
-        </Row>
-        <Center>
-        <Row>
-            <ButtonCard color={colors.button.green}>
-                <Button title={t("Confirm")} onPress={() => updateOrder(orderId,getTimeString(),"onProcess")} color={colors.button.white} />
-            </ButtonCard>
-            <ButtonCard color={colors.button.red}>
-                <Button title={t("Deny")} onPress={() => updateOrder(orderId,getTimeString(),"deny")} color={colors.button.white} />
-            </ButtonCard>
-        </Row>
-        </Center>
-        
-      </View>
-    );
-  };
+        </>
+      </Row>
+      {/* <Timer>Remaining Time: {formatTime(remainingTime)}</Timer> */}
+      <Timer>Remaining Time for Accepting the Order: {formatTime(remainingTime)} </Timer>
+
+      <Center>
+      <Row>
+          <ButtonCard color={colors.button.green}>
+          <Button title={t("Acceptance")} onPress={() => handleAcceptance(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
+          </ButtonCard>
+          <ButtonCard color={colors.button.red}>
+              <Button title={t("Deny")} onPress={() =>  handleDeny(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
+          </ButtonCard>
+      </Row>
+      </Center>
+      
+    </View>
+  );
+};
   
 
+export const handleAcceptance = (preparationTime,updateOrderFunc,orderId) => {
+  const selectedTime = preparationTime;
+  Alert.alert(
+    "Confirmation",
+    `Are you sure you want to accept this order with a preparation time of ${selectedTime}?`,
+    [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => updateOrderFunc(orderId, selectedTime, "onProcess"),
+      },
+    ],
+    { cancelable: false }
+  );
+};
 
+export const handleDeny = (preparationTime,updateOrderFunc,orderId) => {
+  const selectedTime = preparationTime;
+  Alert.alert(
+    "Confirmation",
+    `Are you sure you want to deny this order ?`,
+    [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => updateOrderFunc(orderId, selectedTime, "deny"),
+      },
+    ],
+    { cancelable: false }
+  );
+};
   

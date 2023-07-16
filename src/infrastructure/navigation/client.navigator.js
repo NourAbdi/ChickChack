@@ -11,7 +11,6 @@ import { ShopsContextProvider } from "../../services/shops/shops.context";
 import { ShopContextProvider } from "../../services/shop/shop.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 import { SettingNavigator } from "./setting.navigator";
-import { ApplicationContextProvider } from "../../services/application/application.context"
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +46,7 @@ export const ClientNavigator = () => (
     <CartContextProvider>
       <ShopsContextProvider>
         <ShopContextProvider>
-          <ApplicationContextProvider>
+          
 
             <Tab.Navigator screenOptions={createScreenOptions}>
               <Tab.Screen name="Map" component={MapScreen} />
@@ -56,7 +55,6 @@ export const ClientNavigator = () => (
               <Tab.Screen name="Settings" component={SettingNavigator} />
             </Tab.Navigator>
 
-          </ApplicationContextProvider>
         </ShopContextProvider>
       </ShopsContextProvider>
     </CartContextProvider>
