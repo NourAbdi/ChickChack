@@ -110,7 +110,7 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
     return `${selectedHour}:${selectedMinute}`;
   };
   const [timer, setTimer] = useState(null);
-  const [remainingTime, setRemainingTime] = useState(60 * 60); // 10 minutes in seconds
+  const [remainingTime, setRemainingTime] = useState(10 * 60); // 10 minutes in seconds
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -174,9 +174,7 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
           </ModalSelector>
         </>
       </Row>
-      {/* <Timer>Remaining Time: {formatTime(remainingTime)}</Timer> */}
       <Timer>Remaining Time for Accepting the Order: {formatTime(remainingTime)} </Timer>
-
       <Center>
       <Row>
           <ButtonCard color={colors.button.green}>

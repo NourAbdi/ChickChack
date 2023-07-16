@@ -60,7 +60,7 @@ export const OwnerShopNewOrdersScreen = () => {
                 <Heading>{t("Order information")} :</Heading>
                 {printOrderinfo(order, t)}
                 <Heading>{t("Confirming order")} :</Heading>
-                {/* <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/> */}
+                <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/>
                 <Row>
                   <Heading>{t("Cart items")} :</Heading>
                 </Row>
