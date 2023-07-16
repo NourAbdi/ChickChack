@@ -49,23 +49,23 @@ export const ApplicationScreen = ({ navigation }) => {
       <MarginTop />
       <List.Section>
         <ListItem
-          title={<ListTiltle>Working hours</ListTiltle>}
+          title={<ListTiltle>{t("workingHours")}</ListTiltle>}
           left={(props) => (
             <List.Icon {...props} color={colors.text.inverse} icon="clock" />
           )}
           onPress={handleWorkingHoursClick}
         />
-        {showWorkingHoursFunc(showWorkingHours, applicationData.workingHours)}
+        {showWorkingHoursFunc(t, showWorkingHours, applicationData.workingHours)}
         <ListItem
-          title={<ListTiltle>Delivery hours</ListTiltle>}
+          title={<ListTiltle>{t("Delivery hours")}</ListTiltle>}
           left={(props) => (
             <List.Icon {...props} color={colors.text.inverse} icon="truck" />
           )}
           onPress={handleDeliveryHoursClick}
         />
-        {showWorkingHoursFunc(showDeliveryHours, applicationData.deliveryHours)}
+        {showWorkingHoursFunc(t, showDeliveryHours, applicationData.deliveryHours)}
         <ListItem
-          title={<ListTiltle>Terms of us</ListTiltle>}
+          title={<ListTiltle>{t("Terms of use")}</ListTiltle>}
           left={(props) => (
             <List.Icon {...props} color={colors.text.inverse} icon="file-document" />
           )}
@@ -73,13 +73,13 @@ export const ApplicationScreen = ({ navigation }) => {
         />
         {showTermsFunc(showTerms, applicationData.terms)}
         <ListItem
-          title={<ListTiltle>Contact us</ListTiltle>}
+          title={<ListTiltle>{t("Contact us")}</ListTiltle>}
           left={(props) => (
             <List.Icon {...props} color={colors.text.inverse} icon="phone" />
           )}
           onPress={handleContactClick}
         />
-        {showContactFunc(showContact, applicationData.phone)}
+        {showContactFunc(t, showContact, applicationData.phone)}
       </List.Section>
       </ScrollView>
     </TransparentSafeArea>

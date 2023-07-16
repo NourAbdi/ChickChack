@@ -207,7 +207,7 @@ export const WorkingHoursComponent = ({ workingHours, t }) => {
       })
       .join("\n");
   
-    Alert.alert(t("WorkingHours"), allHours);
+    Alert.alert(t("workingHours"), allHours);
   };
 
   if (workingHours[currentDay].start && workingHours[currentDay].isOpen) {

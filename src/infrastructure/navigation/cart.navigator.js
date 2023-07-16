@@ -23,7 +23,7 @@ const CartLocationStack = ({ navigation,route }) => {
       if (getFocusedRouteNameFromRoute(route) === 'CartLocationScreen') {
         navigation.setOptions({ tabBarStyle: { display: 'none' } });
       } else {
-        navigation.setOptions({ tabBarStyle: { display: 'flex', direction: i18n.dir() } });
+        navigation.setOptions({ tabBarStyle: { display: 'flex' } });
       }
     }, [navigation, route])
   );

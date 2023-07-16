@@ -47,19 +47,19 @@ export const UserProfileScreen = () => {
         <MarginTop />
         <List.Section>
           <ListItem
-            title={<ListTiltle>My profile</ListTiltle>}
+            title={<ListTiltle>{t("My profile")}</ListTiltle>}
             left={(props) => (
               <List.Icon {...props} color={colors.text.inverse} icon="account" />
             )}
             onPress={handleProfileClick}
           />
-          {showProfileFunc(showProfileInputs, user.name, user.phoneNumber, user.role, user.uid, setUserName)}
+          {showProfileFunc(t, showProfileInputs, user.name, user.phoneNumber, user.role, user.uid, setUserName)}
           <ListItem
-            title={<ListTiltle>Language</ListTiltle>}
+            title={<ListTiltle>{t("language")}</ListTiltle>}
             left={(props) => <List.Icon {...props} color={colors.text.inverse} icon="earth" />}
             onPress={handleLanguageClick}
           />
-          {showLanguagesFunc(showLanguages, i18n, language)}
+          {showLanguagesFunc(showLanguages, i18n, t, language)}
           <ListItem
             title={<ListTiltle>{t("logout")}</ListTiltle>}
             left={(props) => (

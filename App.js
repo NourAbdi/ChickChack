@@ -12,7 +12,6 @@ import { Navigation } from "./src/infrastructure/navigation";
 import i18n from "./i18n/i18n";
 
 import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
-import { NotificationsContextProvider } from "./src/services/notifications/notifications.context";
 
 
 export default function App() {
@@ -32,11 +31,9 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NotificationsContextProvider>
           <AuthenticationContextProvider>
             <Navigation />
           </AuthenticationContextProvider>
-        </NotificationsContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>

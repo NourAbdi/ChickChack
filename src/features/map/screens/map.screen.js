@@ -10,7 +10,7 @@ import { colors } from "../../../infrastructure/theme/colors";
 
 
 const Map = styled(MapView)`
-  height: 70%;
+  height: 60%;
   width: 100%;
 `;
  const CityButton = styled(TouchableOpacity)`

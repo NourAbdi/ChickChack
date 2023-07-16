@@ -23,13 +23,13 @@ export const sortDaysHours = (workingHours) => {
     }));
 };
 
-export const showWorkingHoursFunc = (showWorkingHours,workingHours) => {
+export const showWorkingHoursFunc = (t, showWorkingHours,workingHours) => {
     return(
         showWorkingHours && (
             <InfoContainer>
                 {sortDaysHours(workingHours).map(({ day, hours }) => (
                     <Info key={day}>
-                        {`${day}: ${hours.start} - ${hours.end}`}
+                        {`${t(day)}: ${hours.start} - ${hours.end}`}
                     </Info>
                 ))}
             </InfoContainer>
@@ -48,20 +48,20 @@ export const showTermsFunc = (showTerms,terms) => {
 };
 
 
-export const showContactFunc = (showContact, phone) => {
+export const showContactFunc = (t, showContact, phone) => {
   const handleCall = () => {
     Linking.openURL(`tel:${phone}`);
   };
   return (
     showContact && (
       <InfoContainer>
-         <Info onPress={handleCall}>phone: {phone}</Info>
+         <Info onPress={handleCall}>{t("phone")}: {phone}</Info>
       </InfoContainer>
     )
   );
 };
 
-export const showProfileFunc = (showProfileInputs, name, phoneNumber, role, uid, setUserName) => {
+export const showProfileFunc = (t, showProfileInputs, name, phoneNumber, role, uid, setUserName) => {
     const [isChangeName, setIsChangeName] = useState(false);
     const [NewName, setNewName] = useState(name);
 
@@ -80,18 +80,18 @@ export const showProfileFunc = (showProfileInputs, name, phoneNumber, role, uid,
     return(
         showProfileInputs && (
             <InfoContainer>
-              <Info>Name: {name}</Info>
-              <Info>Phone Number: {phoneNumber}</Info>
-              <Info>Role: {role}</Info>
+              <Info>{t("Name")}: {name}</Info>
+              <Info>{t("Phone Number")}: {phoneNumber}</Info>
+              <Info>{t("Role")}: {role}</Info>
               <Row>
                 <NameButton onPress={() => handleChangeNameClick()}>
-                <ButtonText>Change name</ButtonText>
+                <ButtonText>{t("Change name")}</ButtonText>
                 </NameButton>
                 {isChangeName &&
                   <>
                     <Flex/>
                     <NameButton onPress={() => handleSaveNewName()}>
-                      <ButtonText>Save</ButtonText>
+                      <ButtonText>{t("Save")}</ButtonText>
                     </NameButton>
                   </>
                 }
@@ -108,7 +108,7 @@ export const showProfileFunc = (showProfileInputs, name, phoneNumber, role, uid,
     );
 };
 
-export const showLanguagesFunc = (showLanguages,i18n ,language) => {
+export const showLanguagesFunc = (showLanguages, i18n, t, language) => {
     const changeLanguage = (lang) => {
       i18n.changeLanguage(lang, () => {
       });
@@ -116,7 +116,7 @@ export const showLanguagesFunc = (showLanguages,i18n ,language) => {
     return (
         showLanguages && (
             <InfoContainer> 
-              <Info>Select your preferred language:</Info>
+              <Info>{t("Select your preferred language")}:</Info>
               <Row>
                 <LangButton onPress={() => changeLanguage("en")} isSelected={language === "en"}>
                   <ButtonText>English</ButtonText>
