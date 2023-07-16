@@ -51,7 +51,7 @@ export const ShopDetailsScreen = ({ navigation }) => {
               <RestaurantInfo>{t("workingHours")} : {WorkingHoursComponent(shop.workingHours)}</RestaurantInfo>
               <RestaurantInfo>{t("Tel")} : {shop.Tel}</RestaurantInfo>
               {PrintGettingOrder(shop.takeOrder)}
-              {wazeButton(shop.location, shop.address)}
+              {wazeButton(shop.shopLocation, shop.address)}
             </RestaurantInfoCard>
           </ViewAbove>
         </View>

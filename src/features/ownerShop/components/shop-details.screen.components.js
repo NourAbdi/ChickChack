@@ -131,8 +131,8 @@ export const PrintMenu = ({ menu,navigation,shop,updateItemAvailable,t }) => {
 };
 
 export const openWaze = (location) => {
-  const latitude = location["_latitude"];
-  const longitude = location["_longitude"];
+  const latitude = location.latitude;
+  const longitude = location.longitude;
   // Open Waze with the specified location
   Linking.openURL(`https://waze.com/ul?ll=${latitude},${longitude}&navigate=yes`);
 };
