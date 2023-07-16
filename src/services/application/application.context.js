@@ -4,20 +4,17 @@ import { getApplicationData } from "./application.service";
 export const ApplicationContext = createContext();
 
 export const ApplicationContextProvider = ({ children }) => {
-    console.log("NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
 
   const [applicationData, setApplicationData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
  
   useEffect(() => {
     const getData = async () => {
       try {
         const citiesData = await getApplicationData();
         setApplicationData(citiesData);
-        // setOrder([...order]);
-
-        // console.log("WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWw")
-
-        // console.log(applicationData)
+        setIsLoading(false);
+        
       } catch (error) {
         console.error(error);
       }
@@ -28,7 +25,8 @@ export const ApplicationContextProvider = ({ children }) => {
   return (
     <ApplicationContext.Provider
       value={{
-        applicationData
+        applicationData,
+        isLoading,
       }}
     >
       {children}

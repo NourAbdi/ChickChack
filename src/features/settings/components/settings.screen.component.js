@@ -61,9 +61,9 @@ export const showContactFunc = (showContact, phone) => {
   );
 };
 
-export const showProfileFunc = (showProfileInputs,name,phoneNumber,role) => {
+export const showProfileFunc = (showProfileInputs, name, phoneNumber, role, uid, setUserName) => {
     const [isChangeName, setIsChangeName] = useState(false);
-    const [NewName, setNewName] = useState("");
+    const [NewName, setNewName] = useState(name);
 
     const handleChangeNameClick = () => {
         setIsChangeName(!isChangeName);
@@ -72,10 +72,10 @@ export const showProfileFunc = (showProfileInputs,name,phoneNumber,role) => {
         setNewName(name);
     };
 
-    const handleSaveNewName = (name) => {
-    //save name in data
-        setNewName(name);
+    const handleSaveNewName = async () => {
+        setNewName(NewName);
         setIsChangeName(!isChangeName);
+        await setUserName(uid, NewName);
     };
     return(
         showProfileInputs && (

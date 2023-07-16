@@ -1,5 +1,23 @@
-import {  db, auth } from "../../utils/env";
-import {  collection, query, where, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
+import { db, auth } from "../../utils/env";
+import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+
+export const getUserByUid = async (uid) => {
+  try {
+    const userRef = doc(collection(db, "users"), uid);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      console.log("User data:", userData);
+      return userData;
+    } else {
+      console.log("User not found in the database.");
+      return null;
+    }
+  } catch (err) {
+    console.log("Error:", err);
+  }
+};
 
 export const checkUserExistence = async (phoneNumber) => {
   try {
@@ -33,3 +51,23 @@ export const checkUserExistence = async (phoneNumber) => {
     console.log("Error:", err);
   }
 };
+
+export const changeUserName = async (uid, newName) => {
+  try {
+    const userRef = doc(collection(db, "users"), uid);
+
+    const userDoc = await getDoc(userRef);
+    const userData = userDoc.data();
+
+    const updatedUserData = {
+      ...userData,
+      name: newName || ''
+    };
+
+    await setDoc(userRef, updatedUserData);
+  } catch (err) {
+    console.log("Error:", err);
+  }
+};
+
+

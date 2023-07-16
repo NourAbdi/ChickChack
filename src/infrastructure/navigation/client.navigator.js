@@ -47,18 +47,18 @@ export const ClientNavigator = () => (
     <CartContextProvider>
       <ShopsContextProvider>
         <ShopContextProvider>
-        <ApplicationContextProvider>
+          <ApplicationContextProvider>
 
-          <Tab.Navigator screenOptions={createScreenOptions}>
-            <Tab.Screen name="Map" component={MapScreen} />
-            <Tab.Screen name="Shops" component={ShopsNavigator} />
-            <Tab.Screen name="Cart" component={CartNavigator} />
-            <Tab.Screen name="Settings" component={SettingNavigator} />
-          </Tab.Navigator>
+            <Tab.Navigator screenOptions={createScreenOptions}>
+              <Tab.Screen name="Map" component={MapScreen} />
+              <Tab.Screen name="Shops" component={ShopsNavigator} />
+              <Tab.Screen name="Cart" component={CartNavigator} />
+              <Tab.Screen name="Settings" component={SettingNavigator} />
+            </Tab.Navigator>
 
-        </ApplicationContextProvider>
+          </ApplicationContextProvider>
         </ShopContextProvider>
       </ShopsContextProvider>
     </CartContextProvider>
-    </LocationContextProvider>
+  </LocationContextProvider>
 );

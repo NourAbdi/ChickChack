@@ -1,6 +1,7 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState } from "react";
 import { List } from "react-native-paper";
 import { useTranslation } from "react-i18next";
+import { ScrollView } from "react-native";
 
 import { colors } from "../../../infrastructure/theme/colors";
 import { ApplicationContext } from "../../../services/application/application.context";
@@ -12,7 +13,7 @@ import {
   InfoContainer,
   MarginTop,
 } from "../components/settings.screen.style";
-import{
+import {
   showWorkingHoursFunc,
   showTermsFunc,
   showContactFunc,
@@ -43,8 +44,9 @@ export const ApplicationScreen = ({ navigation }) => {
   };
 
   return (
-      <TransparentSafeArea>
-         <MarginTop/>
+    <TransparentSafeArea>
+<ScrollView>
+      <MarginTop />
       <List.Section>
         <ListItem
           title={<ListTiltle>Working hours</ListTiltle>}
@@ -53,7 +55,7 @@ export const ApplicationScreen = ({ navigation }) => {
           )}
           onPress={handleWorkingHoursClick}
         />
-        {showWorkingHoursFunc(showWorkingHours,applicationData.workingHours)}
+        {showWorkingHoursFunc(showWorkingHours, applicationData.workingHours)}
         <ListItem
           title={<ListTiltle>Delivery hours</ListTiltle>}
           left={(props) => (
@@ -61,7 +63,7 @@ export const ApplicationScreen = ({ navigation }) => {
           )}
           onPress={handleDeliveryHoursClick}
         />
-        {showWorkingHoursFunc(showDeliveryHours,applicationData.deliveryHours)}
+        {showWorkingHoursFunc(showDeliveryHours, applicationData.deliveryHours)}
         <ListItem
           title={<ListTiltle>Terms of us</ListTiltle>}
           left={(props) => (
@@ -69,7 +71,7 @@ export const ApplicationScreen = ({ navigation }) => {
           )}
           onPress={handleTermsClick}
         />
-        {showTermsFunc(showTerms,applicationData.terms)}
+        {showTermsFunc(showTerms, applicationData.terms)}
         <ListItem
           title={<ListTiltle>Contact us</ListTiltle>}
           left={(props) => (
@@ -77,8 +79,9 @@ export const ApplicationScreen = ({ navigation }) => {
           )}
           onPress={handleContactClick}
         />
-        {showContactFunc(showContact,applicationData.phone)}
+        {showContactFunc(showContact, applicationData.phone)}
       </List.Section>
+      </ScrollView>
     </TransparentSafeArea>
   );
 };

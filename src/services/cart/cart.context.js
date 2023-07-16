@@ -6,7 +6,6 @@ export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
   const { user } = useContext(AuthenticationContext);
-  const [pastOrders, setPastOrders] = useState([]);
   const [order, setOrder] = useState([]);
   const l = {latitude: "32.750073", longitude: "35.346591"};
   const [location2Deliver, setLocation2Deliver] = useState(l);
@@ -65,19 +64,6 @@ export const CartContextProvider = ({ children }) => {
     setOrder([]);
   };
 
-  useEffect(() => {
-    const unsubscribe = getPastOrdersByUserUid(user.uid, setPastOrders);
-    return () => {
-      unsubscribe();
-    };
-  }, [user.uid]);
-
-  useEffect(() => {
-    if (pastOrders) {
-      console.log('Updated orders:', pastOrders);
-    }
-  }, [pastOrders]);
-
   const shopLengthCheck = () => {
     if (order.length > 1) {
       return false;
@@ -129,7 +115,7 @@ export const CartContextProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         order,
-        pastOrders,
+        getPastOrdersByUserUid,
         addToCart,
         removeFromCart,
         removeShopFromCart,

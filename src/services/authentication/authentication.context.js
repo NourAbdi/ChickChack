@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../../utils/env";
-import { onAuthStateChanged, PhoneAuthProvider, signInWithCredential, signOut } from "firebase/auth";
+import {  PhoneAuthProvider, signInWithCredential, signOut } from "firebase/auth";
 
-import { checkUserExistence } from "./authentication.service";
+import { getUserByUid, checkUserExistence, changeUserName } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -42,6 +42,17 @@ export const AuthenticationContextProvider = ({ children }) => {
   };
 
   // Function to sign out the user
+  const setUserName = async (uid, newName) => {
+    try {
+      await changeUserName(uid, newName);
+      const newU = await getUserByUid(user.uid);
+      setUser(newU);
+    } catch (err) {
+      console.log("Error:", err);
+    }
+  };
+
+  // Function to sign out the user
   const signOutUser = async () => {
     try {
       await signOut(auth);
@@ -59,6 +70,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     <AuthenticationContext.Provider
       value={{
         user,
+        getUserByUid,
         phoneNumber,
         setPhoneNumber,
         verificationId,
@@ -67,6 +79,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setVerificationCode,
         sendVerificationCode,
         confirmVerificationCode,
+        setUserName,
         signOutUser,
       }}
     >
