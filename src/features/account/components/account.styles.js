@@ -1,101 +1,73 @@
 import styled from "styled-components/native";
-import { Button, TextInput } from "react-native-paper";
-import { colors } from "../../../infrastructure/theme/colors";
 import { Text } from "../../../components/typography/text.component";
+import { TextInput,TouchableOpacity} from "react-native";
 
-export const AccountBackground2 = styled.ImageBackground.attrs({
-  source: require("../../../../assets/food2.jpg"),
-})`
-  flex: 1;
+export const Header = styled.View`
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
 
-export const AccountBackground1 = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+export const LeftTitle = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.h2};
+  color:${(props) => props.theme.colors.mainblue};
+  margin-top: ${(props) => props.theme.space[5]};
+  margin-right:-15px;
+  align-self: center;
 `;
 
-export const AccountCover = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.1);
+export const RightTitle = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.h2};
+  color:${(props) => props.theme.colors.mainblue};
+  margin-top: ${(props) => props.theme.space[5]};
+  margin-left:-25px;
+  align-self: center;
 `;
 
-export const AccountContainer = styled.View`
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: ${(props) => props.theme.space[4]};
-  margin-top: ${(props) => props.theme.space[2]};
-`;
-
-export const AccountCover1 = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 1);
-`;
-
-export const AccountContainer1 = styled.View`
-  background-color: rgba(255, 255, 255, 0.7);
-  padding: ${(props) => props.theme.space[4]};
-  margin-top: ${(props) => props.theme.space[2]};
-`;
-
-export const AuthButton = styled(Button).attrs({
-  // color: colors.brand.primary,
-  // color: "#2785C4",
-  color: "#2683C0",
-  higth:60,
-  width:300,
-})`
-  padding: ${(props) => props.theme.space[2]};
-`;
-
-export const AuthInput = styled(TextInput)`
-  width: 300px;
-`;
-
-export const Title1 = styled(Text)`
-  font-size: 60px;
-  color:#2683C0;
-  align-items: center;
-  
-`;
-
-export const Title = styled(Text)`
-  font-size: 60px;
-  color:#2683C0;
-`;
-
-export const ErrorContainer = styled.View`
-  max-width: 300px;
+export const AnimationLightning = styled.View`
+  width:100px;
+  height: 100px;
   align-items: center;
   align-self: center;
-  margin-top: ${(props) => props.theme.space[2]};
-  margin-bottom: ${(props) => props.theme.space[2]};
+  justify-content: center;
+  margin-top:50px;
 `;
 
-export const AnimationWrapper1 = styled.View`
-  width: 40%;
-  height: 100%;
-  margin-left: 85px;
-  position: absolute;
-  // position: flex-end;
-  // alignitema: flex-end;
-  // justifycontent: flex-end;
-  // alignitema: center;
-  // justifycontent: center;
-  // padding: ${(props) => props.theme.space[2]};
-`;
-
-export const AnimationWrapper2 = styled.View`
-  width: 100%;
-  height: 40%;
-  alignitema: center;
-  justifycontent: center;
-  top: 50px;
+export const VerificationInput = styled(TextInput)`
+  border-color:${(props) => props.theme.colors.mainblue};
+  background-color: ${(props) => props.theme.colors.ui.tertiary};
+  border-width:1px;
+  border-radius: 10px;
   padding: ${(props) => props.theme.space[2]};
-  // position: absolute;
 `;
+
+export const BodyText = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.title};
+  margin: ${(props) => props.theme.space[2]};
+`;
+
+export const ButtonText = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.button};
+  font-weight: ${(props) => props.theme.fontWeights.regular};
+  color:${props => props.theme.colors.text.inverse};
+`;
+
+export const ButtonView = styled(TouchableOpacity)`
+  margin-bottom: ${(props) => props.theme.space[1]};
+  margin-top: ${(props) => props.theme.space[1]};
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  justify-content: center;
+  border-radius:10px;
+  width:auto;
+  padding: ${(props) => props.theme.space[2]};
+  opacity: ${(props) => (props.isSelected ? 0.5 : 1)};
+`;
+
+
+
+

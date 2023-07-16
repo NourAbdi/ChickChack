@@ -178,7 +178,7 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
       <Center>
       <Row>
           <ButtonCard color={colors.button.green}>
-          <Button title={t("Acceptance")} onPress={() => handleAcceptance(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
+          <Button title={"Acceptance"} onPress={() => handleAcceptance(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
           </ButtonCard>
           <ButtonCard color={colors.button.red}>
               <Button title={t("Deny")} onPress={() =>  handleDeny(getTimeString(),updateOrder,orderId)} color={colors.button.white} />

@@ -35,7 +35,7 @@ export default function App() {
             <Navigation />
           </AuthenticationContextProvider>
       </ThemeProvider>
-      <ExpoStatusBar style="auto" />
+      {/* <ExpoStatusBar style="auto" /> */}
     </>
   );
 }

@@ -4,16 +4,32 @@ import { SafeAreaView, StatusBar, StyleSheet, View, Text, TouchableOpacity, Butt
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import { AuthenticationContext } from "../../../services/authentication/authentication.context"; 
 import { useTranslation } from "react-i18next";
+
+import { app } from "../../../utils/env";
 import {
   AccountBackground1,
   AccountContainer1,
   AccountCover1,
   AuthButton,
-  Title1,
+  Title,
   AnimationWrapper1,
   AnimationWrapper2,
+  LeftTitle,
+  RightTitle,
+  VerificationInput,
+  BodyText,
+  ButtonView,
+  ButtonText,
 } from "../components/account.styles";
-import { app } from "../../../utils/env";
+import{
+  GetHeader,
+  StatusBarPlaceHolder,
+  
+} from "../components/account.component"
+
+import { Dimensions } from "react-native";
+
+const screenWidth = Dimensions.get("window").width;
 
 export const AccountScreen = ({ navigation }) => {
   const firebaseConfig = app ? app.options : undefined;
@@ -23,64 +39,47 @@ export const AccountScreen = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: "#2683C0" }}>
-        <StatusBar barStyle="light-content" />
-      </SafeAreaView>
-      <AccountBackground1>
-        <AccountCover1 />
-        <View>
-          <Title1>{t("ChickChack")}</Title1>
-          <AnimationWrapper1>
-            <LottieView
-              key="animation"
-              autoPlay
-              loop
-              resizeMode="cover"
-              source={require("../../../../assets/lightning.json")}
-            />
-          </AnimationWrapper1>
-        </View>
-        <View style={{ padding: 20, marginTop: 50 }}>
+      <StatusBarPlaceHolder />
+      <SafeAreaView>
+        <GetHeader/>
+        <View style={{ padding: 20}}>
           <FirebaseRecaptchaVerifierModal
             ref={recaptchaVerifier}
             firebaseConfig={firebaseConfig}
             attemptInvisibleVerification
           />
-          <Text style={{ marginTop: 20 }}>{t("Enter phone number")}</Text>
-          <TextInput
+          <BodyText>{t("Enter phone number")}:</BodyText>
+          <VerificationInput
             placeholder="+972..."
             autoCompleteType="tel"
             keyboardType="phone-pad"
             textContentType="telephoneNumber"
             onChangeText={setPhoneNumber}
           />
-          <Button
-            title={t("Send Verification Code")}
-            disabled={!phoneNumber}
-            onPress={() => sendVerificationCode(recaptchaVerifier)}
-          />
-          <Text>{t("Enter Verification code")}</Text>
-          <TextInput
+          <ButtonView onPress={() => sendVerificationCode(recaptchaVerifier)} disabled={!phoneNumber} isSelected={!phoneNumber} >
+            <ButtonText>{t("Send Verification Code")}</ButtonText>
+          </ButtonView>
+          <BodyText>{t("Enter Verification code")}:</BodyText>
+          <VerificationInput
             editable={!!verificationId}
             placeholder="123456"
             onChangeText={setVerificationCode}
+            keyboardType="phone-pad"
           />
-          <Button
-            title={t("Confirm Verification Code")}
-            disabled={!verificationId}
-            onPress={confirmVerificationCode}
-          />
+          <ButtonView onPress={confirmVerificationCode} disabled={!verificationId} isSelected={!verificationId} >
+            <ButtonText>{t("Confirm Verification Code")}</ButtonText>
+          </ButtonView>
+          
         </View>
-        <AnimationWrapper2>
-          <LottieView
-            key="animation"
-            autoPlay
-            loop
-            resizeMode="cover"
-            source={require("../../../../assets/delivery1.json")}
-          />
-        </AnimationWrapper2>
-      </AccountBackground1>
+        <LottieView
+          key="animation"
+          autoPlay
+          loop
+          resizeMode="cover"
+          source={require("../../../../assets/delivery1.json")}
+          style={{width:screenWidth}}
+        />
+      </SafeAreaView>
     </>
   );
 };
