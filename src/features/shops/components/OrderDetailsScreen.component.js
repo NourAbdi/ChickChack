@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { View,SafeAreaView,StatusBar,Animated,Alert,Text } from "react-native";
+import { View,SafeAreaView,StatusBar,Animated,Alert } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { CheckBox } from 'react-native-elements'
 

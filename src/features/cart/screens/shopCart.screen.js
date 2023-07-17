@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, Button, Alert, ScrollView, TouchableOpacity } from "react-native";
+import { View, Alert, ScrollView, TouchableOpacity } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { useNavigation } from "@react-navigation/native";
 
@@ -34,7 +34,7 @@ import { useTranslation } from "react-i18next";
 
 export const ShopCart = ({ route }) => {
   const { t } = useTranslation();
-  const { order, addToCart, removeFromCart, clearCart, checkout, totalPrice, shopLengthCheck, calculateTotalPrice } = useContext(CartContext);
+  const { order, addToCart, removeFromCart,checkout, calculateTotalPrice } = useContext(CartContext);
   const [availableOptions, setAvailableOptions] = useState([]);
   const navigation = useNavigation();
   const { desiredShopUid, shopWorkingHours, isTemporaryClose } = route.params;

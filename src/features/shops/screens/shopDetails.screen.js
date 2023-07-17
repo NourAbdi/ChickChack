@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState,useRef } from "react";
+import React, { useContext, useEffect,useRef } from "react";
 import {View,ActivityIndicator,Animated} from "react-native";
 import { useTranslation } from "react-i18next";
 import { ShopContext } from "../../../services/shop/shop.context";

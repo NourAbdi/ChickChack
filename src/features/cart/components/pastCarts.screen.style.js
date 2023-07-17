@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
-import { Image,TouchableOpacity } from "react-native";
+import { Image } from "react-native";
+import { Text } from "../../../components/typography/text.component";
 
 export const ViewOrder = styled.View`
   background-color: ${(props) => props.theme.colors.ui.tertiary};
@@ -33,7 +34,7 @@ export const CartItem = styled.View`
 `;
 
 export const Center = styled.View`
-    align-self:center;
+  align-self:center;
 `;
 
 export const ShopIcon = styled(Image)`
@@ -50,21 +51,22 @@ export const CartItemImage = styled(Image)`
   width:50px;
   height:50px;
   align-self:center;
+  margin:${(props) => props.theme.space[2]};
 `;
 
-export const ShopName = styled.Text`
+export const ShopName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   margin:${(props) => props.theme.space[2]};
 `;
 
-export const Caption = styled.Text`
+export const Caption = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.caption};
   fontWeight: ${(props) => props.theme.fontWeights.medium};
   color: ${(props) => props.theme.colors.text.secondary};
 `;
 
-export const Info = styled.Text`
+export const Info = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.button};
   font-family: ${(props) => props.theme.fonts.body};
 `;

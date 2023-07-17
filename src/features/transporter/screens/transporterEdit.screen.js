@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Button, ScrollView, ActivityIndicator, Text, TextInput, Switch, StyleSheet } from 'react-native';
+import { View, Button, ScrollView, ActivityIndicator, TextInput, Switch, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Text } from "../../../components/typography/text.component";
 
 import { TransporterContext } from "../../../services/transporter/transporter.context";
 

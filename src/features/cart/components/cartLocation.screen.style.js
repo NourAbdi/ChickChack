@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 import { View,TouchableOpacity } from "react-native";
 import MapView from "react-native-maps";
+import { Text } from "../../../components/typography/text.component";
+
 
 export const Map = styled(MapView)`
 height: 75%;
@@ -50,13 +52,13 @@ export const CheckOutButton = styled(TouchableOpacity)`
   height:50px;
 `;
 
-export const CheckOutText = styled.Text`
+export const CheckOutText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   fontSize:  ${(props) => props.theme.fontSizes.h5};
   color: ${(props) => props.theme.colors.text.inverse};
 `;
 
-export const Loction2DeleivreyText = styled.Text`
+export const Loction2DeleivreyText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   margin-bottom:${(props) => props.theme.space[1]};

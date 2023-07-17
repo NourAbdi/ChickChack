@@ -1,29 +1,23 @@
 import React,{useState, useContext} from "react";
-import { View,SafeAreaView,StatusBar,Animated,ScrollView} from "react-native";
+import { View,SafeAreaView,StatusBar,ScrollView} from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { OwnerShopContext } from "../../../services/ownerShop/ownerShop.context";
 
 import { colors } from "../../../infrastructure/theme/colors";
 import{
-    Row,
-    ViewCounter,
-    CounterButton,
-    Count,
-    OrderImage,
-    HeaderView,
-    LeftHeaderButton,
-    ViewAddition,
-    AdditionImage,
-    AdditionInfo,
-    CategoryName,
-    AdditionOverlay,
-    UnavailableText,
-  } from "./orderAdditions.screen.style";
-
-
+  CounterButton,
+  OrderImage,
+  HeaderView,
+  LeftHeaderButton,
+  ViewAddition,
+  AdditionImage,
+  AdditionInfo,
+  CategoryName,
+  AdditionOverlay,
+  UnavailableText,
+} from "./orderAdditions.screen.style";
 
 export const printHeader = (headerImage,buttonColor,navigation) => {
-  
   return (
     <>
       <SafeAreaView style={{ backgroundColor: colors.mainblue}}>

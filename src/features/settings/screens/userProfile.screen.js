@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { List } from "react-native-paper";
 import { useTranslation } from "react-i18next";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { colors } from "../../../infrastructure/theme/colors";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
@@ -9,21 +9,12 @@ import {
   TransparentSafeArea,
   ListItem,
   ListTiltle,
-  Info,
-  InfoContainer,
-  NameButton,
-  ButtonText,
-  Row,
-  Flex,
-  LangButton,
   MarginTop,
 } from "../components/settings.screen.style";
-
 import {
   showProfileFunc,
   showLanguagesFunc,
 } from "../components/settings.screen.component";
-
 
 export const UserProfileScreen = () => {
   const { signOutUser, user, setUserName } = useContext(AuthenticationContext);

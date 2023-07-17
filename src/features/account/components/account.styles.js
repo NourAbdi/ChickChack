@@ -14,7 +14,6 @@ export const LeftTitle = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h2};
   color:${(props) => props.theme.colors.mainblue};
-  // margin-top: ${(props) => props.theme.space[5]};
   margin-right:-15px;
   align-self: center;
 `;
@@ -23,7 +22,6 @@ export const RightTitle = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h2};
   color:${(props) => props.theme.colors.mainblue};
-  // margin-top: ${(props) => props.theme.space[5]};
   margin-left:-25px;
   align-self: center;
 `;
@@ -34,7 +32,6 @@ export const AnimationLightning = styled.View`
   align-items: center;
   align-self: center;
   justify-content: center;
-  // margin-top:50px;
 `;
 
 export const VerificationInput = styled(TextInput)`

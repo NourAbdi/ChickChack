@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { View,SafeAreaView, Alert, ActivityIndicator,StatusBar } from "react-native";
+import { View,SafeAreaView, Alert, ActivityIndicator } from "react-native";
 import { Marker } from "react-native-maps";
 import * as Location from 'expo-location';
 import { useNavigation } from "@react-navigation/native";
@@ -7,7 +7,6 @@ import Icons from "@expo/vector-icons/MaterialIcons";
 
 import { CartContext } from "../../../services/cart/cart.context";
 import{colors} from "../../../infrastructure/theme/colors";
-
 import {
     Map,
     LoadingContainer,
@@ -19,7 +18,6 @@ import {
     HeaderView,
     LeftHeaderButton,
 } from "../components/cartLocation.screen.style"
-
 
 export const CartLocationScreen = ({route}) => {
     const navigation = useNavigation();

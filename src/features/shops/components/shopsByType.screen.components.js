@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar,TouchableOpacity,SafeAreaView,FlatList,View } from "react-native";
+import { StatusBar,TouchableOpacity,SafeAreaView,FlatList } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
 

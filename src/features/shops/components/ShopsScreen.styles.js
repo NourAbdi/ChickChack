@@ -3,6 +3,7 @@ import { ActivityIndicator,Card } from "react-native-paper";
 import { Dimensions,Animated } from "react-native";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
+import { Text } from "../../../components/typography/text.component";
 
 
 
@@ -86,7 +87,7 @@ export const Info = styled.View`
 
 `;
 
-export const CategoryName = styled.Text`
+export const CategoryName = styled(Text)`
   margin-left: ${(props) => props.theme.space[3]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
@@ -94,7 +95,7 @@ export const CategoryName = styled.Text`
   border-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
-export const HeaderTitle = styled.Text`
+export const HeaderTitle = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h4};
   color:${(props) => props.theme.colors.text.inverse};

@@ -3,22 +3,23 @@
 import styled from "styled-components/native";
 import { Image,TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Text } from "../../../components/typography/text.component";
 
 
-export const Title = styled.Text`
+export const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h4};
   margin:${(props) => props.theme.space[2]};
   align-self:center;
 `;
 
-export const ItemName = styled.Text`
+export const ItemName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.title};
   margin-bottom:${(props) => props.theme.space[1]};
 `;
 
-export const AvailableOptionsText = styled.Text`
+export const AvailableOptionsText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
   margin-bottom:${(props) => props.theme.space[1]};
@@ -36,24 +37,24 @@ export const AvailableOptionsButton = styled(TouchableOpacity)`
   opacity: ${(props) => (props.isSelected ? 1 : 0.5)};
 `;
 
-export const SummaryInfo = styled.Text`
+export const SummaryInfo = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.title};
 `;
 
-export const Info = styled.Text`
+export const Info = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
 `;
 
 
-export const Error = styled.Text`
+export const Error = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.caption};
   color:${(props) => props.theme.colors.text.error};
 `;
 
-export const Price = styled.Text`
+export const Price = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.caption};
 `;
@@ -128,13 +129,13 @@ export const CheckOutButton = styled(TouchableOpacity)`
   height:50px;
 `;
 
-export const CheckOutText = styled.Text`
+export const CheckOutText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   fontSize:  ${(props) => props.theme.fontSizes.h5};
   color: ${(props) => props.theme.colors.text.inverse};
 `;
 
-export const Count = styled.Text`
+export const Count = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.button};
   fontWeight: ${(props) => props.theme.fontWeights.medium};
   color: ${(props) => props.theme.colors.text.inverse};

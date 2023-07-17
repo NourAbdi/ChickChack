@@ -1,8 +1,9 @@
 import React from "react";
-import { View, StatusBar, Image, Text, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+import { View, StatusBar, Image, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
 import Swiper from 'react-native-swiper';
 import { groupBy } from 'lodash';
 import { useTranslation } from "react-i18next";
+import { Text } from "../../../components/typography/text.component";
 
 import { colors } from "../../../infrastructure/theme/colors";
 
@@ -147,7 +148,7 @@ export const ShopInfoCard = ({ shop }) => {
           <LogoImage source={{ uri: shop.icon }} />
         </View>
         <Info>
-          <Text variant="label">{shop.name}</Text>
+          <Text>{shop.name}</Text>
           {isOpenCheck(shop.workingHours, shop.isTemporaryClose, t)}
         </Info>
       </ShopCard>

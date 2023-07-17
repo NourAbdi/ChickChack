@@ -1,15 +1,16 @@
 import styled from "styled-components/native";
 import { Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { Text } from "../../../components/typography/text.component";
 
 
-export const Title = styled.Text`
+export const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
   margin:${(props) => props.theme.space[2]};
 `;
 
-export const ShopName = styled.Text`
+export const ShopName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   margin:${(props) => props.theme.space[2]};

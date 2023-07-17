@@ -1,11 +1,12 @@
 // ShopsScreen.js
 import React, { useContext, useRef, useState, useEffect } from "react";
-import { View, Animated, Text } from "react-native";
+import { View, Animated } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { ShopsContext } from "../../../services/shops/shops.context";
 import { colors } from "../../../infrastructure/theme/colors";
 import { useTranslation } from "react-i18next";
+import { Text } from "../../../components/typography/text.component";
 
 import {
   Loading,

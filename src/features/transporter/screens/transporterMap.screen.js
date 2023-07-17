@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, View, Button, ActivityIndicator, Alert } from "react-native";
+import { View, Button, ActivityIndicator, Alert } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';

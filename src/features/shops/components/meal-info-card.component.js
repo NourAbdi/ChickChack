@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "react-native";
 import { Text } from "../../../components/typography/text.component";
 import { useTranslation } from "react-i18next";
 

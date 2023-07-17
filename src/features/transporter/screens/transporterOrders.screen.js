@@ -6,7 +6,7 @@ import { TransporterNewOrdersScreen } from "./transporterNewOrders.screen";
 import { TransporterCurrentOrdersScreen } from "./transporterCurrentOrders.screen";
 import { TransporterPastOrdersScreen } from "./transporterPastOrders.screen";
 
-export const TransporterOrdersScreen = ({navigation}) => {
+export const TransporterOrdersScreen = () => {
   const Tab = createMaterialTopTabNavigator();
   return (
     <SafeArea>

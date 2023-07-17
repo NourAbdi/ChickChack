@@ -1,6 +1,7 @@
 import { Image,Dimensions } from "react-native";
 import styled from "styled-components/native";
 import { Card,ActivityIndicator } from "react-native-paper";
+import { Text } from "../../../components/typography/text.component";
 
 //Cards sizes
 const margin =7;
@@ -12,7 +13,7 @@ const iteamCardWidth = bigCardWidth-2*margin;
 const TimeCardHeigth=30;
 const TimeCradWidth=30;
 
-export const Title = styled.Text`
+export const Title = styled(Text)`
   margin: ${(props) => props.theme.space[1]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h5};
@@ -20,7 +21,7 @@ export const Title = styled.Text`
   color:${(props) => props.theme.colors.mainblue};
 `;
 
-export const Field = styled.Text`
+export const Field =styled(Text)`
   margin-left: ${(props) => props.theme.space[2]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
@@ -29,14 +30,14 @@ export const Field = styled.Text`
 
 `;
 
-export const Heading = styled.Text`
+export const Heading = styled(Text)`
   margin-left: ${(props) => props.theme.space[2]};
   font-family: ${(props) => props.theme.fonts.monospace};
   font-size: ${(props) => props.theme.fontSizes.title};
   font-weight: ${(props) => props.theme.fontWeights.bold};
 `;
 
-export const Category = styled.Text`
+export const Category = styled(Text)`
   margin-left: ${(props) => props.theme.space[2]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
@@ -59,11 +60,11 @@ export const Shadow = styled.View`
   elevation: 13;
 `;
 
-export const Center = styled.Text`
+export const Center = styled(Text)`
   align-self: center;
 `;
 
-export const ConfirmingQus = styled.Text`
+export const ConfirmingQus = styled(Text)`
   align-self: center;
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
@@ -71,7 +72,7 @@ export const ConfirmingQus = styled.Text`
   margin-left: ${(props) => props.theme.space[2]};
 `;
 
-export const Timer = styled.Text`
+export const Timer =styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
   font-weight: ${(props) => props.theme.fontWeights.bold};
@@ -146,7 +147,7 @@ export const TimeCard = styled(Card)`
   margin-left: ${(props) => props.theme.space[1]};
 `;
 
-export const Time = styled.Text`
+export const Time = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
   margin-top:${(props) => props.theme.space[1]};

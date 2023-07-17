@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { View, ScrollView, TouchableOpacity,SafeAreaView } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import { useTranslation } from "react-i18next";
@@ -13,17 +13,12 @@ import {
   RightIcon,
 } from "../components/cart.style";
 
-import{
-  StatusBarPlaceHolder
-} from "../components/cart.components";
-
 export const CartScreen = ({navigation}) => {
   const { order,removeShopFromCart } = useContext(CartContext);
   const { t } = useTranslation();
 
   return (
     <SafeAreaView>
-      {/* <StatusBarPlaceHolder /> */}
       <ScrollView>
         <Title>{t("Your Orders")}:</Title>
         {order.map((item, index) => (

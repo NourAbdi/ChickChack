@@ -1,11 +1,11 @@
 import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
-
+import { Text } from "../../../components/typography/text.component";
 import { theme } from "../../../infrastructure/theme";
 
 const HEADER_HEIGHT = theme.headerHeigth;
 
-export const HeaderTitle = styled.Text`
+export const HeaderTitle = styled(Text)`
     font-family: ${(props) => props.theme.fonts.heading};
     font-size: ${(props) => props.theme.fontSizes.h4};
     color:${(props) => props.theme.colors.text.inverse};

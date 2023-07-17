@@ -11,7 +11,6 @@ import {
     Field,
     HeaderImage,
     Category,
-    OrderInfoCard,
     Time,
     TimeCard,
     Center,

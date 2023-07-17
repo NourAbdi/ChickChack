@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, ActivityIndicator } from "react-native";
+import { View,ScrollView, ActivityIndicator } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
+
 import { CartContext } from "../../../services/cart/cart.context";
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
-
+import { Text } from "../../../components/typography/text.component";
 import {
   ViewOrder,
   Row,
   TitleRow,
-  ShopIcon,
-  ShopName,
   Flex,
   Line,
   Caption,

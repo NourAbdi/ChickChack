@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useTranslation } from "react-i18next";
 
+import { Text } from "../../../components/typography/text.component";
 import { LocationContext } from "../../../services/location/location.context";
 import { colors } from "../../../infrastructure/theme/colors";
 
@@ -24,7 +25,7 @@ const Map = styled(MapView)`
   padding: ${(props) => props.theme.space[2]};
 `;
 
- const ButtonText = styled.Text`
+ const ButtonText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
   color:${props => props.theme.colors.text.inverse};

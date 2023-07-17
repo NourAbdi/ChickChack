@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { Card } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
+import { Text } from "../../../components/typography/text.component";
 
 const borderRadius = 20;
 
@@ -23,7 +24,7 @@ overflow: hidden;
 background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-export const Price = styled.Text`
+export const Price =styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
   margin-left: ${(props) => props.theme.space[1]};
@@ -73,7 +74,7 @@ export const UnavailableContainer =  styled.View`
 
 `;
 
-export const UnavailableText =  styled.Text`
+export const UnavailableText = styled(Text)`
   align-self: center;
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};

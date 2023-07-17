@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { ImageBackground,Dimensions,TouchableOpacity,Image } from "react-native";
 import { Card } from "react-native-paper";
+import { Text } from "../../../components/typography/text.component";
 
 const OrderImageHeight = 300;
 const screenWidth = Dimensions.get('window').width;
@@ -69,32 +70,32 @@ export const ViewCounter = styled.View`
   margin:${(props) => props.theme.space[2]};
 `;
 
-export const OrderName = styled.Text`
+export const OrderName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.h5};
   align-self: center;
 `;
 
-export const CategoryName = styled.Text`
+export const CategoryName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
   margin-left:${(props) => props.theme.space[1]};
 `;
 
-export const AdditionInfo = styled.Text`
+export const AdditionInfo = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   align-self: center;
   margin:5px;
 `;
 
-export const Count = styled.Text`
+export const Count = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.body};
   fontWeight: ${(props) => props.theme.fontWeights.medium};
   color: ${(props) => props.theme.colors.text.inverse};
 `;
 
-export const Description = styled.Text`
+export const Description = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.body};
   font-family: ${(props) => props.theme.fonts.body};
   color: ${(props) => props.theme.colors.text.secondary};
@@ -102,14 +103,14 @@ export const Description = styled.Text`
 
 `;
 
-export const Price = styled.Text`
+export const Price = styled(Text)`
   fontSize:  ${(props) => props.theme.fontSizes.caption};
   fontWeight: ${(props) => props.theme.fontWeights.medium};
   color: ${(props) => props.theme.colors.text.secondary};
   align-self: center;
 `;
 
-export const TotalPrice = styled.Text`
+export const TotalPrice = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   color: ${(props) => props.theme.colors.text.inverse};
@@ -180,7 +181,7 @@ export const AdditionOverlay = styled.View`
   background-color:rgba(150,150,150,0.7);
 `;
 
-export const UnavailableText = styled.Text`
+export const UnavailableText = styled(Text)`
   align-self: center;
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};

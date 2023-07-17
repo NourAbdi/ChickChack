@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React from "react";
 import { TouchableOpacity,View } from "react-native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 

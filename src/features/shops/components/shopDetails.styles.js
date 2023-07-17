@@ -3,7 +3,8 @@ import { Animated,Platform,Image,Dimensions,ImageBackground,TouchableOpacity } f
 import { Card,IconButton,ActivityIndicator } from "react-native-paper";
 import {FontAwesome } from "@expo/vector-icons";
 import { theme } from "../../../infrastructure/theme";
- 
+import { Text } from "../../../components/typography/text.component";
+
 const screenWidth = Dimensions.get('window').width;
 const cardHeight=parseInt(theme.mealCardSize)+40;
 const MARGIN=200;
@@ -125,7 +126,7 @@ export const IconCard = styled(Card)`
   overflow: hidden;
 `;
 
-export const CategoryName = styled.Text`
+export const CategoryName =styled(Text)`
   margin-left: ${(props) => props.theme.space[3]};
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
@@ -134,20 +135,20 @@ export const CategoryName = styled.Text`
 
 `;
 
-export const RestaurantInfo = styled.Text`
+export const RestaurantInfo = styled(Text)`
   font-family: ${(props) => props.theme.fonts.monospace};
   font-size: ${(props) => props.theme.fontSizes.body};
   padding: ${(props) => props.theme.space[1]};
   align-self: center;
 `;
-export const RestaurantName = styled.Text`
+export const RestaurantName = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
   padding: ${(props) => props.theme.space[1]};
   align-self: center;
 `;
 
-export const IsOpenWord = styled.Text`
+export const IsOpenWord = styled(Text)`
   font-family: ${(props) => props.theme.fonts.monospace};
   font-size: ${(props) => props.theme.fontSizes.button};
   color:${(props) => props.theme.colors.bg.primary};
@@ -228,7 +229,7 @@ export const ReadMoreView = styled.View`
   margin-bottom: ${(props) => props.theme.space[2]};
 `;
 
-export const ReadMoreText = styled.Text`
+export const ReadMoreText =styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
   color:${(props) => props.theme.colors.text.inverse};

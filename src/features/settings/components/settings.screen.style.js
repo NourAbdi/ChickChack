@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
 import { List } from "react-native-paper";
-import { Text } from "../../../components/typography/text.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import {TouchableOpacity,TextInput } from "react-native";
+import { Text } from "../../../components/typography/text.component";
 
 export const TransparentSafeArea = styled(SafeArea)`
   background-color: transparent;
@@ -38,20 +38,20 @@ export const MarginTop = styled.View`
   margin-top:50px;
 `;
 
-export const ListTiltle = styled.Text`
+export const ListTiltle =  styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
   font-weight: ${(props) => props.theme.fontWeights.regular};
   color:${props => props.theme.colors.text.inverse};
 `;
 
-export const Info = styled.Text`
+export const Info = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};
   font-weight: ${(props) => props.theme.fontWeights.regular};
 `;
 
-export const ButtonText = styled.Text`
+export const ButtonText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.button};
   font-weight: ${(props) => props.theme.fontWeights.regular};

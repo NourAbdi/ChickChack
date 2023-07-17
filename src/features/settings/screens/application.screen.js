@@ -9,8 +9,6 @@ import {
   TransparentSafeArea,
   ListItem,
   ListTiltle,
-  Info,
-  InfoContainer,
   MarginTop,
 } from "../components/settings.screen.style";
 import {
@@ -19,9 +17,9 @@ import {
   showContactFunc,
 } from "../components/settings.screen.component";
 
-export const ApplicationScreen = ({ navigation }) => {
+export const ApplicationScreen = () => {
   const { applicationData } = useContext(ApplicationContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [showWorkingHours, setshowWorkingHours] = useState(false);
   const [showDeliveryHours, setshowDeliveryHours] = useState(false);
   const [showTerms, setShowTerms] = useState(false);

@@ -2,6 +2,8 @@ import styled from "styled-components/native";
 import {Card,} from "react-native-paper";
 import { CheckBox } from "react-native-elements";
 
+import { Text } from "../../../components/typography/text.component";
+
 const WorkingHoursCardHeight=80;
 const TimeCardHeigth=30;
 const TimeCradWidth=30;
@@ -9,6 +11,7 @@ const TimeCradWidth=30;
 export const WorkingHoursCard = styled(Card)`
   height: ${WorkingHoursCardHeight}px;
   margin-top: ${(props) => props.theme.space[2]};
+  padding: ${(props) => props.theme.space[1]};
 `;
 
 export const TimeCard = styled(Card)`
@@ -17,26 +20,25 @@ export const TimeCard = styled(Card)`
   margin: ${(props) => props.theme.space[2]};
 `;
 
-export const Title = styled.Text`
+export const Title = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.title};
   margin-top:${(props) => props.theme.space[2]};
 `;
 
-export const Day = styled.Text`
+export const Day = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
-  margin:${(props) => props.theme.space[1]};
 `;
 
-export const Time = styled.Text`
+export const Time = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
   margin-top:${(props) => props.theme.space[1]};
   align-self: center;
 `;
 
-export const Center = styled.Text`
+export const Center = styled(Text)`
   align-self: center;
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.body};

@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
-import { Image,View,Text } from "react-native";
+import { Image,View } from "react-native";
 import { Card } from "react-native-paper";
+import { Text } from "../../../components/typography/text.component";
 
 const borderRadius = 20;
 
@@ -21,7 +22,7 @@ export const MealCardCover = styled(Image)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
-export const Price = styled.Text`
+export const Price = styled(Text)`
   font-family: ${(props) => props.theme.fonts.body};
   font-size: ${(props) => props.theme.fontSizes.button};
 `;

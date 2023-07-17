@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { View,Dimensions } from "react-native";
 
 import { colors } from "../../../infrastructure/theme/colors";
@@ -8,7 +8,6 @@ import {
   OrderName,
   Description,
   Price,
-  BlueBackGround,
 } from '../components/orderAdditions.screen.style'
 
 import{

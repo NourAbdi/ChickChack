@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { View,TouchableOpacity,Image,Linking,Text,Alert } from "react-native";
+import { View,TouchableOpacity,Image,Linking,Alert } from "react-native";
 import { groupBy } from 'lodash';
 import Icons from "@expo/vector-icons/MaterialIcons";
 
@@ -22,7 +22,6 @@ import{
   AnimatedHeaderView,
   AnimatedIconView,
   ShopIcon,
-  AnimatedBackView,
   HeaderView,
   LeftHeaderButton,
   RightHeaderButton,
