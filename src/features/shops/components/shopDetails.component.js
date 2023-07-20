@@ -129,7 +129,7 @@ export const PrintMenu = ({ menu, navigation, shop }) => {
               <ReadMoreView>
                 <ReadMoreButton onPress={toggleShowAllItems}>
                   <ReadMoreText>
-                    {showAllItems ? 'Read Less' : 'Read More'}
+                    {showAllItems ? t("Read Less") : t("Read More")}
                   </ReadMoreText>
                 </ReadMoreButton>
               </ReadMoreView>

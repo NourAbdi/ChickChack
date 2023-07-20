@@ -173,11 +173,11 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
           </ModalSelector>
         </>
       </Row>
-      <Timer>Remaining Time for Accepting the Order: {formatTime(remainingTime)} </Timer>
+      <Timer>{t("Remaining Time for Accepting the Order")}: {formatTime(remainingTime)} </Timer>
       <Center>
       <Row>
           <ButtonCard color={colors.button.green}>
-          <Button title={"Acceptance"} onPress={() => handleAcceptance(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
+          <Button title={t("Confirm")} onPress={() => handleAcceptance(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
           </ButtonCard>
           <ButtonCard color={colors.button.red}>
               <Button title={t("Deny")} onPress={() =>  handleDeny(getTimeString(),updateOrder,orderId)} color={colors.button.white} />
