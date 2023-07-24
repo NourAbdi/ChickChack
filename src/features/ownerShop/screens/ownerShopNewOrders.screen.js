@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Button, ScrollView } from 'react-native';
+import { View, Button, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { OwnerShopContext } from '../../../services/ownerShop/ownerShop.context';
@@ -51,32 +51,34 @@ export const OwnerShopNewOrdersScreen = () => {
 
   return (
     <SafeAreaView>
-      <ScrollView >
-        {sortedOrders.map((order, index) => (
+      <FlatList
+        data={sortedOrders}
+        keyExtractor={(item,index) => index}
+        renderItem={({ item, index }) => (
           <View key={index}>
             <Title>{t("order")} {index + 1}:</Title>
-            <Shadow key={order.orderId}>
-              <OrderCard isExpanded={isItemExpanded(order.orderId)}>
+            <Shadow key={index}>
+              <OrderCard isExpanded={isItemExpanded(item.orderId)}>
                 <Heading>{t("Order information")} :</Heading>
-                {printOrderinfo(order, t)}
+                {printOrderinfo(item, t)}
                 <Heading>{t("Confirming order")} :</Heading>
-                <PrintConfirmingOrder orderId={order.orderId} preparationTime={order.preparationTime} updateOrder={updateOrder} t={t}/>
+                <PrintConfirmingOrder orderId={item.orderId} preparationTime={item.preparationTime} updateOrder={updateOrder} t={t}/>
                 <Row>
                   <Heading>{t("Cart items")} :</Heading>
                 </Row>
                 <ButtonCard color={colors.button.white}>
                   <Button
-                    title={isItemExpanded(order.orderId) ? t("Collapse") : t("Expand")}
-                    onPress={() => toggleItemExpand(order.orderId)}
+                    title={isItemExpanded(item.orderId) ? t("Collapse") : t("Expand")}
+                    onPress={() => toggleItemExpand(item.orderId)}
                     color="black"
                   />
                 </ButtonCard>
-                {isItemExpanded(order.orderId) && printCartIteam(order.cartItems, t)}
+                {isItemExpanded(item.orderId) && printCartIteam(item.cartItems, t)}
               </OrderCard>
             </Shadow>
           </View>
-        ))}
-      </ScrollView>
+        )}
+      />
     </SafeAreaView>
   );
 };

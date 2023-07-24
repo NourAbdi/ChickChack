@@ -11,11 +11,9 @@ import {
 
 export const StatusBarPlaceHolder = () => {
   return (
-    <View>
         <SafeAreaView style={{ backgroundColor: colors.mainblue}}>
             <StatusBar barStyle="light-content" />
         </SafeAreaView>
-    </View>  
   );
 }
 

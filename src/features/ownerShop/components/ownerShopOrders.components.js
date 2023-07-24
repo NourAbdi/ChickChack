@@ -108,37 +108,35 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
   const getTimeString = () => {
     return `${selectedHour}:${selectedMinute}`;
   };
-  const [timer, setTimer] = useState(null);
-  const [remainingTime, setRemainingTime] = useState(10 * 60); // 10 minutes in seconds
+  // const [timer, setTimer] = useState(null);
+  // const [remainingTime, setRemainingTime] = useState(10 * 60); // 10 minutes in seconds
 
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setRemainingTime((prevTime) => prevTime - 1);
-    }, 1000); // Update every second
+  // useEffect(() => {
+  //   const timerId = setInterval(() => {
+  //     setRemainingTime((prevTime) => prevTime - 1);
+  //   }, 1000); // Update every second
+  //   setTimer(timerId);
+  //   // Clean up the timer when the component unmounts
+  //   return () => {
+  //     clearInterval(timerId);
+  //     clearTimeout(timerId);
+  //   };
+  // }, []);
 
-    setTimer(timerId);
+  // useEffect(() => {
+  //   if (remainingTime === 0) {
+  //     // Perform the deletion logic here
+  //     // Call the `updateOrder` function to delete the order
+  //     clearTimeout(timer);
+  //     updateOrder(orderId, getTimeString(), 'deny');
+  //   }
+  // }, [remainingTime]);
 
-    // Clean up the timer when the component unmounts
-    return () => {
-      clearInterval(timerId);
-      clearTimeout(timerId);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (remainingTime === 0) {
-      // Perform the deletion logic here
-      // Call the `updateOrder` function to delete the order
-      clearTimeout(timer);
-      updateOrder(orderId, getTimeString(), 'deny');
-    }
-  }, [remainingTime]);
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  };
+  // const formatTime = (time) => {
+  //   const minutes = Math.floor(time / 60);
+  //   const seconds = time % 60;
+  //   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  // };
 
   return (
     <View>
@@ -173,7 +171,7 @@ export const PrintConfirmingOrder = ({ orderId, preparationTime, updateOrder, t 
           </ModalSelector>
         </>
       </Row>
-      <Timer>{t("Remaining Time for Accepting the Order")}: {formatTime(remainingTime)} </Timer>
+      {/* <Timer>{t("Remaining Time for Accepting the Order")}: {formatTime(remainingTime)} </Timer> */}
       <Center>
       <Row>
           <ButtonCard color={colors.button.green}>

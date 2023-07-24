@@ -78,7 +78,7 @@ export const titleOpacity =(scrollY) =>{
   );
 }
 
-export const PrintMenu = ({ menu, navigation, shop }) => {
+export const PrintMenu = ({ menu, navigation, shop,t }) => {
   const [showAllItems, setShowAllItems] = useState(false);
   const groupedItems = groupBy(menu, 'itemCategory');
 

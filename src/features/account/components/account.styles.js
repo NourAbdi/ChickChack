@@ -6,8 +6,7 @@ export const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: ${(props) => props.theme.space[5]};
-
+  margin-top: ${(props) => props.theme.space[2]};
 `;
 
 export const LeftTitle = styled(Text)`
@@ -39,7 +38,7 @@ export const VerificationInput = styled(TextInput)`
   background-color: ${(props) => props.theme.colors.ui.tertiary};
   border-width:1px;
   border-radius: 10px;
-  padding: ${(props) => props.theme.space[2]};
+  padding: ${(props) => props.theme.space[3]};
 `;
 
 export const BodyText = styled(Text)`
@@ -63,7 +62,7 @@ export const ButtonView = styled(TouchableOpacity)`
   justify-content: center;
   border-radius:10px;
   width:auto;
-  padding: ${(props) => props.theme.space[2]};
+  padding: ${(props) => props.theme.space[3]};
   opacity: ${(props) => (props.isSelected ? 0.5 : 1)};
 `;
 

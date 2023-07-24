@@ -31,18 +31,17 @@ import { Dimensions } from "react-native";
 
 const screenWidth = Dimensions.get("window").width;
 
-export const AccountScreen = ({ navigation }) => {
+export const AccountScreen = () => {
   const firebaseConfig = app ? app.options : undefined;
   const recaptchaVerifier = useRef(null);
   const { phoneNumber, setPhoneNumber, verificationId, setVerificationCode, sendVerificationCode, confirmVerificationCode } = useContext(AuthenticationContext);
   const { t } = useTranslation();
 
   return (
-    <>
+    <View style={{ flex: 1 }}   >
       <StatusBarPlaceHolder />
-      <GetHeader />
-      <View style={{ flex: 1 }} />
-      <View style={{ padding: 20 }}>
+      <GetHeader/>
+      <View style={{ padding: 10,flex: 1,justifyContent:'center'  }}>
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}
@@ -70,18 +69,15 @@ export const AccountScreen = ({ navigation }) => {
           <ButtonText>{t("Confirm Verification Code")}</ButtonText>
         </ButtonView>
       </View>
-      <View style={{ flex: 1 }} />
-
-      <SafeAreaView>
-        <LottieView
-          key="animation"
-          autoPlay
-          loop
-          resizeMode="cover"
-          source={require("../../../../assets/delivery1.json")}
-          style={{ width: screenWidth }}
-        />
-      </SafeAreaView>
-    </>
+      {/* <View style={{ flex: 1 }} /> */}
+      <LottieView
+        key="animation"
+        autoPlay
+        loop
+        resizeMode="cover"
+        source={require("../../../../assets/delivery1.json")}
+        style={{ width: screenWidth }}
+      />
+    </View>
   );
 };

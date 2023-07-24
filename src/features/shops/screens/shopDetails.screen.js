@@ -62,7 +62,7 @@ export const ShopDetailsScreen = ({ route,navigation }) => {
               </RestaurantInfoCard>
             </ViewAbove>
           </View>
-          <PrintMenu menu ={menu} navigation={navigation} shop={selectedShop}/>
+          <PrintMenu menu ={menu} navigation={navigation} shop={selectedShop}  t={t}/>
           </AnimatedScrollView>
           {PrintHeader(selectedShop.icon,scrollY,navigation)}
         </View>
