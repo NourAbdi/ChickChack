@@ -38,7 +38,8 @@
     },
     "owner": "chick",
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      "expo-location"
     ]
   }
 }
