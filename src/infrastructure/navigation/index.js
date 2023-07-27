@@ -11,9 +11,11 @@ import { ApplicationContextProvider } from "../../services/application/applicati
 
 export const Navigation = () => {
   const { user } = useContext(AuthenticationContext);
+  
   useEffect(() => {
       console.log("User :", user);
   }, [user]);
+  
   return (
     <NavigationContainer>
       <ApplicationContextProvider>

@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#2662FD"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,9 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ChickChack.ChickChack",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBdL3GkLFaqTFFlOYfTG4eRl2UBQM3l2yw"
+      }
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#2662FD"
@@ -39,7 +45,16 @@
     "owner": "chick",
     "plugins": [
       "expo-localization",
-      "expo-location"
+      "expo-location",
+      "@react-native-firebase/app",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ]
   }
 }

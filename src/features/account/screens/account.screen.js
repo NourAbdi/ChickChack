@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import LottieView from "lottie-react-native";
 import { SafeAreaView, StatusBar, StyleSheet, View, Text, TouchableOpacity, Button, TextInput } from "react-native";
-import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
+// import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import { useTranslation } from "react-i18next";
 
@@ -39,7 +39,7 @@ export const AccountScreen = () => {
 
   return (
     <View style={{ flex: 1 }}   >
-      <StatusBarPlaceHolder />
+      {/* <StatusBarPlaceHolder />
       <GetHeader/>
       <View style={{ padding: 10,flex: 1,justifyContent:'center'  }}>
         <FirebaseRecaptchaVerifierModal
@@ -69,7 +69,6 @@ export const AccountScreen = () => {
           <ButtonText>{t("Confirm Verification Code")}</ButtonText>
         </ButtonView>
       </View>
-      {/* <View style={{ flex: 1 }} /> */}
       <LottieView
         key="animation"
         autoPlay
@@ -77,7 +76,7 @@ export const AccountScreen = () => {
         resizeMode="cover"
         source={require("../../../../assets/delivery1.json")}
         style={{ width: screenWidth }}
-      />
+      /> */}
     </View>
   );
 };

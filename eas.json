@@ -33,6 +33,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "ChickChackk@gmail.com",
+        "ascAppId": "6452589908",
+        "appleTeamId": "2KJ9DV29L6"
+      }
+    }
   }
 }

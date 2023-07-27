@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../../utils/env";
 import {  PhoneAuthProvider, signInWithCredential, signOut } from "firebase/auth";
 
-import { getUserByUid, checkUserExistence, changeUserName } from "./authentication.service";
+import { getTestUser, getUserByUid, checkUserExistence, changeUserName } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -12,6 +12,12 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [verificationId, setVerificationId] = useState();
   const [verificationCode, setVerificationCode] = useState();
   
+  useEffect(() => {
+    if(!user){
+      const u = getTestUser(setUser);
+    }
+  }, [user]);
+
   // Function to send verification code
   const sendVerificationCode = async (recaptchaVerifier) => {
     try {

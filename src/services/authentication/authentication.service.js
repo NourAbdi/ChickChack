@@ -1,6 +1,16 @@
 import { db, auth } from "../../utils/env";
 import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
 
+export const getTestUser = async (setUser) => {
+  try {
+    const u = await getUserByUid("wVnOtKjPWiQNiTWvO8LXhhQXmFC3");
+    setUser(u);
+    return u;
+  } catch (err) {
+    console.log("Error:", err);
+  }
+};
+
 export const getUserByUid = async (uid) => {
   try {
     const userRef = doc(collection(db, "users"), uid);
