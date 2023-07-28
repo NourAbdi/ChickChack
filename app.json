@@ -17,7 +17,6 @@
       "**/*"
     ],
     "ios": {
-      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "com.ChickChack.ChickChack",
       "config": {
@@ -25,7 +24,6 @@
       }
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#2662FD"
@@ -46,7 +44,6 @@
     "plugins": [
       "expo-localization",
       "expo-location",
-      "@react-native-firebase/app",
       [
         "expo-build-properties",
         {

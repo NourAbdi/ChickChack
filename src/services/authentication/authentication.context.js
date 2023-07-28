@@ -12,11 +12,11 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [verificationId, setVerificationId] = useState();
   const [verificationCode, setVerificationCode] = useState();
   
-  useEffect(() => {
-    if(!user){
-      const u = getTestUser(setUser);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if(!user){
+  //     const u = getTestUser(setUser);
+  //   }
+  // }, [user]);
 
   // Function to send verification code
   const sendVerificationCode = async (recaptchaVerifier) => {
