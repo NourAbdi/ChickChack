@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth } from "../../utils/env";
-import {  PhoneAuthProvider, signInWithCredential, signOut } from "firebase/auth";
+import { PhoneAuthProvider, signInWithCredential, signOut } from "firebase/auth";
 
-import { getTestUser, getUserByUid, checkUserExistence, changeUserName } from "./authentication.service";
+import { getTestUser, getUserByUid, checkUserExistence, changeUserName, removeUserByUid } from "./authentication.service";
 
 export const AuthenticationContext = createContext();
 
@@ -11,7 +11,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [phoneNumber, setPhoneNumber] = useState();
   const [verificationId, setVerificationId] = useState();
   const [verificationCode, setVerificationCode] = useState();
-  
+
   // useEffect(() => {
   //   if(!user){
   //     const u = getTestUser(setUser);
@@ -72,6 +72,26 @@ export const AuthenticationContextProvider = ({ children }) => {
     }
   };
 
+  // Function to remove the user
+  const removeUser = async () => {
+    try {
+
+      const u = auth.currentUser;
+      u.delete();
+
+      await removeUserByUid(user.uid);
+      await signOut(auth);
+      
+      setPhoneNumber(null);
+      setVerificationId(null);
+      setVerificationCode(null);
+      setUser(null);
+      console.log("User removed successfully.");
+    } catch (err) {
+      console.log("Error:", err);
+    }
+  };
+
   return (
     <AuthenticationContext.Provider
       value={{
@@ -86,6 +106,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         sendVerificationCode,
         confirmVerificationCode,
         setUserName,
+        removeUser,
         signOutUser,
       }}
     >

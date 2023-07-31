@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Text } from "../../../components/typography/text.component";
 import { LocationContext } from "../../../services/location/location.context";
 import { colors } from "../../../infrastructure/theme/colors";
+import { mapJson } from "./map.styles";
 
 
 const Map = styled(MapView)`
@@ -118,6 +119,7 @@ export const MapScreen = ({ navigation }) => {
         }}
         showsUserLocation={isLocationGranted}
         showsMyLocationButton={false}
+        customMapStyle = {mapJson}
       >
         {cities.map((city) => (
           <Marker

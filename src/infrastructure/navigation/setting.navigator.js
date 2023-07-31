@@ -11,7 +11,7 @@ const Tab = createMaterialTopTabNavigator();
 export const SettingNavigator = () => {
   const { t, i18n } = useTranslation();
   return (
-    <SafeArea style={{ backgroundColor: colors.mainblue }}s>
+    <SafeArea style={{ backgroundColor: colors.mainblue }}>
       <StatusBar barStyle="light-content"/>
       <Tab.Navigator
         screenOptions={{

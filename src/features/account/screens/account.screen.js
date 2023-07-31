@@ -35,7 +35,7 @@ export const AccountScreen = () => {
   const firebaseConfig = app ? app.options : undefined;
   const recaptchaVerifier = useRef(null);
   const { phoneNumber, setPhoneNumber, verificationId, setVerificationCode, sendVerificationCode, confirmVerificationCode } = useContext(AuthenticationContext);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   return (
     <View style={{ flex: 1 }}   >
@@ -45,7 +45,7 @@ export const AccountScreen = () => {
         <FirebaseRecaptchaVerifierModal
           ref={recaptchaVerifier}
           firebaseConfig={firebaseConfig}
-          attemptInvisibleVerification
+          languageCode = {i18n.language}
         />
         <BodyText>{t("Enter phone number")}:</BodyText>
         <VerificationInput

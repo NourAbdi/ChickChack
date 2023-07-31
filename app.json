@@ -19,8 +19,9 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ChickChack.ChickChack",
+      "buildNumber": "8",
       "config": {
-        "googleMapsApiKey": "AIzaSyBdL3GkLFaqTFFlOYfTG4eRl2UBQM3l2yw"
+        "googleMapsApiKey": "AIzaSyCcMvqbgN-kXP2fFG5k2IJ07QzOsD-J-X0"
       }
     },
     "android": {

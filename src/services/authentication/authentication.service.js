@@ -1,9 +1,9 @@
 import { db, auth } from "../../utils/env";
-import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc } from "firebase/firestore";
+import { collection, query, where, getDocs, getDoc, doc, setDoc, updateDoc, deleteDoc  } from "firebase/firestore";
 
 export const getTestUser = async (setUser) => {
   try {
-    const u = await getUserByUid("wVnOtKjPWiQNiTWvO8LXhhQXmFC3");
+    const u = await getUserByUid("OCWLCe96Swhrqk06n2R0ILh7xBk2");
     setUser(u);
     return u;
   } catch (err) {
@@ -80,4 +80,13 @@ export const changeUserName = async (uid, newName) => {
   }
 };
 
+export const removeUserByUid = async (uid) => {
+  try {
+    const userRef = doc(db, "users", uid);
+    await deleteDoc(userRef);
+    console.log("User removed from the database.");
+  } catch (err) {
+    console.log("Error:", err);
+  }
+};
 
