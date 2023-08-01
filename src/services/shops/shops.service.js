@@ -24,3 +24,19 @@ export const getShopsByCityName = async (cityName) => {
     throw new Error("Failed to fetch shops.");
   }
 };
+
+export const getCategorybyCategoryId = async (categoryId) => {
+  try {
+    const categoryCollection = collection(db, "shopsCategorys");
+    const q = query(categoryCollection, where("categoryId", "==", categoryId));
+    const querySnapshot = await getDocs(q);
+
+    let category = null;
+    querySnapshot.forEach((doc) => {
+      category = doc.data();
+    });
+    return category;
+  } catch (error) {
+    throw new Error("Failed to fetch category.");
+  }
+};

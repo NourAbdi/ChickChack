@@ -16,7 +16,6 @@ import {
 } from "./shopDetails.component"
 
 import {
-  ShopTypeCard,
   TypeImage,
   ShopsCard,
   ShopCard,
@@ -29,6 +28,8 @@ import {
   HeaderTitle,
   AnimatedHederIcon,
   StyledIcon,
+  CategoryTitle,
+  CategoryView,
 } from './ShopsScreen.styles'
 
 const shopsTypeImage = [
@@ -80,36 +81,21 @@ export const PrintSwiper = (photos) => {
   );
 };
 
-export const ShopTypeSelector = ({ shops, navigation }) => {
+export const CityShopsCategores= ({ shopsCategories, navigation }) => {
   const { t } = useTranslation();
-  const shopTypes = [...new Set(shops ? shops.flatMap(shop => shop.type) : [])];
-  const groupedShops = groupBy(shops, 'type');
-
-  const handleCategoryPress = (category, shops) => {
-    navigation.navigate("ShopsByTypeScreen", { category, shops });
-  };
-
-  const renderCategoryButton = (category) => {
-    const shopType = shopsTypeImage.find((type) => type.id === category);
-    return (
-      <TouchableOpacity
-        key={category}
-        onPress={() => handleCategoryPress(category, groupedShops[category])}
-      >
-        <ShopTypeCard>
-          <View style={{ alignItems: 'center' }}>
-            <TypeImage source={shopType.image} />
-            <Text>{t(category)}</Text>
-          </View>
-        </ShopTypeCard>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <View>
       <ScrollView horizontal={true}>
-        {shopTypes.map((type) => renderCategoryButton(type))}
+        {shopsCategories.map((category) => 
+        <TouchableOpacity
+          key={category.categoryId}
+          onPress={() =>  navigation.navigate("ShopsByTypeScreen", { category })}
+        >
+          <CategoryView>
+            <TypeImage source={{uri:category.categoryPhoto}} />
+            <CategoryTitle>{t(category.categoryName)}</CategoryTitle>
+          </CategoryView>
+      </TouchableOpacity>)}
       </ScrollView>
     </View>
   );

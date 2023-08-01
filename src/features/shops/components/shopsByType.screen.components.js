@@ -44,7 +44,7 @@ export const PrintHeader = (navigation, headerTitle) => {
             </SafeAreaView>
             <HeaderView>
                 <LeftHeaderButton onPress={() => navigation.goBack()} >
-                    <Icons name="arrow-back" color="white" size={34} />
+                    <Icons name="arrow-back" color="white" size={25} />
                 </LeftHeaderButton>
                 <HeaderTitle>{t(headerTitle)}</HeaderTitle>
                 <Flex />

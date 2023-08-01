@@ -19,6 +19,7 @@ import {
   PrintSwiper,
   ShopTypeSelector,
   PrintShops,
+  CityShopsCategores,
 } from "../components/ShopsScreen.compoent";
 
 import {
@@ -27,7 +28,7 @@ import {
 
 export const ShopsScreen = ({ navigation }) => {
   const { t } = useTranslation();
-  const { isLoading, isShopsLoading, shops, swiperPhoto, cityName } = useContext(ShopsContext);
+  const { isLoading, isShopsLoading, shops, swiperPhoto, cityName,shopsCategories } = useContext(ShopsContext);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   if (isLoading) {
@@ -47,12 +48,14 @@ export const ShopsScreen = ({ navigation }) => {
   }
 
   if (!isLoading && shops && shops.length > 0) {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa",shopsCategories)
     return (
       <View style={{ flex: 1 }}>
         <StatusBarPlaceHolder />
         <AnimatedScrollView scrollY={scrollY}>
           {PrintSwiper(swiperPhoto)}
-          <ShopTypeSelector shops={shops} navigation={navigation} />
+          {/* <ShopTypeSelector shops={shops} navigation={navigation} /> */}
+          <CityShopsCategores shopsCategories={shopsCategories} navigation={navigation} />
           {PrintShops(shops, navigation, t)}
         </AnimatedScrollView>
         {PrintHeader(scrollY, cityName)}
