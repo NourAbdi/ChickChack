@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, Button, ActivityIndicator, Alert,TouchableOpacity,View,SafeAreaView ,StatusBar} from "react-native";
+import { ScrollView, Button, ActivityIndicator, Alert, TouchableOpacity, View, SafeAreaView, StatusBar } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import styled from "styled-components/native";
 import * as Location from 'expo-location';
@@ -15,7 +15,7 @@ const Map = styled(MapView)`
   height: 60%;
   width: 100%;
 `;
- const CityButton = styled(TouchableOpacity)`
+const CityButton = styled(TouchableOpacity)`
   margin: ${(props) => props.theme.space[1]};
   background-color: ${(props) => props.theme.colors.mainblue};
   align-items: center;
@@ -26,7 +26,7 @@ const Map = styled(MapView)`
   padding: ${(props) => props.theme.space[2]};
 `;
 
- const ButtonText = styled(Text)`
+const ButtonText = styled(Text)`
   font-family: ${(props) => props.theme.fonts.heading};
   font-size: ${(props) => props.theme.fontSizes.body};
   color:${props => props.theme.colors.text.inverse};
@@ -103,55 +103,55 @@ export const MapScreen = ({ navigation }) => {
 
   return (
     <>
-   { isLoading ? (<View><ActivityIndicator size="large" color="#0000ff" /></View>):(<View>  
-    <SafeAreaView style={{backgroundColor:colors.mainblue}}>
-      <StatusBar barStyle="light-content"/>
-    </SafeAreaView>
-     
-    <Map
-      provider={PROVIDER_GOOGLE}
-        ref={mapRef}
-        initialRegion={{
-          latitude: selectedCity ? selectedCity.location.latitude : 0,
-          longitude: selectedCity ? selectedCity.location.longitude : 0,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-        showsUserLocation={isLocationGranted}
-        showsMyLocationButton={false}
-        customMapStyle = {mapJson}
-      >
-        {cities.map((city) => (
-          <Marker
-            key={city.cityUid}
-            coordinate={{
-              latitude: city.location.latitude,
-              longitude: city.location.longitude,
-            }}
-            title={city.cityName}
-            onPress={() => {
-              setSelectedCity(city);
-              navigation.navigate("Shops");
-            }}
-          />
-        ))}
-      </Map>
+      {isLoading ? (<View><ActivityIndicator size="large" color="#0000ff" /></View>) : (<View>
+        <SafeAreaView style={{ backgroundColor: colors.mainblue }}>
+          <StatusBar barStyle="light-content" />
+        </SafeAreaView>
 
-      <CityButton onPress={ getPermissions } >
-        <ButtonText>{t("useCurrentLocation")}</ButtonText>
-      </CityButton>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <ScrollView>
+        <Map
+          provider={PROVIDER_GOOGLE}
+          ref={mapRef}
+          initialRegion={{
+            latitude: selectedCity ? Number(selectedCity.location.latitude) : 0,
+            longitude: selectedCity ? Number(selectedCity.location.longitude) : 0,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+          showsUserLocation={isLocationGranted}
+          showsMyLocationButton={false}
+          customMapStyle={mapJson}
+        >
           {cities.map((city) => (
-            <CityButton key={city.cityUid} onPress={() => {setSelectedCity(city); navigation.navigate("Shops");}}>
-              <ButtonText>{t(city.cityName)}</ButtonText>
-            </CityButton>
+            <Marker
+              key={city.cityUid}
+              coordinate={{
+                latitude: Number(city.location.latitude),
+                longitude: Number(city.location.longitude),
+              }}
+              title={city.cityName}
+              onPress={() => {
+                setSelectedCity(city);
+                navigation.navigate("Shops");
+              }}
+            />
           ))}
-        </ScrollView>
-      )}</View>)}
-     
+        </Map>
+
+        <CityButton onPress={getPermissions} >
+          <ButtonText>{t("useCurrentLocation")}</ButtonText>
+        </CityButton>
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <ScrollView>
+            {cities.map((city) => (
+              <CityButton key={city.cityUid} onPress={() => { setSelectedCity(city); navigation.navigate("Shops"); }}>
+                <ButtonText>{t(city.cityName)}</ButtonText>
+              </CityButton>
+            ))}
+          </ScrollView>
+        )}</View>)}
+
     </>
   );
 };

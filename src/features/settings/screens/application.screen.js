@@ -43,42 +43,42 @@ export const ApplicationScreen = () => {
 
   return (
     <TransparentSafeArea>
-<ScrollView>
-      <MarginTop />
-      <List.Section>
-        <ListItem
-          title={<ListTiltle>{t("workingHours")}</ListTiltle>}
-          left={(props) => (
-            <List.Icon {...props} color={colors.text.inverse} icon="clock" />
-          )}
-          onPress={handleWorkingHoursClick}
-        />
-        {showWorkingHoursFunc(t, showWorkingHours, applicationData.workingHours)}
-        <ListItem
-          title={<ListTiltle>{t("Delivery hours")}</ListTiltle>}
-          left={(props) => (
-            <List.Icon {...props} color={colors.text.inverse} icon="truck" />
-          )}
-          onPress={handleDeliveryHoursClick}
-        />
-        {showWorkingHoursFunc(t, showDeliveryHours, applicationData.deliveryHours)}
-        <ListItem
-          title={<ListTiltle>{t("Terms of use")}</ListTiltle>}
-          left={(props) => (
-            <List.Icon {...props} color={colors.text.inverse} icon="file-document" />
-          )}
-          onPress={handleTermsClick}
-        />
-        {showTermsFunc(showTerms, applicationData.terms)}
-        <ListItem
-          title={<ListTiltle>{t("Contact us")}</ListTiltle>}
-          left={(props) => (
-            <List.Icon {...props} color={colors.text.inverse} icon="phone" />
-          )}
-          onPress={handleContactClick}
-        />
-        {showContactFunc(t, showContact, applicationData.phone)}
-      </List.Section>
+      <ScrollView>
+        <MarginTop />
+        <List.Section>
+          <ListItem
+            title={<ListTiltle>{t("workingHours")}</ListTiltle>}
+            left={(props) => (
+              <List.Icon {...props} color={colors.text.inverse} icon="clock" />
+            )}
+            onPress={handleWorkingHoursClick}
+          />
+          {showWorkingHoursFunc(t, showWorkingHours, applicationData?.workingHours)}
+          <ListItem
+            title={<ListTiltle>{t("Delivery hours")}</ListTiltle>}
+            left={(props) => (
+              <List.Icon {...props} color={colors.text.inverse} icon="truck" />
+            )}
+            onPress={handleDeliveryHoursClick}
+          />
+          {showWorkingHoursFunc(t, showDeliveryHours, applicationData?.deliveryHours)}
+          <ListItem
+            title={<ListTiltle>{t("Terms of use")}</ListTiltle>}
+            left={(props) => (
+              <List.Icon {...props} color={colors.text.inverse} icon="file-document" />
+            )}
+            onPress={handleTermsClick}
+          />
+          {showTermsFunc(showTerms, applicationData?.terms)}
+          <ListItem
+            title={<ListTiltle>{t("Contact us")}</ListTiltle>}
+            left={(props) => (
+              <List.Icon {...props} color={colors.text.inverse} icon="phone" />
+            )}
+            onPress={handleContactClick}
+          />
+          {showContactFunc(t, showContact, applicationData?.phone)}
+        </List.Section>
       </ScrollView>
     </TransparentSafeArea>
   );
