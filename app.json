@@ -44,7 +44,15 @@
     "owner": "chick",
     "plugins": [
       "expo-localization",
-      "expo-location"
+      "expo-location",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ]
   }
 }

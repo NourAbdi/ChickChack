@@ -23,6 +23,7 @@
     "camelize": "^1.0.0",
     "deprecated-react-native-prop-types": "^3.0.1",
     "expo": "^49.0.0",
+    "expo-build-properties": "~0.8.3",
     "expo-firebase-recaptcha": "^2.3.1",
     "expo-font": "~11.4.0",
     "expo-localization": "~14.3.0",

@@ -7,7 +7,7 @@ const HEADER_HEIGHT = theme.headerHeigth;
 
 export const HeaderTitle = styled(Text)`
     font-family: ${(props) => props.theme.fonts.heading};
-    font-size: ${(props) => props.theme.fontSizes.title};
+    font-size: ${(props) => props.theme.fontSizes.h4};
     color:${(props) => props.theme.colors.text.inverse};
 `;
 
@@ -16,7 +16,6 @@ export const HeaderView = styled.View`
     align-items: center;
     position:absolute;
     margin-top:${HEADER_HEIGHT/3}PX;
-    padding:${(props) => props.theme.space[2]};
 `;
 
 export const LeftHeaderButton = styled(TouchableOpacity)`

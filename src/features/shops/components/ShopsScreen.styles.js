@@ -25,6 +25,13 @@ export const LoadingContainer = styled.View`
   justify-content: center;
 `;
 
+export const ShopTypeCard = styled(Card)`
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  margin-Top:${(props) => props.theme.space[2]};
+`;
+
 export const ShopsCard = styled(Card)`
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${ShopsCardWidth}px;
@@ -53,6 +60,7 @@ export const ShopCard = styled(Card)`
 export const TypeImage = styled.Image`
   width: ${ShopTypeCardSize}px;
   height: ${ShopTypeCardSize}px;
+  margin:${(props) => props.theme.space[1]};
   border-radius:35px;
   border-width: 2px;
   border-color: ${(props) => props.theme.colors.mainblue};
@@ -76,11 +84,7 @@ export const Info = styled.View`
   margin-vertical: ${(props) => props.theme.space[1]};
   align-items: center;
   justify-content: center;
-`;
 
-export const CategoryView = styled.View`
-  margin: ${(props) => props.theme.space[1]};
-  align-items: center;
 `;
 
 export const CategoryName = styled(Text)`
@@ -96,15 +100,6 @@ export const HeaderTitle = styled(Text)`
   font-size: ${(props) => props.theme.fontSizes.h4};
   color:${(props) => props.theme.colors.text.inverse};
   
-`;
-
-export const CategoryTitle = styled(Text)`
-  font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${(props) => props.theme.fontSizes.button};
-  width:80px;
-  text-align: center; 
-  margin-top: ${(props) => props.theme.space[1]};
-
 `;
 
 export const AnimatedTitleView = styled(Animated.View).attrs(() =>({
