@@ -45,6 +45,7 @@
     "plugins": [
       "expo-localization",
       "expo-location",
+      "./native",
       [
         "expo-build-properties",
         {
