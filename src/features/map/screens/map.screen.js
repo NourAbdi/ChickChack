@@ -40,16 +40,7 @@ export const MapScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getPermissions = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync({
-      android: {
-        // Customize the location request string for Android
-        detail: 'ChickChack needs to access your location for better quality.',
-      },
-      ios: {
-        // Provide a purpose string for iOS
-        purpose: 'ChickChack needs to access your location for better quality.',
-      },
-    });
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       Alert.alert(
         t("permissionDeniedTitle"),

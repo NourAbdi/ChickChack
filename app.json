@@ -44,7 +44,12 @@
     "owner": "chick",
     "plugins": [
       "expo-localization",
-      "expo-location",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "ChickChack needs access to your location to provide you with local services and enhance your user experience. We use your location to show you nearby shops, markets, and other relevant information."
+        }
+      ],
       "./native",
       [
         "expo-build-properties",
