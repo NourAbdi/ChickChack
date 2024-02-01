@@ -51,7 +51,7 @@ export const OrderDetailsScreen = ({ navigation,route}) => {
         {printHeader(item.itemPhoto,colors.text.inverse,navigation)}
         <InfoCardShadow>
           <InfoCard safeAreaViewHeight={ MyComponent()}>
-            {PrintCounter(count,setCount,addToCart,shop,item,filteredItems, t)}
+            {/* {PrintCounter(count,setCount,addToCart,shop,item,filteredItems, t)} */}
             <OrderName>{item.itemName}</OrderName>
             <Price>{t("Price for unit")}:{item.itemPrice}₪</Price>
             <Description>{item.itemDescription}</Description>

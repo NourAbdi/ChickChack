@@ -96,9 +96,9 @@ export const printHeader = (headerImage,buttonColor,navigation) => {
           <LeftHeaderButton onPress={() => navigation.goBack()} color={buttonColor}>
             <Icons name="arrow-back" size={25} color={buttonColor} />
           </LeftHeaderButton>
-          <RightHeaderButton onPress={() => navigation.navigate("Cart")} color={buttonColor}>
+          {/* <RightHeaderButton onPress={() => navigation.navigate("Cart")} color={buttonColor}>
             <Icons name="shopping-cart" size={25} color={buttonColor} />
-          </RightHeaderButton>
+          </RightHeaderButton> */}
         </HeaderView>
       </SafeAreaView>
     </>
