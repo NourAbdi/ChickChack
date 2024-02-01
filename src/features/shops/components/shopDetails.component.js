@@ -267,9 +267,9 @@ export const PrintHeader = (icon,scrollY,navigation) => {
           <LeftHeaderButton onPress={() => navigation.goBack()} color="white">
             <Icons name="arrow-back" size={25} color="white" />
           </LeftHeaderButton>
-          <RightHeaderButton onPress={() => navigation.navigate("Cart")} color="white">
+          {/* <RightHeaderButton onPress={() => navigation.navigate("Cart")} color="white">
             <Icons name="shopping-cart" size={25} color="white" />
-          </RightHeaderButton>
+          </RightHeaderButton> */}
         </HeaderView>
       </>
     );
