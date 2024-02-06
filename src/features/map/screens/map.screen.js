@@ -1,12 +1,36 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { ScrollView, ActivityIndicator, Alert, View, SafeAreaView, StatusBar } from "react-native";
-import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { ScrollView, Button, ActivityIndicator, Alert, TouchableOpacity, View, SafeAreaView, StatusBar } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import styled from "styled-components/native";
 import * as Location from 'expo-location';
 import { useTranslation } from "react-i18next";
+
+import { Text } from "../../../components/typography/text.component";
 import { LocationContext } from "../../../services/location/location.context";
 import { colors } from "../../../infrastructure/theme/colors";
-import { mapJson,LoadingContainer,Loading,Map,CityButton,ButtonText } from "../components/map.styles";
+import { mapJson } from "./map.styles";
 
+
+const Map = styled(MapView)`
+  height: 60%;
+  width: 100%;
+`;
+const CityButton = styled(TouchableOpacity)`
+  margin: ${(props) => props.theme.space[1]};
+  background-color: ${(props) => props.theme.colors.mainblue};
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  border-radius:10px;
+  width:200px;
+  padding: ${(props) => props.theme.space[2]};
+`;
+
+const ButtonText = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.body};
+  color:${props => props.theme.colors.text.inverse};
+`;
 
 export const MapScreen = ({ navigation }) => {
   const mapRef = useRef(null);
@@ -79,8 +103,7 @@ export const MapScreen = ({ navigation }) => {
 
   return (
     <>
-      {isLoading ? (<LoadingContainer><Loading/></LoadingContainer>) : (
-      <View>
+      {isLoading ? (<View><ActivityIndicator size="large" color="#0000ff" /></View>) : (<View>
         <SafeAreaView style={{ backgroundColor: colors.mainblue }}>
           <StatusBar barStyle="light-content" />
         </SafeAreaView>
@@ -118,7 +141,7 @@ export const MapScreen = ({ navigation }) => {
           <ButtonText>{t("CurrentLocation")}</ButtonText>
         </CityButton>
         {isLoading ? (
-          <LoadingContainer><Loading/></LoadingContainer>
+          <ActivityIndicator size="large" color="#0000ff" />
         ) : (
           <ScrollView>
             {cities.map((city) => (
@@ -127,8 +150,8 @@ export const MapScreen = ({ navigation }) => {
               </CityButton>
             ))}
           </ScrollView>
-        )}
-      </View>)}
+        )}</View>)}
+
     </>
   );
 };
