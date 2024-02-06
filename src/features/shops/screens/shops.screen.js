@@ -11,6 +11,10 @@ import { Text } from "../../../components/typography/text.component";
 import {
   Loading,
   LoadingContainer,
+  HeaderTitle,
+  CityName,
+  NoteView,
+  NoteText,
 } from "../components/ShopsScreen.styles";
 
 import {
@@ -40,9 +44,13 @@ export const ShopsScreen = ({ navigation }) => {
 
   if ((!isLoading && !shops) || (!isLoading && shops && shops.length == 0)) {
     return (
-      <SafeArea>
-        <Text>{t("No shops available in this city")}</Text>
-      </SafeArea>
+      <>
+        <StatusBarPlaceHolder/>
+        <CityName><HeaderTitle>{cityName}</HeaderTitle></CityName>
+        <NoteView>
+         <NoteText>{t("No shops available in this city")}</NoteText>
+        </NoteView>
+      </>
     );
   }
 

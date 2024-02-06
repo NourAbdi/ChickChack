@@ -79,12 +79,30 @@ export const MealShadow = styled.View`
   elevation: 13;
 `;
 
+export const CityName = styled.View`
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.mainblue};
+`;
+
+export const NoteView = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex:1;
+`;
+
 export const Info = styled.View`
   padding: ${(props) => props.theme.space[1]};
   margin-vertical: ${(props) => props.theme.space[1]};
   align-items: center;
   justify-content: center;
+`;
 
+export const NoteText = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.h5};
+  font-weight: ${(props) => props.theme.fontWeights.regular};
+  border-color: ${(props) => props.theme.colors.bg.secondary};
 `;
 
 export const CategoryName = styled(Text)`
