@@ -88,7 +88,7 @@ export const ShopkeeperNavigator = () => (
   <Tab.Navigator screenOptions={createScreenOptions}>
     <Tab.Screen name="Shop" component={ShopStack} />
     <Tab.Screen name="EditShop" component={EditShopScreen} />
-    <Tab.Screen name="Orders" component={OwnerShopOrdersScreen} />
+    {/* <Tab.Screen name="Orders" component={OwnerShopOrdersScreen} /> */}
     <Tab.Screen name="Account" component={SettingNavigator} />
   </Tab.Navigator>
 );
