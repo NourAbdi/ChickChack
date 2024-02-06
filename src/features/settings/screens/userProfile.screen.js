@@ -60,6 +60,34 @@ export const UserProfileScreen = () => {
     );
   };
 
+  const handleLogOutClick = () => {
+    // Show an alert to double-check the account deletion
+    Alert.alert(
+      t("Logout confirmation"),
+      t("are you sure you want to logout?"),
+      [
+        {
+          text: t("cancel"),
+          style: "cancel",
+        },
+        {
+          text: t("logout"),
+          style: "destructive",
+          onPress: async () => {
+            // User confirmed, proceed with account deletion
+            await signOutUser() ;
+            // Show an alert to inform the user that the deletion is completed
+            Alert.alert(
+              t("logout success"),
+              t("You have been successfully logged out.")
+            );
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <TransparentSafeArea>
       <ScrollView>
@@ -91,7 +119,7 @@ export const UserProfileScreen = () => {
             left={(props) => (
               <List.Icon {...props} color={colors.text.inverse} icon="door" />
             )}
-            onPress={signOutUser}
+            onPress={handleLogOutClick}
           />
         </List.Section>
       </ScrollView>
