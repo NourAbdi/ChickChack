@@ -12,10 +12,7 @@ export const LoadingContainer = styled.View`
 export const Loading = styled(ActivityIndicator).attrs((props) => ({
   color: props.theme.colors.mainblue,
   size: 'large',
-}))`
-  height: 2000px; /* Set the desired height */
-  width: 200px; /* Set the desired width */
-`; 
+}))``; 
 
 export const Map = styled(MapView)`
   height: 60%;
