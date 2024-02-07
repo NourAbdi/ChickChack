@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View,Dimensions } from "react-native";
 
-import { CartContext } from "../../../services/cart/cart.context";
+// import { CartContext } from "../../../services/cart/cart.context";
 import { colors } from "../../../infrastructure/theme/colors";
 import {
   InfoCard,
@@ -24,7 +24,7 @@ import { useTranslation } from "react-i18next";
 export const OrderDetailsScreen = ({ navigation,route}) => {
   const { t } = useTranslation();
   const { shop, item } = route.params;
-  const { addToCart } = useContext(CartContext);
+  // const { addToCart } = useContext(CartContext);
   const [count, setCount] = useState(1);
   const [checkedItems, setCheckedItems] = useState(
     Object.fromEntries(
