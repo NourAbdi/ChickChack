@@ -11,6 +11,7 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [phoneNumber, setPhoneNumber] = useState();
   const [verificationId, setVerificationId] = useState();
   const [verificationCode, setVerificationCode] = useState();
+  const [error, setError] = useState();
 
   // useEffect(() => {
   //   if(!user){
@@ -20,6 +21,7 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   // Function to send verification code
   const sendVerificationCode = async (recaptchaVerifier) => {
+    setError();
     try {
       const phoneProvider = new PhoneAuthProvider(auth);
       const verificationId = await phoneProvider.verifyPhoneNumber(
@@ -29,12 +31,14 @@ export const AuthenticationContextProvider = ({ children }) => {
       setVerificationId(verificationId);
       console.log("Verification code has been sent to your phone:", verificationId);
     } catch (err) {
-      console.log("Error:", err);
+      console.log("Error1:", err);
+      setError(err);
     }
   };
 
   // Function to confirm verification code
   const confirmVerificationCode = async () => {
+    setError();
     try {
       const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
       await signInWithCredential(auth, credential);
@@ -43,7 +47,8 @@ export const AuthenticationContextProvider = ({ children }) => {
       setUser(u);
       console.log("You are in!");
     } catch (err) {
-      console.log("Error:", err);
+      console.log("Error2:", err);
+      setError(err);
     }
   };
 
@@ -54,7 +59,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       const newU = await getUserByUid(user.uid);
       setUser(newU);
     } catch (err) {
-      console.log("Error:", err);
+      console.log("Error3:", err);
     }
   };
 
@@ -68,7 +73,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       verificationCode(null);
       console.log("User signed out successfully.");
     } catch (err) {
-      console.log("Error:", err);
+      console.log("Error4:", err);
     }
   };
 
@@ -88,7 +93,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       setUser(null);
       console.log("User removed successfully.");
     } catch (err) {
-      console.log("Error:", err);
+      console.log("Error5:", err);
     }
   };
 
@@ -108,6 +113,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUserName,
         removeUser,
         signOutUser,
+        error,
       }}
     >
       {children}

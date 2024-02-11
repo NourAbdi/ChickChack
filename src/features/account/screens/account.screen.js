@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import LottieView from "lottie-react-native";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { FirebaseRecaptchaVerifierModal } from 'expo-firebase-recaptcha';
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ const screenWidth = Dimensions.get("window").width;
 export const AccountScreen = () => {
   const firebaseConfig = app ? app.options : undefined;
   const recaptchaVerifier = useRef(null);
-  const { phoneNumber, setPhoneNumber, verificationId, setVerificationCode, sendVerificationCode, confirmVerificationCode } = useContext(AuthenticationContext);
+  const { phoneNumber, setPhoneNumber, verificationId, setVerificationCode, sendVerificationCode, confirmVerificationCode, error } = useContext(AuthenticationContext);
   const { t, i18n } = useTranslation();
 
   // Function to normalize phone number
@@ -37,6 +37,27 @@ export const AccountScreen = () => {
   const handlePhoneNumberChange = (input) => {
     const normalizedNumber = normalizePhoneNumber(input);
     setPhoneNumber(normalizedNumber);
+  };
+
+  // Function to extract error code from Firebase error message
+  const extractErrorCode = (errorMessage) => {
+    const errorCodeRegex = /auth\/([^)]+)/;
+    const matches = errorMessage.match(errorCodeRegex);
+    if (matches && matches.length > 1) {
+      return matches[1];
+    }
+    return null;
+  };
+
+  // Function to render error message
+  const renderErrorMessage = () => {
+    if (error) {
+      const errorCode = extractErrorCode(error.message);
+      if (errorCode) {
+        return <Text style={{ color: 'red' }}>{errorCode}</Text>;
+      }
+    }
+    return null;
   };
 
   return (
@@ -70,6 +91,9 @@ export const AccountScreen = () => {
         <ButtonView onPress={confirmVerificationCode} disabled={!verificationId} isSelected={!verificationId} >
           <ButtonText>{t("Confirm Verification Code")}</ButtonText>
         </ButtonView>
+        <View>
+        {renderErrorMessage()}
+        </View>
       </View>
       <LottieView
         key="animation"
