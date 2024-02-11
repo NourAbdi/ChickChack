@@ -4,6 +4,7 @@ import { View, Animated } from "react-native";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 
 import { ShopsContext } from "../../../services/shops/shops.context";
+import {ShopsCategorysContext} from "../../../services/shopsCategorys/shopsCategorys.context"
 import { colors } from "../../../infrastructure/theme/colors";
 import { useTranslation } from "react-i18next";
 import { Text } from "../../../components/typography/text.component";
@@ -32,6 +33,7 @@ import {
 export const ShopsScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { isLoading, isShopsLoading, shops, swiperPhoto, cityName } = useContext(ShopsContext);
+  const { shopsCategories } = useContext(ShopsCategorysContext);
   const scrollY = useRef(new Animated.Value(0)).current;
 
   if (isLoading) {
@@ -60,7 +62,7 @@ export const ShopsScreen = ({ navigation }) => {
         <StatusBarPlaceHolder />
         <AnimatedScrollView scrollY={scrollY}>
           {PrintSwiper(swiperPhoto)}
-          <ShopTypeSelector shops={shops} navigation={navigation} />
+          <ShopTypeSelector shops={shops} shopsCategories={shopsCategories} navigation={navigation}  />
           {PrintShops(shops, navigation, t)}
         </AnimatedScrollView>
         {PrintHeader(scrollY, cityName)}

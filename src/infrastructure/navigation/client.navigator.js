@@ -11,6 +11,8 @@ import { ShopsContextProvider } from "../../services/shops/shops.context";
 import { ShopContextProvider } from "../../services/shop/shop.context";
 import { LocationContextProvider } from "../../services/location/location.context";
 import { SettingNavigator } from "./setting.navigator";
+import { ShopsCategorysContextProvider } from "../../services/shopsCategorys/shopsCategorys.context";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -44,18 +46,18 @@ const createScreenOptions = ({ route }) => {
 export const ClientNavigator = () => (
   <LocationContextProvider>
     {/* <CartContextProvider> */}
+    <ShopsCategorysContextProvider>
       <ShopsContextProvider>
         <ShopContextProvider>
-    
             <Tab.Navigator screenOptions={createScreenOptions}>
               <Tab.Screen name="Map" component={MapScreen} />
               <Tab.Screen name="Shops" component={ShopsNavigator} />
               {/* <Tab.Screen name="Cart" component={CartNavigator} /> */}
               <Tab.Screen name="Settings" component={SettingNavigator} />
             </Tab.Navigator>
-
         </ShopContextProvider>
       </ShopsContextProvider>
+    </ShopsCategorysContextProvider>
     {/* </CartContextProvider> */}
   </LocationContextProvider>
 );

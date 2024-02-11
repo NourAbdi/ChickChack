@@ -80,26 +80,25 @@ export const PrintSwiper = (photos) => {
   );
 };
 
-export const ShopTypeSelector = ({ shops, navigation }) => {
+export const ShopTypeSelector = ({ shops,shopsCategories, navigation }) => {
   const { t } = useTranslation();
-  const shopTypes = [...new Set(shops ? shops.flatMap(shop => shop.type) : [])];
-  const groupedShops = groupBy(shops, 'type');
-
+  const shopCategoryId = [...new Set(shops ? shops.flatMap(shop => shop.shopCategory) : [])];
+  const groupedShops = groupBy(shops, 'shopCategory');
   const handleCategoryPress = (category, shops) => {
     navigation.navigate("ShopsByTypeScreen", { category, shops });
   };
 
-  const renderCategoryButton = (category) => {
-    const shopType = shopsTypeImage.find((type) => type.id === category);
+  const renderCategoryButton = (categoryId) => {
+    const shopCategory = shopsCategories.find((category) => category.categoryId === categoryId);
     return (
       <TouchableOpacity
-        key={category}
-        onPress={() => handleCategoryPress(category, groupedShops[category])}
+        key={shopCategory.categoryId}
+        onPress={() => handleCategoryPress(shopCategory.categoryName, groupedShops[categoryId])}
       >
         <ShopTypeCard>
           <View style={{ alignItems: 'center' }}>
-            <TypeImage source={shopType.image} />
-            <Text>{t(category)}</Text>
+            <TypeImage source={{uri:shopCategory.categoryPhoto}} />
+            <Text>{t(shopCategory.categoryName)}</Text>
           </View>
         </ShopTypeCard>
       </TouchableOpacity>
@@ -109,7 +108,7 @@ export const ShopTypeSelector = ({ shops, navigation }) => {
   return (
     <View>
       <ScrollView horizontal={true}>
-        {shopTypes.map((type) => renderCategoryButton(type))}
+        {shopCategoryId.map((categoryId) => renderCategoryButton(categoryId))}
       </ScrollView>
     </View>
   );
